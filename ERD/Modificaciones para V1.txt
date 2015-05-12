@@ -1,0 +1,17 @@
+Modificaciones V1
+
+* Se agrega la tabla "formato_trampas": codifica los tipos de trampa según su formato (Coreana, Ushuaia, etc).
+
+* En los lances, no se utiliza más la identificación de las líneas. Se utiliza como referencia el número de boya. Los datos "nro_boya", "nro_linea", "cant_trampas", "distancia_entre_trampas" y "idtipo_trampa" (tipo de trampa principal) pasan a estar en la tabla de lances
+
+*Se elimina la tabla "lineas". Se reemplaza por una vista ("v_datos_lineas") para utilizar como datos predeterminados al cargar nuevos lances
+
+* Detalle de captura: Se cambia "nro_trampa" por "nro_orden". Se agrega "cant_trampas". Esto permite que si no se quiere cargar la captura trampa por trampa, se puede indicar la cantidad de trampas contadas para cada tipo de trampa, y también la cantidad de muestreadas, perdidas, etc.
+	Se elimina "estado puerta" que no es de mucha utilidad (se elimina de la aplicación, queda en la base de datos como dato opcional por si más adelante es requerido)
+	El tipo de trampa pasa a ser opcional, ya que en el caso de perdidas o no observadas no se conoce el dato, en los demás estados podría validarse en la aplicación que el tipo de trampa no sea nulo. Se agrega en la tabla "estados_trampa" un flag para indicar si requiere tipo de trampa
+
+* Muestras: se agrega el tipo de trampa muestreado (opcional)
+
+* Mareas: se agrega "peso_canasto"
+
+* Se agrega la vista "v_tipos_trampa" para mostrar la descripción formateada de cada tipo de trampa. Se elimina el campo "descripcion" de la tabla

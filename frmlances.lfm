@@ -1,0 +1,1153 @@
+inherited fmLances: TfmLances
+  Left = 290
+  Height = 451
+  Top = 169
+  Width = 945
+  Caption = 'Lances'
+  ClientHeight = 451
+  ClientWidth = 945
+  OnResize = FormResize
+  OnShow = FormShow
+  inherited paBase: TPanel
+    Height = 451
+    Width = 945
+    ClientHeight = 451
+    ClientWidth = 945
+    inherited paContenido: TPanel
+      Height = 433
+      Width = 945
+      ClientHeight = 433
+      ClientWidth = 945
+      inherited paLista: TPanel
+        Height = 433
+        Width = 945
+        ClientHeight = 433
+        ClientWidth = 945
+        inherited paBuscador: TPanel
+          Width = 945
+          ClientWidth = 945
+          inherited laBuscar: TLabel
+            Height = 15
+            Width = 35
+          end
+          inherited edBuscar: TEdit
+            Left = 344
+            Height = 23
+            Width = 566
+          end
+          inherited bbBuscar: TBitBtn
+            Left = 911
+          end
+          object dtFecha: TDateTimePicker[3]
+            Left = 5
+            Height = 23
+            Top = 19
+            Width = 105
+            ShowCheckBox = True
+            Checked = False
+            CenturyFrom = 1941
+            MaxDate = 2958465
+            MinDate = -53780
+            TabOrder = 2
+            TabStop = False
+            TrailingSeparator = False
+            TextForNullDate = ' '
+            LeadingZeros = True
+            Kind = dtkDate
+            TimeFormat = tf24
+            TimeDisplay = tdHMS
+            DateMode = dmComboBox
+            Date = 41858
+            Time = 0.767097766205552
+            UseDefaultSeparators = True
+            HideDateTimeParts = []
+            MonthNames = 'Long'
+            OnChange = dtFechaChange
+            OnCheckBoxChange = dtFechaCheckBoxChange
+          end
+          object cbCaladas: TCheckBox[4]
+            Left = 128
+            Height = 19
+            Top = 23
+            Width = 95
+            Caption = 'Líneas caladas'
+            Checked = True
+            OnChange = cbCaladasChange
+            State = cbChecked
+            TabOrder = 4
+            TabStop = False
+          end
+          object cbViradas: TCheckBox[5]
+            Left = 240
+            Height = 19
+            Top = 23
+            Width = 93
+            Caption = 'Líneas viradas'
+            Checked = True
+            OnChange = cbViradasChange
+            State = cbChecked
+            TabOrder = 3
+            TabStop = False
+          end
+        end
+        inherited paGrilla: TPanel
+          Height = 379
+          Width = 935
+          ClientHeight = 379
+          ClientWidth = 935
+          inherited bbEliminar: TBitBtn
+            Left = 668
+            Top = 348
+          end
+          inherited bbAgregar: TBitBtn
+            Left = 757
+            Top = 348
+          end
+          inherited bbEditar: TBitBtn
+            Left = 846
+            Top = 348
+          end
+          inherited dbgLista: TRxDBGrid
+            Height = 348
+            Width = 935
+            OnGetCellProps = dbgListaGetCellProps
+            Columns = <            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Lance|Nro.'
+                Title.Orientation = toHorizontal
+                Width = 40
+                FieldName = 'orden_virada'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Lance|Id. línea'
+                Title.Orientation = toHorizontal
+                Width = 55
+                FieldName = 'nro_boya'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                ButtonStyle = cbsCheckboxColumn
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Lance|Prosp.'
+                Title.Orientation = toHorizontal
+                Width = 40
+                FieldName = 'prospeccion'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                ButtonStyle = cbsCheckboxColumn
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Lance|Invest.'
+                Title.Orientation = toHorizontal
+                Width = 40
+                FieldName = 'investigacion'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Días pesca'
+                Title.Orientation = toHorizontal
+                Width = 40
+                FieldName = 'dias_en_agua'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Inicio calado|Fecha'
+                Title.Orientation = toHorizontal
+                Width = 75
+                FieldName = 'fecha_ini_calado'
+                DisplayFormat = 'dd/mm/yyyy'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Value = 'Nº lances:'
+                Footer.ValueType = fvtStaticText
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Inicio calado|Hora'
+                Title.Orientation = toHorizontal
+                Width = 40
+                FieldName = 'hora_ini_calado'
+                DisplayFormat = 'hh:mm'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.FieldName = 'nro_lance'
+                Footer.ValueType = fvtCount
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Inicio calado|Latitud'
+                Title.Orientation = toHorizontal
+                Width = 65
+                FieldName = 'lat_ini_calado'
+                DisplayFormat = '00º 00.00´'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Inicio calado|Longitud'
+                Title.Orientation = toHorizontal
+                Width = 65
+                FieldName = 'long_ini_calado'
+                DisplayFormat = '00º 00.00´'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Inicio calado|Rv'
+                Title.Orientation = toHorizontal
+                Width = 30
+                FieldName = 'rumbo_calado'
+                DisplayFormat = '000'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Inicio calado|Prof.'
+                Title.Orientation = toHorizontal
+                Width = 30
+                FieldName = 'profundidad_ini_calado'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Inicio calado|Nº tpas.'
+                Title.Orientation = toHorizontal
+                Width = 55
+                FieldName = 'cant_trampas_caladas'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Fin virada|Fecha'
+                Title.Orientation = toHorizontal
+                Width = 75
+                FieldName = 'fecha_fin_virada'
+                DisplayFormat = 'dd/mm/yyyy'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Fin virada|Hora'
+                Title.Orientation = toHorizontal
+                Width = 40
+                FieldName = 'hora_fin_virada'
+                DisplayFormat = 'hh:mm'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Fin virada|Latitud'
+                Title.Orientation = toHorizontal
+                Width = 65
+                FieldName = 'lat_fin_virada'
+                DisplayFormat = '00º 00.00´'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Fin virada|Longitud'
+                Title.Orientation = toHorizontal
+                Width = 65
+                FieldName = 'long_fin_virada'
+                DisplayFormat = '00º 00.00´'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Fin virada|Prof.'
+                Title.Orientation = toHorizontal
+                Width = 30
+                FieldName = 'profundidad_fin_virada'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Fin virada|Nº tpas.'
+                Title.Orientation = toHorizontal
+                Width = 55
+                FieldName = 'cant_trampas_recuperadas'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Value = 'Jaulas:'
+                Footer.ValueType = fvtStaticText
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Producción|Jaulas'
+                Title.Orientation = toHorizontal
+                Width = 70
+                FieldName = 'canastos_procesados'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taCenter
+                Footer.FieldName = 'canastos_procesados'
+                Footer.ValueType = fvtSum
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                Title.Alignment = taCenter
+                Title.Caption = 'Producción|Clust./jaula'
+                Title.Orientation = toHorizontal
+                Width = 0
+                FieldName = 'cluster_por_canasto'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end>
+            FooterOptions.Active = True
+            FooterOptions.Color = clBtnFace
+            FooterOptions.RowCount = 1
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgFooterRows, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            FooterColor = clBtnFace
+            FooterRowCount = 1
+            DataSource = dsLances
+            ParentFont = False
+          end
+          inherited bbExportar: TBitBtn
+            Top = 348
+          end
+        end
+      end
+      inherited paDetalles: TPanel
+        Left = 945
+        Height = 433
+        Width = 0
+      end
+    end
+    inherited paComando: TPanel
+      Width = 945
+      ClientWidth = 945
+      inherited sbCerrar: TSpeedButton
+        Left = 927
+        Flat = False
+      end
+    end
+  end
+  inherited zcgLista: TZControladorGrilla
+    ControlEdicion = fmEditarLances.zcePrincipal
+    MostrarBotonExportar = True
+    ZDataset = zqLances
+  end
+  object zqLances: TZQuery[4]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqLancesBeforeOpen
+    OnCalcFields = zqLancesCalcFields
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_lances_simple'
+      'WHERE idmarea=:idmarea'
+      'AND (:fecha IS NULL'
+      'OR :fecha = '''''
+      'OR (:caladas=1 AND (fecha_ini_calado=:fecha'
+      'OR fecha_fin_calado=:fecha))'
+      'OR (:viradas=1 AND (fecha_ini_virada=:fecha'
+      'OR fecha_fin_virada=:fecha)))'
+      'AND (:caladas=1 OR :viradas=1)'
+      'AND (calada=:caladas'
+      'OR virada=:viradas)'
+      ' AND ('
+      ':__FILTRO__ IS NULL OR'
+      ':__FILTRO__ = '''''
+      ''
+      'OR orden_virada LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR nro_boya LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR hora_ini_calado LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR hora_fin_virada LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR comentarios_calado LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR comentarios_virada LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR nro_lance LIKE CONCAT(''%'',:__FILTRO__,''%''))'
+      'ORDER BY orden_virada,fecha_hora_orden'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'caladas'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'viradas'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = '__FILTRO__'
+        ParamType = ptUnknown
+      end>
+    left = 150
+    top = 240
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'caladas'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'viradas'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = '__FILTRO__'
+        ParamType = ptUnknown
+      end>
+    object zqLancesidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesnro_lance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_lance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesorden_virada: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'orden_virada'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesnro_boya: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_boya'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqLancesnro_linea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_linea'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqLancesprospeccion: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'prospeccion'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesinvestigacion: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'investigacion'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqLancesidlinea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlinea'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesidcarnada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcarnada'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLanceskg_carnada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kg_carnada'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqLancesrumbo_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'rumbo_calado'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '000'
+    end
+    object zqLancesfecha_ini_calado: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_calado'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object zqLanceshora_ini_calado: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_calado'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'hh:mm'
+    end
+    object zqLancesprofundidad_ini_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_calado'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_ini_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_calado'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º 00.00´'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_ini_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_calado'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º 00.00´'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancesfecha_fin_calado: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_calado'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object zqLanceshora_fin_calado: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_calado'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'hh:mm'
+    end
+    object zqLancesprofundidad_fin_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_calado'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_fin_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_calado'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '00º 00.00´'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_fin_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_calado'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '00º 00.00´'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancescant_trampas_caladas: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas_caladas'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesfecha_ini_virada: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_virada'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object zqLanceshora_ini_virada: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_virada'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'hh:mm'
+    end
+    object zqLancesprofundidad_ini_virada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_virada'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_ini_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_virada'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º 00.00´'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_ini_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_virada'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º 00.00´'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancesfecha_fin_virada: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_virada'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object zqLanceshora_fin_virada: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_virada'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'hh:mm'
+    end
+    object zqLancesprofundidad_fin_virada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_virada'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_fin_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_virada'
+      Index = 31
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º 00.00´'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_fin_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_virada'
+      Index = 32
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º 00.00´'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancescant_trampas_recuperadas: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas_recuperadas'
+      Index = 33
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescanastos_procesados: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'canastos_procesados'
+      Index = 34
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescluster_por_canasto: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_por_canasto'
+      Index = 35
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescod_estado_mar: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_estado_mar'
+      Index = 36
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesnudos_viento: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nudos_viento'
+      Index = 37
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesdireccion_viento: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'direccion_viento'
+      Index = 38
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescomentarios_calado: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_calado'
+      Index = 39
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqLancescomentarios_virada: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_virada'
+      Index = 40
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqLancesdias_en_agua: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'dias_en_agua'
+      Index = 41
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 5
+    end
+    object zqLancesDistancia: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'Distancia'
+      Index = 42
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqLancesVelocidadNecesaria: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'VelocidadNecesaria'
+      Index = 43
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqLancesLatIni: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'LatIni'
+      Index = 44
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqLancesLongIni: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'LongIni'
+      Index = 45
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqLancesLatFin: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'LatFin'
+      Index = 46
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqLancesLongFin: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'LongFin'
+      Index = 47
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqLancescalada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'calada'
+      Index = 48
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesvirada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'virada'
+      Index = 49
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object dsLances: TDataSource[5]
+    DataSet = zqLances
+    left = 212
+    top = 240
+  end
+end

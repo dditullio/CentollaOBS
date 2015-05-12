@@ -1,0 +1,1211 @@
+inherited fmEditarMarcado: TfmEditarMarcado
+  Left = 450
+  Height = 564
+  Top = 101
+  Width = 399
+  Caption = 'Marcas y recaptura'
+  ClientHeight = 564
+  ClientWidth = 399
+  OnShow = FormShow
+  inherited paEncabezadoBase: TPanel
+    Width = 399
+    ClientWidth = 399
+    inherited paAccion: TPanel
+      Left = 284
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 267
+    end
+    inherited paEncabezado: TPanel
+      Width = 266
+      ClientWidth = 266
+      inherited dbtEncabezado: TDBText
+        Width = 426
+        DataField = 'Encabezado'
+        DataSource = dsPrincipal
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 494
+    Width = 399
+    ClientHeight = 494
+    ClientWidth = 399
+    object paFechaHora: TPanel[0]
+      Left = 5
+      Height = 50
+      Top = 7
+      Width = 164
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 164
+      TabOrder = 0
+      object Label1: TLabel
+        Left = 4
+        Height = 17
+        Top = 0
+        Width = 33
+        Caption = 'Fecha'
+        ParentColor = False
+      end
+      object dbdtFecha: TDBDateTimePicker
+        Left = 4
+        Height = 25
+        Hint = 'Fecha de inicio del lance'
+        Top = 19
+        Width = 91
+        DataField = 'fecha'
+        DataSource = dsPrincipal
+        ReadOnly = False
+        CenturyFrom = 1941
+        MaxDate = 2958465
+        MinDate = -53780
+        TabOrder = 0
+        TrailingSeparator = False
+        TextForNullDate = ' '
+        LeadingZeros = True
+        Kind = dtkDate
+        TimeFormat = tf24
+        TimeDisplay = tdHMS
+        DateMode = dmComboBox
+        UseDefaultSeparators = True
+        HideDateTimeParts = []
+        MonthNames = 'Long'
+        OnEnter = dbdtFechaEnter
+      end
+      object Label2: TLabel
+        Left = 104
+        Height = 17
+        Top = 0
+        Width = 29
+        Caption = 'Hora'
+        ParentColor = False
+      end
+      object dbedHora: TDtDBTimeEdit
+        Left = 104
+        Height = 25
+        Hint = 'Hora de inicio del lance'
+        Top = 19
+        Width = 51
+        CustomEditMask = True
+        DataField = 'hora'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        EditMask = '##:##'
+        MaxLength = 5
+        TabOrder = 1
+      end
+    end
+    object Label7: TLabel[1]
+      Left = 11
+      Height = 17
+      Top = 115
+      Width = 44
+      Caption = 'Especie'
+      ParentColor = False
+    end
+    object dblkEspecieVulgar: TDBLookupComboBox[2]
+      Left = 10
+      Height = 25
+      Top = 134
+      Width = 377
+      AutoComplete = True
+      DataField = 'nombre_vulgar'
+      DataSource = dsPrincipal
+      ListFieldIndex = 0
+      LookupCache = False
+      TabOrder = 6
+      Visible = False
+    end
+    object Label3: TLabel[3]
+      Left = 172
+      Height = 17
+      Top = 7
+      Width = 39
+      Caption = 'Evento'
+      ParentColor = False
+    end
+    object dblkEvento: TDBLookupComboBox[4]
+      Left = 172
+      Height = 25
+      Top = 27
+      Width = 215
+      AutoComplete = True
+      DataField = 'nombre'
+      DataSource = dsPrincipal
+      ListFieldIndex = 0
+      LookupCache = False
+      TabOrder = 1
+    end
+    object Label4: TLabel[5]
+      Left = 10
+      Height = 17
+      Top = 170
+      Width = 102
+      Caption = 'Código de marca'
+      ParentColor = False
+    end
+    object dbedCodMarca: TDBEdit[6]
+      Left = 10
+      Height = 25
+      Hint = 'Hora de inicio del lance'
+      Top = 190
+      Width = 106
+      DataField = 'cod_marca'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 8
+    end
+    object dbedCodMarcaOrig: TDBEdit[7]
+      Left = 122
+      Height = 25
+      Hint = 'Hora de inicio del lance'
+      Top = 190
+      Width = 158
+      DataField = 'cod_marca_original'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 9
+    end
+    object Label5: TLabel[8]
+      Left = 122
+      Height = 17
+      Top = 170
+      Width = 150
+      Caption = 'Código de marca original'
+      ParentColor = False
+    end
+    object dbedProfundidad: TDBEdit[9]
+      Left = 169
+      Height = 25
+      Hint = 'Profundidad en metros'
+      Top = 79
+      Width = 58
+      DataField = 'profundidad'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 4
+    end
+    object Label17: TLabel[10]
+      Left = 92
+      Height = 17
+      Top = 59
+      Width = 51
+      Caption = 'Longitud'
+      ParentColor = False
+    end
+    object Label16: TLabel[11]
+      Left = 11
+      Height = 17
+      Top = 59
+      Width = 39
+      Caption = 'Latitud'
+      ParentColor = False
+    end
+    object Label25: TLabel[12]
+      Left = 169
+      Height = 17
+      Top = 59
+      Width = 27
+      Caption = 'Prof.'
+      ParentColor = False
+    end
+    object dbEjemplar: TGroupBox[13]
+      Left = 5
+      Height = 140
+      Top = 225
+      Width = 382
+      Caption = 'Datos del ejemplar'
+      ClientHeight = 122
+      ClientWidth = 378
+      TabOrder = 10
+      object Label11: TLabel
+        Left = 10
+        Height = 17
+        Top = 5
+        Width = 67
+        Caption = 'Largo. Cap.'
+        ParentColor = False
+      end
+      object dbedLargoCap: TDBEdit
+        Left = 10
+        Height = 25
+        Top = 25
+        Width = 70
+        DataField = 'largo'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object Label6: TLabel
+        Left = 85
+        Height = 17
+        Top = 5
+        Width = 28
+        Caption = 'Sexo'
+        ParentColor = False
+      end
+      object dbedSexo: TDBEdit
+        Left = 85
+        Height = 25
+        Top = 25
+        Width = 70
+        DataField = 'sexo'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 1
+        OnChange = dbedSexoChange
+      end
+      object Label8: TLabel
+        Left = 160
+        Height = 17
+        Top = 5
+        Width = 70
+        Caption = 'Estado Cap.'
+        ParentColor = False
+      end
+      object dblkEstadoCap: TDBLookupComboBox
+        Left = 160
+        Height = 25
+        Top = 25
+        Width = 210
+        AutoComplete = True
+        DataField = 'cod_desc'
+        DataSource = dsPrincipal
+        ListFieldIndex = 0
+        LookupCache = False
+        TabOrder = 2
+      end
+      object Label9: TLabel
+        Left = 10
+        Height = 17
+        Top = 65
+        Width = 43
+        Caption = 'Huevos'
+        ParentColor = False
+      end
+      object dblkHuevos: TDBLookupComboBox
+        Left = 10
+        Height = 25
+        Top = 85
+        Width = 123
+        AutoComplete = True
+        DataField = 'cod_desc1'
+        DataSource = dsPrincipal
+        ListFieldIndex = 0
+        LookupCache = False
+        TabOrder = 3
+      end
+      object Label12: TLabel
+        Left = 140
+        Height = 17
+        Top = 65
+        Width = 58
+        Caption = '% Huevos'
+        ParentColor = False
+      end
+      object dbedPorcentHuevos: TDBEdit
+        Left = 140
+        Height = 25
+        Top = 85
+        Width = 70
+        DataField = 'porcentaje_huevos'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 4
+      end
+      object Label13: TLabel
+        Left = 215
+        Height = 17
+        Top = 65
+        Width = 28
+        Caption = 'Peso'
+        ParentColor = False
+      end
+      object dbedPeso: TDBEdit
+        Left = 215
+        Height = 25
+        Top = 85
+        Width = 70
+        DataField = 'peso'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 5
+      end
+      object dbcbVivo: TDBCheckBox
+        Left = 297
+        Height = 23
+        Top = 55
+        Width = 71
+        Caption = 'Vivo'
+        DataField = 'vivo'
+        DataSource = dsPrincipal
+        TabOrder = 6
+        ValueChecked = '1'
+        ValueUnchecked = '0'
+      end
+      object dbcbLiberado: TDBCheckBox
+        Left = 297
+        Height = 23
+        Top = 75
+        Width = 73
+        Caption = 'Liberado'
+        DataField = 'liberado'
+        DataSource = dsPrincipal
+        TabOrder = 7
+        ValueChecked = '1'
+        ValueUnchecked = '0'
+      end
+      object dbcbProcesado: TDBCheckBox
+        Left = 297
+        Height = 23
+        Top = 95
+        Width = 78
+        Caption = 'Procesado'
+        DataField = 'procesado'
+        DataSource = dsPrincipal
+        TabOrder = 8
+        ValueChecked = '1'
+        ValueUnchecked = '0'
+      end
+    end
+    object dbcbRemarcado: TDBCheckBox[14]
+      Left = 295
+      Height = 23
+      Top = 190
+      Width = 92
+      Caption = 'Remarcado'
+      DataField = 'remarcado'
+      DataSource = dsPrincipal
+      TabOrder = 12
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+    object Label10: TLabel[15]
+      Left = 10
+      Height = 17
+      Top = 375
+      Width = 74
+      Caption = 'Comentarios'
+      ParentColor = False
+    end
+    object DBMemo1: TDBMemo[16]
+      Left = 10
+      Height = 60
+      Top = 395
+      Width = 377
+      DataField = 'comentarios'
+      DataSource = dsPrincipal
+      TabOrder = 11
+    end
+    object rgOrden: TRadioGroup[17]
+      Left = 235
+      Height = 55
+      Top = 55
+      Width = 152
+      AutoFill = True
+      Caption = 'Especies por nombre'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 37
+      ClientWidth = 148
+      ItemIndex = 1
+      Items.Strings = (
+        'Vulgar'
+        'Científico'
+      )
+      OnClick = rgOrdenClick
+      TabOrder = 5
+    end
+    object dblkEspecieCientifico: TDBLookupComboBox[18]
+      Left = 10
+      Height = 25
+      Top = 134
+      Width = 377
+      AutoComplete = True
+      DataField = 'nombre_cientifico'
+      DataSource = dsPrincipal
+      ListFieldIndex = 0
+      LookupCache = False
+      TabOrder = 7
+    end
+    object dbedLatitud: TDtDBCoordEdit[19]
+      Left = 10
+      Height = 25
+      Top = 79
+      Width = 72
+      CustomEditMask = True
+      DataField = 'latitud'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      EditMask = '####.##'
+      MaxLength = 7
+      TabOrder = 2
+      CoordKind = ckLatitude
+    end
+    object dbedLongitud: TDtDBCoordEdit[20]
+      Left = 90
+      Height = 25
+      Top = 79
+      Width = 72
+      CustomEditMask = True
+      DataField = 'longitud'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      EditMask = '####.##'
+      MaxLength = 7
+      TabOrder = 3
+      CoordKind = ckLatitude
+    end
+  end
+  inherited paControles: TPanel
+    Top = 528
+    Width = 399
+    ClientWidth = 399
+    inherited bbCancelar: TBitBtn
+      Left = 217
+      Height = 24
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 305
+      Height = 24
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 144
+    top = 470
+  end
+  inherited zqPrincipal: TZQuery
+    Connection = dmGeneral.zcDB
+    OnCalcFields = zqPrincipalCalcFields
+    OnNewRecord = zqPrincipalNewRecord
+    SQL.Strings = (
+      'SELECT *'
+      'FROM marcas'
+      'WHERE idmarca=:Id'
+    )
+    left = 68
+    top = 470
+    object zqPrincipalidmarca: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarca'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidmarea: TLongintField[1]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidevento_marca: TLongintField[2]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idevento_marca'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      OnChange = zqPrincipalidevento_marcaChange
+    end
+    object zqPrincipalidespecie: TLongintField[3]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalcod_marca: TStringField[4]
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'cod_marca'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 180
+    end
+    object zqPrincipalcod_marca_original: TStringField[5]
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'cod_marca_original'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqPrincipalfecha: TDateField[6]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object zqPrincipalhora: TTimeField[7]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'hh:mm'
+    end
+    object zqPrincipallatitud: TFloatField[8]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'latitud'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipallongitud: TFloatField[9]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'longitud'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipalprofundidad: TLongintField[10]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipallargo: TLongintField[11]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'largo'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalsexo: TLongintField[12]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'sexo'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidcodigo_caparazon: TLongintField[13]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcodigo_caparazon'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidcodigo_huevos: TLongintField[14]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcodigo_huevos'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalporcentaje_huevos: TLongintField[15]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcentaje_huevos'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalpeso: TFloatField[16]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'peso'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalvivo: TSmallintField[17]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'vivo'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalremarcado: TSmallintField[18]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'remarcado'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalliberado: TSmallintField[19]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'liberado'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalprocesado: TSmallintField[20]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'procesado'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalcomentarios: TStringField[21]
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqPrincipalevento: TStringField[22]
+      DisplayWidth = 180
+      FieldKind = fkLookup
+      FieldName = 'nombre'
+      Index = 22
+      KeyFields = 'idevento_marca'
+      LookupCache = False
+      LookupDataSet = zqEventos
+      LookupKeyFields = 'idevento_marca'
+      LookupResultField = 'nombre'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object StringField2: TStringField[23]
+      DisplayWidth = 372
+      FieldKind = fkLookup
+      FieldName = 'nombre_vulgar'
+      Index = 23
+      KeyFields = 'idespecie'
+      LookupCache = False
+      LookupDataSet = zqEspeciesVulg
+      LookupKeyFields = 'idespecie'
+      LookupResultField = 'nombre_vulgar'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 372
+    end
+    object StringField3: TStringField[24]
+      DisplayWidth = 372
+      FieldKind = fkLookup
+      FieldName = 'nombre_cientifico'
+      Index = 24
+      KeyFields = 'idespecie'
+      LookupCache = False
+      LookupDataSet = zqEspeciesCient
+      LookupKeyFields = 'idespecie'
+      LookupResultField = 'nombre_cientifico'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 372
+    end
+    object BytesField1: TBytesField[25]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'cod_desc'
+      Index = 25
+      KeyFields = 'idcodigo_caparazon'
+      LookupCache = False
+      LookupDataSet = zqCodigosCaparazon
+      LookupKeyFields = 'idcodigo_caparazon'
+      LookupResultField = 'cod_desc'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object BytesField2: TBytesField[26]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'cod_desc1'
+      Index = 26
+      KeyFields = 'idcodigo_huevos'
+      LookupCache = False
+      LookupDataSet = zqCodigosHuevos
+      LookupKeyFields = 'idcodigo_huevos'
+      LookupResultField = 'cod_desc'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalEncabezado: TStringField[27]
+      DisplayWidth = 100
+      FieldKind = fkCalculated
+      FieldName = 'Encabezado'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object zqPrincipales_marcado: TSmallintField[28]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'es_marcado'
+      Index = 28
+      KeyFields = 'idevento_marca'
+      LookupCache = False
+      LookupDataSet = zqEventos
+      LookupKeyFields = 'idevento_marca'
+      LookupResultField = 'es_marcado'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipales_recaptura: TSmallintField[29]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'es_recaptura'
+      Index = 29
+      KeyFields = 'idevento_marca'
+      LookupCache = False
+      LookupDataSet = zqEventos
+      LookupKeyFields = 'idevento_marca'
+      LookupResultField = 'es_recaptura'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    ControlInicial = dbdtFecha
+    left = 212
+    top = 470
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    DatasetsComplementarios = <    
+      item
+        Dataset = zqEspeciesCient
+      end    
+      item
+        Dataset = zqEspeciesVulg
+      end    
+      item
+        Dataset = zqEventos
+      end    
+      item
+        Dataset = zqCodigosCaparazon
+      end    
+      item
+        Dataset = zqCodigosHuevos
+      end>
+    left = 20
+    top = 470
+  end
+  object zqEspeciesVulg: TZQuery[8]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_especies'
+      'WHERE es_centolla=1 OR es_arania=1'
+      'order by  comercial desc, '
+      'frecuente desc,'
+      'nombre_vulgar'
+    )
+    Params = <>
+    left = 333
+    top = 470
+    object zqEspeciesidespecie1: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqEspeciescodigo_rapido1: TStringField
+      DisplayWidth = 4
+      FieldKind = fkData
+      FieldName = 'codigo_rapido'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4
+    end
+    object zqEspeciescodigo_inidep1: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'codigo_inidep'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesnombre_cientifico1: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre_cientifico'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesnombre_vulgar1: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre_vulgar'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesVulgcomercial: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'comercial'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqEspeciesVulgfrecuente: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'frecuente'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object zqEspeciesCient: TZQuery[9]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_especies'
+      'WHERE es_centolla=1 OR es_arania=1'
+      'order by comercial desc, frecuente desc,'
+      'nombre_cientifico'
+    )
+    Params = <>
+    left = 268
+    top = 470
+    object zqEspeciesCientidespecie: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqEspeciesCientcodigo_rapido: TStringField
+      DisplayWidth = 4
+      FieldKind = fkData
+      FieldName = 'codigo_rapido'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4
+    end
+    object zqEspeciesCientcodigo_inidep: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'codigo_inidep'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesCientnombre_cientifico: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre_cientifico'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesCientnombre_vulgar: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre_vulgar'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesCientcomercial: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'comercial'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqEspeciesCientfrecuente: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'frecuente'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object zqCodigosCaparazon: TZQuery[10]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_codigos_caparazon'
+      'ORDER BY codigo'
+    )
+    Params = <>
+    left = 70
+    top = 430
+    object zqCodigosCaparazonidcodigo_caparazon: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcodigo_caparazon'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCodigosCaparazoncodigo: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqCodigosCaparazondescripcion: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqCodigosCaparazoncod_desc: TBytesField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_desc'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 177
+    end
+  end
+  object zqCodigosHuevos: TZQuery[11]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_codigos_huevos'
+      'ORDER BY codigo'
+    )
+    Params = <>
+    left = 110
+    top = 430
+    object zqCodigosHuevosidcodigo_huevos: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcodigo_huevos'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCodigosHuevoscodigo: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqCodigosHuevosdescripcion: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqCodigosHuevoscod_desc: TBytesField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_desc'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 177
+    end
+  end
+  object zqEventos: TZQuery[12]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM eventos_marca'
+      'ORDER BY nombre'
+    )
+    Params = <>
+    left = 25
+    top = 430
+    object zqEventosidevento_marca: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idevento_marca'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqEventosnombre: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 180
+    end
+    object zqEventoses_marcado: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'es_marcado'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqEventoses_recaptura: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'es_recaptura'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+end

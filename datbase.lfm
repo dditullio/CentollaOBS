@@ -1,0 +1,7 @@
+object DmBase: TDmBase
+  OldCreateOrder = False
+  Height = 192
+  HorizontalOffset = 335
+  VerticalOffset = 150
+  Width = 272
+end

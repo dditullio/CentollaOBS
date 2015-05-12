@@ -1,0 +1,479 @@
+inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
+  Height = 339
+  Width = 395
+  Caption = 'Muestra'
+  ClientHeight = 339
+  ClientWidth = 395
+  OnShow = FormShow
+  inherited paEncabezadoBase: TPanel
+    Width = 395
+    ClientWidth = 395
+    inherited paAccion: TPanel
+      Left = 280
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 265
+      Width = 15
+    end
+    inherited paEncabezado: TPanel
+      Width = 264
+      ClientWidth = 264
+      inherited dbtEncabezado: TDBText
+        Width = 424
+        DataField = 'Encabezado'
+        DataSource = dmMuestras.dsMuestras
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 269
+    Width = 395
+    ClientHeight = 269
+    ClientWidth = 395
+    object pcPrincipal: TPageControl[0]
+      Left = 1
+      Height = 267
+      Top = 1
+      Width = 393
+      ActivePage = tsGeneral
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 0
+      OnChange = pcPrincipalChange
+      OnChanging = pcPrincipalChanging
+      object tsGeneral: TTabSheet
+        Caption = 'Datos básicos'
+        ClientHeight = 239
+        ClientWidth = 385
+        object dbedPorcentHuevos: TDBEdit
+          Left = 170
+          Height = 23
+          Top = 140
+          Width = 70
+          DataField = 'porcentaje_huevos'
+          DataSource = dmMuestras.dsDetalleMuestras
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 5
+          OnExit = dbedPorcentHuevosExit
+        end
+        object Label12: TLabel
+          Left = 170
+          Height = 15
+          Top = 120
+          Width = 53
+          Caption = '% Huevos'
+          ParentColor = False
+        end
+        object dblkEstadoCap: TDBLookupComboBox
+          Left = 160
+          Height = 23
+          Top = 80
+          Width = 155
+          AutoComplete = True
+          DataField = 'cod_desc'
+          DataSource = dmMuestras.dsDetalleMuestras
+          ListFieldIndex = 0
+          LookupCache = False
+          TabOrder = 3
+        end
+        object Label3: TLabel
+          Left = 160
+          Height = 15
+          Top = 60
+          Width = 62
+          Caption = 'Estado Cap.'
+          ParentColor = False
+        end
+        object dbedLargoCap: TDBEdit
+          Left = 85
+          Height = 23
+          Top = 80
+          Width = 70
+          DataField = 'largo'
+          DataSource = dmMuestras.dsDetalleMuestras
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 2
+          OnExit = dbedLargoCapExit
+        end
+        object Label11: TLabel
+          Left = 85
+          Height = 15
+          Top = 60
+          Width = 60
+          Caption = 'Largo. Cap.'
+          ParentColor = False
+        end
+        object Label10: TLabel
+          Left = 10
+          Height = 15
+          Top = 5
+          Width = 53
+          Caption = 'Nº Ejemp.'
+          ParentColor = False
+        end
+        object dbedNroEjemplar: TDBEdit
+          Left = 10
+          Height = 23
+          Top = 25
+          Width = 105
+          DataField = 'nro_ejemplar'
+          DataSource = dmMuestras.dsDetalleMuestras
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 0
+          TabStop = False
+        end
+        object Label2: TLabel
+          Left = 10
+          Height = 15
+          Top = 60
+          Width = 24
+          Caption = 'Sexo'
+          ParentColor = False
+        end
+        object Label1: TLabel
+          Left = 10
+          Height = 15
+          Top = 120
+          Width = 40
+          Caption = 'Huevos'
+          ParentColor = False
+        end
+        object dblkHuevos: TDBLookupComboBox
+          Left = 10
+          Height = 23
+          Top = 140
+          Width = 155
+          AutoComplete = True
+          DataField = 'cod_desc1'
+          DataSource = dmMuestras.dsDetalleMuestras
+          ListFieldIndex = 0
+          LookupCache = False
+          OnChange = dblkHuevosChange
+          OnExit = dblkHuevosExit
+          TabOrder = 4
+        end
+        object dbedPeso: TDBEdit
+          Left = 245
+          Height = 23
+          Top = 140
+          Width = 70
+          DataField = 'peso'
+          DataSource = dmMuestras.dsDetalleMuestras
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 6
+        end
+        object Label13: TLabel
+          Left = 245
+          Height = 15
+          Top = 120
+          Width = 25
+          Caption = 'Peso'
+          ParentColor = False
+        end
+        object dbedSexo: TDBEdit
+          Left = 10
+          Height = 23
+          Top = 80
+          Width = 70
+          DataField = 'sexo'
+          DataSource = dmMuestras.dsDetalleMuestras
+          CharCase = ecNormal
+          MaxLength = 1
+          TabOrder = 1
+          OnChange = dbedSexoChange
+          OnExit = dbedSexoExit
+        end
+      end
+      object tsRelacMorf: TTabSheet
+        Caption = 'Relaciones morfométricas'
+        ClientHeight = 237
+        ClientWidth = 385
+        object gbDerecha: TGroupBox
+          Left = 85
+          Height = 105
+          Top = 10
+          Width = 229
+          Caption = 'Derecha'
+          ClientHeight = 87
+          ClientWidth = 225
+          TabOrder = 0
+          object Panel1: TPanel
+            Left = 6
+            Height = 22
+            Top = 4
+            Width = 72
+            Caption = 'Pata 1'
+            ParentColor = False
+            TabOrder = 0
+          end
+          object Panel2: TPanel
+            Left = 78
+            Height = 22
+            Top = 4
+            Width = 72
+            Caption = 'Pata 2'
+            ParentColor = False
+            TabOrder = 1
+          end
+          object Panel3: TPanel
+            Left = 150
+            Height = 22
+            Top = 4
+            Width = 72
+            Caption = 'Pata 3'
+            ParentColor = False
+            TabOrder = 2
+          end
+          object dbed_p1dm: TDBEdit
+            Left = 6
+            Height = 25
+            Top = 28
+            Width = 72
+            DataField = 'pata_1_d_mero'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 3
+          end
+          object dbed_p2dm: TDBEdit
+            Left = 80
+            Height = 25
+            Top = 28
+            Width = 72
+            DataField = 'pata_2_d_mero'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 4
+          end
+          object dbed_p3dm: TDBEdit
+            Left = 150
+            Height = 25
+            Top = 28
+            Width = 72
+            DataField = 'pata_3_d_mero'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 5
+          end
+          object dbed_p1de: TDBEdit
+            Left = 6
+            Height = 25
+            Top = 56
+            Width = 72
+            DataField = 'pata_1_d_entera'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 6
+          end
+          object dbed_p2de: TDBEdit
+            Left = 78
+            Height = 25
+            Top = 56
+            Width = 72
+            DataField = 'pata_2_d_entera'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 7
+          end
+          object dbed_p3de: TDBEdit
+            Left = 150
+            Height = 25
+            Top = 56
+            Width = 72
+            DataField = 'pata_3_d_entera'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 8
+          end
+        end
+        object Label4: TLabel
+          Left = 5
+          Height = 17
+          Top = 55
+          Width = 32
+          Caption = 'Mero'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label5: TLabel
+          Left = 5
+          Height = 17
+          Top = 83
+          Width = 70
+          Caption = 'Pata entera'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label6: TLabel
+          Left = 5
+          Height = 17
+          Top = 170
+          Width = 32
+          Caption = 'Mero'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label7: TLabel
+          Left = 5
+          Height = 17
+          Top = 198
+          Width = 70
+          Caption = 'Pata entera'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object gbDerecha1: TGroupBox
+          Left = 85
+          Height = 105
+          Top = 125
+          Width = 229
+          Caption = 'Izquierda'
+          ClientHeight = 87
+          ClientWidth = 225
+          TabOrder = 1
+          object Panel4: TPanel
+            Left = 6
+            Height = 22
+            Top = 4
+            Width = 72
+            Caption = 'Pata 1'
+            ParentColor = False
+            TabOrder = 0
+          end
+          object Panel5: TPanel
+            Left = 78
+            Height = 22
+            Top = 4
+            Width = 72
+            Caption = 'Pata 2'
+            ParentColor = False
+            TabOrder = 1
+          end
+          object Panel6: TPanel
+            Left = 150
+            Height = 22
+            Top = 4
+            Width = 72
+            Caption = 'Pata 3'
+            ParentColor = False
+            TabOrder = 2
+          end
+          object dbed_p1im: TDBEdit
+            Left = 6
+            Height = 25
+            Top = 28
+            Width = 72
+            DataField = 'pata_1_i_mero'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 3
+          end
+          object dbed_p2im: TDBEdit
+            Left = 78
+            Height = 25
+            Top = 28
+            Width = 72
+            DataField = 'pata_2_i_mero'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 4
+          end
+          object dbed_p3im: TDBEdit
+            Left = 150
+            Height = 25
+            Top = 28
+            Width = 72
+            DataField = 'pata_3_i_mero'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 5
+          end
+          object dbed_p1ie: TDBEdit
+            Left = 6
+            Height = 25
+            Top = 56
+            Width = 72
+            DataField = 'pata_1_i_entera'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 6
+          end
+          object dbed_p2ie: TDBEdit
+            Left = 78
+            Height = 25
+            Top = 56
+            Width = 72
+            DataField = 'pata_2_i_entera'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 7
+          end
+          object dbed_p3ie: TDBEdit
+            Left = 150
+            Height = 25
+            Top = 56
+            Width = 72
+            DataField = 'pata_3_i_entera'
+            DataSource = dmMuestras.dsDetalleMuestras
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 8
+          end
+        end
+      end
+    end
+  end
+  inherited paControles: TPanel
+    Top = 303
+    Width = 395
+    ClientWidth = 395
+    inherited bbCancelar: TBitBtn
+      Left = 213
+      Height = 24
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 301
+      Height = 24
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 134
+    top = 280
+  end
+  inherited zqPrincipal: TZQuery
+    left = 58
+    top = 280
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    AltaContinua = True
+    ControlInicial = dbedSexo
+    EsSubform = True
+    OnValidateForm = zcePrincipalValidateForm
+    OnInitRecord = zcePrincipalInitRecord
+    left = 202
+    top = 280
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    DatasetMaestro = dmMuestras.zqDetalleMuestras
+    left = 10
+    top = 280
+  end
+end

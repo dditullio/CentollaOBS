@@ -1,0 +1,2789 @@
+inherited fmEditarLances: TfmEditarLances
+  Left = 398
+  Height = 414
+  Top = 158
+  Width = 739
+  Caption = 'Lances'
+  ClientHeight = 414
+  ClientWidth = 739
+  OnCreate = FormCreate
+  OnShow = FormShow
+  inherited paEncabezadoBase: TPanel
+    Width = 739
+    ClientWidth = 739
+    inherited paAccion: TPanel
+      Left = 624
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 607
+    end
+    inherited paEncabezado: TPanel
+      Width = 606
+      ClientWidth = 606
+      inherited dbtEncabezado: TDBText
+        Width = 766
+        DataField = 'Encabezado'
+        DataSource = dsPrincipal
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 344
+    Width = 739
+    ClientHeight = 344
+    ClientWidth = 739
+    object pcLances: TPageControl[0]
+      Left = 1
+      Height = 342
+      Top = 1
+      Width = 737
+      ActivePage = tsCalado
+      Align = alClient
+      TabIndex = 2
+      TabOrder = 0
+      OnChange = pcLancesChange
+      Options = [nboKeyboardTabSwitch]
+      object tsGeneral: TTabSheet
+        Caption = 'Datos generales'
+        ClientHeight = 312
+        ClientWidth = 729
+        object pcFormatos: TPageControl
+          Left = 0
+          Height = 312
+          Top = 0
+          Width = 729
+          ActivePage = tsPredeterminado
+          Align = alClient
+          TabIndex = 0
+          TabOrder = 0
+          OnChange = pcFormatosChange
+          object tsPredeterminado: TTabSheet
+            Caption = 'Formato predeterminado'
+          end
+          object tsAlternativo: TTabSheet
+            Caption = 'Formato alternativo'
+            ClientHeight = 282
+            ClientWidth = 721
+            object gbDatosInicio1: TGroupBox
+              Left = 4
+              Height = 132
+              Top = 6
+              Width = 376
+              Caption = 'Inicio del lance'
+              ClientHeight = 114
+              ClientWidth = 372
+              TabOrder = 0
+              object Label26: TLabel
+                Left = 170
+                Height = 17
+                Top = 6
+                Width = 75
+                Caption = 'Latitud inicial'
+                ParentColor = False
+              end
+              object dbedGradosLatIni1: TDBEdit
+                Left = 170
+                Height = 25
+                Top = 26
+                Width = 29
+                CustomEditMask = True
+                DataField = 'grados_latitud_ini'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                EditMask = '00;0; '
+                MaxLength = 2
+                TabOrder = 1
+              end
+              object Label31: TLabel
+                Left = 270
+                Height = 17
+                Top = 6
+                Width = 87
+                Caption = 'Longitud inicial'
+                ParentColor = False
+              end
+              object Label32: TLabel
+                Left = 206
+                Height = 17
+                Top = 60
+                Width = 52
+                Caption = 'Cable Er.'
+                ParentColor = False
+              end
+              object dbedCableEr1: TDBEdit
+                Left = 206
+                Height = 25
+                Hint = 'Metros de cable filado en banda de Estribor'
+                Top = 80
+                Width = 75
+                DataField = 'cable_estribor'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 7
+              end
+              object Label33: TLabel
+                Left = 289
+                Height = 17
+                Top = 60
+                Width = 52
+                Caption = 'Cable Br.'
+                ParentColor = False
+              end
+              object dbedCableBr1: TDBEdit
+                Left = 289
+                Height = 25
+                Hint = 'Metros de cable filado en banda de Babor'
+                Top = 80
+                Width = 75
+                DataField = 'cable_babor'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 8
+              end
+              object dbedMinutosLatIni1: TDBEdit
+                Left = 206
+                Height = 25
+                Top = 26
+                Width = 58
+                CustomEditMask = True
+                DataField = 'minutos_latitud_ini'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                EditMask = '##.##'
+                MaxLength = 5
+                TabOrder = 2
+                OnExit = dbedMinutosLatIniExit
+              end
+              object dbedGradosLongIni1: TDBEdit
+                Left = 270
+                Height = 25
+                Top = 26
+                Width = 29
+                CustomEditMask = True
+                DataField = 'grados_longitud_ini'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                EditMask = '00;0; '
+                MaxLength = 2
+                TabOrder = 3
+              end
+              object dbedMinutosLongIni1: TDBEdit
+                Left = 306
+                Height = 25
+                Top = 26
+                Width = 58
+                CustomEditMask = True
+                DataField = 'minutos_longitud_ini'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                EditMask = '##.##'
+                MaxLength = 5
+                TabOrder = 4
+                OnExit = dbedMinutosLongIniExit
+              end
+              object Label35: TLabel
+                Left = 108
+                Height = 17
+                Top = 60
+                Width = 72
+                Caption = 'Profundidad'
+                ParentColor = False
+              end
+              object dbedProfund1: TDBEdit
+                Left = 108
+                Height = 25
+                Hint = 'Metros de cable filado en banda de Estribor'
+                Top = 80
+                Width = 91
+                DataField = 'profundidad'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 6
+              end
+              object paFechaHora1: TPanel
+                Left = 5
+                Height = 50
+                Top = 7
+                Width = 162
+                BevelOuter = bvNone
+                ClientHeight = 50
+                ClientWidth = 162
+                TabOrder = 0
+                OnExit = paFechaHoraExit
+                object Label3: TLabel
+                  Left = 4
+                  Height = 17
+                  Top = 0
+                  Width = 33
+                  Caption = 'Fecha'
+                  ParentColor = False
+                end
+                object dbdtFecha1: TDBDateTimePicker
+                  Left = 4
+                  Height = 25
+                  Top = 19
+                  Width = 89
+                  DataField = 'fecha'
+                  DataSource = dsPrincipal
+                  ReadOnly = False
+                  CenturyFrom = 1941
+                  MaxDate = 2958465
+                  MinDate = -53780
+                  TabOrder = 0
+                  TrailingSeparator = False
+                  TextForNullDate = ' '
+                  LeadingZeros = True
+                  Kind = dtkDate
+                  TimeFormat = tf24
+                  TimeDisplay = tdHMS
+                  DateMode = dmUpDown
+                  UseDefaultSeparators = True
+                  HideDateTimeParts = []
+                  MonthNames = 'Long'
+                  OnEnter = dbdtFechaEnter
+                end
+                object Label36: TLabel
+                  Left = 104
+                  Height = 17
+                  Top = 0
+                  Width = 29
+                  Caption = 'Hora'
+                  ParentColor = False
+                end
+                object dbdtHora1: TDBEdit
+                  Left = 104
+                  Height = 25
+                  Top = 19
+                  Width = 54
+                  CustomEditMask = True
+                  DataField = 'hora'
+                  DataSource = dsPrincipal
+                  CharCase = ecNormal
+                  EditMask = '00:00;1;_'
+                  MaxLength = 5
+                  TabOrder = 1
+                  OnEnter = dbdtHoraEnter
+                  OnExit = dbdtHoraExit
+                end
+              end
+              object Label37: TLabel
+                Left = 9
+                Height = 17
+                Top = 60
+                Width = 77
+                Caption = 'Tpo. Arrastre'
+                ParentColor = False
+              end
+              object dbedMinArrastre1: TDBEdit
+                Left = 9
+                Height = 25
+                Hint = 'Tiempo de arrastre en minutos'
+                Top = 80
+                Width = 91
+                DataField = 'minutos_arrastre'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 5
+                OnExit = dbedMinArrastreExit
+              end
+            end
+            object gbComentarios1: TGroupBox
+              Left = 387
+              Height = 132
+              Top = 6
+              Width = 328
+              Caption = 'Comentarios'
+              ClientHeight = 114
+              ClientWidth = 324
+              TabOrder = 2
+              object dbmComentarios1: TDBMemo
+                Left = 6
+                Height = 80
+                Hint = 'Comentarios acerca del lance. Si es necesario, indicar si corresponde a Estribor o Babor'
+                Top = 26
+                Width = 312
+                DataField = 'comentarios'
+                DataSource = dsPrincipal
+                ScrollBars = ssAutoVertical
+                TabOrder = 3
+              end
+              object bbEstribor1: TBitBtn
+                Left = 6
+                Height = 20
+                Top = 6
+                Width = 115
+                Caption = 'Insertar "&Estribor:"'
+                OnClick = bbEstriborClick
+                TabOrder = 0
+                TabStop = False
+              end
+              object bbBabor1: TBitBtn
+                Left = 203
+                Height = 20
+                Top = 6
+                Width = 115
+                Caption = 'Insertar "&Babor:"'
+                OnClick = bbBaborClick
+                TabOrder = 2
+                TabStop = False
+              end
+              object bbIgualAnterior1: TBitBtn
+                Left = 126
+                Height = 20
+                Top = 6
+                Width = 75
+                Caption = '&Repite Ant.'
+                OnClick = bbIgualAnteriorClick
+                TabOrder = 1
+                TabStop = False
+              end
+            end
+            object gbDatosFin1: TGroupBox
+              Left = 4
+              Height = 129
+              Top = 146
+              Width = 377
+              Caption = 'Finalización del lance'
+              ClientHeight = 111
+              ClientWidth = 373
+              TabOrder = 1
+              object Label38: TLabel
+                Left = 9
+                Height = 17
+                Top = 7
+                Width = 67
+                Caption = 'Latitud final'
+                ParentColor = False
+              end
+              object Label39: TLabel
+                Left = 107
+                Height = 17
+                Top = 7
+                Width = 79
+                Caption = 'Longitud final'
+                ParentColor = False
+              end
+              object Label40: TLabel
+                Left = 206
+                Height = 17
+                Top = 7
+                Width = 65
+                Caption = 'Captura Er.'
+                ParentColor = False
+              end
+              object dbedCaptEr1: TDBEdit
+                Left = 206
+                Height = 25
+                Hint = 'Captura de la banda de estribor (tal como la informa el buque)'
+                Top = 27
+                Width = 75
+                DataField = 'captura_estribor_buque'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                MaxLength = 20
+                TabOrder = 4
+              end
+              object Label41: TLabel
+                Left = 289
+                Height = 17
+                Top = 7
+                Width = 65
+                Caption = 'Captura Br.'
+                ParentColor = False
+              end
+              object dbedCaptBr1: TDBEdit
+                Left = 289
+                Height = 25
+                Hint = 'Captura de la banda de babor (tal como la informa el buque)'
+                Top = 27
+                Width = 75
+                DataField = 'captura_babor_buque'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                MaxLength = 20
+                TabOrder = 5
+              end
+              object Label42: TLabel
+                Left = 107
+                Height = 17
+                Top = 63
+                Width = 58
+                Caption = 'Velocidad'
+                ParentColor = False
+              end
+              object dbedVelocidad1: TDBEdit
+                Left = 107
+                Height = 25
+                Hint = 'Velocidad promedio de arrastre en nudos'
+                Top = 83
+                Width = 91
+                DataField = 'velocidad'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 7
+              end
+              object dbedGradosLatFin1: TDBEdit
+                Left = 9
+                Height = 25
+                Top = 27
+                Width = 29
+                CustomEditMask = True
+                DataField = 'grados_latitud_fin'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                EditMask = '00;0; '
+                MaxLength = 2
+                TabOrder = 0
+              end
+              object dbedMinutosLatFin1: TDBEdit
+                Left = 45
+                Height = 25
+                Top = 27
+                Width = 58
+                CustomEditMask = True
+                DataField = 'minutos_latitud_fin'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                EditMask = '##.##'
+                MaxLength = 5
+                TabOrder = 1
+                OnExit = dbedMinutosLatFinExit
+              end
+              object dbedGradosLongFin1: TDBEdit
+                Left = 109
+                Height = 25
+                Top = 27
+                Width = 29
+                CustomEditMask = True
+                DataField = 'grados_longitud_fin'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                EditMask = '00;0; '
+                MaxLength = 2
+                TabOrder = 2
+              end
+              object dbedMinutosLongFin1: TDBEdit
+                Left = 145
+                Height = 25
+                Top = 27
+                Width = 58
+                CustomEditMask = True
+                DataField = 'minutos_longitud_fin'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                EditMask = '##.##'
+                MaxLength = 5
+                TabOrder = 3
+                OnExit = dbedMinutosLongFinExit
+              end
+              object Label7: TLabel
+                Left = 9
+                Height = 17
+                Top = 63
+                Width = 42
+                Caption = 'Rumbo'
+                ParentColor = False
+              end
+              object dbedRumbo1: TDBEdit
+                Left = 9
+                Height = 25
+                Hint = 'Rumbo de arrastre en grados'
+                Top = 83
+                Width = 91
+                DataField = 'rumbo'
+                DataSource = dsPrincipal
+                CharCase = ecNormal
+                MaxLength = 0
+                TabOrder = 6
+              end
+            end
+            object gbInformacion1: TGroupBox
+              Left = 387
+              Height = 129
+              Top = 146
+              Width = 328
+              Caption = 'Verificación de datos'
+              ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+              ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
+              ChildSizing.Layout = cclLeftToRightThenTopToBottom
+              ChildSizing.ControlsPerLine = 4
+              ClientHeight = 111
+              ClientWidth = 324
+              TabOrder = 3
+              object Label43: TLabel
+                Left = 0
+                Height = 17
+                Top = 5
+                Width = 64
+                Caption = ' '
+                ParentColor = False
+              end
+              object Label44: TLabel
+                Left = 64
+                Height = 17
+                Top = 5
+                Width = 107
+                Alignment = taCenter
+                Caption = 'Registrado'
+                Font.Style = [fsBold]
+                ParentColor = False
+                ParentFont = False
+              end
+              object Label45: TLabel
+                Left = 171
+                Height = 17
+                Top = 5
+                Width = 95
+                Alignment = taCenter
+                Caption = 'Calculado'
+                Font.Style = [fsBold]
+                ParentColor = False
+                ParentFont = False
+              end
+              object Label46: TLabel
+                Left = 266
+                Height = 17
+                Top = 5
+                Width = 87
+                Alignment = taCenter
+                Caption = 'Diferencia'
+                Font.Style = [fsBold]
+                ParentColor = False
+                ParentFont = False
+              end
+              object laDistancia1: TLabel
+                Left = 0
+                Height = 17
+                Top = 27
+                Width = 64
+                Caption = 'Distancia:'
+                Font.Style = [fsBold]
+                ParentColor = False
+                ParentFont = False
+              end
+              object dbtDistRegist1: TDBText
+                Left = 64
+                Height = 17
+                Hint = 'Distancia en millas entre posición inicial y final'
+                Top = 27
+                Width = 107
+                Alignment = taCenter
+                DataField = 'DistanciaMillas'
+                DataSource = dsPrincipal
+                ParentColor = False
+              end
+              object dbtDistCalc1: TDBText
+                Left = 171
+                Height = 17
+                Top = 27
+                Width = 95
+                Alignment = taCenter
+                DataField = 'DistanciaCalculada'
+                DataSource = dsPrincipal
+                ParentColor = False
+              end
+              object dbtDistDif1: TDBText
+                Left = 266
+                Height = 17
+                Hint = 'Porcentaje de diferencia entre distancia registrada y calculada'
+                Top = 27
+                Width = 87
+                Alignment = taCenter
+                DataField = 'DifDistancia'
+                DataSource = dsPrincipal
+                ParentColor = False
+              end
+              object laVelocidad1: TLabel
+                Left = 0
+                Height = 17
+                Top = 49
+                Width = 64
+                Caption = 'Velocidad:'
+                Font.Style = [fsBold]
+                ParentColor = False
+                ParentFont = False
+              end
+              object dbtVelRegist1: TDBText
+                Left = 64
+                Height = 17
+                Hint = 'Velocidad registrada en la planilla de puente'
+                Top = 49
+                Width = 107
+                Alignment = taCenter
+                DataField = 'VelocidadRegistrada'
+                DataSource = dsPrincipal
+                ParentColor = False
+              end
+              object dbtVelCalc1: TDBText
+                Left = 171
+                Height = 17
+                Top = 49
+                Width = 95
+                Alignment = taCenter
+                DataField = 'VelocNecesaria'
+                DataSource = dsPrincipal
+                ParentColor = False
+              end
+              object dbtVelDif1: TDBText
+                Left = 266
+                Height = 17
+                Hint = 'Porcentaje de diferencia entre velocidad registrada y calculada'
+                Top = 49
+                Width = 87
+                Alignment = taCenter
+                DataField = 'DifVelocidad'
+                DataSource = dsPrincipal
+                ParentColor = False
+              end
+              object laTiempo1: TLabel
+                Left = 0
+                Height = 17
+                Top = 71
+                Width = 64
+                Caption = 'Tiempo:'
+                Font.Style = [fsBold]
+                ParentColor = False
+                ParentFont = False
+              end
+              object dbtTiempoRegist1: TDBText
+                Left = 64
+                Height = 17
+                Hint = 'Minutos de arrastre registrados en la planilla de puente'
+                Top = 71
+                Width = 107
+                Alignment = taCenter
+                DataField = 'TiempoRegistrado'
+                DataSource = dsPrincipal
+                ParentColor = False
+              end
+              object dbtTiempoCalc1: TDBText
+                Left = 171
+                Height = 17
+                Top = 71
+                Width = 95
+                Alignment = taCenter
+                DataField = 'TiempoNecesario'
+                DataSource = dsPrincipal
+                ParentColor = False
+              end
+              object dbtTiempoDif1: TDBText
+                Left = 266
+                Height = 17
+                Hint = 'Porcentaje de diferencia entre tiempo registrado y calculado'
+                Top = 71
+                Width = 87
+                Alignment = taCenter
+                DataField = 'DifTiempo'
+                DataSource = dsPrincipal
+                ParentColor = False
+              end
+              object Label47: TLabel
+                Left = 0
+                Height = 17
+                Top = 93
+                Width = 64
+                Caption = ' '
+                ParentColor = False
+              end
+            end
+          end
+        end
+      end
+      object tsOtrosDatos: TTabSheet
+        Caption = 'Datos complementarios'
+        ClientHeight = 312
+        ClientWidth = 729
+        object GroupBox3: TGroupBox
+          Left = -1
+          Height = 129
+          Top = 7
+          Width = 716
+          Caption = 'Meteorología'
+          ClientHeight = 111
+          ClientWidth = 712
+          TabOrder = 0
+          object Label18: TLabel
+            Left = 9
+            Height = 17
+            Top = 6
+            Width = 80
+            Caption = 'Temp. superf.'
+            ParentColor = False
+          end
+          object dbedTempSuperf: TDBEdit
+            Left = 9
+            Height = 25
+            Hint = 'Temeratura de superficie (pistolita o sensor de casco)'
+            Top = 26
+            Width = 91
+            DataField = 'temperatura_superficie'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 0
+          end
+          object Label19: TLabel
+            Left = 106
+            Height = 17
+            Top = 6
+            Width = 62
+            Caption = 'Temp. aire'
+            ParentColor = False
+          end
+          object dbedTempAire: TDBEdit
+            Left = 106
+            Height = 25
+            Hint = 'Temeratura ambiente (termómetro común)'
+            Top = 26
+            Width = 91
+            DataField = 'temperatura_aire'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 1
+          end
+          object Label20: TLabel
+            Left = 202
+            Height = 17
+            Top = 6
+            Width = 77
+            Caption = 'Temp. Fondo'
+            ParentColor = False
+          end
+          object dbedTempFondo: TDBEdit
+            Left = 202
+            Height = 25
+            Hint = 'Temperatura de fondo (sensor de sonda de red)'
+            Top = 26
+            Width = 91
+            DataField = 'temperatura_fondo'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 2
+          end
+          object Label21: TLabel
+            Left = 9
+            Height = 17
+            Top = 60
+            Width = 77
+            Caption = 'Mar Beaufort'
+            ParentColor = False
+          end
+          object Label22: TLabel
+            Left = 106
+            Height = 17
+            Top = 60
+            Width = 80
+            Caption = 'Direcc. Viento'
+            ParentColor = False
+          end
+          object dbedDireccViento: TDBEdit
+            Left = 106
+            Height = 25
+            Hint = 'Dirección del viento en grados'
+            Top = 80
+            Width = 91
+            DataField = 'direccion_viento'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 4
+          end
+          object Label23: TLabel
+            Left = 202
+            Height = 17
+            Top = 60
+            Width = 76
+            Caption = 'Veloc. Viento'
+            ParentColor = False
+          end
+          object dbedVelocViento: TDBEdit
+            Left = 202
+            Height = 25
+            Hint = 'Velocidad del viento en nudos'
+            Top = 80
+            Width = 91
+            DataField = 'nudos_viento'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 5
+            OnChange = dbedVelocVientoChange
+            OnExit = dbedVelocVientoExit
+          end
+          object dbedEstadoMar: TDBEdit
+            Left = 9
+            Height = 25
+            Hint = 'Dirección del viento en grados'
+            Top = 80
+            Width = 41
+            DataField = 'cod_estado_mar'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 3
+          end
+          object dbmDscEstadoMar: TDBMemo
+            Left = 302
+            Height = 79
+            Top = 26
+            Width = 404
+            Color = clBtnFace
+            DataField = 'descripcion'
+            DataSource = dsPrincipal
+            ReadOnly = True
+            ScrollBars = ssAutoVertical
+            TabOrder = 6
+            Tabstop = False
+          end
+          object Label24: TLabel
+            Left = 302
+            Height = 17
+            Top = 6
+            Width = 183
+            Caption = 'Descripción del estado del mar'
+            ParentColor = False
+          end
+          object Panel1: TPanel
+            Left = 54
+            Height = 25
+            Top = 80
+            Width = 46
+            BevelOuter = bvNone
+            BorderStyle = bsSingle
+            ClientHeight = 21
+            ClientWidth = 42
+            Enabled = False
+            TabOrder = 7
+            object DBImage1: TDBImage
+              Left = 0
+              Height = 21
+              Top = 0
+              Width = 42
+              Align = alClient
+              DataField = 'simbolo'
+              DataSource = dsPrincipal
+              Proportional = True
+              Stretch = True
+            end
+          end
+        end
+        object GroupBox6: TGroupBox
+          Left = -1
+          Height = 105
+          Top = 143
+          Width = 717
+          Caption = 'Equipo de pesca'
+          ClientHeight = 87
+          ClientWidth = 713
+          TabOrder = 1
+          object Label27: TLabel
+            Left = 9
+            Height = 17
+            Top = 6
+            Width = 88
+            Caption = 'Malla del copo'
+            ParentColor = False
+          end
+          object dbedMallaCopo: TDBEdit
+            Left = 9
+            Height = 25
+            Hint = 'Temeratura de superficie (pistolita o sensor de casco)'
+            Top = 26
+            Width = 91
+            DataField = 'mallero_copo_mm'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 0
+          end
+          object Label28: TLabel
+            Left = 294
+            Height = 17
+            Top = 6
+            Width = 78
+            Caption = 'Largo relinga'
+            ParentColor = False
+          end
+          object dbedRelinga: TDBEdit
+            Left = 294
+            Height = 25
+            Hint = 'Temeratura ambiente (termómetro común)'
+            Top = 26
+            Width = 91
+            DataField = 'largo_relinga_inferior'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 2
+          end
+          object dbgTipoMalla: TDBRadioGroup
+            Left = 102
+            Height = 45
+            Top = 6
+            Width = 185
+            Caption = 'Tipo de malla'
+            Columns = 2
+            DataField = 'tipo_malla'
+            DataSource = dsPrincipal
+            Items.Strings = (
+              'Diamante'
+              'Cuadrada'
+            )
+            TabOrder = 1
+            Values.Strings = (
+              'Diamante'
+              'Cuadrada'
+            )
+          end
+        end
+      end
+      object tsCalado: TTabSheet
+        Caption = 'Calado'
+        ClientHeight = 312
+        ClientWidth = 729
+        object gbDatosInicio: TGroupBox
+          Left = 4
+          Height = 132
+          Top = 6
+          Width = 376
+          Caption = 'Inicio del lance'
+          ClientHeight = 114
+          ClientWidth = 372
+          TabOrder = 0
+          OnExit = gbDatosInicioExit
+          object Label16: TLabel
+            Left = 172
+            Height = 17
+            Top = 6
+            Width = 75
+            Caption = 'Latitud inicial'
+            ParentColor = False
+          end
+          object dbedGradosLatIni: TDBEdit
+            Left = 172
+            Height = 25
+            Top = 26
+            Width = 29
+            CustomEditMask = True
+            DataField = 'grados_latitud_ini'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '00;0; '
+            MaxLength = 2
+            TabOrder = 1
+          end
+          object Label17: TLabel
+            Left = 272
+            Height = 17
+            Top = 6
+            Width = 87
+            Caption = 'Longitud inicial'
+            ParentColor = False
+          end
+          object Label6: TLabel
+            Left = 10
+            Height = 17
+            Top = 60
+            Width = 42
+            Caption = 'Rumbo'
+            ParentColor = False
+          end
+          object dbedRumbo: TDBEdit
+            Left = 10
+            Height = 25
+            Hint = 'Rumbo de arrastre en grados'
+            Top = 80
+            Width = 89
+            DataField = 'rumbo'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 5
+          end
+          object Label8: TLabel
+            Left = 208
+            Height = 17
+            Top = 60
+            Width = 52
+            Caption = 'Cable Er.'
+            ParentColor = False
+          end
+          object dbedCableEr: TDBEdit
+            Left = 208
+            Height = 25
+            Hint = 'Metros de cable filado en banda de Estribor'
+            Top = 80
+            Width = 75
+            DataField = 'cable_estribor'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 7
+          end
+          object Label9: TLabel
+            Left = 291
+            Height = 17
+            Top = 60
+            Width = 52
+            Caption = 'Cable Br.'
+            ParentColor = False
+          end
+          object dbedCableBr: TDBEdit
+            Left = 291
+            Height = 25
+            Hint = 'Metros de cable filado en banda de Babor'
+            Top = 80
+            Width = 75
+            DataField = 'cable_babor'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 8
+          end
+          object dbedMinutosLatIni: TDBEdit
+            Left = 208
+            Height = 25
+            Top = 26
+            Width = 58
+            CustomEditMask = True
+            DataField = 'minutos_latitud_ini'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '##.##'
+            MaxLength = 5
+            TabOrder = 2
+            OnExit = dbedMinutosLatIniExit
+          end
+          object dbedGradosLongIni: TDBEdit
+            Left = 272
+            Height = 25
+            Top = 26
+            Width = 29
+            CustomEditMask = True
+            DataField = 'grados_longitud_ini'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '00;0; '
+            MaxLength = 2
+            TabOrder = 3
+          end
+          object dbedMinutosLongIni: TDBEdit
+            Left = 308
+            Height = 25
+            Top = 26
+            Width = 58
+            CustomEditMask = True
+            DataField = 'minutos_longitud_ini'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '##.##'
+            MaxLength = 5
+            TabOrder = 4
+            OnExit = dbedMinutosLongIniExit
+          end
+          object Label25: TLabel
+            Left = 127
+            Height = 17
+            Top = 60
+            Width = 72
+            Caption = 'Profundidad'
+            ParentColor = False
+          end
+          object dbedProfund: TDBEdit
+            Left = 108
+            Height = 25
+            Hint = 'Metros de cable filado en banda de Estribor'
+            Top = 80
+            Width = 91
+            DataField = 'profundidad'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 6
+          end
+          object paFechaHora: TPanel
+            Left = 5
+            Height = 50
+            Top = 7
+            Width = 164
+            BevelOuter = bvNone
+            ClientHeight = 50
+            ClientWidth = 164
+            TabOrder = 0
+            OnExit = paFechaHoraExit
+            object Label1: TLabel
+              Left = 4
+              Height = 17
+              Top = 0
+              Width = 33
+              Caption = 'Fecha'
+              ParentColor = False
+            end
+            object dbdtFecha: TDBDateTimePicker
+              Left = 4
+              Height = 25
+              Top = 19
+              Width = 89
+              DataField = 'fecha'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 0
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmUpDown
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtFechaEnter
+            end
+            object Label2: TLabel
+              Left = 104
+              Height = 17
+              Top = 0
+              Width = 29
+              Caption = 'Hora'
+              ParentColor = False
+            end
+            object dbdtHora: TDBEdit
+              Left = 104
+              Height = 25
+              Top = 19
+              Width = 54
+              CustomEditMask = True
+              DataField = 'hora'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              EditMask = '00:00;1;_'
+              MaxLength = 5
+              TabOrder = 1
+              OnEnter = dbdtHoraEnter
+              OnExit = dbdtHoraExit
+            end
+          end
+        end
+        object gbDatosFin: TGroupBox
+          Left = 4
+          Height = 129
+          Top = 146
+          Width = 376
+          Caption = 'Finalización del lance'
+          ClientHeight = 111
+          ClientWidth = 372
+          TabOrder = 1
+          object Label15: TLabel
+            Left = 9
+            Height = 17
+            Top = 7
+            Width = 77
+            Caption = 'Tpo. Arrastre'
+            ParentColor = False
+          end
+          object dbedMinArrastre: TDBEdit
+            Left = 9
+            Height = 25
+            Hint = 'Tiempo de arrastre en minutos'
+            Top = 27
+            Width = 91
+            DataField = 'minutos_arrastre'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 0
+            OnExit = dbedMinArrastreExit
+          end
+          object Label10: TLabel
+            Left = 108
+            Height = 17
+            Top = 7
+            Width = 67
+            Caption = 'Latitud final'
+            ParentColor = False
+          end
+          object Label11: TLabel
+            Left = 206
+            Height = 17
+            Top = 7
+            Width = 79
+            Caption = 'Longitud final'
+            ParentColor = False
+          end
+          object Label12: TLabel
+            Left = 9
+            Height = 17
+            Top = 60
+            Width = 65
+            Caption = 'Captura Er.'
+            ParentColor = False
+          end
+          object dbedCaptEr: TDBEdit
+            Left = 9
+            Height = 25
+            Hint = 'Captura de la banda de estribor (tal como la informa el buque)'
+            Top = 80
+            Width = 91
+            DataField = 'captura_estribor_buque'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 20
+            TabOrder = 5
+          end
+          object Label13: TLabel
+            Left = 108
+            Height = 17
+            Top = 60
+            Width = 65
+            Caption = 'Captura Br.'
+            ParentColor = False
+          end
+          object dbedCaptBr: TDBEdit
+            Left = 108
+            Height = 25
+            Hint = 'Captura de la banda de babor (tal como la informa el buque)'
+            Top = 80
+            Width = 91
+            DataField = 'captura_babor_buque'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 20
+            TabOrder = 6
+          end
+          object Label14: TLabel
+            Left = 206
+            Height = 17
+            Top = 60
+            Width = 58
+            Caption = 'Velocidad'
+            ParentColor = False
+          end
+          object dbedVelocidad: TDBEdit
+            Left = 206
+            Height = 25
+            Hint = 'Velocidad promedio de arrastre en nudos'
+            Top = 80
+            Width = 91
+            DataField = 'velocidad'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 7
+          end
+          object dbedGradosLatFin: TDBEdit
+            Left = 108
+            Height = 25
+            Top = 27
+            Width = 29
+            CustomEditMask = True
+            DataField = 'grados_latitud_fin'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '00;0; '
+            MaxLength = 2
+            TabOrder = 1
+          end
+          object dbedMinutosLatFin: TDBEdit
+            Left = 144
+            Height = 25
+            Top = 27
+            Width = 58
+            CustomEditMask = True
+            DataField = 'minutos_latitud_fin'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '##.##'
+            MaxLength = 5
+            TabOrder = 2
+            OnExit = dbedMinutosLatFinExit
+          end
+          object dbedGradosLongFin: TDBEdit
+            Left = 208
+            Height = 25
+            Top = 27
+            Width = 29
+            CustomEditMask = True
+            DataField = 'grados_longitud_fin'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '00;0; '
+            MaxLength = 2
+            TabOrder = 3
+          end
+          object dbedMinutosLongFin: TDBEdit
+            Left = 244
+            Height = 25
+            Top = 27
+            Width = 58
+            CustomEditMask = True
+            DataField = 'minutos_longitud_fin'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '##.##'
+            MaxLength = 5
+            TabOrder = 4
+            OnExit = dbedMinutosLongFinExit
+          end
+        end
+        object gbComentarios: TGroupBox
+          Left = 387
+          Height = 132
+          Top = 6
+          Width = 328
+          Caption = 'Comentarios'
+          ClientHeight = 114
+          ClientWidth = 324
+          TabOrder = 2
+          object dbmComentarios: TDBMemo
+            Left = 6
+            Height = 80
+            Hint = 'Comentarios acerca del lance. Si es necesario, indicar si corresponde a Estribor o Babor'
+            Top = 26
+            Width = 312
+            DataField = 'comentarios'
+            DataSource = dsPrincipal
+            ScrollBars = ssAutoVertical
+            TabOrder = 3
+          end
+          object bbEstribor: TBitBtn
+            Left = 6
+            Height = 20
+            Top = 6
+            Width = 115
+            Caption = 'Insertar "&Estribor:"'
+            OnClick = bbEstriborClick
+            TabOrder = 0
+            TabStop = False
+          end
+          object bbBabor: TBitBtn
+            Left = 203
+            Height = 20
+            Top = 6
+            Width = 115
+            Caption = 'Insertar "&Babor:"'
+            OnClick = bbBaborClick
+            TabOrder = 2
+            TabStop = False
+          end
+          object bbIgualAnterior: TBitBtn
+            Left = 126
+            Height = 20
+            Top = 6
+            Width = 75
+            Caption = '&Repite Ant.'
+            OnClick = bbIgualAnteriorClick
+            TabOrder = 1
+            TabStop = False
+          end
+        end
+        object gbInformacion: TGroupBox
+          Left = 387
+          Height = 129
+          Top = 146
+          Width = 328
+          Caption = 'Verificación de datos'
+          ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+          ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 4
+          ClientHeight = 111
+          ClientWidth = 324
+          TabOrder = 3
+          object Label4: TLabel
+            Left = 0
+            Height = 17
+            Top = 5
+            Width = 64
+            Caption = ' '
+            ParentColor = False
+          end
+          object Label5: TLabel
+            Left = 64
+            Height = 17
+            Top = 5
+            Width = 100
+            Alignment = taCenter
+            Caption = 'Registrado'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label29: TLabel
+            Left = 164
+            Height = 17
+            Top = 5
+            Width = 88
+            Alignment = taCenter
+            Caption = 'Calculado'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label30: TLabel
+            Left = 252
+            Height = 17
+            Top = 5
+            Width = 80
+            Alignment = taCenter
+            Caption = 'Diferencia'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object laDistancia: TLabel
+            Left = 0
+            Height = 17
+            Top = 27
+            Width = 64
+            Caption = 'Distancia:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtDistRegist: TDBText
+            Left = 64
+            Height = 17
+            Hint = 'Distancia en millas entre posición inicial y final'
+            Top = 27
+            Width = 100
+            Alignment = taCenter
+            DataField = 'DistanciaMillas'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object dbtDistCalc: TDBText
+            Left = 164
+            Height = 17
+            Top = 27
+            Width = 88
+            Alignment = taCenter
+            DataField = 'DistanciaCalculada'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object dbtDistDif: TDBText
+            Left = 252
+            Height = 17
+            Hint = 'Porcentaje de diferencia entre distancia registrada y calculada'
+            Top = 27
+            Width = 80
+            Alignment = taCenter
+            DataField = 'DifDistancia'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object laVelocidad: TLabel
+            Left = 0
+            Height = 17
+            Top = 49
+            Width = 64
+            Caption = 'Velocidad:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtVelRegist: TDBText
+            Left = 64
+            Height = 17
+            Hint = 'Velocidad registrada en la planilla de puente'
+            Top = 49
+            Width = 100
+            Alignment = taCenter
+            DataField = 'VelocidadRegistrada'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object dbtVelCalc: TDBText
+            Left = 164
+            Height = 17
+            Top = 49
+            Width = 88
+            Alignment = taCenter
+            DataField = 'VelocNecesaria'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object dbtVelDif: TDBText
+            Left = 252
+            Height = 17
+            Hint = 'Porcentaje de diferencia entre velocidad registrada y calculada'
+            Top = 49
+            Width = 80
+            Alignment = taCenter
+            DataField = 'DifVelocidad'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object laTiempo: TLabel
+            Left = 0
+            Height = 17
+            Top = 71
+            Width = 64
+            Caption = 'Tiempo:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtTiempoRegist: TDBText
+            Left = 64
+            Height = 17
+            Hint = 'Minutos de arrastre registrados en la planilla de puente'
+            Top = 71
+            Width = 100
+            Alignment = taCenter
+            DataField = 'TiempoRegistrado'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object dbtTiempoCalc: TDBText
+            Left = 164
+            Height = 17
+            Top = 71
+            Width = 88
+            Alignment = taCenter
+            DataField = 'TiempoNecesario'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object dbtTiempoDif: TDBText
+            Left = 252
+            Height = 17
+            Hint = 'Porcentaje de diferencia entre tiempo registrado y calculado'
+            Top = 71
+            Width = 80
+            Alignment = taCenter
+            DataField = 'DifTiempo'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object Label34: TLabel
+            Left = 0
+            Height = 17
+            Top = 93
+            Width = 64
+            Caption = ' '
+            ParentColor = False
+          end
+        end
+      end
+    end
+  end
+  inherited paControles: TPanel
+    Top = 378
+    Width = 739
+    ClientWidth = 739
+    inherited bbCancelar: TBitBtn
+      Left = 557
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 645
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 144
+  end
+  inherited zqPrincipal: TZQuery
+    Connection = dmGeneral.zcDB
+    AfterOpen = zqPrincipalAfterOpen
+    OnCalcFields = zqPrincipalCalcFields
+    OnNewRecord = zqPrincipalNewRecord
+    SQL.Strings = (
+      'SELECT *'
+      'FROM lances'
+      'WHERE idlance=:Id'
+    )
+    left = 68
+    object zqPrincipalidlance: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidmarea: TLongintField[1]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalnro_lance: TLongintField[2]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_lance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalidlinea: TLongintField[3]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlinea'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidcarnada: TLongintField[4]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcarnada'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalkg_carnada: TFloatField[5]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kg_carnada'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqPrincipalrumbo_calado: TLongintField[6]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'rumbo_calado'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalfecha_inicio_calado: TDateField[7]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_inicio_calado'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalhora_inicio_calado: TTimeField[8]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_inicio_calado'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalprofundidad_inicio_calado: TLongintField[9]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_inicio_calado'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipallat_ini_calado: TFloatField[10]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_calado'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipallong_ini_calado: TFloatField[11]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_calado'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipalfecha_fin_calado: TDateField[12]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_calado'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalhora_fin_calado: TTimeField[13]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_calado'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalprofundidad_fin_calado: TLongintField[14]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_calado'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipallat_fin_calado: TFloatField[15]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_calado'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipallong_fin_calado: TFloatField[16]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_calado'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipalcant_trampas_caladas: TLongintField[17]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas_caladas'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalfecha_ini_virada: TDateField[18]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_virada'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalhora_ini_virada: TTimeField[19]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_virada'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalprofundidad_ini_virada: TLongintField[20]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_virada'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipallat_ini_virada: TFloatField[21]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_virada'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipallong_ini_virada: TFloatField[22]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_virada'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipalfecha_fin_virada: TDateField[23]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_virada'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalhora_fin_virada: TTimeField[24]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_virada'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalprofundidad_fin_virada: TLongintField[25]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_virada'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipallat_fin_virada: TFloatField[26]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_virada'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipallong_fin_virada: TFloatField[27]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_virada'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipalcanastos_procesados: TLongintField[28]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'canastos_procesados'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalcluster_por_canasto: TLongintField[29]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_por_canasto'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalcod_estado_mar: TLongintField[30]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_estado_mar'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqPrincipalnudos_viento: TLongintField[31]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nudos_viento'
+      Index = 31
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqPrincipaldireccion_viento: TLongintField[32]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'direccion_viento'
+      Index = 32
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqPrincipalcomentarios: TStringField[33]
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 33
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object StringField1: TStringField[34]
+      DisplayWidth = 2000
+      FieldKind = fkLookup
+      FieldName = 'descripcion'
+      Index = 34
+      KeyFields = 'cod_estado_mar'
+      LookupCache = False
+      LookupDataSet = zqEstadoMar
+      LookupKeyFields = 'cod_estado_mar'
+      LookupResultField = 'descripcion'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 2000
+    end
+    object BlobField1: TBlobField[35]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'simbolo'
+      Index = 35
+      KeyFields = 'cod_estado_mar'
+      LookupCache = False
+      LookupDataSet = zqEstadoMar
+      LookupKeyFields = 'cod_estado_mar'
+      LookupResultField = 'simbolo'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftBlob
+    end
+    object zqPrincipalEncabezado: TStringField[36]
+      DisplayWidth = 80
+      FieldKind = fkCalculated
+      FieldName = 'Encabezado'
+      Index = 36
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 80
+    end
+    object zqPrincipalLatIni: TFloatField[37]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'LatIni'
+      Index = 37
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalLongIni: TFloatField[38]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'LongIni'
+      Index = 38
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalLatFin: TFloatField[39]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'LatFin'
+      Index = 39
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalLongFin: TFloatField[40]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'LongFin'
+      Index = 40
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalDistanciaMillas: TFloatField[41]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'DistanciaMillas'
+      Index = 41
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00 mn'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalTextoVelocidad: TStringField[42]
+      DisplayWidth = 100
+      FieldKind = fkCalculated
+      FieldName = 'TextoVelocidad'
+      Index = 42
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object zqPrincipalVelocNecesaria: TFloatField[43]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'VelocNecesaria'
+      Index = 43
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00 n'
+      EditFormat = '0.00 n'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalTextoTiempo: TStringField[44]
+      DisplayWidth = 100
+      FieldKind = fkCalculated
+      FieldName = 'TextoTiempo'
+      Index = 44
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object zqPrincipalTiempoNecesario: TFloatField[45]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'TiempoNecesario'
+      Index = 45
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.# min'
+      EditFormat = '0.0 min'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalDistanciaCalculada: TFloatField[46]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'DistanciaCalculada'
+      Index = 46
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00 mn'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalDifDistancia: TFloatField[47]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'DifDistancia'
+      Index = 47
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00%'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalDifVelocidad: TFloatField[48]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'DifVelocidad'
+      Index = 48
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00%'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalDifTiempo: TFloatField[49]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'DifTiempo'
+      Index = 49
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00%'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalTiempoRegistrado: TFloatField[50]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'TiempoRegistrado'
+      Index = 50
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.# min'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalVelocidadRegistrada: TFloatField[51]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'VelocidadRegistrada'
+      Index = 51
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00 n'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalTextoDistancia: TStringField[52]
+      DisplayWidth = 100
+      FieldKind = fkCalculated
+      FieldName = 'TextoDistancia'
+      Index = 52
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    AltaContinua = True
+    left = 212
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    DatasetsComplementarios = <    
+      item
+        Dataset = zqEstadoMar
+      end    
+      item
+        Dataset = zqLkpEstadoMar
+      end    
+      item
+        Dataset = zqProxLance
+      end    
+      item
+        Dataset = zqAntLance
+      end>
+    left = 20
+  end
+  object zqEstadoMar: TZQuery[8]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM estados_mar'
+      'order by cod_estado_mar'
+    )
+    Params = <>
+    left = 260
+    top = 344
+    object zqEstadoMarcod_estado_mar: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_estado_mar'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqEstadoMarnombre: TStringField
+      DisplayWidth = 200
+      FieldKind = fkData
+      FieldName = 'nombre'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 200
+    end
+    object zqEstadoMardescripcion: TStringField
+      DisplayWidth = 2000
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 2000
+    end
+    object zqEstadoMarviento_min_nudos: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'viento_min_nudos'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqEstadoMarviento_max_nudos: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'viento_max_nudos'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqEstadoMaraltura_media_olas: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'altura_media_olas'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqEstadoMaraltura_max_olas: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'altura_max_olas'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqEstadoMarsimbolo: TBlobField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'simbolo'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftBlob
+    end
+  end
+  object dsEstadoMar: TDataSource[9]
+    DataSet = zqEstadoMar
+    left = 336
+    top = 344
+  end
+  object zqLkpEstadoMar: TZQuery[10]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM estados_mar'
+      'WHERE :nudos_viento BETWEEN viento_min_nudos '
+      'AND viento_max_nudos '
+      'LIMIT 1'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'nudos_viento'
+        ParamType = ptUnknown
+      end>
+    left = 232
+    top = 392
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'nudos_viento'
+        ParamType = ptUnknown
+      end>
+    object zqLkpEstadoMarcod_estado_mar: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_estado_mar'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLkpEstadoMarnombre: TStringField
+      DisplayWidth = 200
+      FieldKind = fkData
+      FieldName = 'nombre'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 200
+    end
+    object zqLkpEstadoMardescripcion: TStringField
+      DisplayWidth = 2000
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 2000
+    end
+    object zqLkpEstadoMarviento_min_nudos: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'viento_min_nudos'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLkpEstadoMarviento_max_nudos: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'viento_max_nudos'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLkpEstadoMaraltura_media_olas: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'altura_media_olas'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqLkpEstadoMaraltura_max_olas: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'altura_max_olas'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqLkpEstadoMarsimbolo: TBlobField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'simbolo'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftBlob
+    end
+  end
+  object dsLkpEstadoMar: TDataSource[11]
+    DataSet = zqLkpEstadoMar
+    left = 308
+    top = 392
+  end
+  object zqProxLance: TZQuery[12]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqProxLanceBeforeOpen
+    SQL.Strings = (
+      'SELECT COALESCE(MAX(nro_lance),0)+1 AS prox_lance'
+      'FROM lances'
+      'WHERE idmarea=:idmarea'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 576
+    top = 344
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqProxLanceprox_lance: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'prox_lance'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+  end
+  object dsProxLance: TDataSource[13]
+    DataSet = zqProxLance
+    left = 652
+    top = 344
+  end
+  object zqAntLance: TZQuery[14]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqAntLanceBeforeOpen
+    SQL.Strings = (
+      'SELECT '
+      '    idlance,'
+      '    idmarea,'
+      '    nro_lance,'
+      '    fecha,'
+      '    hora,'
+      '    grados_latitud_ini,'
+      '    minutos_latitud_ini,'
+      '    grados_longitud_ini,'
+      '    minutos_longitud_ini,'
+      '    grados_latitud_fin,'
+      '    minutos_latitud_fin,'
+      '    grados_longitud_fin,'
+      '    minutos_longitud_fin,'
+      '    profundidad,'
+      '    cable_estribor,'
+      '    cable_babor,'
+      '    minutos_arrastre,'
+      '    mallero_copo_mm,'
+      '    tipo_malla,'
+      '    largo_relinga_inferior,'
+      '    comentarios'
+      'FROM'
+      '    lances'
+      'WHERE'
+      '    idmarea = :idmarea AND nro_lance < :nro_lance'
+      'ORDER BY nro_lance DESC'
+      'LIMIT 1'
+      ''
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'nro_lance'
+        ParamType = ptUnknown
+      end>
+    left = 408
+    top = 344
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'nro_lance'
+        ParamType = ptUnknown
+      end>
+    object zqAntLanceidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLanceidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLancenro_lance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_lance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLancefecha: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLancehora: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLancegrados_latitud_ini: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'grados_latitud_ini'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLanceminutos_latitud_ini: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'minutos_latitud_ini'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 10
+    end
+    object zqAntLancegrados_longitud_ini: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'grados_longitud_ini'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLanceminutos_longitud_ini: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'minutos_longitud_ini'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 10
+    end
+    object zqAntLancegrados_latitud_fin: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'grados_latitud_fin'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLanceminutos_latitud_fin: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'minutos_latitud_fin'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 10
+    end
+    object zqAntLancegrados_longitud_fin: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'grados_longitud_fin'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLanceminutos_longitud_fin: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'minutos_longitud_fin'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 10
+    end
+    object zqAntLanceprofundidad: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancecable_estribor: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cable_estribor'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancecable_babor: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cable_babor'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLanceminutos_arrastre: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'minutos_arrastre'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 6
+    end
+    object zqAntLancecomentarios: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqAntLancemallero_copo_mm: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'mallero_copo_mm'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancetipo_malla: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'tipo_malla'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqAntLancelargo_relinga_inferior: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'largo_relinga_inferior'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsAntLance: TDataSource[15]
+    DataSet = zqAntLance
+    left = 484
+    top = 344
+  end
+end

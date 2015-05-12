@@ -1,0 +1,170 @@
+Tablas necesarias
+Carnadas
+	ID
+	Marea
+	Nombre
+
+Líneas
+	ID
+	Marea
+	Nro_Linea
+	Nro_boya
+	Dist_e_Trampas
+	Nro_trampas
+	Tipo
+
+Tipos_linea
+	ID
+	Nombre
+	Pesca?
+	Investigacion?
+
+Tipos_trampa
+	ID
+	Nombre
+	Modelo
+	Nro_aros
+
+Estados_puerta
+	Cod
+	Nombre
+
+Estados_trampa
+	Cod
+	Nombre
+	Fallo?
+
+Lances
+	ID
+	Marea
+	Nro_lance
+	Nro_boya
+		Nro_linea
+		Dist_e_Trampas
+		Nro_trampas
+		Tipo_linea
+	Carnada
+	Kg_carnada
+	Fecha_ini_cal
+	Hora_ini_cal
+	Prof_ini_cal
+	Lat_ini_cal
+	Lon_ini_cal
+	Fecha_fin_cal
+	Hora_fin_cal
+	Prof_fin_cal
+	Lat_fin_cal
+	Lon_fin_cal
+	Rumbo_cal
+	Fecha_ini_vira
+	Hora_ini_vira
+	Prof_ini_vira
+	Lat_ini_vira
+	Lon_ini_vira
+	Fecha_fin_vira
+	Hora_fin_vira
+	Prof_fin_vira
+	Lat_fin_vira
+	Lon_fin_vira
+	Canastos_proc
+	Cluster_por_canasto
+	Comentarios
+
+Especies
+	ID
+	cod_rapido
+	cod_inidep
+	nombre_cientifico
+	nombre_vulgar
+	es_objetivo
+
+ByCatch
+	ID
+	Lance
+	Especie
+	Nro
+	Peso
+
+Muestra
+	ID
+	Lance
+	Comentarios
+
+Det_muestra
+	ID
+	Muestra
+	Nro_ej
+	Especie
+	Largo
+	Sexo
+	Caparazon
+	Huevos
+	Porcent_huevos
+	hay_epibiontes?
+	dsc_epibiontes
+	hay_parasitos?
+	dsc_parasitos
+
+Submuestra
+	ID
+	Marea
+	Especie
+
+Det_submuestra
+	ID
+	Muestra
+	Nro_ej
+	Especie
+	Largo
+	Sexo
+	Caparazon
+	Huevos
+	Porcent_huevos
+	Peso
+	hay_epibiontes?
+	dsc_epibiontes
+	hay_parasitos?
+	dsc_parasitos
+
+Categorias
+	ID
+	Marea
+	Cod
+	Descripcion
+	Manchas 0=sin, 1=pocas, 2=muchas
+	Rotos?
+	Talla_Min
+	Talla_Max
+	Peso_Min
+	Peso_Max
+	Porc_Carne_Min
+	Porc_Carne_Max
+
+Capturas
+	ID
+	Lance
+	nro_trampa
+	especie1
+	tot1
+	com1
+	especie2
+	tot2
+	com2
+	especie3
+	tot3
+	com3
+	tipo_trampa
+	estado_trampa
+	estado_puerta
+	
+codigos_caparazon
+	ID
+	codigo
+	descripcion
+	
+codigos_huevos
+	ID
+	codigo
+	descripcion
+
+

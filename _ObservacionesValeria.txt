@@ -1,0 +1,19 @@
+
+Hola a todos
+ Hola Daniel
+ Te paso algunas cosas de las que fui anotando, fijate si se entiende y hablalo con jorge y asi van viendo.
+ No se bien de donde toma la cantidad de trampas, en el excell creo que esta bien ,que las toma de los datos del puente, en el txt me parece que no y que toma el nro de orden de la captura por trampa, tendria que sumar la cantidad, no se si me explico. si cargo 70 trampas una por una y despues 70 juntas no observadas, creo que toma 71 que es el nro de orden y no la suma de todas.
+ Lo que te decia en la carga de captura por trampa, estaria bueno que este la opcion de tipo de trampas abajo de cantidad y estado, para darle los enter de corrido, y si se puede que si en el puente cargas linea con 3 anillos por ejemplo, que ya quede con tres anillos como predeterminado pero si se pone trampas mezcladas ahi si que se cambie, es dificil explicarlo escribiendo!!
+ Y que en el excell aparezca el tipo de trampa en la cap x tr. no solo el codigo, por que si lo cambian es un lio despues.
+ Lo de la salida que habiamos hablado tambien, que este la opcion de que sea txt ( tal ves un poco mas completo) o excell para los barcos que no hay problemas con que sea un poco mas pesado el mail.
+ En el txt no se si toma bien el nro de lance, eso habria que chequearlo, la primer marea me parecio que algunos los puso distintos.
+ Que en la captura por trampa, cuando pones no observadas que no deje cargar captura, por que se presta a dedazos.
+ Cuando calcula la velocidad de largada da como error a partir de 5 nudos creo, a veces es mayor la velocidad de largada, aca llegan a 5,5 nudos a veces un poco mas.
+ Cuando borro un registro en la captura por trampa desaparece ese nro de orden puede ser?
+ Estos son algunas las otras son detalles minimos que los vemos despues, como veras estos tampoco son cosas graves pero ya que estamos lo dejamos divino jaja
+ Hablalo con jorge y cualquier cosa lo vemos a tu vuelta o a mi vuelta ya que no se si se entiende asi, me cuesta hablando imaginate escribiendo jaja
+ Que tengas buena marea!
+ Gracias de nuevo
+ Abrazos a todos
+ Vale
+

@@ -1,0 +1,10 @@
+inherited fmLineas: TfmLineas
+  Caption = 'Líneas'
+  inherited paBase: TPanel
+    inherited paComando: TPanel
+      inherited sbCerrar: TSpeedButton
+        Flat = False
+      end
+    end
+  end
+end

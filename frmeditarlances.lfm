@@ -1,0 +1,2629 @@
+inherited fmEditarLances: TfmEditarLances
+  Left = 290
+  Height = 461
+  Top = 131
+  Width = 732
+  Caption = 'Lances'
+  ClientHeight = 461
+  ClientWidth = 732
+  OnShow = FormShow
+  inherited paEncabezadoBase: TPanel
+    Width = 732
+    ClientWidth = 732
+    inherited paAccion: TPanel
+      Left = 617
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 602
+      Width = 15
+    end
+    inherited paEncabezado: TPanel
+      Width = 601
+      ClientWidth = 601
+      inherited dbtEncabezado: TDBText
+        Width = 761
+        DataField = 'Encabezado'
+        DataSource = dsPrincipal
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 391
+    Width = 732
+    ClientHeight = 391
+    ClientWidth = 732
+    object pcLances: TPageControl[0]
+      Left = 1
+      Height = 315
+      Top = 75
+      Width = 730
+      TabStop = False
+      ActivePage = tsCalado
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 1
+      OnChange = pcLancesChange
+      Options = [nboKeyboardTabSwitch]
+      object tsCalado: TTabSheet
+        Caption = 'Calado'
+        ClientHeight = 287
+        ClientWidth = 722
+        object gbInicioCalado: TGroupBox
+          Left = 0
+          Height = 132
+          Top = 8
+          Width = 376
+          Caption = 'Inicio del lance'
+          ClientHeight = 114
+          ClientWidth = 372
+          TabOrder = 0
+          OnExit = gbInicioCaladoExit
+          object Label16: TLabel
+            Left = 76
+            Height = 15
+            Top = 62
+            Width = 53
+            Caption = 'Lat. inicial'
+            ParentColor = False
+          end
+          object Label17: TLabel
+            Left = 157
+            Height = 15
+            Top = 62
+            Width = 64
+            Caption = 'Long. inicial'
+            ParentColor = False
+          end
+          object Label25: TLabel
+            Left = 9
+            Height = 15
+            Top = 62
+            Width = 25
+            Caption = 'Prof.'
+            ParentColor = False
+          end
+          object dbedProfIniCalado: TDBEdit
+            Left = 9
+            Height = 23
+            Hint = 'Profundidad en metros'
+            Top = 82
+            Width = 58
+            DataField = 'profundidad_ini_calado'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 1
+          end
+          object paFechaHora: TPanel
+            Left = 5
+            Height = 50
+            Top = 7
+            Width = 164
+            BevelOuter = bvNone
+            ClientHeight = 50
+            ClientWidth = 164
+            TabOrder = 0
+            object Label1: TLabel
+              Left = 4
+              Height = 15
+              Top = 0
+              Width = 31
+              Caption = 'Fecha'
+              ParentColor = False
+            end
+            object dbdtFechaIniCalado: TDBDateTimePicker
+              Left = 4
+              Height = 23
+              Hint = 'Fecha de inicio del lance'
+              Top = 19
+              Width = 83
+              DataField = 'fecha_ini_calado'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 0
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtFechaIniCaladoEnter
+            end
+            object Label2: TLabel
+              Left = 104
+              Height = 15
+              Top = 0
+              Width = 26
+              Caption = 'Hora'
+              ParentColor = False
+            end
+            object dbdtHoraIniCalado: TDtDBTimeEdit
+              Left = 104
+              Height = 23
+              Hint = 'Hora de inicio del lance'
+              Top = 19
+              Width = 51
+              CustomEditMask = True
+              DataField = 'hora_ini_calado'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              EditMask = '00:00'
+              MaxLength = 5
+              TabOrder = 1
+            end
+          end
+          object dbedLatIniCalado: TDtDBCoordEdit
+            Left = 75
+            Height = 23
+            Top = 82
+            Width = 72
+            CustomEditMask = True
+            DataField = 'lat_ini_calado'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '####.##'
+            MaxLength = 7
+            TabOrder = 2
+            CoordKind = ckLatitude
+          end
+          object dbedLongIniCalado: TDtDBCoordEdit
+            Left = 155
+            Height = 23
+            Top = 82
+            Width = 72
+            CustomEditMask = True
+            DataField = 'long_ini_calado'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '####.##'
+            MaxLength = 7
+            TabOrder = 3
+            CoordKind = ckLatitude
+          end
+        end
+        object gbComentarios: TGroupBox
+          Left = 380
+          Height = 132
+          Top = 8
+          Width = 328
+          Caption = 'Comentarios'
+          ClientHeight = 114
+          ClientWidth = 324
+          TabOrder = 2
+          object dbmComentarios: TDBMemo
+            Left = 6
+            Height = 100
+            Top = 7
+            Width = 312
+            DataField = 'comentarios_calado'
+            DataSource = dsPrincipal
+            ScrollBars = ssAutoVertical
+            TabOrder = 0
+          end
+        end
+        object gbInformacion: TGroupBox
+          Left = 384
+          Height = 132
+          Top = 148
+          Width = 328
+          Caption = 'Verificación de datos'
+          ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+          ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 114
+          ClientWidth = 324
+          TabOrder = 3
+          object Label4: TLabel
+            Left = 12
+            Height = 15
+            Top = 4
+            Width = 192
+            Caption = ' '
+            ParentColor = False
+          end
+          object Label30: TLabel
+            Left = 216
+            Height = 15
+            Top = 4
+            Width = 96
+            Alignment = taCenter
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object laDistancia: TLabel
+            Left = 12
+            Height = 15
+            Top = 23
+            Width = 192
+            Caption = 'Distancia recorrida en millas:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtDistCalado: TDBText
+            Left = 216
+            Height = 15
+            Top = 23
+            Width = 96
+            Alignment = taCenter
+            DataField = 'DistCalado'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object laVelocidad: TLabel
+            Left = 12
+            Height = 15
+            Top = 42
+            Width = 192
+            Caption = 'Velocidad promedio:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtVelocCalado: TDBText
+            Left = 216
+            Height = 15
+            Top = 42
+            Width = 96
+            Alignment = taCenter
+            DataField = 'VelocCalado'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object laTiempo: TLabel
+            Left = 12
+            Height = 15
+            Top = 61
+            Width = 192
+            Caption = 'Duración del recorrido:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtTiempoCalado: TDBText
+            Left = 216
+            Height = 15
+            Top = 61
+            Width = 96
+            Alignment = taCenter
+            DataField = 'TiempoCalado'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object laDistTrampas: TLabel
+            Left = 12
+            Height = 15
+            Top = 80
+            Width = 192
+            Caption = 'Distancia promedio entre trampas:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtDistTrampas: TDBText
+            Left = 216
+            Height = 15
+            Top = 80
+            Width = 96
+            Alignment = taCenter
+            DataField = 'dist_trampas_prom_calado'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object Label34: TLabel
+            Left = 12
+            Height = 15
+            Top = 99
+            Width = 192
+            Caption = ' '
+            ParentColor = False
+          end
+        end
+        object gbFinCalado: TGroupBox
+          Left = 0
+          Height = 132
+          Top = 148
+          Width = 376
+          Caption = 'Finalización del lance'
+          ClientHeight = 114
+          ClientWidth = 372
+          TabOrder = 1
+          object Label21: TLabel
+            Left = 9
+            Height = 15
+            Top = 61
+            Width = 45
+            Caption = 'Lat. final'
+            ParentColor = False
+          end
+          object Label22: TLabel
+            Left = 85
+            Height = 15
+            Top = 61
+            Width = 56
+            Caption = 'Long. final'
+            ParentColor = False
+          end
+          object Label27: TLabel
+            Left = 169
+            Height = 15
+            Top = 7
+            Width = 25
+            Caption = 'Prof.'
+            ParentColor = False
+          end
+          object dbedProfFinCalado: TDBEdit
+            Left = 169
+            Height = 23
+            Hint = 'Profundidad en metros'
+            Top = 27
+            Width = 58
+            DataField = 'profundidad_fin_calado'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 1
+          end
+          object paFechaHora1: TPanel
+            Left = 5
+            Height = 50
+            Top = 7
+            Width = 164
+            BevelOuter = bvNone
+            ClientHeight = 50
+            ClientWidth = 164
+            TabOrder = 0
+            object Label3: TLabel
+              Left = 4
+              Height = 15
+              Top = 0
+              Width = 31
+              Caption = 'Fecha'
+              ParentColor = False
+            end
+            object dbdtFechaFinCalado: TDBDateTimePicker
+              Left = 4
+              Height = 23
+              Hint = 'Fecha de finalización del lance'
+              Top = 19
+              Width = 83
+              DataField = 'fecha_fin_calado'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 0
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtFechaFinCaladoEnter
+            end
+            object Label10: TLabel
+              Left = 104
+              Height = 15
+              Top = 0
+              Width = 26
+              Caption = 'Hora'
+              ParentColor = False
+            end
+            object dbdtHoraFinCalado: TDtDBTimeEdit
+              Left = 104
+              Height = 23
+              Hint = 'Hora de finalización del lance'
+              Top = 19
+              Width = 51
+              CustomEditMask = True
+              DataField = 'hora_fin_calado'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              EditMask = '00:00'
+              MaxLength = 5
+              TabOrder = 1
+            end
+          end
+          object dbedLatFinCalado: TDtDBCoordEdit
+            Left = 8
+            Height = 23
+            Top = 81
+            Width = 72
+            CustomEditMask = True
+            DataField = 'lat_fin_calado'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '####.##'
+            MaxLength = 7
+            TabOrder = 2
+            CoordKind = ckLatitude
+          end
+          object dbedLongFinCalado: TDtDBCoordEdit
+            Left = 87
+            Height = 23
+            Top = 80
+            Width = 72
+            CustomEditMask = True
+            DataField = 'long_fin_calado'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '####.##'
+            MaxLength = 7
+            TabOrder = 3
+            CoordKind = ckLatitude
+          end
+        end
+      end
+      object tsVirada: TTabSheet
+        Caption = '&Virada'
+        ClientHeight = 289
+        ClientWidth = 722
+        object gbDatosInicio2: TGroupBox
+          Left = 0
+          Height = 132
+          Top = 8
+          Width = 376
+          Caption = 'Inicio del lance'
+          ClientHeight = 114
+          ClientWidth = 372
+          TabOrder = 0
+          OnExit = gbDatosInicio2Exit
+          object Label23: TLabel
+            Left = 75
+            Height = 15
+            Top = 62
+            Width = 53
+            Caption = 'Lat. inicial'
+            ParentColor = False
+          end
+          object Label24: TLabel
+            Left = 156
+            Height = 15
+            Top = 62
+            Width = 64
+            Caption = 'Long. inicial'
+            ParentColor = False
+          end
+          object Label28: TLabel
+            Left = 9
+            Height = 15
+            Top = 62
+            Width = 25
+            Caption = 'Prof.'
+            ParentColor = False
+          end
+          object dbedProfIniVirada: TDBEdit
+            Left = 9
+            Height = 23
+            Hint = 'Profundidad en metros'
+            Top = 82
+            Width = 58
+            CustomEditMask = True
+            DataField = 'profundidad_ini_virada'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 1
+          end
+          object paFechaHora2: TPanel
+            Left = 5
+            Height = 50
+            Top = 7
+            Width = 164
+            BevelOuter = bvNone
+            ClientHeight = 50
+            ClientWidth = 164
+            TabOrder = 0
+            object Label11: TLabel
+              Left = 4
+              Height = 15
+              Top = 0
+              Width = 31
+              Caption = 'Fecha'
+              ParentColor = False
+            end
+            object dbdtFechaIniVirada: TDBDateTimePicker
+              Left = 4
+              Height = 23
+              Hint = 'Fecha de inicio de la virada'
+              Top = 19
+              Width = 83
+              DataField = 'fecha_ini_virada'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 0
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtFechaIniViradaEnter
+            end
+            object Label12: TLabel
+              Left = 104
+              Height = 15
+              Top = 0
+              Width = 26
+              Caption = 'Hora'
+              ParentColor = False
+            end
+            object dbdtHoraIniVirada: TDtDBTimeEdit
+              Left = 104
+              Height = 23
+              Hint = 'Hora de inicio dela virada'
+              Top = 19
+              Width = 51
+              CustomEditMask = True
+              DataField = 'hora_ini_virada'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              EditMask = '00:00'
+              MaxLength = 5
+              TabOrder = 1
+            end
+          end
+          object dbedLatIniVirada: TDtDBCoordEdit
+            Left = 74
+            Height = 23
+            Top = 82
+            Width = 72
+            CustomEditMask = True
+            DataField = 'lat_ini_virada'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '####.##'
+            MaxLength = 7
+            TabOrder = 2
+            CoordKind = ckLatitude
+          end
+          object dbedLongIniVirada: TDtDBCoordEdit
+            Left = 154
+            Height = 23
+            Top = 82
+            Width = 72
+            CustomEditMask = True
+            DataField = 'long_ini_virada'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '####.##'
+            MaxLength = 7
+            TabOrder = 3
+            CoordKind = ckLatitude
+          end
+        end
+        object gbDatosInicio3: TGroupBox
+          Left = 0
+          Height = 132
+          Top = 148
+          Width = 376
+          Caption = 'Finalización del lance'
+          ClientHeight = 114
+          ClientWidth = 372
+          TabOrder = 1
+          object Label31: TLabel
+            Left = 9
+            Height = 15
+            Top = 60
+            Width = 45
+            Caption = 'Lat. final'
+            ParentColor = False
+          end
+          object Label32: TLabel
+            Left = 79
+            Height = 15
+            Top = 60
+            Width = 56
+            Caption = 'Long. final'
+            ParentColor = False
+          end
+          object Label33: TLabel
+            Left = 168
+            Height = 15
+            Top = 5
+            Width = 25
+            Caption = 'Prof.'
+            ParentColor = False
+          end
+          object dbedProfFinVirada: TDBEdit
+            Left = 168
+            Height = 23
+            Hint = 'Profundidad en metros'
+            Top = 25
+            Width = 55
+            DataField = 'profundidad_fin_virada'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 1
+          end
+          object paFechaHora3: TPanel
+            Left = 5
+            Height = 50
+            Top = 7
+            Width = 162
+            BevelOuter = bvNone
+            ClientHeight = 50
+            ClientWidth = 162
+            TabOrder = 0
+            object Label13: TLabel
+              Left = 4
+              Height = 15
+              Top = 0
+              Width = 31
+              Caption = 'Fecha'
+              ParentColor = False
+            end
+            object dbdtFechaFinVirada: TDBDateTimePicker
+              Left = 4
+              Height = 23
+              Hint = 'Fecha de finalización de la virada'
+              Top = 19
+              Width = 83
+              DataField = 'fecha_fin_virada'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 0
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtFechaFinViradaEnter
+            end
+            object Label14: TLabel
+              Left = 104
+              Height = 15
+              Top = 0
+              Width = 26
+              Caption = 'Hora'
+              ParentColor = False
+            end
+            object dbdtHoraFinVirada: TDtDBTimeEdit
+              Left = 104
+              Height = 23
+              Hint = 'Hora de finalización de la virada'
+              Top = 19
+              Width = 51
+              CustomEditMask = True
+              DataField = 'hora_fin_virada'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              EditMask = '00:00'
+              MaxLength = 5
+              TabOrder = 1
+            end
+          end
+          object Label40: TLabel
+            Left = 150
+            Height = 15
+            Top = 60
+            Width = 48
+            Caption = 'Canastos'
+            ParentColor = False
+          end
+          object dbedCanastos: TDBEdit
+            Left = 150
+            Height = 23
+            Hint = 'Cantidad de canastos producidos'
+            Top = 80
+            Width = 70
+            DataField = 'canastos_procesados'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 4
+          end
+          object Label41: TLabel
+            Left = 226
+            Height = 15
+            Top = 60
+            Width = 64
+            Caption = 'Cluster/can.'
+            ParentColor = False
+          end
+          object dbedClusterCanasto: TDBEdit
+            Left = 226
+            Height = 23
+            Hint = 'Cantidad promedio de clusters por canasto'
+            Top = 80
+            Width = 70
+            DataField = 'cluster_por_canasto'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            MaxLength = 0
+            TabOrder = 5
+          end
+          object dbedLatFinVirada: TDtDBCoordEdit
+            Left = 9
+            Height = 23
+            Top = 80
+            Width = 65
+            CustomEditMask = True
+            DataField = 'lat_fin_virada'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '####.##'
+            MaxLength = 7
+            TabOrder = 2
+            CoordKind = ckLatitude
+          end
+          object dbedLongFinVirada: TDtDBCoordEdit
+            Left = 79
+            Height = 23
+            Top = 80
+            Width = 65
+            CustomEditMask = True
+            DataField = 'long_fin_virada'
+            DataSource = dsPrincipal
+            CharCase = ecNormal
+            EditMask = '####.##'
+            MaxLength = 7
+            TabOrder = 3
+            CoordKind = ckLatitude
+          end
+        end
+        object gbComentarios1: TGroupBox
+          Left = 380
+          Height = 132
+          Top = 8
+          Width = 328
+          Caption = 'Comentarios'
+          ClientHeight = 114
+          ClientWidth = 324
+          TabOrder = 2
+          object dbmComentarios1: TDBMemo
+            Left = 6
+            Height = 100
+            Top = 7
+            Width = 312
+            DataField = 'comentarios_virada'
+            DataSource = dsPrincipal
+            ScrollBars = ssAutoVertical
+            TabOrder = 0
+          end
+        end
+        object gbInformacion1: TGroupBox
+          Left = 384
+          Height = 132
+          Top = 148
+          Width = 328
+          Caption = 'Verificación de datos'
+          ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+          ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 114
+          ClientWidth = 324
+          TabOrder = 3
+          object Label5: TLabel
+            Left = 14
+            Height = 15
+            Top = 4
+            Width = 192
+            Caption = ' '
+            ParentColor = False
+          end
+          object Label36: TLabel
+            Left = 220
+            Height = 15
+            Top = 4
+            Width = 92
+            Alignment = taCenter
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object laDistancia1: TLabel
+            Left = 14
+            Height = 15
+            Top = 23
+            Width = 192
+            Caption = 'Distancia recorrida en millas:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtDistVirada: TDBText
+            Left = 220
+            Height = 15
+            Top = 23
+            Width = 92
+            Alignment = taCenter
+            DataField = 'DistVirada'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object laVelocidad1: TLabel
+            Left = 14
+            Height = 15
+            Top = 42
+            Width = 192
+            Caption = 'Velocidad promedio:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtVelocVirada: TDBText
+            Left = 220
+            Height = 15
+            Top = 42
+            Width = 92
+            Alignment = taCenter
+            DataField = 'VelocVirada'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object laTiempo1: TLabel
+            Left = 14
+            Height = 15
+            Top = 61
+            Width = 192
+            Caption = 'Duración del recorrido:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtTiempoVirada: TDBText
+            Left = 220
+            Height = 15
+            Top = 61
+            Width = 92
+            Alignment = taCenter
+            DataField = 'TiempoVirada'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object laDistTrampas2: TLabel
+            Left = 14
+            Height = 15
+            Top = 80
+            Width = 192
+            Caption = 'Distancia promedio entre trampas:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtDistTrampas2: TDBText
+            Left = 220
+            Height = 15
+            Top = 80
+            Width = 92
+            Alignment = taCenter
+            DataField = 'dist_trampas_prom_virada'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
+          object Label37: TLabel
+            Left = 14
+            Height = 15
+            Top = 99
+            Width = 192
+            Caption = ' '
+            ParentColor = False
+          end
+        end
+      end
+    end
+    object Panel1: TPanel[1]
+      Left = 1
+      Height = 74
+      Top = 1
+      Width = 730
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 74
+      ClientWidth = 730
+      TabOrder = 0
+      object Label18: TLabel
+        Left = 8
+        Height = 15
+        Top = 5
+        Width = 45
+        Caption = 'Nº lance'
+        ParentColor = False
+      end
+      object Label8: TLabel
+        Left = 62
+        Height = 15
+        Top = 5
+        Width = 41
+        Caption = 'Id. línea'
+        ParentColor = False
+      end
+      object Label19: TLabel
+        Left = 115
+        Height = 15
+        Top = 5
+        Width = 44
+        Caption = 'Carnada'
+        ParentColor = False
+      end
+      object dblkCarnada: TDBLookupComboBox
+        Left = 115
+        Height = 23
+        Top = 25
+        Width = 170
+        AutoComplete = True
+        DataField = 'descripcion'
+        DataSource = dsPrincipal
+        ListFieldIndex = 0
+        LookupCache = False
+        TabOrder = 1
+      end
+      object Label20: TLabel
+        Left = 360
+        Height = 15
+        Top = 5
+        Width = 62
+        Caption = 'Dist. e/tpas.'
+        ParentColor = False
+      end
+      object dbedDistTpas: TDBEdit
+        Left = 360
+        Height = 23
+        Hint = 'Distancia entre trampas'
+        Top = 25
+        Width = 64
+        DataField = 'distancia_entre_trampas'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        Enabled = False
+        MaxLength = 0
+        TabOrder = 3
+      end
+      object DBCheckBox1: TDBCheckBox
+        Left = 10
+        Height = 23
+        Hint = '¿Es un lance de prospección?'
+        Top = 50
+        Width = 90
+        Caption = 'Prospección'
+        DataField = 'prospeccion'
+        DataSource = dsPrincipal
+        Enabled = False
+        TabOrder = 7
+        ValueChecked = '1'
+        ValueUnchecked = '0'
+      end
+      object DBCheckBox2: TDBCheckBox
+        Left = 115
+        Height = 23
+        Hint = '¿Es una línea de investigación?'
+        Top = 50
+        Width = 90
+        Caption = 'Investigación'
+        DataField = 'investigacion'
+        DataSource = dsPrincipal
+        Enabled = False
+        TabOrder = 8
+        ValueChecked = '1'
+        ValueUnchecked = '0'
+      end
+      object dbedKgCarnada: TDBEdit
+        Left = 287
+        Height = 23
+        Hint = 'Kg. de carnada en cada trampa'
+        Top = 25
+        Width = 68
+        DataField = 'kg_carnada'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        Enabled = False
+        MaxLength = 0
+        TabOrder = 2
+      end
+      object Label29: TLabel
+        Left = 287
+        Height = 15
+        Top = 5
+        Width = 64
+        Caption = 'Kg. Carnada'
+        ParentColor = False
+      end
+      object Label6: TLabel
+        Left = 430
+        Height = 15
+        Top = 5
+        Width = 39
+        Caption = 'Rumbo'
+        ParentColor = False
+      end
+      object dbedRumbo: TDBEdit
+        Left = 430
+        Height = 23
+        Hint = 'Rumbo de arrastre en grados'
+        Top = 25
+        Width = 42
+        DataField = 'rumbo_calado'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 4
+      end
+      object Label26: TLabel
+        Left = 475
+        Height = 15
+        Top = 5
+        Width = 72
+        Caption = 'Tpas. Caladas'
+        ParentColor = False
+      end
+      object dbedTrampasCaladas: TDBEdit
+        Left = 477
+        Height = 23
+        Hint = 'Número de trampas caladas'
+        Top = 25
+        Width = 73
+        DataField = 'cant_trampas_caladas'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 5
+      end
+      object dbedBoya: TDBEdit
+        Left = 62
+        Height = 23
+        Hint = 'Número de boya. Sólo se muestran líneas no caladas. Si no la encuentra aquí, verifique si falra registrar la virada de dicha línea'
+        Top = 25
+        Width = 48
+        DataField = 'nro_boya'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 0
+        OnExit = dbedBoyaExit
+      end
+      object Label35: TLabel
+        Left = 555
+        Height = 15
+        Top = 5
+        Width = 86
+        Caption = 'Tipo de trampas'
+        ParentColor = False
+      end
+      object dblkTipoTrampas: TDBLookupComboBox
+        Left = 556
+        Height = 23
+        Top = 25
+        Width = 165
+        AutoComplete = True
+        DataField = 'cod_desc'
+        DataSource = dsPrincipal
+        ListFieldIndex = 0
+        LookupCache = False
+        TabOrder = 6
+      end
+      object Panel2: TPanel
+        Left = 10
+        Height = 23
+        Top = 25
+        Width = 45
+        BevelOuter = bvNone
+        BorderStyle = bsSingle
+        ClientHeight = 19
+        ClientWidth = 41
+        TabOrder = 9
+        object dbedNroLance: TDBText
+          Left = 0
+          Height = 15
+          Hint = 'Número de lance'
+          Top = 2
+          Width = 37
+          Alignment = taRightJustify
+          AutoSize = False
+          DataField = 'orden_virada'
+          DataSource = dsPrincipal
+          ParentColor = False
+        end
+      end
+    end
+  end
+  inherited paControles: TPanel
+    Top = 425
+    Width = 732
+    ClientWidth = 732
+    inherited bbCancelar: TBitBtn
+      Left = 550
+      Height = 24
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 638
+      Height = 24
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 148
+    top = 400
+  end
+  inherited zqPrincipal: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqPrincipalBeforeOpen
+    AfterOpen = zqPrincipalAfterOpen
+    OnCalcFields = zqPrincipalCalcFields
+    OnNewRecord = zqPrincipalNewRecord
+    SQL.Strings = (
+      'SELECT *'
+      'FROM lances'
+      'WHERE idlance=:Id'
+    )
+    left = 70
+    top = 400
+    object zqPrincipalidlance: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidmarea: TLongintField[1]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalnro_lance: TLongintField[2]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_lance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalprospeccion: TSmallintField[3]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'prospeccion'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalinvestigacion: TSmallintField[4]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'investigacion'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalidcarnada: TLongintField[5]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcarnada'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalkg_carnada: TFloatField[6]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kg_carnada'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqPrincipalrumbo_calado: TLongintField[7]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'rumbo_calado'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnValidate = zqPrincipalrumbo_caladoValidate
+      DisplayFormat = '000'
+    end
+    object zqPrincipalfecha_ini_calado: TDateField[8]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_calado'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalhora_ini_calado: TTimeField[9]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_calado'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'hh:mm'
+      EditMask = '00:00'
+    end
+    object zqPrincipalprofundidad_ini_calado: TLongintField[10]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_calado'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnValidate = zqPrincipalprofundidad_ini_caladoValidate
+    end
+    object zqPrincipallat_ini_calado: TFloatField[11]
+      CustomConstraint = 'lat_ini_calado<10'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_calado'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipallong_ini_calado: TFloatField[12]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_calado'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipalfecha_fin_calado: TDateField[13]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_calado'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalhora_fin_calado: TTimeField[14]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_calado'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = 'hh:mm'
+      EditMask = '00:00'
+    end
+    object zqPrincipalprofundidad_fin_calado: TLongintField[15]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_calado'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnValidate = zqPrincipalprofundidad_fin_caladoValidate
+    end
+    object zqPrincipallat_fin_calado: TFloatField[16]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_calado'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipallong_fin_calado: TFloatField[17]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_calado'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipalcant_trampas_caladas: TLongintField[18]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas_caladas'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalfecha_ini_virada: TDateField[19]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_virada'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalhora_ini_virada: TTimeField[20]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_virada'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'hh:mm'
+      EditMask = '00:00'
+    end
+    object zqPrincipalprofundidad_ini_virada: TLongintField[21]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_virada'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnValidate = zqPrincipalprofundidad_ini_viradaValidate
+    end
+    object zqPrincipallat_ini_virada: TFloatField[22]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_virada'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipallong_ini_virada: TFloatField[23]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_virada'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipalfecha_fin_virada: TDateField[24]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_virada'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalhora_fin_virada: TTimeField[25]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_virada'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'hh:mm'
+      EditMask = '00:00'
+    end
+    object zqPrincipalprofundidad_fin_virada: TLongintField[26]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_virada'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnValidate = zqPrincipalprofundidad_fin_viradaValidate
+    end
+    object zqPrincipallat_fin_virada: TFloatField[27]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_virada'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipallong_fin_virada: TFloatField[28]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_virada'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqPrincipalcanastos_procesados: TLongintField[29]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'canastos_procesados'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalcluster_por_canasto: TLongintField[30]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_por_canasto'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalcod_estado_mar: TLongintField[31]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_estado_mar'
+      Index = 31
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalnudos_viento: TLongintField[32]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nudos_viento'
+      Index = 32
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipaldireccion_viento: TLongintField[33]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'direccion_viento'
+      Index = 33
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalcomentarios_calado: TStringField[34]
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_calado'
+      Index = 34
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqPrincipalcomentarios_virada: TStringField[35]
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_virada'
+      Index = 35
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqPrincipalenviado: TSmallintField[36]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'enviado'
+      Index = 36
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalEncabezado: TStringField[37]
+      DisplayWidth = 100
+      FieldKind = fkCalculated
+      FieldName = 'Encabezado'
+      Index = 37
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object zqPrincipalDistCalado: TFloatField[38]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'DistCalado'
+      Index = 38
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00 mn'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalDistVirada: TFloatField[39]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'DistVirada'
+      Index = 39
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00 mn'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalTiempoCalado: TFloatField[40]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'TiempoCalado'
+      Index = 40
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0 min'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalTiempoVirada: TFloatField[41]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'TiempoVirada'
+      Index = 41
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0 min'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalVelocCalado: TFloatField[42]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'VelocCalado'
+      Index = 42
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00 nudos'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalVelocVirada: TFloatField[43]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'VelocVirada'
+      Index = 43
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00 nudos'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipaldist_trampas_prom_calado: TFloatField[44]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'dist_trampas_prom_calado'
+      Index = 44
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0 m'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipaldist_trampas_prom_virada: TFloatField[45]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'dist_trampas_prom_virada'
+      Index = 45
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0 m'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalidtipo_trampa: TLongintField[46]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_trampa'
+      Index = 46
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalnro_boya: TLongintField[47]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_boya'
+      Index = 47
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      OnValidate = zqPrincipalnro_boyaValidate
+    end
+    object zqPrincipalnro_linea: TLongintField[48]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_linea'
+      Index = 48
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipaldistancia_entre_trampas: TLongintField[49]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'distancia_entre_trampas'
+      Index = 49
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object StringField1: TStringField[50]
+      DisplayWidth = 180
+      FieldKind = fkLookup
+      FieldName = 'descripcion'
+      Index = 50
+      KeyFields = 'idcarnada'
+      LookupCache = False
+      LookupDataSet = zqCarnadas
+      LookupKeyFields = 'idcarnada'
+      LookupResultField = 'descripcion'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object StringField2: TStringField[51]
+      DisplayWidth = 1136
+      FieldKind = fkLookup
+      FieldName = 'cod_desc'
+      Index = 51
+      KeyFields = 'idtipo_trampa'
+      LookupCache = False
+      LookupDataSet = zqTiposTrampa
+      LookupKeyFields = 'idtipo_trampa'
+      LookupResultField = 'cod_desc'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1136
+    end
+    object LargeintField1: TLargeintField[52]
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'orden_virada'
+      Index = 52
+      KeyFields = 'idlance'
+      LookupCache = False
+      LookupDataSet = zqOrdenVirada
+      LookupKeyFields = 'idlance'
+      LookupResultField = 'orden_virada'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    AltaContinua = True
+    ControlInicial = dbedBoya
+    OnValidateForm = zcePrincipalValidateForm
+    left = 216
+    top = 400
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    DatasetsComplementarios = <    
+      item
+      end    
+      item
+        Dataset = zqCarnadas
+      end    
+      item
+        Dataset = zqProxLance
+      end    
+      item
+        Dataset = zqAntLance
+      end    
+      item
+        Dataset = zqDatosLineas
+      end    
+      item
+        Dataset = zqOrdenVirada
+      end>
+    left = 24
+    top = 400
+  end
+  object zqCarnadas: TZQuery[8]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqCarnadasBeforeOpen
+    SQL.Strings = (
+      'SELECT * '
+      'FROM carnadas'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY descripcion'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 320
+    top = 400
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqCarnadasidcarnada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcarnada'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCarnadasidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCarnadasdescripcion: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 180
+    end
+  end
+  object zqAntLance: TZQuery[9]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqAntLanceBeforeOpen
+    SQL.Strings = (
+      'SELECT *'
+      'FROM'
+      '    lances'
+      'WHERE'
+      '    idmarea = :idmarea AND nro_lance < :nro_lance'
+      'ORDER BY nro_lance DESC'
+      'LIMIT 1'
+      ''
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'nro_lance'
+        ParamType = ptUnknown
+      end>
+    left = 390
+    top = 400
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'nro_lance'
+        ParamType = ptUnknown
+      end>
+    object zqAntLanceidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLanceidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLancenro_lance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_lance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLanceprospeccion: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'prospeccion'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLanceinvestigacion: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'investigacion'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLanceidcarnada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcarnada'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLancekg_carnada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kg_carnada'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqAntLancerumbo_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'rumbo_calado'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancefecha_ini_calado: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_calado'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLancehora_ini_calado: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_calado'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLanceprofundidad_ini_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_calado'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancelat_ini_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_calado'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqAntLancelong_ini_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_calado'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqAntLancefecha_fin_calado: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_calado'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLancehora_fin_calado: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_calado'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLanceprofundidad_fin_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_calado'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancelat_fin_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_calado'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqAntLancelong_fin_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_calado'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqAntLancecant_trampas_caladas: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas_caladas'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLancefecha_ini_virada: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_virada'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancehora_ini_virada: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_virada'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLanceprofundidad_ini_virada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_virada'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancelat_ini_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_virada'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqAntLancelong_ini_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_virada'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqAntLancefecha_fin_virada: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_virada'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancehora_fin_virada: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_virada'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLanceprofundidad_fin_virada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_virada'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancelat_fin_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_virada'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqAntLancelong_fin_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_virada'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqAntLancecanastos_procesados: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'canastos_procesados'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancecluster_por_canasto: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_por_canasto'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancecod_estado_mar: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_estado_mar'
+      Index = 31
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancenudos_viento: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nudos_viento'
+      Index = 32
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancedireccion_viento: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'direccion_viento'
+      Index = 33
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntLancecomentarios_calado: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_calado'
+      Index = 34
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqAntLancecomentarios_virada: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_virada'
+      Index = 35
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqAntLanceenviado_calado: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'enviado_calado'
+      Index = 36
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntLanceenviado_virado: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'enviado_virado'
+      Index = 37
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object zqProxLance: TZQuery[10]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqProxLanceBeforeOpen
+    SQL.Strings = (
+      'SELECT COALESCE(MAX(nro_lance),0)+1 AS prox_lance'
+      'FROM lances'
+      'WHERE idmarea=:idmarea'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 460
+    top = 400
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqProxLanceprox_lance: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'prox_lance'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+  end
+  object zqDatosLineas: TZQuery[11]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqDatosLineasBeforeOpen
+    SQL.Strings = (
+      'SELECT *,'
+      'IF ((SELECT nro_boya FROM lances WHERE idlance=:idlance)=:nro_boya,0,calada) as calada2'
+      ''
+      'FROM v_datos_lineas vl'
+      'WHERE idmarea=:idmarea'
+      'AND nro_boya=:nro_boya'
+      'ORDER BY nro_boya'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idlance'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'nro_boya'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 272
+    top = 355
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idlance'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'nro_boya'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqDatosLineasidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDatosLineasnro_boya: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_boya'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDatosLineasnro_linea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_linea'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDatosLineasidtipo_trampa: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_trampa'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDatosLineasdistancia_entre_trampas: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'distancia_entre_trampas'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDatosLineascant_trampas: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDatosLineasinvestigacion: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'investigacion'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDatosLineascalada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'calada'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDatosLineascalada2: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'calada2'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+  end
+  object zqTiposTrampa: TZQuery[12]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT tt.*, CONCAT(tt.codigo, '' - '',tt.descripcion) as cod_desc'
+      'FROM v_tipos_trampa tt'
+      'ORDER BY RIGHT(CONCAT(''000'',TRIM(codigo)),4)'
+    )
+    Params = <>
+    left = 180
+    top = 370
+    object zqTiposTrampaidtipo_trampa: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_trampa'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqTiposTrampacodigo: TStringField
+      DisplayWidth = 20
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqTiposTrampadescripcion: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqTiposTrampacant_aros: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_aros'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqTiposTrampacod_desc: TStringField
+      DisplayWidth = 212
+      FieldKind = fkData
+      FieldName = 'cod_desc'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      Size = 212
+    end
+  end
+  object zqOrdenVirada: TZQuery[13]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqOrdenViradaBeforeOpen
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_lances_orden_virada'
+      'WHERE idmarea=:idmarea'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 215
+    top = 370
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqOrdenViradaidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqOrdenViradaidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqOrdenViradaorden_virada: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'orden_virada'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+end

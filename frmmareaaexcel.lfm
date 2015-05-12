@@ -1,0 +1,852 @@
+object fmMareaAExcel: TfmMareaAExcel
+  Left = 450
+  Height = 331
+  Top = 211
+  Width = 406
+  BorderStyle = bsSingle
+  Caption = 'Informe en MS-Excel'
+  ClientHeight = 331
+  ClientWidth = 406
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '1.3'
+  object Label1: TLabel
+    Left = 65
+    Height = 50
+    Top = 5
+    Width = 270
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Generación de planilla MS-Excel para presentación de informe final'
+    Font.Height = -16
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    WordWrap = True
+  end
+  object Label4: TLabel
+    Left = 10
+    Height = 15
+    Top = 280
+    Width = 104
+    Caption = 'Destino del archivo:'
+    ParentColor = False
+  end
+  object dedCarpetaPlanilla: TDirectoryEdit
+    Left = 10
+    Height = 23
+    Top = 297
+    Width = 305
+    OnAcceptDirectory = dedCarpetaPlanillaAcceptDirectory
+    ShowHidden = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    TabOrder = 0
+    OnChange = dedCarpetaPlanillaChange
+    OnExit = dedCarpetaPlanillaExit
+  end
+  object bbGuardar: TBitBtn
+    Left = 315
+    Height = 26
+    Top = 297
+    Width = 84
+    Action = acGenerarPlanilla
+    Glyph.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001F1F
+      252F1D1D1FEC1C1B1EFF757575FF787878FF787878FF787878FF787878FF7878
+      78FF787878FF1A191BFF19191BFF1D1C1FFF1F1F21EFFFFFFF00FFFFFF002222
+      24ED2A2A2DFF323135FF8B8A8BFF29282BFF201F21FF909090FF909090FF9090
+      90FF909090FF343336FF201F21FF4E4D51FF212023FFFFFFFF00FFFFFF002524
+      26FF39383BFF39383BFF999999FF323134FF262528FF9F9F9FFF9F9F9FFF9F9F
+      9FFF9F9F9FFF3F3E41FF252426FF58575AFF252426FFFFFFFF00FFFFFF002A29
+      2BFF403F42FF403F42FFA7A7A7FF3D3C3FFF333335FFAEAEAEFFAEAEAEFFAEAE
+      AEFFAEAEAEFF414042FF272728FF444346FF2A292BFFFFFFFF00FFFFFF002E2D
+      30FF464549FF464549FFCDCDCDFFD6D6D6FFD5D5D6FFD5D5D5FFD6D6D6FFD6D6
+      D6FFD3D3D3FF272629FF242326FF464549FF2E2D30FFFFFFFF00FFFFFF003130
+      32FF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A
+      4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF313032FFFFFFFF00FFFFFF003333
+      35FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF4F4E
+      51FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF333335FFFFFFFF00FFFFFF003635
+      37FF535254FFE8DED4FFE8DDD0FFE8DDD0FFE8DDD0FFE7DCD0FFE7DCCFFFE7DB
+      CFFFE6DBCEFFE6DACDFFE6DACFFF535254FF363537FFFFFFFF00FFFFFF003837
+      39FF565557FFF1EAE2FFB8A28BFFB8A28BFFB8A28BFFB8A28BFFB7A18AFFB7A1
+      8AFFB7A08AFFB6A089FFEDE5DCFF565557FF383739FFFFFFFF00FFFFFF003B3A
+      3BFF5A595BFFF7F3EEFFF7F3EFFFF7F3EFFFF7F3EFFFF7F3EEFFF6F2EEFFF6F1
+      EDFFF5F0EBFFF4EFE9FFF3EDE7FF5A595BFF3B3A3BFFFFFFFF00FFFFFF003D3C
+      3DFF5D5C5EFFFDFCFBFFFBF9F8FFFBF9F9FFFBF9F8FFFBF9F8FFFAF8F7FFFAF7
+      F5FFF9F6F4FFF8F4F2FFF9F6F2FF5D5C5EFF3D3C3DFFFFFFFF00FFFFFF003F3E
+      40FF616062FFFDFAF9FFCFB69CFFCFB69CFFCFB69CFFCFB69CFFCFB69DFFCFB7
+      9DFFD0B79EFFD0B89FFFFEFDFDFF616062FF3F3E40FFFFFFFF00FFFFFF004140
+      42FF59595AFFFAF4F1FFFAF4F0FFFAF4F0FFFAF4F0FFFAF4F1FFFAF5F2FFFBF6
+      F3FFFCF8F5FFFCF9F7FFFDFBF9FF646365FF414042FFFFFFFF00FFFFFF004B4B
+      4CEF444344FFB9B4B3FFB9B4B3FFB9B4B3FFB9B4B3FFB9B6B4FFBBB6B4FFBCB8
+      B6FFBCB9B7FFBCB9B8FFBCB9B9FF444344FF4B4B4CEFFFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+    }
+    TabOrder = 1
+  end
+  object GroupBox1: TGroupBox
+    Left = 12
+    Height = 210
+    Top = 65
+    Width = 384
+    Caption = 'Datos procesados'
+    ChildSizing.TopBottomSpacing = 10
+    ChildSizing.HorizontalSpacing = 5
+    ChildSizing.VerticalSpacing = 5
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 3
+    ClientHeight = 192
+    ClientWidth = 380
+    TabOrder = 2
+    object Label2: TLabel
+      Left = 0
+      Height = 16
+      Top = 10
+      Width = 150
+      Caption = 'Datos de puente'
+      Constraints.MaxWidth = 160
+      Constraints.MinWidth = 150
+      ParentColor = False
+    end
+    object pbPuente: TProgressBar
+      Left = 155
+      Height = 16
+      Top = 10
+      Width = 200
+      Constraints.MaxHeight = 16
+      Constraints.MinWidth = 200
+      TabOrder = 0
+    end
+    object paDatosPuente: TPanel
+      Left = 360
+      Height = 16
+      Top = 10
+      Width = 16
+      BevelOuter = bvNone
+      ClientHeight = 16
+      ClientWidth = 16
+      Constraints.MaxHeight = 16
+      Constraints.MaxWidth = 16
+      TabOrder = 6
+      object imPuente: TImage
+        Left = 0
+        Height = 16
+        Top = 0
+        Width = 16
+        Align = alClient
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B477261706869630B02000089504E47
+          0D0A1A0A0000000D4948445200000010000000100803000000282D0F53000001
+          0E504C5445FFFFFF004E00004900005500004C00004F00004D00004E00004D00
+          004B00004E00004D00004C00004D00004C00004E00004C000250020453040453
+          04035203024E02024E02024D02024802005B00136412015B010E680C17661517
+          6915156B12116B0E0E680B095F07126B10105C0D185D141756111A54121C5011
+          1C50142C842347BA0E4A8D304D7D294E822D4E8B3150AC2A54832D57C21858A0
+          42599F415B9C3F5DB22D64B15064BA3273B46476B56376BC5977C05579B8617B
+          BB667FC0687FC83582C64583C24A88C27A89BD4B89C67B8AC1578AC15B8EC460
+          8EC7448FC95C90BD6B90C16F91C56991DE3E93C67093C86A96C36C98D54799D0
+          8F99D2909AC8689ACB7B9DC96DA6D077B6EAA129ECEFA80000002B74524E5300
+          0D0E181B1D21243233343536466B6C728D9091959A9DA0A3BCD6D8DBE6E7E9EB
+          EDF5F5F6F7F9F9FAFAFE0D0EC0F100000081494441547801632009B00A30A1F0
+          D914ADA41991E515C2226D25412C7E656120C922EF1F12EC230564F16945180B
+          3130CBF9BA3A7B2B71000564422D034C44643DECED025538413A0475DCCDBD4C
+          DD6CACC355B920A689EA3B19385A98B9A871C1CC17D373D036F254E746D8286E
+          E817A409E4238084AE060FAAAB79D989F721007EC70FC040205C650000000049
+          454E44AE426082
+        }
+        Visible = False
+      end
+    end
+    object Label9: TLabel
+      Left = 0
+      Height = 16
+      Top = 31
+      Width = 150
+      Caption = 'Capturas'
+      Constraints.MaxWidth = 160
+      Constraints.MinWidth = 150
+      ParentColor = False
+    end
+    object pbCapturas: TProgressBar
+      Left = 155
+      Height = 16
+      Top = 31
+      Width = 200
+      Constraints.MaxHeight = 16
+      Constraints.MinWidth = 200
+      TabOrder = 13
+    end
+    object paCapturas: TPanel
+      Left = 360
+      Height = 16
+      Top = 31
+      Width = 16
+      BevelOuter = bvNone
+      ClientHeight = 16
+      ClientWidth = 16
+      Constraints.MaxHeight = 16
+      Constraints.MaxWidth = 16
+      TabOrder = 12
+      object imCapturas: TImage
+        Left = 0
+        Height = 16
+        Top = 0
+        Width = 16
+        Align = alClient
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B477261706869630B02000089504E47
+          0D0A1A0A0000000D4948445200000010000000100803000000282D0F53000001
+          0E504C5445FFFFFF004E00004900005500004C00004F00004D00004E00004D00
+          004B00004E00004D00004C00004D00004C00004E00004C000250020453040453
+          04035203024E02024E02024D02024802005B00136412015B010E680C17661517
+          6915156B12116B0E0E680B095F07126B10105C0D185D141756111A54121C5011
+          1C50142C842347BA0E4A8D304D7D294E822D4E8B3150AC2A54832D57C21858A0
+          42599F415B9C3F5DB22D64B15064BA3273B46476B56376BC5977C05579B8617B
+          BB667FC0687FC83582C64583C24A88C27A89BD4B89C67B8AC1578AC15B8EC460
+          8EC7448FC95C90BD6B90C16F91C56991DE3E93C67093C86A96C36C98D54799D0
+          8F99D2909AC8689ACB7B9DC96DA6D077B6EAA129ECEFA80000002B74524E5300
+          0D0E181B1D21243233343536466B6C728D9091959A9DA0A3BCD6D8DBE6E7E9EB
+          EDF5F5F6F7F9F9FAFAFE0D0EC0F100000081494441547801632009B00A30A1F0
+          D914ADA41991E515C2226D25412C7E656120C922EF1F12EC230564F16945180B
+          3130CBF9BA3A7B2B71000564422D034C44643DECED025538413A0475DCCDBD4C
+          DD6CACC355B920A689EA3B19385A98B9A871C1CC17D373D036F254E746D8286E
+          E817A409E4238084AE060FAAAB79D989F721007EC70FC040205C650000000049
+          454E44AE426082
+        }
+        Visible = False
+      end
+    end
+    object Label10: TLabel
+      Left = 0
+      Height = 16
+      Top = 52
+      Width = 150
+      Caption = 'Especies acompañantes'
+      Constraints.MaxWidth = 160
+      Constraints.MinWidth = 150
+      ParentColor = False
+      Visible = False
+    end
+    object pbAcomp: TProgressBar
+      Left = 155
+      Height = 16
+      Top = 52
+      Width = 200
+      Constraints.MaxHeight = 16
+      Constraints.MinWidth = 200
+      TabOrder = 15
+      Visible = False
+    end
+    object paAcomp: TPanel
+      Left = 360
+      Height = 16
+      Top = 52
+      Width = 16
+      BevelOuter = bvNone
+      ClientHeight = 16
+      ClientWidth = 16
+      Constraints.MaxHeight = 16
+      Constraints.MaxWidth = 16
+      TabOrder = 14
+      Visible = False
+      object imAcomp: TImage
+        Left = 0
+        Height = 16
+        Top = 0
+        Width = 16
+        Align = alClient
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B477261706869630B02000089504E47
+          0D0A1A0A0000000D4948445200000010000000100803000000282D0F53000001
+          0E504C5445FFFFFF004E00004900005500004C00004F00004D00004E00004D00
+          004B00004E00004D00004C00004D00004C00004E00004C000250020453040453
+          04035203024E02024E02024D02024802005B00136412015B010E680C17661517
+          6915156B12116B0E0E680B095F07126B10105C0D185D141756111A54121C5011
+          1C50142C842347BA0E4A8D304D7D294E822D4E8B3150AC2A54832D57C21858A0
+          42599F415B9C3F5DB22D64B15064BA3273B46476B56376BC5977C05579B8617B
+          BB667FC0687FC83582C64583C24A88C27A89BD4B89C67B8AC1578AC15B8EC460
+          8EC7448FC95C90BD6B90C16F91C56991DE3E93C67093C86A96C36C98D54799D0
+          8F99D2909AC8689ACB7B9DC96DA6D077B6EAA129ECEFA80000002B74524E5300
+          0D0E181B1D21243233343536466B6C728D9091959A9DA0A3BCD6D8DBE6E7E9EB
+          EDF5F5F6F7F9F9FAFAFE0D0EC0F100000081494441547801632009B00A30A1F0
+          D914ADA41991E515C2226D25412C7E656120C922EF1F12EC230564F16945180B
+          3130CBF9BA3A7B2B71000564422D034C44643DECED025538413A0475DCCDBD4C
+          DD6CACC355B920A689EA3B19385A98B9A871C1CC17D373D036F254E746D8286E
+          E817A409E4238084AE060FAAAB79D989F721007EC70FC040205C650000000049
+          454E44AE426082
+        }
+        Visible = False
+      end
+    end
+    object Label3: TLabel
+      Left = 0
+      Height = 16
+      Top = 73
+      Width = 150
+      Caption = 'Muestras'
+      Constraints.MaxWidth = 160
+      Constraints.MinWidth = 150
+      ParentColor = False
+    end
+    object pbMuestras: TProgressBar
+      Left = 155
+      Height = 16
+      Top = 73
+      Width = 200
+      Constraints.MaxHeight = 16
+      Constraints.MinWidth = 200
+      TabOrder = 1
+    end
+    object paMuestras: TPanel
+      Left = 360
+      Height = 16
+      Top = 73
+      Width = 16
+      BevelOuter = bvNone
+      ClientHeight = 16
+      ClientWidth = 16
+      Constraints.MaxHeight = 16
+      Constraints.MaxWidth = 16
+      TabOrder = 7
+      object imMuestras: TImage
+        Left = 0
+        Height = 16
+        Top = 0
+        Width = 16
+        Align = alClient
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B477261706869630B02000089504E47
+          0D0A1A0A0000000D4948445200000010000000100803000000282D0F53000001
+          0E504C5445FFFFFF004E00004900005500004C00004F00004D00004E00004D00
+          004B00004E00004D00004C00004D00004C00004E00004C000250020453040453
+          04035203024E02024E02024D02024802005B00136412015B010E680C17661517
+          6915156B12116B0E0E680B095F07126B10105C0D185D141756111A54121C5011
+          1C50142C842347BA0E4A8D304D7D294E822D4E8B3150AC2A54832D57C21858A0
+          42599F415B9C3F5DB22D64B15064BA3273B46476B56376BC5977C05579B8617B
+          BB667FC0687FC83582C64583C24A88C27A89BD4B89C67B8AC1578AC15B8EC460
+          8EC7448FC95C90BD6B90C16F91C56991DE3E93C67093C86A96C36C98D54799D0
+          8F99D2909AC8689ACB7B9DC96DA6D077B6EAA129ECEFA80000002B74524E5300
+          0D0E181B1D21243233343536466B6C728D9091959A9DA0A3BCD6D8DBE6E7E9EB
+          EDF5F5F6F7F9F9FAFAFE0D0EC0F100000081494441547801632009B00A30A1F0
+          D914ADA41991E515C2226D25412C7E656120C922EF1F12EC230564F16945180B
+          3130CBF9BA3A7B2B71000564422D034C44643DECED025538413A0475DCCDBD4C
+          DD6CACC355B920A689EA3B19385A98B9A871C1CC17D373D036F254E746D8286E
+          E817A409E4238084AE060FAAAB79D989F721007EC70FC040205C650000000049
+          454E44AE426082
+        }
+        Visible = False
+      end
+    end
+    object Label5: TLabel
+      Left = 0
+      Height = 16
+      Top = 94
+      Width = 150
+      Caption = 'Submuestras'
+      Constraints.MaxWidth = 160
+      Constraints.MinWidth = 150
+      ParentColor = False
+    end
+    object pbSubmuestras: TProgressBar
+      Left = 155
+      Height = 16
+      Top = 94
+      Width = 200
+      Constraints.MaxHeight = 16
+      Constraints.MinWidth = 200
+      TabOrder = 2
+    end
+    object paSubmuestras: TPanel
+      Left = 360
+      Height = 16
+      Top = 94
+      Width = 16
+      BevelOuter = bvNone
+      ClientHeight = 16
+      ClientWidth = 16
+      Constraints.MaxHeight = 16
+      Constraints.MaxWidth = 16
+      TabOrder = 8
+      object imSubmuestras: TImage
+        Left = 0
+        Height = 16
+        Top = 0
+        Width = 16
+        Align = alClient
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B477261706869630B02000089504E47
+          0D0A1A0A0000000D4948445200000010000000100803000000282D0F53000001
+          0E504C5445FFFFFF004E00004900005500004C00004F00004D00004E00004D00
+          004B00004E00004D00004C00004D00004C00004E00004C000250020453040453
+          04035203024E02024E02024D02024802005B00136412015B010E680C17661517
+          6915156B12116B0E0E680B095F07126B10105C0D185D141756111A54121C5011
+          1C50142C842347BA0E4A8D304D7D294E822D4E8B3150AC2A54832D57C21858A0
+          42599F415B9C3F5DB22D64B15064BA3273B46476B56376BC5977C05579B8617B
+          BB667FC0687FC83582C64583C24A88C27A89BD4B89C67B8AC1578AC15B8EC460
+          8EC7448FC95C90BD6B90C16F91C56991DE3E93C67093C86A96C36C98D54799D0
+          8F99D2909AC8689ACB7B9DC96DA6D077B6EAA129ECEFA80000002B74524E5300
+          0D0E181B1D21243233343536466B6C728D9091959A9DA0A3BCD6D8DBE6E7E9EB
+          EDF5F5F6F7F9F9FAFAFE0D0EC0F100000081494441547801632009B00A30A1F0
+          D914ADA41991E515C2226D25412C7E656120C922EF1F12EC230564F16945180B
+          3130CBF9BA3A7B2B71000564422D034C44643DECED025538413A0475DCCDBD4C
+          DD6CACC355B920A689EA3B19385A98B9A871C1CC17D373D036F254E746D8286E
+          E817A409E4238084AE060FAAAB79D989F721007EC70FC040205C650000000049
+          454E44AE426082
+        }
+        Visible = False
+      end
+    end
+    object Label6: TLabel
+      Left = 0
+      Height = 16
+      Top = 115
+      Width = 150
+      Caption = 'Producción'
+      Constraints.MaxWidth = 160
+      Constraints.MinWidth = 150
+      ParentColor = False
+    end
+    object pbProduccion: TProgressBar
+      Left = 155
+      Height = 16
+      Top = 115
+      Width = 200
+      Constraints.MaxHeight = 16
+      Constraints.MinWidth = 200
+      TabOrder = 3
+    end
+    object paProduccion: TPanel
+      Left = 360
+      Height = 16
+      Top = 115
+      Width = 16
+      BevelOuter = bvNone
+      ClientHeight = 16
+      ClientWidth = 16
+      Constraints.MaxHeight = 16
+      Constraints.MaxWidth = 16
+      TabOrder = 9
+      object imProduccion: TImage
+        Left = 0
+        Height = 16
+        Top = 0
+        Width = 16
+        Align = alClient
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B477261706869630B02000089504E47
+          0D0A1A0A0000000D4948445200000010000000100803000000282D0F53000001
+          0E504C5445FFFFFF004E00004900005500004C00004F00004D00004E00004D00
+          004B00004E00004D00004C00004D00004C00004E00004C000250020453040453
+          04035203024E02024E02024D02024802005B00136412015B010E680C17661517
+          6915156B12116B0E0E680B095F07126B10105C0D185D141756111A54121C5011
+          1C50142C842347BA0E4A8D304D7D294E822D4E8B3150AC2A54832D57C21858A0
+          42599F415B9C3F5DB22D64B15064BA3273B46476B56376BC5977C05579B8617B
+          BB667FC0687FC83582C64583C24A88C27A89BD4B89C67B8AC1578AC15B8EC460
+          8EC7448FC95C90BD6B90C16F91C56991DE3E93C67093C86A96C36C98D54799D0
+          8F99D2909AC8689ACB7B9DC96DA6D077B6EAA129ECEFA80000002B74524E5300
+          0D0E181B1D21243233343536466B6C728D9091959A9DA0A3BCD6D8DBE6E7E9EB
+          EDF5F5F6F7F9F9FAFAFE0D0EC0F100000081494441547801632009B00A30A1F0
+          D914ADA41991E515C2226D25412C7E656120C922EF1F12EC230564F16945180B
+          3130CBF9BA3A7B2B71000564422D034C44643DECED025538413A0475DCCDBD4C
+          DD6CACC355B920A689EA3B19385A98B9A871C1CC17D373D036F254E746D8286E
+          E817A409E4238084AE060FAAAB79D989F721007EC70FC040205C650000000049
+          454E44AE426082
+        }
+        Visible = False
+      end
+    end
+    object Label7: TLabel
+      Left = 0
+      Height = 16
+      Top = 136
+      Width = 150
+      Caption = 'Factor de conversión'
+      Constraints.MaxWidth = 160
+      Constraints.MinWidth = 150
+      ParentColor = False
+    end
+    object pbFactor: TProgressBar
+      Left = 155
+      Height = 16
+      Top = 136
+      Width = 200
+      Constraints.MaxHeight = 16
+      Constraints.MinWidth = 200
+      TabOrder = 4
+    end
+    object paFactor: TPanel
+      Left = 360
+      Height = 16
+      Top = 136
+      Width = 16
+      BevelOuter = bvNone
+      ClientHeight = 16
+      ClientWidth = 16
+      Constraints.MaxHeight = 16
+      Constraints.MaxWidth = 16
+      TabOrder = 10
+      object imFactor: TImage
+        Left = 0
+        Height = 16
+        Top = 0
+        Width = 16
+        Align = alClient
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B477261706869630B02000089504E47
+          0D0A1A0A0000000D4948445200000010000000100803000000282D0F53000001
+          0E504C5445FFFFFF004E00004900005500004C00004F00004D00004E00004D00
+          004B00004E00004D00004C00004D00004C00004E00004C000250020453040453
+          04035203024E02024E02024D02024802005B00136412015B010E680C17661517
+          6915156B12116B0E0E680B095F07126B10105C0D185D141756111A54121C5011
+          1C50142C842347BA0E4A8D304D7D294E822D4E8B3150AC2A54832D57C21858A0
+          42599F415B9C3F5DB22D64B15064BA3273B46476B56376BC5977C05579B8617B
+          BB667FC0687FC83582C64583C24A88C27A89BD4B89C67B8AC1578AC15B8EC460
+          8EC7448FC95C90BD6B90C16F91C56991DE3E93C67093C86A96C36C98D54799D0
+          8F99D2909AC8689ACB7B9DC96DA6D077B6EAA129ECEFA80000002B74524E5300
+          0D0E181B1D21243233343536466B6C728D9091959A9DA0A3BCD6D8DBE6E7E9EB
+          EDF5F5F6F7F9F9FAFAFE0D0EC0F100000081494441547801632009B00A30A1F0
+          D914ADA41991E515C2226D25412C7E656120C922EF1F12EC230564F16945180B
+          3130CBF9BA3A7B2B71000564422D034C44643DECED025538413A0475DCCDBD4C
+          DD6CACC355B920A689EA3B19385A98B9A871C1CC17D373D036F254E746D8286E
+          E817A409E4238084AE060FAAAB79D989F721007EC70FC040205C650000000049
+          454E44AE426082
+        }
+        Visible = False
+      end
+    end
+    object Label8: TLabel
+      Left = 0
+      Height = 16
+      Top = 157
+      Width = 150
+      Caption = 'Marcado y recaptura'
+      Constraints.MaxWidth = 160
+      Constraints.MinWidth = 150
+      ParentColor = False
+    end
+    object pbMarcado: TProgressBar
+      Left = 155
+      Height = 16
+      Top = 157
+      Width = 200
+      Constraints.MaxHeight = 16
+      Constraints.MinWidth = 200
+      TabOrder = 5
+    end
+    object paMarcado: TPanel
+      Left = 360
+      Height = 16
+      Top = 157
+      Width = 16
+      BevelOuter = bvNone
+      ClientHeight = 16
+      ClientWidth = 16
+      Constraints.MaxHeight = 16
+      Constraints.MaxWidth = 16
+      TabOrder = 11
+      object imMarcado: TImage
+        Left = 0
+        Height = 16
+        Top = 0
+        Width = 16
+        Align = alClient
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B477261706869630B02000089504E47
+          0D0A1A0A0000000D4948445200000010000000100803000000282D0F53000001
+          0E504C5445FFFFFF004E00004900005500004C00004F00004D00004E00004D00
+          004B00004E00004D00004C00004D00004C00004E00004C000250020453040453
+          04035203024E02024E02024D02024802005B00136412015B010E680C17661517
+          6915156B12116B0E0E680B095F07126B10105C0D185D141756111A54121C5011
+          1C50142C842347BA0E4A8D304D7D294E822D4E8B3150AC2A54832D57C21858A0
+          42599F415B9C3F5DB22D64B15064BA3273B46476B56376BC5977C05579B8617B
+          BB667FC0687FC83582C64583C24A88C27A89BD4B89C67B8AC1578AC15B8EC460
+          8EC7448FC95C90BD6B90C16F91C56991DE3E93C67093C86A96C36C98D54799D0
+          8F99D2909AC8689ACB7B9DC96DA6D077B6EAA129ECEFA80000002B74524E5300
+          0D0E181B1D21243233343536466B6C728D9091959A9DA0A3BCD6D8DBE6E7E9EB
+          EDF5F5F6F7F9F9FAFAFE0D0EC0F100000081494441547801632009B00A30A1F0
+          D914ADA41991E515C2226D25412C7E656120C922EF1F12EC230564F16945180B
+          3130CBF9BA3A7B2B71000564422D034C44643DECED025538413A0475DCCDBD4C
+          DD6CACC355B920A689EA3B19385A98B9A871C1CC17D373D036F254E746D8286E
+          E817A409E4238084AE060FAAAB79D989F721007EC70FC040205C650000000049
+          454E44AE426082
+        }
+        Visible = False
+      end
+    end
+  end
+  object ActionList1: TActionList
+    left = 10
+    top = 265
+    object acGenerarPlanilla: TAction
+      Caption = 'Guardar'
+      OnExecute = acGenerarPlanillaExecute
+    end
+  end
+  object zqDatosPuente: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqDatosPuenteBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_datos_puente'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY fecha_fin_virada, hora_fin_virada'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 65
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqMuestras: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqMuestrasBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_muestras'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY orden_virada, nro_ejemplar'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 205
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqCapturas: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqCapturasBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_capturas'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY orden_virada, nro_orden'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 100
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqAcomp: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqAcompBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_bycatch'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY nro_lance, especie'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 135
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqSubmuestras: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqSubmuestrasBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_submuestras'
+      'WHERE idmarea=:idmarea'
+      'and (:sexo=0 OR sexo=:sexo)'
+      'ORDER BY nro_lance, sexo, largo, nro_ejemplar'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'sexo'
+        ParamType = ptUnknown
+      end>
+    left = 240
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'sexo'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqProduccion: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqProduccionBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_produccion'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY fecha'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 275
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqRelacMorf: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqRelacMorfBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_relac_morf'
+      'WHERE idlance=:idlance'
+      'ORDER BY fecha, nro_ejemplar'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idlance'
+        ParamType = ptUnknown
+      end>
+    left = 340
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idlance'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqFC: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqFCBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_factores_conversion'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY fecha'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 310
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqMarcas: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqMarcasBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_marcas'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY fecha_hora'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 370
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqEspecies: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqEspeciesBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT DISTINCT idespecie, nombre_vulgar, especie '
+      'FROM v_planilla_bycatch'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY especie'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 170
+    top = 265
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+end

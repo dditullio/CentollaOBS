@@ -1,0 +1,14 @@
+Lance
+Fecha cala ini
+fecha vira fin
+Prof ini
+prof fin
+lat cala ini
+long cala ini
+lat vira fin
+long vira-fin
+nro trampas
+fallo
+cap tot
+cap com
+jaulas prod

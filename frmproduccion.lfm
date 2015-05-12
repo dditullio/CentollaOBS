@@ -1,0 +1,1410 @@
+inherited fmProduccion: TfmProduccion
+  Left = 391
+  Height = 515
+  Width = 735
+  Caption = 'Producción'
+  ClientHeight = 515
+  ClientWidth = 735
+  OnShow = FormShow
+  inherited paBase: TPanel
+    Height = 515
+    Width = 735
+    ClientHeight = 515
+    ClientWidth = 735
+    inherited paContenido: TPanel
+      Height = 497
+      Width = 735
+      ClientHeight = 497
+      ClientWidth = 735
+      inherited paLista: TPanel
+        Height = 497
+        Width = 580
+        ClientHeight = 497
+        ClientWidth = 580
+        inherited paBuscador: TPanel
+          Width = 580
+          ClientWidth = 580
+          inherited laBuscar: TLabel
+            Height = 15
+            Width = 35
+          end
+          inherited edBuscar: TEdit
+            Left = 270
+            Height = 23
+            Width = 275
+            TabOrder = 2
+          end
+          inherited bbBuscar: TBitBtn
+            Left = 546
+            TabOrder = 3
+          end
+          object dtFecha_ini: TDateTimePicker[3]
+            Left = 45
+            Height = 23
+            Top = 19
+            Width = 83
+            CenturyFrom = 1941
+            MaxDate = 2958465
+            MinDate = -53780
+            TabOrder = 0
+            TabStop = False
+            TrailingSeparator = False
+            TextForNullDate = ' '
+            LeadingZeros = True
+            Kind = dtkDate
+            TimeFormat = tf24
+            TimeDisplay = tdHMS
+            DateMode = dmComboBox
+            Date = 41858
+            Time = 0.767097766205552
+            UseDefaultSeparators = True
+            HideDateTimeParts = []
+            MonthNames = 'Long'
+            OnChange = dtFecha_iniChange
+            OnCheckBoxChange = dtFecha_iniCheckBoxChange
+          end
+          object dtFecha_fin: TDateTimePicker[4]
+            Left = 175
+            Height = 23
+            Top = 19
+            Width = 83
+            CenturyFrom = 1941
+            MaxDate = 2958465
+            MinDate = -53780
+            TabOrder = 1
+            TabStop = False
+            TrailingSeparator = False
+            TextForNullDate = ' '
+            LeadingZeros = True
+            Kind = dtkDate
+            TimeFormat = tf24
+            TimeDisplay = tdHMS
+            DateMode = dmComboBox
+            Date = 41858
+            Time = 0.767097766205552
+            UseDefaultSeparators = True
+            HideDateTimeParts = []
+            MonthNames = 'Long'
+            OnChange = dtFecha_iniChange
+            OnCheckBoxChange = dtFecha_iniCheckBoxChange
+          end
+          object Label1: TLabel[5]
+            Left = 5
+            Height = 15
+            Top = 25
+            Width = 32
+            Caption = 'Desde'
+            ParentColor = False
+          end
+          object Label2: TLabel[6]
+            Left = 140
+            Height = 15
+            Top = 25
+            Width = 30
+            Caption = 'Hasta'
+            ParentColor = False
+          end
+        end
+        inherited paGrilla: TPanel
+          Height = 173
+          Width = 570
+          ClientHeight = 173
+          ClientWidth = 570
+          inherited bbEliminar: TBitBtn
+            Left = 303
+            Top = 142
+          end
+          inherited bbAgregar: TBitBtn
+            Left = 392
+            Top = 142
+          end
+          inherited bbEditar: TBitBtn
+            Left = 481
+            Top = 142
+          end
+          inherited dbgLista: TRxDBGrid
+            Height = 142
+            Width = 570
+            Columns = <            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Fecha'
+                Title.Orientation = toHorizontal
+                Width = 80
+                FieldName = 'fecha'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Value = 'Totales:'
+                Footer.ValueType = fvtStaticText
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Producto'
+                Title.Orientation = toHorizontal
+                Width = 70
+                FieldName = 'codigo'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taCenter
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Nº cajas'
+                Title.Orientation = toHorizontal
+                Width = 60
+                FieldName = 'cant_cajas'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taCenter
+                Footer.FieldName = 'cant_cajas'
+                Footer.ValueType = fvtSum
+                KeyList.Strings = (                )
+              end            
+              item
+                Alignment = taRightJustify
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Kg.'
+                Title.Orientation = toHorizontal
+                Width = 70
+                FieldName = 'kilos'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos'
+                Footer.ValueType = fvtSum
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                Title.Alignment = taCenter
+                Title.Caption = 'Detalle del producto'
+                Title.Orientation = toHorizontal
+                Width = 257
+                FieldName = 'detalle'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end>
+            FooterOptions.Active = True
+            FooterOptions.Color = clBtnFace
+            FooterOptions.RowCount = 1
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgFooterRows, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            FooterColor = clBtnFace
+            FooterRowCount = 1
+            DataSource = dsProduccion
+          end
+          inherited bbExportar: TBitBtn
+            Top = 142
+          end
+        end
+        object Splitter1: TSplitter[2]
+          Cursor = crVSplit
+          Left = 0
+          Height = 5
+          Top = 227
+          Width = 580
+          Align = alBottom
+          ResizeAnchor = akBottom
+        end
+        object GroupBox1: TGroupBox[3]
+          Left = 3
+          Height = 259
+          Top = 235
+          Width = 574
+          Align = alBottom
+          BorderSpacing.Around = 3
+          Caption = 'Resumen de producción por fecha'
+          ClientHeight = 241
+          ClientWidth = 570
+          TabOrder = 3
+          object dbgListaProd: TRxDBGrid
+            Left = 0
+            Height = 206
+            Top = 0
+            Width = 570
+            TitleButtons = False
+            AutoSort = True
+            Columns = <            
+              item
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Fecha'
+                Title.Orientation = toHorizontal
+                Width = 80
+                FieldName = 'fecha'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Value = 'Totales:'
+                Footer.ValueType = fvtStaticText
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p1'
+                Title.Orientation = toHorizontal
+                Width = 168
+                FieldName = 'cajas_p1'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p1'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p1'
+                Title.Orientation = toHorizontal
+                Width = 168
+                FieldName = 'kilos_p1'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p1'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p2'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'cajas_p2'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p2'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p2'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'kilos_p2'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p2'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p3'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'cajas_p3'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p3'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p3'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'kilos_p3'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p3'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p4'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'cajas_p4'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p4'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p4'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'kilos_p4'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p4'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p5'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'cajas_p5'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p5'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p5'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'kilos_p5'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p5'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p6'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'cajas_p6'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p6'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p6'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'kilos_p6'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p6'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p7'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'cajas_p7'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p7'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p7'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'kilos_p7'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p7'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p8'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'cajas_p8'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p8'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p8'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'kilos_p8'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p8'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p9'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'cajas_p9'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p9'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p9'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'kilos_p9'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p9'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'cajas_p10'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'cajas_p10'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'cajas_p10'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'kilos_p10'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'kilos_p10'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'kilos_p10'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Totales|Cajas'
+                Title.Orientation = toHorizontal
+                Width = 50
+                FieldName = 'tot_cajas'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.FieldName = 'tot_cajas'
+                Footer.ValueType = fvtSum
+              end            
+              item
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Totales|Kilos'
+                Title.Orientation = toHorizontal
+                Width = 70
+                FieldName = 'tot_kilos'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                Footer.Alignment = taRightJustify
+                Footer.DisplayFormat = '0.00'
+                Footer.FieldName = 'tot_kilos'
+                Footer.ValueType = fvtSum
+              end>
+            KeyStrokes = <            
+              item
+                Command = rxgcShowFindDlg
+                ShortCut = 16454
+                Enabled = True
+              end            
+              item
+                Command = rxgcShowColumnsDlg
+                ShortCut = 16471
+                Enabled = True
+              end            
+              item
+                Command = rxgcShowFilterDlg
+                ShortCut = 16468
+                Enabled = True
+              end            
+              item
+                Command = rxgcShowSortDlg
+                ShortCut = 16467
+                Enabled = True
+              end            
+              item
+                Command = rxgcShowQuickFilter
+                ShortCut = 16465
+                Enabled = True
+              end            
+              item
+                Command = rxgcHideQuickFilter
+                ShortCut = 16456
+                Enabled = True
+              end            
+              item
+                Command = rxgcSelectAll
+                ShortCut = 16449
+                Enabled = True
+              end            
+              item
+                Command = rxgcDeSelectAll
+                ShortCut = 16429
+                Enabled = True
+              end            
+              item
+                Command = rxgcInvertSelection
+                ShortCut = 16426
+                Enabled = True
+              end            
+              item
+                Command = rxgcOptimizeColumnsWidth
+                ShortCut = 16427
+                Enabled = True
+              end            
+              item
+                Command = rxgcCopyCellValue
+                ShortCut = 16451
+                Enabled = True
+              end>
+            FooterOptions.Active = True
+            FooterOptions.Color = clScrollBar
+            FooterOptions.RowCount = 1
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgFooterRows, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            FooterColor = clScrollBar
+            FooterRowCount = 1
+            Align = alClient
+            AutoAdvance = aaNone
+            AutoFillColumns = True
+            AutoEdit = False
+            Color = clBtnFace
+            DrawFullLine = False
+            FocusColor = clRed
+            SelectedColor = clHighlight
+            GridLineStyle = psSolid
+            DataSource = dsProdFecha
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+            ParentColor = False
+            TabOrder = 0
+          end
+          object Panel1: TPanel
+            Left = 0
+            Height = 35
+            Top = 206
+            Width = 570
+            Align = alBottom
+            ClientHeight = 35
+            ClientWidth = 570
+            TabOrder = 1
+            object bbExportar1: TBitBtn
+              Left = 0
+              Height = 28
+              Top = 0
+              Width = 88
+              Glyph.Data = {
+                76060000424D7606000000000000360000002800000014000000140000000100
+                20000000000040060000640000006400000000000000000000000000001A2527
+                265B696D6BC3717673FC6F7472FF6F7371FF6E7371FF6D7270FF6D726FFF6C71
+                6FFF6C716EFF6B706EFF6B6F6DFF6A6F6DFF6A6E6CFF696E6CFF696E6CFD6569
+                66CB2A2C2B630000001F00000005727775ADCFD1D0FEFEFEFEFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFFFFFFFD9DBDBFF6E7270C500000007FFFFFF007A7F
+                7DF6FDFDFDFFC2C5C3FFBBBFBDFFBBBFBEFFBCC0BEFFCACDCCFF7E7F7EFFDEE0
+                DFFF7E7F7FFFDFE0E0FF7F7F7FFFDFE1E0FF7E7F7FFFDEE0E0FF7C7D7DFFFFFF
+                FFFF737875FB6D727005FFFFFF007C817FFBFEFFFFFFBBBFBEFFF3F5F4FFF4F6
+                F5FFF5F7F6FF7D7E7EFFFBFCFBFFFCFCFCFFFCFCFCFFFCFDFCFFFCFDFDFFFCFD
+                FDFFFCFDFCFFFCFCFCFFDFE1E1FFFFFFFFFF777C7AFC70757308FFFFFF007F84
+                81FBFFFFFFFFBCC0BEFFBCC0BFFFBDC1BFFFBDC1C0FFDADCDBFFFCFCFCFF9CA1
+                A0FF9DA1A0FF9DA1A0FF9DA1A0FF9DA1A0FF9DA1A0FFFDFDFDFF808180FFFFFF
+                FFFF7A7F7DFC74797608FFFFFF00828785FBFFFFFFFFBBBFBEFFF3F5F4FFF5F6
+                F6FFF6F8F7FF7E7F7EFFFCFCFCFF9CA19FFFE9D4C0FFE9D4C0FFE9D4C0FFE9D4
+                C0FFE9D4C0FFFCFDFDFFE0E1E1FFFFFFFFFF7D8280FC777C7908FFFFFF00858A
+                88FBFFFFFFFFBCC0BDFFBBBFBEFFBCC0BEFFBCC0BFFFD9DBDAFFFAFBFBFF9CA0
+                9FFFD7B08BFFD7B18BFFD7B18BFFD7B18BFFD7B08BFFFBFCFBFF7F7F7FFFFFFF
+                FFFF808683FC7A7F7D08FFFFFF00888E8BFBFEFFFEFFBABEBCFFF0F2F1FFF1F3
+                F2FFF2F4F3FF7C7D7CFFF9FAF9FF9CA09FFFFAFAFAFFCF9F72FFFAFBFAFFCF9F
+                72FFCF9F72FFF9FAFAFFDDDFDFFFFFFFFFFF848986FC7D828008FFFFFF008B91
+                8EFBFEFEFEFFBABEBCFFB9BDBCFFB9BEBCFFBABEBCFFD6D8D8FFF7F9F8FF9CA0
+                9FFFF8F9F8FFF8F9F8FFF8F9F9FFF8F9F8FFCF9F72FFF8F9F8FF7B7D7CFFFFFF
+                FFFF878C8AFC80868308FFFFFF008E9492FBFEFEFEFFB8BCBAFFEAEEECFFEBEE
+                EDFFECEFEDFF787A79FFF2F3F2FFF6F7F7FFF2F3F3FFF6F8F7FFF2F4F3FFF6F8
+                F7FFF2F3F3FFF6F7F7FFDADCDBFFFFFFFFFF8A8F8DFC83898608FFFFFF009197
+                95FBFEFEFEFFB9BDBBFFB7BCBAFFB7BCBAFFB7BCBAFFC3C7C5FF787A79FFDADD
+                DBFF787A79FFDADDDBFF787A79FFDADDDBFF787A79FFDADDDBFF777978FFFEFF
+                FEFF8C928FFC878C8A08FFFFFF00959B98FBFEFEFEFFB7BCBAFFE9ECEBFFE9ED
+                EBFFE9EDEBFFB7BCBAFFE9EDEBFFE8ECEAFFC1C5C3FFE7EBE9FFE6EBE8FFC0C5
+                C2FFE6EAE8FFE6EAE8FFC0C4C2FFFEFEFEFF939795FC8A8F8D08FFFFFF00989E
+                9BFBFEFEFEFFB8BDBAFFB7BCBAFFB7BCBAFFB7BBBAFFB6BBB9FFC1C5C3FFC1C5
+                C3FFC1C4C3FFC0C4C2FFC0C4C2FFBFC3C1FFBFC3C1FFBFC3C1FFB7BCBAFFEAEA
+                EAFF919795FC8D939005FFFFFF009BA19EFBFEFEFEFFB8BCBBFFE9EDEBFFE9ED
+                EBFFE9EDEBFFB6BBB9FFE8EBE9FFE7EBE8FFC0C4C2FFE5E9E7FFE4E8E6FFB8BC
+                BAFFC4C7C6FFA3A6A5FF9C9D9DFFE7E8E7FF969C99DAFFFFFF00FFFFFF009EA4
+                A2FBFEFEFEFFBBA18DFFB99C86FFB89C86FFB89C86FFB99F8AFFB79B85FFB69B
+                84FFB89C86FFB59983FFB59983FFA18874FF99897BFFB2AAA3FFFDFCFCFFD8D9
+                D9FF969C998DFFFFFF00FFFFFF00A1A8A5FBFEFFFEFFBA9D88FFDDC7B0FFDDC6
+                B0FFDCC6AFFFB89C86FFDBC5AEFFDBC5AEFFB69A84FFD9C3ACFFD8C3ACFF9B84
+                73FFFEFEFDFFFFFFFFFFFCFCFCFFB9BEBCF7979D9A43FFFFFF00FFFFFF00A5AB
+                A8FBFEFFFFFFC0A693FFBA9D88FFBA9D87FFB99D87FFBA9E88FFB89B85FFB79B
+                85FFB89C86FFB59983FFB19680FFAA998BFFFFFFFFFFFFFFFFFFCCCECDFC9EA4
+                A1BC9AA09E03FFFFFF00FFFFFF00A8AEABFBFFFFFFFFF1F3F2FFF0F2F1FFEEF1
+                EFFFEDF0EEFFEBEEEDFFE9EDEBFFE7EBE9FFE5E9E7FFE3E8E5FFD4D9D6FFECED
+                ECFFFEFEFEFFDBDDDCFEA1A8A5D59EA4A10AFFFFFF00FFFFFF00FFFFFF00ABB2
+                AFF5FEFEFEFFF6F7F6FFF3F5F4FFF1F3F2FFEFF1F0FFEDF0EEFFEAEEECFFEAED
+                ECFFECEFEEFFF4F5F5FFFAFAFAFFF9F9F9FFCBCFCDF8A4ABA8DCA2A8A516FFFF
+                FF00FFFFFF00FFFFFF00FFFFFF00AFB6B39FD9DDDCFDFDFDFDFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFCFCFFF7F8F7FFF0F2F1FFD5D9D7F8A8AF
+                ACE8A6ACAA5FA5ACA902FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+              }
+              TabOrder = 0
+            end
+          end
+        end
+      end
+      inherited paDetalles: TPanel
+        Left = 580
+        Height = 497
+      end
+    end
+    inherited paComando: TPanel
+      Width = 735
+      ClientWidth = 735
+      inherited sbCerrar: TSpeedButton
+        Left = 717
+        Flat = False
+      end
+    end
+  end
+  inherited alComando: TActionList
+    top = 420
+  end
+  inherited ilComando: TImageList
+    top = 420
+  end
+  inherited zcgLista: TZControladorGrilla
+    ControlEdicion = fmEditarProduccion.zcePrincipal
+    MostrarBotonExportar = True
+    ZDataset = zqProduccion
+    top = 420
+  end
+  object zqProduccion: TZQuery[4]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqProduccionBeforeOpen
+    AfterOpen = zqProduccionAfterOpen
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_produccion'
+      'WHERE idmarea=:idmarea '
+      'AND fecha BETWEEN :fecha_ini AND :fecha_fin'
+      'AND ('
+      ':__FILTRO__ IS NULL OR'
+      ':__FILTRO__ = '''''
+      'OR DATE_FORMAT(''%d/%i/%Y'',fecha) LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR codigo LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR detalle LIKE CONCAT(''%'',:__FILTRO__,''%''))'
+      'ORDER BY fecha, orden'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_ini'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_fin'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = '__FILTRO__'
+        ParamType = ptUnknown
+      end>
+    left = 135
+    top = 420
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_ini'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_fin'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = '__FILTRO__'
+        ParamType = ptUnknown
+      end>
+    object zqProduccionidproduccion: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idproduccion'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqProduccionidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqProduccionidproducto: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idproducto'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqProduccionfecha: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqProduccioncant_cajas: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_cajas'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqProduccionkilos: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 10
+    end
+    object zqProduccioncodigo: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqProduccionorden: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'orden'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqProducciondetalle: TStringField
+      DisplayWidth = 2332
+      FieldKind = fkData
+      FieldName = 'detalle'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 2332
+    end
+  end
+  object dsProduccion: TDataSource[5]
+    DataSet = zqProduccion
+    left = 175
+    top = 420
+  end
+  object zqProdFecha: TZQuery[6]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqProdFechaBeforeOpen
+    AfterOpen = zqProdFechaAfterOpen
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_produccion_por_fecha'
+      'where idmarea=:idmarea'
+      'AND fecha BETWEEN :fecha_ini AND :fecha_fin'
+      'order by fecha'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_ini'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_fin'
+        ParamType = ptUnknown
+      end>
+    left = 215
+    top = 420
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_ini'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_fin'
+        ParamType = ptUnknown
+      end>
+    object zqProdFechaidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqProdFechafecha: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object zqProdFechatot_cajas: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'tot_cajas'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechatot_kilos: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'tot_kilos'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p1: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p1'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p1: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p1'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p2: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p2'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p2: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p2'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p3: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p3'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p3: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p3'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p4: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p4'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p4: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p4'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p5: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p5'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p5: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p5'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p6: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p6'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p6: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p6'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p7: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p7'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p7: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p7'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p8: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p8'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p8: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p8'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p9: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p9'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p9: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p9'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+    object zqProdFechacajas_p10: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cajas_p10'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0'
+    end
+    object zqProdFechakilos_p10: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos_p10'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 33
+    end
+  end
+  object dsProdFecha: TDataSource[7]
+    DataSet = zqProdFecha
+    left = 250
+    top = 420
+  end
+  object zqProductos: TZQuery[8]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqProductosBeforeOpen
+    AfterOpen = zqProductosAfterOpen
+    SQL.Strings = (
+      'SELECT DISTINCT codigo'
+      'FROM productos'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY orden'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 285
+    top = 420
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqProductoscodigo: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+  end
+  object zqFechas: TZQuery[9]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqFechasBeforeOpen
+    SQL.Strings = (
+      'SELECT MIN(fecha) AS fecha_ini, MAX(fecha) AS fecha_fin'
+      'FROM produccion'
+      'WHERE idmarea=:idmarea'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 350
+    top = 420
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqFechasfecha_ini: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqFechasfecha_fin: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+  end
+  object zcgResumen: TZControladorGrilla[10]
+    AltoBotones = 28
+    AnchoBotones = 88
+    BotonExportar = bbExportar1
+    Grilla = dbgListaProd
+    MostrarBotonExportar = True
+    ZDataset = zqProdFecha
+    left = 395
+    top = 425
+  end
+end

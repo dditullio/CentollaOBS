@@ -1,0 +1,459 @@
+inherited fmEditarProductos: TfmEditarProductos
+  Height = 360
+  Width = 393
+  Caption = 'Productos'
+  ClientHeight = 360
+  ClientWidth = 393
+  inherited paEncabezadoBase: TPanel
+    Width = 393
+    ClientWidth = 393
+    inherited paAccion: TPanel
+      Left = 278
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 263
+      Width = 15
+    end
+    inherited paEncabezado: TPanel
+      Width = 262
+      ClientWidth = 262
+      inherited dbtEncabezado: TDBText
+        Width = 422
+        DataField = 'Encabezado'
+        DataSource = dsPrincipal
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 290
+    Width = 393
+    ClientHeight = 290
+    ClientWidth = 393
+    object Label1: TLabel[0]
+      Left = 8
+      Height = 15
+      Top = 8
+      Width = 39
+      Caption = 'Código'
+      ParentColor = False
+    end
+    object dbedCodigo: TDBEdit[1]
+      Left = 8
+      Height = 23
+      Top = 32
+      Width = 87
+      CustomEditMask = True
+      DataField = 'codigo'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      EditMask = '>cccccccccc;1; '
+      MaxLength = 10
+      TabOrder = 0
+    end
+    object dbedDescripcion: TDBEdit[2]
+      Left = 155
+      Height = 23
+      Top = 32
+      Width = 229
+      DataField = 'descripcion'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object Label2: TLabel[3]
+      Left = 156
+      Height = 15
+      Top = 8
+      Width = 109
+      Caption = 'Notas o aclaraciones'
+      ParentColor = False
+    end
+    object dbrgAspecto: TDBRadioGroup[4]
+      Left = 200
+      Height = 90
+      Top = 86
+      Width = 184
+      Caption = 'Aspecto'
+      DataField = 'cod_manchas'
+      DataSource = dsPrincipal
+      Items.Strings = (
+        'Sin manchas'
+        'Algo manchado'
+        'Muy manchado'
+      )
+      TabOrder = 5
+      Values.Strings = (
+        '0'
+        '1'
+        '2'
+      )
+    end
+    object dbcbRotos: TDBCheckBox[5]
+      Left = 8
+      Height = 23
+      Top = 64
+      Width = 257
+      Caption = 'Admite ejemplares rotos o incompletos'
+      DataField = 'rotos'
+      DataSource = dsPrincipal
+      TabOrder = 3
+      TabStop = True
+      ValueChecked = '1'
+      ValueUnchecked = '0'
+    end
+    object gbTalla: TGroupBox[6]
+      Left = 8
+      Height = 90
+      Top = 86
+      Width = 186
+      Caption = 'Talla'
+      ClientHeight = 72
+      ClientWidth = 182
+      TabOrder = 4
+      object Label3: TLabel
+        Left = 8
+        Height = 15
+        Top = 8
+        Width = 42
+        Caption = 'Mínimo'
+        ParentColor = False
+      end
+      object dbedTallaMin: TDBEdit
+        Left = 8
+        Height = 23
+        Top = 32
+        Width = 80
+        DataField = 'talla_min'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 3
+        TabOrder = 0
+      end
+      object Label4: TLabel
+        Left = 96
+        Height = 15
+        Top = 8
+        Width = 43
+        Caption = 'Máximo'
+        ParentColor = False
+      end
+      object dbedTallaMax: TDBEdit
+        Left = 100
+        Height = 23
+        Top = 32
+        Width = 80
+        DataField = 'talla_max'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 3
+        TabOrder = 1
+      end
+    end
+    object gbPeso: TGroupBox[7]
+      Left = 8
+      Height = 89
+      Top = 184
+      Width = 186
+      Caption = 'Peso'
+      ClientHeight = 71
+      ClientWidth = 182
+      TabOrder = 6
+      object Label5: TLabel
+        Left = 8
+        Height = 15
+        Top = 8
+        Width = 42
+        Caption = 'Mínimo'
+        ParentColor = False
+      end
+      object dbedPesoMin: TDBEdit
+        Left = 8
+        Height = 23
+        Top = 30
+        Width = 80
+        DataField = 'peso_min'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 3
+        TabOrder = 0
+      end
+      object Label6: TLabel
+        Left = 96
+        Height = 15
+        Top = 8
+        Width = 43
+        Caption = 'Máximo'
+        ParentColor = False
+      end
+      object dbedPesoMax: TDBEdit
+        Left = 96
+        Height = 23
+        Top = 32
+        Width = 80
+        DataField = 'peso_max'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 3
+        TabOrder = 1
+      end
+    end
+    object gbPorcentCarne: TGroupBox[8]
+      Left = 200
+      Height = 89
+      Top = 184
+      Width = 186
+      Caption = 'Porcentaje de carne'
+      ClientHeight = 71
+      ClientWidth = 182
+      TabOrder = 7
+      object Label7: TLabel
+        Left = 8
+        Height = 15
+        Top = 8
+        Width = 42
+        Caption = 'Mínimo'
+        ParentColor = False
+      end
+      object dbedCarneMin: TDBEdit
+        Left = 8
+        Height = 23
+        Top = 32
+        Width = 80
+        DataField = 'porcent_carne_min'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 3
+        TabOrder = 0
+      end
+      object Label8: TLabel
+        Left = 96
+        Height = 15
+        Top = 8
+        Width = 43
+        Caption = 'Máximo'
+        ParentColor = False
+      end
+      object dbedCarneMax: TDBEdit
+        Left = 96
+        Height = 23
+        Top = 32
+        Width = 80
+        DataField = 'porcent_carne_max'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        MaxLength = 3
+        TabOrder = 1
+      end
+    end
+    object Label9: TLabel[9]
+      Left = 100
+      Height = 15
+      Top = 8
+      Width = 33
+      Caption = 'Orden'
+      ParentColor = False
+    end
+    object dbedOrden: TDBEdit[10]
+      Left = 100
+      Height = 23
+      Top = 32
+      Width = 48
+      DataField = 'orden'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+  end
+  inherited paControles: TPanel
+    Top = 324
+    Width = 393
+    ClientWidth = 393
+    inherited bbCancelar: TBitBtn
+      Left = 211
+      Height = 24
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 299
+      Height = 24
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 140
+    top = 296
+  end
+  inherited zqPrincipal: TZQuery
+    Connection = dmGeneral.zcDB
+    OnCalcFields = zqPrincipalCalcFields
+    OnNewRecord = zqPrincipalNewRecord
+    SQL.Strings = (
+      'SELECT *'
+      'FROM productos'
+      'WHERE idproducto=:Id'
+    )
+    left = 64
+    top = 296
+    object zqPrincipalidproducto: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idproducto'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidmarea: TLongintField[1]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalcodigo: TStringField[2]
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqPrincipaldescripcion: TStringField[3]
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqPrincipalorden: TLongintField[4]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'orden'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalcod_manchas: TLongintField[5]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_manchas'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalrotos: TSmallintField[6]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'rotos'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipaltalla_min: TLongintField[7]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'talla_min'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipaltalla_max: TLongintField[8]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'talla_max'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalpeso_min: TFloatField[9]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'peso_min'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalpeso_max: TFloatField[10]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'peso_max'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalporcent_carne_min: TLongintField[11]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcent_carne_min'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnValidate = zqPrincipalporcent_carne_minValidate
+    end
+    object zqPrincipalporcent_carne_max: TLongintField[12]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcent_carne_max'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnValidate = zqPrincipalporcent_carne_maxValidate
+    end
+    object zqPrincipalEncabezado: TStringField[13]
+      DisplayWidth = 100
+      FieldKind = fkCalculated
+      FieldName = 'Encabezado'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    AltaContinua = True
+    ControlInicial = dbedCodigo
+    left = 208
+    top = 296
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    left = 16
+    top = 296
+  end
+end

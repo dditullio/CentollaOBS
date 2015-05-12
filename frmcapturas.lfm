@@ -1,0 +1,819 @@
+inherited fmCapturas: TfmCapturas
+  Left = 430
+  Height = 430
+  Top = 167
+  Width = 684
+  Caption = 'Capturas'
+  ClientHeight = 430
+  ClientWidth = 684
+  OnShow = FormShow
+  inherited paBase: TPanel
+    Height = 430
+    Width = 684
+    ClientHeight = 430
+    ClientWidth = 684
+    inherited paContenido: TPanel
+      Height = 412
+      Width = 684
+      ClientHeight = 412
+      ClientWidth = 684
+      inherited paLista: TPanel
+        Height = 412
+        Width = 457
+        ClientHeight = 412
+        ClientWidth = 457
+        inherited paBuscador: TPanel
+          Width = 457
+          ClientWidth = 457
+          inherited laBuscar: TLabel
+            Height = 15
+            Width = 35
+          end
+          inherited edBuscar: TEdit
+            Left = 120
+            Height = 23
+            Width = 302
+          end
+          inherited bbBuscar: TBitBtn
+            Left = 423
+          end
+          object dtFecha: TDateTimePicker[3]
+            Left = 5
+            Height = 23
+            Top = 19
+            Width = 105
+            ShowCheckBox = True
+            CenturyFrom = 1941
+            MaxDate = 2958465
+            MinDate = -53780
+            TabOrder = 2
+            TabStop = False
+            TrailingSeparator = False
+            TextForNullDate = ' '
+            LeadingZeros = True
+            Kind = dtkDate
+            TimeFormat = tf24
+            TimeDisplay = tdHMS
+            DateMode = dmComboBox
+            Date = 41858
+            Time = 0.767097766205552
+            UseDefaultSeparators = True
+            HideDateTimeParts = []
+            MonthNames = 'Long'
+            OnChange = dtFechaChange
+            OnCheckBoxChange = dtFechaCheckBoxChange
+          end
+        end
+        inherited paGrilla: TPanel
+          Height = 358
+          Width = 447
+          ClientHeight = 358
+          ClientWidth = 447
+          inherited bbEliminar: TBitBtn
+            Left = 180
+            Top = 327
+          end
+          inherited bbAgregar: TBitBtn
+            Left = 269
+            Top = 327
+          end
+          inherited bbEditar: TBitBtn
+            Left = 358
+            Top = 327
+          end
+          inherited dbgLista: TRxDBGrid
+            Height = 327
+            Width = 447
+            Columns = <            
+              item
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Fecha'
+                Title.Orientation = toHorizontal
+                Width = 70
+                FieldName = 'fecha'
+                DisplayFormat = 'dd/mm/yyyy'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Hora'
+                Title.Orientation = toHorizontal
+                Width = 45
+                FieldName = 'hora'
+                DisplayFormat = 'hh:mm'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Lance'
+                Title.Orientation = toHorizontal
+                Width = 50
+                FieldName = 'orden_virada'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Id. Línea'
+                Title.Orientation = toHorizontal
+                Width = 50
+                FieldName = 'nro_boya'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                SizePriority = 0
+                Title.Alignment = taCenter
+                Title.Caption = 'Línea'
+                Title.Orientation = toHorizontal
+                Width = 0
+                Visible = False
+                FieldName = 'nro_linea'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end            
+              item
+                PickList.Strings = (                )
+                Title.Alignment = taCenter
+                Title.Caption = 'Comentarios'
+                Title.Orientation = toHorizontal
+                Width = 199
+                FieldName = 'comentarios'
+                EditButtons = <>
+                Filter.DropDownRows = 0
+                Filter.ValueList.Strings = (                )
+                Filter.EmptyValue = '(Todos)'
+                Filter.EmptyFont.Style = [fsItalic]
+                Filter.ItemIndex = -1
+                KeyList.Strings = (                )
+              end>
+            DataSource = dsCapturas
+          end
+          inherited bbExportar: TBitBtn
+            Top = 327
+          end
+        end
+      end
+      inherited paDetalles: TPanel
+        Left = 457
+        Height = 412
+        Width = 227
+        ClientHeight = 412
+        ClientWidth = 227
+        Visible = True
+        object Panel1: TPanel[0]
+          Left = 0
+          Height = 36
+          Top = 12
+          Width = 227
+          Align = alTop
+          BorderSpacing.Top = 12
+          Caption = 'Detalles'
+          ParentColor = False
+          TabOrder = 0
+        end
+        object paDatos: TPanel[1]
+          Left = 0
+          Height = 364
+          Top = 48
+          Width = 227
+          Align = alClient
+          BevelOuter = bvNone
+          ChildSizing.HorizontalSpacing = 5
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 364
+          ClientWidth = 227
+          Color = clBtnFace
+          ParentColor = False
+          TabOrder = 1
+          object Label3: TLabel
+            Left = 0
+            Height = 15
+            Top = 0
+            Width = 134
+            Caption = 'Producción:'
+            ParentColor = False
+          end
+          object DBText2: TDBText
+            Left = 139
+            Height = 15
+            Top = 0
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'canastos_procesados'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label4: TLabel
+            Left = 0
+            Height = 15
+            Top = 15
+            Width = 134
+            Caption = 'Centolla total:'
+            ParentColor = False
+          end
+          object DBText3: TDBText
+            Left = 139
+            Height = 15
+            Top = 15
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'centolla_total'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label5: TLabel
+            Left = 0
+            Height = 15
+            Top = 30
+            Width = 134
+            Caption = 'Centolla comercial:'
+            ParentColor = False
+          end
+          object DBText4: TDBText
+            Left = 139
+            Height = 15
+            Top = 30
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'centolla_comercial'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label10: TLabel
+            Left = 0
+            Height = 15
+            Top = 45
+            Width = 134
+            Caption = 'Captura cangrejo araña:'
+            ParentColor = False
+          end
+          object DBText8: TDBText
+            Left = 139
+            Height = 15
+            Top = 45
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'arania_total'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label11: TLabel
+            Left = 0
+            Height = 15
+            Top = 60
+            Width = 134
+            Caption = 'Nº de trampas con fallo:'
+            ParentColor = False
+          end
+          object DBText9: TDBText
+            Left = 139
+            Height = 15
+            Top = 60
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'trampas_con_fallo'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label8: TLabel
+            Left = 0
+            Height = 15
+            Top = 75
+            Width = 134
+            Caption = 'Nº de trampas con aro:'
+            ParentColor = False
+          end
+          object DBText5: TDBText
+            Left = 139
+            Height = 15
+            Top = 75
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'cant_con_aro'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label9: TLabel
+            Left = 0
+            Height = 15
+            Top = 90
+            Width = 134
+            Caption = 'Nº de trampas sin puerta:'
+            ParentColor = False
+            Visible = False
+          end
+          object DBText6: TDBText
+            Left = 139
+            Height = 15
+            Top = 90
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'trampas_sin_puerta'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Visible = False
+          end
+          object Label114: TLabel
+            Left = 0
+            Height = 15
+            Top = 105
+            Width = 134
+            Caption = 'Trampas observadas:'
+            ParentColor = False
+          end
+          object DBText107: TDBText
+            Left = 139
+            Height = 15
+            Top = 105
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'porcent_trampas_obs'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label14: TLabel
+            Left = 0
+            Height = 15
+            Top = 120
+            Width = 134
+            Caption = 'Clusters/canasto(inf):'
+            ParentColor = False
+          end
+          object DBText7: TDBText
+            Left = 139
+            Height = 15
+            Top = 120
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'cluster_por_canasto'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label15: TLabel
+            Left = 0
+            Height = 15
+            Top = 135
+            Width = 134
+            Caption = 'Clusters/canasto (calc):'
+            ParentColor = False
+          end
+          object DBText10: TDBText
+            Left = 139
+            Height = 15
+            Top = 135
+            Width = 63
+            Alignment = taRightJustify
+            DataField = 'cluster_canasto_calc'
+            DataSource = dsResumen
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+        end
+      end
+    end
+    inherited paComando: TPanel
+      Width = 684
+      ClientWidth = 684
+      inherited sbCerrar: TSpeedButton
+        Left = 666
+        Flat = False
+      end
+    end
+  end
+  inherited zcgLista: TZControladorGrilla
+    ControlEdicion = fmEditarCaptura.zcePrincipal
+    MostrarBotonExportar = True
+    ZDataset = zqCapturas
+  end
+  object zqCapturas: TZQuery[4]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqCapturasBeforeOpen
+    AfterOpen = zqCapturasAfterOpen
+    AfterScroll = zqCapturasAfterScroll
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_capturas'
+      'WHERE idmarea=:idmarea '
+      'AND (:fecha IS NULL'
+      'OR :fecha = '''''
+      'OR fecha=:fecha)'
+      'AND ('
+      ':__FILTRO__ IS NULL OR'
+      ':__FILTRO__ = '''''
+      'OR nro_lance LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR nro_boya LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR nro_linea LIKE CONCAT(''%'',:__FILTRO__,''%'')'
+      'OR comentarios LIKE CONCAT(''%'',:__FILTRO__,''%''))'
+      'ORDER BY fecha, hora, nro_lance'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = '__FILTRO__'
+        ParamType = ptUnknown
+      end>
+    left = 126
+    top = 240
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = '__FILTRO__'
+        ParamType = ptUnknown
+      end>
+    object zqCapturasidcaptura: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcaptura'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCapturasidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCapturasidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCapturasnro_lance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_lance'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqCapturasnro_boya: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_boya'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCapturasnro_linea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_linea'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqCapturasfecha: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqCapturashora: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqCapturascomentarios: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqCapturasorden_virada: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'orden_virada'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsCapturas: TDataSource[5]
+    DataSet = zqCapturas
+    left = 165
+    top = 240
+  end
+  object zqResumen: TZQuery[6]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_capturas_resumen'
+      'WHERE idmarea=:idmarea'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 210
+    top = 240
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqResumenidcaptura: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcaptura'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqResumenidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqResumenidespecie1: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie1'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumenidespecie2: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie2'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumenidespecie3: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie3'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumencomentarios: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqResumencanastos_procesados: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'canastos_procesados'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumencluster_por_canasto: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_por_canasto'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumencluster_canasto_calc: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_canasto_calc'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumentrampas_recup: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'trampas_recup'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumencentolla_total: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'centolla_total'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumencentolla_comercial: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'centolla_comercial'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumenarania_total: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'arania_total'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumencant_sin_aro: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_sin_aro'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumencant_con_aro: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_con_aro'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumentrampas_con_fallo: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'trampas_con_fallo'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqResumentrampas_sin_puerta: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'trampas_sin_puerta'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqResumenporcent_trampas_obs: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcent_trampas_obs'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0 %'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+  end
+  object dsResumen: TDataSource[7]
+    DataSet = zqResumen
+    left = 270
+    top = 240
+  end
+end

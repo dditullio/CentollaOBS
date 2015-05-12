@@ -1,0 +1,413 @@
+inherited fmEditarProduccion: TfmEditarProduccion
+  Left = 527
+  Height = 180
+  Top = 232
+  Width = 231
+  Caption = 'Producción'
+  ClientHeight = 180
+  ClientWidth = 231
+  inherited paEncabezadoBase: TPanel
+    Width = 231
+    ClientWidth = 231
+    inherited paAccion: TPanel
+      Left = 116
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 99
+    end
+    inherited paEncabezado: TPanel
+      Width = 98
+      ClientWidth = 98
+      inherited dbtEncabezado: TDBText
+        Width = 258
+        DataField = 'fecha'
+        DataSource = dsPrincipal
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 110
+    Width = 231
+    ClientHeight = 110
+    ClientWidth = 231
+    object Label1: TLabel[0]
+      Left = 5
+      Height = 17
+      Top = 5
+      Width = 33
+      Caption = 'Fecha'
+      ParentColor = False
+    end
+    object dbdtFecha: TDBDateTimePicker[1]
+      Left = 5
+      Height = 25
+      Hint = 'Fecha de inicio del lance'
+      Top = 25
+      Width = 91
+      DataField = 'fecha'
+      DataSource = dsPrincipal
+      ReadOnly = False
+      CenturyFrom = 1941
+      MaxDate = 2958465
+      MinDate = -53780
+      TabOrder = 0
+      TrailingSeparator = False
+      TextForNullDate = ' '
+      LeadingZeros = True
+      Kind = dtkDate
+      TimeFormat = tf24
+      TimeDisplay = tdHMS
+      DateMode = dmComboBox
+      UseDefaultSeparators = True
+      HideDateTimeParts = []
+      MonthNames = 'Long'
+      OnEnter = dbdtFechaEnter
+      OnExit = dbdtFechaExit
+    end
+    object Label2: TLabel[2]
+      Left = 5
+      Height = 17
+      Top = 55
+      Width = 31
+      Caption = 'Cajas'
+      ParentColor = False
+    end
+    object dbedCajas: TDBEdit[3]
+      Left = 5
+      Height = 25
+      Hint = 'Hora de inicio del lance'
+      Top = 74
+      Width = 51
+      DataField = 'cant_cajas'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object Label8: TLabel[4]
+      Left = 100
+      Height = 17
+      Top = 4
+      Width = 53
+      Caption = 'Producto'
+      ParentColor = False
+    end
+    object dblkProducto: TDBLookupComboBox[5]
+      Left = 100
+      Height = 25
+      Hint = 'Número de boya'
+      Top = 24
+      Width = 123
+      AutoComplete = True
+      DataField = 'codigo'
+      DataSource = dsPrincipal
+      ListFieldIndex = 0
+      LookupCache = False
+      OnExit = dblkProductoExit
+      TabOrder = 1
+    end
+    object Label3: TLabel[6]
+      Left = 100
+      Height = 17
+      Top = 55
+      Width = 19
+      Caption = 'Kg.'
+      ParentColor = False
+    end
+    object dbedKg: TDBEdit[7]
+      Left = 100
+      Height = 25
+      Hint = 'Hora de inicio del lance'
+      Top = 74
+      Width = 51
+      DataField = 'kilos'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 3
+    end
+  end
+  inherited paControles: TPanel
+    Top = 144
+    Width = 231
+    ClientWidth = 231
+    inherited bbCancelar: TBitBtn
+      Left = 49
+      Height = 24
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 137
+      Height = 24
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 129
+    top = 140
+  end
+  inherited zqPrincipal: TZQuery
+    Connection = dmGeneral.zcDB
+    OnNewRecord = zqPrincipalNewRecord
+    SQL.Strings = (
+      'SELECT *'
+      'FROM produccion'
+      'WHERE idproduccion=:Id'
+    )
+    left = 53
+    top = 140
+    object zqPrincipalidproduccion: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idproduccion'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidmarea: TLongintField[1]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidproducto: TLongintField[2]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idproducto'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalfecha: TDateField[3]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalcant_cajas: TLongintField[4]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_cajas'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalkilos: TFloatField[5]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kilos'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object StringField1: TStringField[6]
+      DisplayWidth = 180
+      FieldKind = fkLookup
+      FieldName = 'codigo'
+      Index = 6
+      KeyFields = 'idproducto'
+      LookupCache = False
+      LookupDataSet = zqProductos
+      LookupKeyFields = 'idproducto'
+      LookupResultField = 'codigo'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    AltaContinua = True
+    ControlInicial = dbdtFecha
+    OnValidateForm = zcePrincipalValidateForm
+    left = 155
+    top = 140
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    DatasetsComplementarios = <    
+      item
+        Dataset = zqProductos
+      end>
+    left = 5
+    top = 140
+  end
+  object zqProductos: TZQuery[8]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqProductosBeforeOpen
+    SQL.Strings = (
+      'SELECT *'
+      'FROM productos'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY orden'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 83
+    top = 170
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqProductosidproducto: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idproducto'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqProductosidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqProductoscodigo: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqProductosdescripcion: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqProductosorden: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'orden'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqProductoscod_manchas: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_manchas'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqProductosrotos: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'rotos'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqProductostalla_min: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'talla_min'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqProductostalla_max: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'talla_max'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqProductospeso_min: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'peso_min'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqProductospeso_max: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'peso_max'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqProductosporcent_carne_min: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcent_carne_min'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqProductosporcent_carne_max: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcent_carne_max'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+end

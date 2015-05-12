@@ -1,0 +1,226 @@
+inherited fmEditarTiposTrampa: TfmEditarTiposTrampa
+  Height = 234
+  Top = 185
+  Width = 279
+  Caption = 'Tipo de trampa'
+  ClientHeight = 234
+  ClientWidth = 279
+  inherited paEncabezadoBase: TPanel
+    Width = 279
+    ClientWidth = 279
+    inherited paAccion: TPanel
+      Left = 164
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 149
+      Width = 15
+    end
+    inherited paEncabezado: TPanel
+      Width = 148
+      ClientWidth = 148
+      inherited dbtEncabezado: TDBText
+        Width = 308
+        DataField = 'descripcion'
+        DataSource = dsPrincipal
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 164
+    Width = 279
+    ClientHeight = 164
+    ClientWidth = 279
+    object Label1: TLabel[0]
+      Left = 10
+      Height = 15
+      Top = 10
+      Width = 39
+      Caption = 'Código'
+      ParentColor = False
+    end
+    object Label3: TLabel[1]
+      Left = 10
+      Height = 15
+      Top = 100
+      Width = 55
+      Caption = 'Cant. Aros'
+      ParentColor = False
+    end
+    object dbedCodigo: TDBEdit[2]
+      Left = 10
+      Height = 23
+      Top = 25
+      Width = 80
+      CustomEditMask = True
+      DataField = 'codigo'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      EditMask = '>aaaaa;1; '
+      MaxLength = 5
+      TabOrder = 0
+    end
+    object dbedCantAros: TDBEdit[3]
+      Left = 10
+      Height = 23
+      Top = 115
+      Width = 80
+      DataField = 'cant_aros'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object Label2: TLabel[4]
+      Left = 10
+      Height = 15
+      Top = 55
+      Width = 45
+      Caption = 'Formato'
+      ParentColor = False
+    end
+    object dblkFormato: TDBLookupComboBox[5]
+      Left = 10
+      Height = 23
+      Top = 70
+      Width = 180
+      DataField = 'descripcion'
+      DataSource = dsPrincipal
+      ListFieldIndex = 0
+      LookupCache = False
+      TabOrder = 1
+    end
+  end
+  inherited paControles: TPanel
+    Top = 198
+    Width = 279
+    ClientWidth = 279
+    inherited bbCancelar: TBitBtn
+      Left = 97
+      Height = 24
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 185
+      Height = 24
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 134
+    top = 190
+  end
+  inherited zqPrincipal: TZQuery
+    Connection = dmGeneral.zcDB
+    OnNewRecord = zqPrincipalNewRecord
+    SQL.Strings = (
+      'SELECT *'
+      'FROM tipos_trampa'
+      'WHERE idtipo_trampa=:Id'
+    )
+    left = 58
+    top = 190
+    object zqPrincipalidtipo_trampa: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_trampa'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidformato_trampa: TLongintField[1]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idformato_trampa'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalcodigo: TStringField[2]
+      DisplayWidth = 20
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalcant_aros: TLongintField[3]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_aros'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object StringField1: TStringField[4]
+      DisplayWidth = 1000
+      FieldKind = fkLookup
+      FieldName = 'descripcion'
+      Index = 4
+      KeyFields = 'idformato_trampa'
+      LookupCache = False
+      LookupDataSet = zqFormatosTrampa
+      LookupKeyFields = 'idformato_trampa'
+      LookupResultField = 'descripcion'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1000
+    end
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    ControlInicial = dbedCodigo
+    left = 202
+    top = 190
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    left = 10
+    top = 190
+  end
+  object zqFormatosTrampa: TZQuery[8]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT * FROM formatos_trampa'
+      'ORDER BY descripcion'
+    )
+    Params = <>
+    left = 60
+    top = 155
+    object zqFormatosTrampaidformato_trampa: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idformato_trampa'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqFormatosTrampacodigo: TStringField
+      DisplayWidth = 20
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqFormatosTrampadescripcion: TStringField
+      DisplayWidth = 1000
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1000
+    end
+  end
+end

@@ -1,0 +1,395 @@
+inherited fmDetalleCaptura: TfmDetalleCaptura
+  Left = 538
+  Height = 353
+  Top = 203
+  Width = 422
+  Caption = 'Captura por trampa'
+  ClientHeight = 353
+  ClientWidth = 422
+  OnShow = FormShow
+  inherited paEncabezadoBase: TPanel
+    Width = 422
+    ClientWidth = 422
+    inherited paAccion: TPanel
+      Left = 307
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 292
+      Width = 15
+    end
+    inherited paEncabezado: TPanel
+      Width = 291
+      ClientWidth = 291
+      inherited dbtEncabezado: TDBText
+        Width = 451
+        DataField = 'EncabezadoCorto'
+        DataSource = dmCapturas.dsCaptura
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 283
+    Width = 422
+    ClientHeight = 283
+    ClientWidth = 422
+    object Label1: TLabel[0]
+      Left = 75
+      Height = 15
+      Top = 5
+      Width = 24
+      Caption = '&Tipo'
+      FocusControl = dblkTipoTrampa
+      ParentColor = False
+    end
+    object dblkTipoTrampa: TDBLookupComboBox[1]
+      Left = 75
+      Height = 23
+      Top = 25
+      Width = 340
+      AutoComplete = True
+      DataField = 'cod_desc_tipo_trampa'
+      DataSource = dmCapturas.dsDetCaptura
+      ListFieldIndex = 0
+      LookupCache = False
+      NullValueKey = 46
+      OnExit = dblkTipoTrampaExit
+      TabOrder = 1
+      TabStop = False
+    end
+    object Label3: TLabel[2]
+      Left = 150
+      Height = 15
+      Top = 55
+      Width = 76
+      Caption = '&Estado trampa'
+      FocusControl = dblkEstadoTrampa
+      ParentColor = False
+    end
+    object dblkEstadoTrampa: TDBLookupComboBox[3]
+      Left = 150
+      Height = 23
+      Top = 75
+      Width = 265
+      AutoComplete = True
+      DataField = 'cod_desc_estado_trampa'
+      DataSource = dmCapturas.dsDetCaptura
+      ListFieldIndex = 0
+      LookupCache = False
+      NullValueKey = 46
+      TabOrder = 3
+    end
+    object paEspecie1: TPanel[4]
+      Left = 13
+      Height = 50
+      Top = 125
+      Width = 402
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 402
+      TabOrder = 4
+      object Label4: TLabel
+        Left = 251
+        Height = 15
+        Top = 0
+        Width = 27
+        Caption = 'Total'
+        ParentColor = False
+      end
+      object Label5: TLabel
+        Left = 326
+        Height = 15
+        Top = 0
+        Width = 54
+        Caption = 'Comercial'
+        ParentColor = False
+      end
+      object dbtEspVulgar1: TDBText
+        Left = -1
+        Height = 15
+        Top = 23
+        Width = 76
+        DataField = 'nombre_vulgar'
+        DataSource = dmCapturas.dsCaptura
+        ParentColor = False
+      end
+      object dbtEspCient1: TDBText
+        Left = -1
+        Height = 15
+        Top = 25
+        Width = 70
+        DataField = 'nombre_cientifico'
+        DataSource = dmCapturas.dsCaptura
+        ParentColor = False
+      end
+      object dbedTotal1: TDtDBEdit
+        Left = 251
+        Height = 23
+        Top = 20
+        Width = 70
+        DataField = 'total_especie1'
+        DataSource = dmCapturas.dsDetCaptura
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object dbedComercial1: TDtDBEdit
+        Left = 326
+        Height = 23
+        Top = 20
+        Width = 70
+        DataField = 'comerciales_especie1'
+        DataSource = dmCapturas.dsDetCaptura
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 1
+      end
+    end
+    object paEspecie2: TPanel[5]
+      Left = 13
+      Height = 50
+      Top = 175
+      Width = 402
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 402
+      TabOrder = 5
+      object Label6: TLabel
+        Left = 251
+        Height = 15
+        Top = 0
+        Width = 27
+        Caption = 'Total'
+        ParentColor = False
+      end
+      object Label7: TLabel
+        Left = 326
+        Height = 15
+        Top = 0
+        Width = 54
+        Caption = 'Comercial'
+        ParentColor = False
+      end
+      object dbtEspVulgar2: TDBText
+        Left = -1
+        Height = 15
+        Top = 23
+        Width = 76
+        DataField = 'nombre_vulgar1'
+        DataSource = dmCapturas.dsCaptura
+        ParentColor = False
+      end
+      object dbtEspCient2: TDBText
+        Left = -1
+        Height = 15
+        Top = 23
+        Width = 70
+        DataField = 'nombre_cientifico1'
+        DataSource = dmCapturas.dsCaptura
+        ParentColor = False
+      end
+      object dbedTotal2: TDtDBEdit
+        Left = 251
+        Height = 23
+        Top = 20
+        Width = 70
+        DataField = 'total_especie2'
+        DataSource = dmCapturas.dsDetCaptura
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object dbedComercial2: TDtDBEdit
+        Left = 326
+        Height = 23
+        Top = 20
+        Width = 70
+        DataField = 'comerciales_especie2'
+        DataSource = dmCapturas.dsDetCaptura
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 1
+      end
+    end
+    object paEspecie3: TPanel[6]
+      Left = 13
+      Height = 50
+      Top = 225
+      Width = 402
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 402
+      TabOrder = 6
+      object Label8: TLabel
+        Left = 251
+        Height = 15
+        Top = 0
+        Width = 27
+        Caption = 'Total'
+        ParentColor = False
+      end
+      object Label9: TLabel
+        Left = 326
+        Height = 15
+        Top = 0
+        Width = 54
+        Caption = 'Comercial'
+        ParentColor = False
+      end
+      object dbtEspVulgar3: TDBText
+        Left = -1
+        Height = 15
+        Top = 23
+        Width = 76
+        DataField = 'nombre_vulgar2'
+        DataSource = dmCapturas.dsCaptura
+        ParentColor = False
+      end
+      object dbtEspCient3: TDBText
+        Left = -1
+        Height = 15
+        Top = 23
+        Width = 70
+        DataField = 'nombre_cientifico2'
+        DataSource = dmCapturas.dsCaptura
+        ParentColor = False
+      end
+      object dbedTotal3: TDtDBEdit
+        Left = 251
+        Height = 23
+        Top = 20
+        Width = 70
+        DataField = 'total_especie3'
+        DataSource = dmCapturas.dsDetCaptura
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object dbedComercial3: TDtDBEdit
+        Left = 326
+        Height = 23
+        Top = 20
+        Width = 70
+        DataField = 'comerciales_especie3'
+        DataSource = dmCapturas.dsDetCaptura
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 1
+      end
+    end
+    object DividerBevel2: TDividerBevel[7]
+      Left = 10
+      Height = 15
+      Top = 105
+      Width = 405
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label10: TLabel[8]
+      Left = 10
+      Height = 15
+      Top = 5
+      Width = 48
+      Caption = 'Nº orden'
+      ParentColor = False
+    end
+    object dbedNroTrampa: TDBEdit[9]
+      Left = 10
+      Height = 23
+      Top = 25
+      Width = 62
+      DataField = 'nro_orden'
+      DataSource = dmCapturas.dsDetCaptura
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+      TabStop = False
+    end
+    object Label11: TLabel[10]
+      Left = 10
+      Height = 15
+      Top = 55
+      Width = 48
+      Caption = 'Cantidad'
+      ParentColor = False
+    end
+    object dbedCantTrampas: TDBEdit[11]
+      Left = 10
+      Height = 23
+      Top = 75
+      Width = 135
+      DataField = 'cant_trampas'
+      DataSource = dmCapturas.dsDetCaptura
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 2
+    end
+  end
+  inherited paControles: TPanel
+    Top = 317
+    Width = 422
+    ClientWidth = 422
+    inherited bbCancelar: TBitBtn
+      Left = 240
+      Height = 24
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 328
+      Height = 24
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 129
+    top = 305
+  end
+  inherited zqPrincipal: TZQuery
+    left = 53
+    top = 305
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    AltaContinua = True
+    EsSubform = True
+    OnValidateForm = zcePrincipalValidateForm
+    OnInitRecord = zcePrincipalInitRecord
+    left = 197
+    top = 305
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    DatasetMaestro = dmCapturas.zqDetCaptura
+    left = 5
+    top = 305
+  end
+  object alAtajos: TActionList[8]
+    left = 131
+    top = 181
+    object alTrampaA: TAction
+      Caption = 'alTrampaA'
+      OnExecute = alTrampaAExecute
+      ShortCut = 8257
+    end
+    object alTrampaM: TAction
+      Caption = 'alTrampaM'
+      OnExecute = alTrampaMExecute
+      ShortCut = 8269
+    end
+    object alTrampaN: TAction
+      Caption = 'alTrampaN'
+      OnExecute = alTrampaNExecute
+      ShortCut = 8270
+    end
+    object alTrampaP: TAction
+      Caption = 'alTrampaP'
+      OnExecute = alTrampaPExecute
+      ShortCut = 8272
+    end
+    object alTrampaR: TAction
+      Caption = 'alTrampaR'
+      OnExecute = alTrampaRExecute
+      ShortCut = 8274
+    end
+    object alTrampaS: TAction
+      Caption = 'alTrampaS'
+      OnExecute = alTrampaSExecute
+      ShortCut = 8275
+    end
+  end
+end

@@ -1,0 +1,19 @@
+Lances
+	* En lista: días de pesca con decimales
+	* Ordenar campos (virada)
+	* Agregar Captura total (Resuelto: cargar 1 trampa con el total del tipo de trampa)
+	
+Producción
+	* Error alta sin registros
+	
+Planilla de puente:
+	Agregar F.A. en lances
+	* Columna "Fallos" después de cant. trampas
+	* Fecha y hora en el mismo campo
+	Discriminar total y comercial por tipo de trampa
+	
+Muestras
+	* En lista: para submuestra gráficos largo peso (x=talla, y=peso)
+	
+Marcado: 
+	* agregar estado procesado

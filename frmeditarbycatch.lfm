@@ -1,0 +1,159 @@
+inherited fmEditarByCatch: TfmEditarByCatch
+  Height = 236
+  Width = 279
+  Caption = 'ByCatch'
+  ClientHeight = 236
+  ClientWidth = 279
+  inherited paEncabezadoBase: TPanel
+    Width = 279
+    ClientWidth = 279
+    inherited paAccion: TPanel
+      Left = 164
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 147
+    end
+    inherited paEncabezado: TPanel
+      Width = 146
+      ClientWidth = 146
+      inherited dbtEncabezado: TDBText
+        Width = 306
+        DataField = 'EncabezadoCorto'
+        DataSource = dmCapturas.dsCaptura
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 166
+    Width = 279
+    ClientHeight = 166
+    ClientWidth = 279
+    object Label7: TLabel[0]
+      Left = 4
+      Height = 17
+      Top = 50
+      Width = 44
+      Caption = 'Especie'
+      ParentColor = False
+    end
+    object dblkEspecieVulgar: TDBLookupComboBox[1]
+      Left = 5
+      Height = 25
+      Top = 70
+      Width = 265
+      AutoComplete = True
+      DataField = 'nombre_vulgar'
+      DataSource = dmCapturas.dsByCatch
+      ListFieldIndex = 0
+      LookupCache = False
+      TabOrder = 1
+    end
+    object dblkEspecieCient: TDBLookupComboBox[2]
+      Left = 4
+      Height = 25
+      Top = 70
+      Width = 265
+      AutoComplete = True
+      DataField = 'nombre_cientifico'
+      DataSource = dmCapturas.dsByCatch
+      ListFieldIndex = 0
+      LookupCache = False
+      TabOrder = 2
+      Visible = False
+    end
+    object Label4: TLabel[3]
+      Left = 4
+      Height = 17
+      Top = 100
+      Width = 48
+      Caption = 'Número'
+      ParentColor = False
+    end
+    object dbedNumero: TDBEdit[4]
+      Left = 4
+      Height = 25
+      Top = 120
+      Width = 70
+      DataField = 'cantidad'
+      DataSource = dmCapturas.dsByCatch
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 3
+    end
+    object Label5: TLabel[5]
+      Left = 79
+      Height = 17
+      Top = 100
+      Width = 28
+      Caption = 'Peso'
+      ParentColor = False
+    end
+    object dbedPeso: TDBEdit[6]
+      Left = 79
+      Height = 25
+      Top = 120
+      Width = 70
+      DataField = 'peso'
+      DataSource = dmCapturas.dsByCatch
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 4
+    end
+    object rgOrden: TRadioGroup[7]
+      Left = 4
+      Height = 41
+      Top = 5
+      Width = 265
+      AutoFill = True
+      Caption = 'Mostrar especies por nombre'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 23
+      ClientWidth = 261
+      Columns = 2
+      ItemIndex = 0
+      Items.Strings = (
+        'Vulgar'
+        'Científico'
+      )
+      OnClick = rgOrdenClick
+      TabOrder = 0
+    end
+  end
+  inherited paControles: TPanel
+    Top = 200
+    Width = 279
+    ClientWidth = 279
+    inherited bbCancelar: TBitBtn
+      Left = 97
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 185
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 129
+    top = 140
+  end
+  inherited zqPrincipal: TZQuery
+    left = 53
+    top = 140
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    AltaContinua = True
+    ControlInicial = dblkEspecieVulgar
+    EsSubform = True
+    left = 198
+    top = 140
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    DatasetMaestro = dmCapturas.zqByCatch
+    left = 5
+    top = 140
+  end
+end

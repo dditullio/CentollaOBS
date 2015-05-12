@@ -1,0 +1,1582 @@
+inherited fmEditarFactorConversion: TfmEditarFactorConversion
+  Left = 349
+  Height = 453
+  Top = 131
+  Width = 575
+  Caption = 'Factor de conversión'
+  ClientHeight = 453
+  ClientWidth = 575
+  inherited paEncabezadoBase: TPanel
+    Width = 575
+    ClientWidth = 575
+    inherited paAccion: TPanel
+      Left = 460
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 445
+      Width = 15
+    end
+    inherited paEncabezado: TPanel
+      Width = 444
+      ClientWidth = 444
+      inherited dbtEncabezado: TDBText
+        Width = 604
+        DataField = 'Encabezado'
+        DataSource = dsPrincipal
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 383
+    Width = 575
+    ClientHeight = 383
+    ClientWidth = 575
+    object Label2: TLabel[0]
+      Left = 10
+      Height = 15
+      Top = 295
+      Width = 68
+      Caption = 'Comentarios'
+      ParentColor = False
+    end
+    object dbmComentarios: TDBMemo[1]
+      Left = 10
+      Height = 55
+      Top = 315
+      Width = 555
+      DataField = 'comentarios'
+      DataSource = dsPrincipal
+      TabOrder = 8
+    end
+    object Label1: TLabel[2]
+      Left = 10
+      Height = 15
+      Top = 6
+      Width = 31
+      Caption = 'Lance'
+      ParentColor = False
+    end
+    object dblkLance: TDBLookupComboBox[3]
+      Left = 10
+      Height = 23
+      Top = 26
+      Width = 190
+      AutoComplete = True
+      DataField = 'dsc_virada'
+      DataSource = dsPrincipal
+      ListFieldIndex = 0
+      LookupCache = False
+      TabOrder = 0
+    end
+    object Label3: TLabel[4]
+      Left = 205
+      Height = 15
+      Top = 6
+      Width = 89
+      Caption = 'Peso total entero'
+      ParentColor = False
+    end
+    object dbedPesoEntero: TDBEdit[5]
+      Left = 205
+      Height = 23
+      Top = 26
+      Width = 100
+      DataField = 'peso_entero'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      EditMask = '##.00#'
+      MaxLength = 6
+      TabOrder = 1
+    end
+    object GroupBox1: TGroupBox[6]
+      Left = 105
+      Height = 180
+      Top = 65
+      Width = 150
+      Caption = 'Pinza chica'
+      ClientHeight = 162
+      ClientWidth = 146
+      TabOrder = 3
+      object Panel1: TPanel
+        Left = 5
+        Height = 25
+        Top = 5
+        Width = 65
+        Caption = 'Peso total'
+        Color = clBtnFace
+        ParentColor = False
+        TabOrder = 0
+      end
+      object Panel2: TPanel
+        Left = 75
+        Height = 25
+        Top = 5
+        Width = 65
+        Caption = 'FC Parcial'
+        Color = clBtnFace
+        ParentColor = False
+        TabOrder = 1
+      end
+      object dbedPcCrudos: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 35
+        Width = 65
+        DataField = 'pc_crudo'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        EditMask = '#.00#'
+        MaxLength = 5
+        TabOrder = 2
+      end
+      object dbedPcCocidos: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 65
+        Width = 65
+        DataField = 'pc_cocido'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        EditMask = '#.00#'
+        MaxLength = 5
+        TabOrder = 3
+      end
+      object dbedPcCongelados: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 95
+        Width = 65
+        DataField = 'pc_congelado'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        EditMask = '#.00#'
+        MaxLength = 5
+        TabOrder = 4
+      end
+      object dbedFCCCrudos: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 35
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCCCrudos'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 6
+        TabStop = False
+      end
+      object dbedFCCCocidos: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 65
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCCCocidos'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 7
+        TabStop = False
+      end
+      object dbedFCCCongelados: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 95
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCCCongelados'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 8
+        TabStop = False
+      end
+      object dbedPcDescongelados: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 125
+        Width = 65
+        DataField = 'pc_descongelado'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        EditMask = '#.00#'
+        MaxLength = 5
+        TabOrder = 5
+      end
+      object dbedFCCDescongelados: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 125
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCCDescongelados'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 9
+        TabStop = False
+      end
+    end
+    object Label4: TLabel[7]
+      Left = 10
+      Height = 15
+      Top = 120
+      Width = 38
+      Caption = 'Crudos'
+      ParentColor = False
+    end
+    object Label5: TLabel[8]
+      Left = 10
+      Height = 15
+      Top = 150
+      Width = 43
+      Caption = 'Cocidos'
+      ParentColor = False
+    end
+    object Label6: TLabel[9]
+      Left = 10
+      Height = 15
+      Top = 180
+      Width = 63
+      Caption = 'Congelados'
+      ParentColor = False
+    end
+    object Label7: TLabel[10]
+      Left = 10
+      Height = 15
+      Top = 215
+      Width = 80
+      Caption = 'Descongelados'
+      ParentColor = False
+    end
+    object Panel3: TPanel[11]
+      Left = 10
+      Height = 45
+      Top = 65
+      Width = 90
+      ClientHeight = 45
+      ClientWidth = 90
+      Color = clBtnFace
+      ParentColor = False
+      TabOrder = 2
+      object Label8: TLabel
+        Left = 0
+        Height = 46
+        Top = 0
+        Width = 90
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Clusters procesados'
+        Layout = tlCenter
+        ParentColor = False
+        WordWrap = True
+      end
+    end
+    object GroupBox2: TGroupBox[12]
+      Left = 260
+      Height = 180
+      Top = 65
+      Width = 150
+      Caption = 'Pinza grande'
+      ClientHeight = 162
+      ClientWidth = 146
+      TabOrder = 4
+      object Panel4: TPanel
+        Left = 5
+        Height = 25
+        Top = 5
+        Width = 65
+        Caption = 'Peso total'
+        Color = clBtnFace
+        ParentColor = False
+        TabOrder = 0
+      end
+      object Panel5: TPanel
+        Left = 75
+        Height = 25
+        Top = 5
+        Width = 65
+        Caption = 'FC Parcial'
+        Color = clBtnFace
+        ParentColor = False
+        TabOrder = 1
+      end
+      object dbedPgCrudos: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 35
+        Width = 65
+        DataField = 'pg_crudo'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        EditMask = '#.00#'
+        MaxLength = 5
+        TabOrder = 2
+      end
+      object dbedPgCocidos: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 65
+        Width = 65
+        DataField = 'pg_cocido'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        EditMask = '#.00#'
+        MaxLength = 5
+        TabOrder = 3
+      end
+      object dbedPgCongelados: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 95
+        Width = 65
+        DataField = 'pg_congelado'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        EditMask = '#.00#'
+        MaxLength = 5
+        TabOrder = 4
+      end
+      object dbedFCGCrudos: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 35
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCGCrudos'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 6
+        TabStop = False
+      end
+      object dbedFCGCocidos: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 65
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCGCocidos'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 7
+        TabStop = False
+      end
+      object dbedFCGCongelados: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 95
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCGCongelados'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 8
+        TabStop = False
+      end
+      object dbedPgDescongelados: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 125
+        Width = 65
+        DataField = 'pg_descongelado'
+        DataSource = dsPrincipal
+        CharCase = ecNormal
+        EditMask = '#.00#'
+        MaxLength = 5
+        TabOrder = 5
+      end
+      object dbedFCGDescongelados: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 125
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCGDescongelados'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 9
+        TabStop = False
+      end
+    end
+    object GroupBox3: TGroupBox[13]
+      Left = 415
+      Height = 180
+      Top = 65
+      Width = 150
+      Caption = 'Total'
+      ClientHeight = 162
+      ClientWidth = 146
+      TabOrder = 5
+      object Panel6: TPanel
+        Left = 5
+        Height = 25
+        Top = 5
+        Width = 65
+        Caption = 'Peso'
+        Color = clBtnFace
+        ParentColor = False
+        TabOrder = 0
+      end
+      object Panel7: TPanel
+        Left = 75
+        Height = 25
+        Top = 5
+        Width = 65
+        Caption = 'Factor'
+        Color = clBtnFace
+        ParentColor = False
+        TabOrder = 1
+      end
+      object dbedPTCrudos: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 35
+        Width = 65
+        CustomEditMask = True
+        DataField = 'PTCrudos'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 2
+        TabStop = False
+      end
+      object dbedPTCocidos: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 65
+        Width = 65
+        CustomEditMask = True
+        DataField = 'PTCocidos'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 3
+        TabStop = False
+      end
+      object dbedPTCongelados: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 95
+        Width = 65
+        CustomEditMask = True
+        DataField = 'PTCongelados'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 4
+        TabStop = False
+      end
+      object dbedFCCrudos: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 35
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCCrudos'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 6
+        TabStop = False
+      end
+      object dbedFCCocidos: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 65
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCCocidos'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 7
+        TabStop = False
+      end
+      object dbedFCCongelados: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 95
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCCongelados'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 8
+        TabStop = False
+      end
+      object dbedPTDescongelados: TDBEdit
+        Left = 5
+        Height = 23
+        Top = 125
+        Width = 65
+        CustomEditMask = True
+        DataField = 'PTDescongelados'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 5
+        TabStop = False
+      end
+      object dbedFCDescongelados: TDBEdit
+        Left = 75
+        Height = 23
+        Top = 125
+        Width = 65
+        CustomEditMask = True
+        DataField = 'FCDescongelados'
+        DataSource = dsPrincipal
+        ReadOnly = True
+        CharCase = ecNormal
+        EditMask = '#.000;1;_'
+        MaxLength = 5
+        TabOrder = 9
+        TabStop = False
+      end
+    end
+    object Label9: TLabel[14]
+      Left = 10
+      Height = 15
+      Top = 268
+      Width = 168
+      Caption = 'Factor para cálculo de captura:'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label10: TLabel[15]
+      Left = 385
+      Height = 15
+      Top = 268
+      Width = 65
+      Caption = 'Factor final:'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object dbedFCCaptura: TDBEdit[16]
+      Left = 205
+      Height = 23
+      Top = 260
+      Width = 100
+      DataField = 'FCCongelados'
+      DataSource = dsPrincipal
+      ReadOnly = True
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 6
+      TabStop = False
+    end
+    object dbedFCFinal: TDBEdit[17]
+      Left = 465
+      Height = 23
+      Top = 260
+      Width = 100
+      DataField = 'FCDescongelados'
+      DataSource = dsPrincipal
+      ReadOnly = True
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 7
+      TabStop = False
+    end
+  end
+  inherited paControles: TPanel
+    Top = 417
+    Width = 575
+    ClientWidth = 575
+    inherited bbCancelar: TBitBtn
+      Left = 393
+      Height = 24
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 481
+      Height = 24
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 134
+    top = 410
+  end
+  inherited zqPrincipal: TZQuery
+    Connection = dmGeneral.zcDB
+    OnCalcFields = zqPrincipalCalcFields
+    OnNewRecord = zqPrincipalNewRecord
+    SQL.Strings = (
+      'SELECT *'
+      'FROM factores_conversion'
+      'WHERE idfactor_conversion=:Id'
+    )
+    left = 58
+    top = 410
+    object zqPrincipalidfactor_conversion: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idfactor_conversion'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidmarea: TLongintField[1]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalidlance: TLongintField[2]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalpeso_entero: TFloatField[3]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'peso_entero'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '#0.000'
+      EditFormat = '#.000'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalpc_crudo: TFloatField[4]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pc_crudo'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '#0.000'
+      EditFormat = '##.000'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalpg_crudo: TFloatField[5]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pg_crudo'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      DisplayFormat = '#0.000'
+      EditFormat = '##.000'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalpc_cocido: TFloatField[6]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pc_cocido'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      EditFormat = '##.000'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalpg_cocido: TFloatField[7]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pg_cocido'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      EditFormat = '##.000'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalpc_congelado: TFloatField[8]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pc_congelado'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      EditFormat = '##.000'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalpg_congelado: TFloatField[9]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pg_congelado'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      EditFormat = '##.000'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalpc_descongelado: TFloatField[10]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pc_descongelado'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      EditFormat = '##.000'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalpg_descongelado: TFloatField[11]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pg_descongelado'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      EditFormat = '##.000'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalcomentarios: TStringField[12]
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqPrincipaldsc_virada: TStringField[13]
+      DisplayWidth = 120
+      FieldKind = fkLookup
+      FieldName = 'dsc_virada'
+      Index = 13
+      KeyFields = 'idlance'
+      LookupCache = False
+      LookupDataSet = zqLances
+      LookupKeyFields = 'idlance'
+      LookupResultField = 'dsc_virada'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 120
+    end
+    object zqPrincipalFCCCrudos: TFloatField[14]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCCCrudos'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCCCocidos: TFloatField[15]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCCCocidos'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCCCongelados: TFloatField[16]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCCCongelados'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCCDescongelados: TFloatField[17]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCCDescongelados'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCGCrudos: TFloatField[18]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCGCrudos'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCGCocidos: TFloatField[19]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCGCocidos'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCGCongelados: TFloatField[20]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCGCongelados'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCGDescongelados: TFloatField[21]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCGDescongelados'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalPTCrudos: TFloatField[22]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'PTCrudos'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalPTCocidos: TFloatField[23]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'PTCocidos'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalPTCongelados: TFloatField[24]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'PTCongelados'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalPTDescongelados: TFloatField[25]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'PTDescongelados'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCCrudos: TFloatField[26]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCCrudos'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCCocidos: TFloatField[27]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCCocidos'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCCongelados: TFloatField[28]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCCongelados'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalFCDescongelados: TFloatField[29]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'FCDescongelados'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#0.000'
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqPrincipalEncabezado: TStringField[30]
+      DisplayWidth = 100
+      FieldKind = fkCalculated
+      FieldName = 'Encabezado'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    ControlInicial = dblkLance
+    left = 202
+    top = 410
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    DatasetsComplementarios = <    
+      item
+        Dataset = zqLances
+      end>
+    left = 10
+    top = 410
+  end
+  object zqLances: TZQuery[8]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqLancesBeforeOpen
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_lances_simple'
+      'WHERE idmarea=:idmarea'
+      'and virada=1'
+      'ORDER BY orden_virada'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 240
+    top = 410
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqLancesidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesnro_lance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_lance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesnro_boya: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_boya'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesnro_linea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_linea'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesprospeccion: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'prospeccion'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesinvestigacion: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'investigacion'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesidlinea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlinea'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesidtipo_trampa: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_trampa'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesidcarnada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcarnada'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLanceskg_carnada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kg_carnada'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqLancesrumbo_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'rumbo_calado'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesfecha_ini_calado: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_calado'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLanceshora_ini_calado: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_calado'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesprofundidad_ini_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_calado'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_ini_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_calado'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_ini_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_calado'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancesfecha_fin_calado: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_calado'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLanceshora_fin_calado: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_calado'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesprofundidad_fin_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_calado'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_fin_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_calado'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_fin_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_calado'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancescant_trampas_caladas: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas_caladas'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesfecha_ini_virada: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_virada'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceshora_ini_virada: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_virada'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'hh:mm'
+    end
+    object zqLancesprofundidad_ini_virada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_virada'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_ini_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_virada'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_ini_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_virada'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancesfecha_fin_virada: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_virada'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceshora_fin_virada: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_virada'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesprofundidad_fin_virada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_virada'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_fin_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_virada'
+      Index = 31
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_fin_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_virada'
+      Index = 32
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancesdsc_virada: TStringField
+      DisplayWidth = 120
+      FieldKind = fkData
+      FieldName = 'dsc_virada'
+      Index = 33
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      Size = 120
+    end
+    object zqLancescant_trampas_recuperadas: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas_recuperadas'
+      Index = 34
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescanastos_procesados: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'canastos_procesados'
+      Index = 35
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescluster_por_canasto: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_por_canasto'
+      Index = 36
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescod_estado_mar: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_estado_mar'
+      Index = 37
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesnudos_viento: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nudos_viento'
+      Index = 38
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesdireccion_viento: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'direccion_viento'
+      Index = 39
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescomentarios_calado: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_calado'
+      Index = 40
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqLancescomentarios_virada: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_virada'
+      Index = 41
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqLancescalada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'calada'
+      Index = 42
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesvirada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'virada'
+      Index = 43
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesenviado: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'enviado'
+      Index = 44
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object dsLances: TDataSource[9]
+    DataSet = zqLances
+    left = 300
+    top = 410
+  end
+end

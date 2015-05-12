@@ -1,0 +1,1772 @@
+inherited dmMuestras: TdmMuestras
+  Height = 593
+  HorizontalOffset = 699
+  VerticalOffset = 96
+  Width = 283
+  object zqMuestras: TZQuery[0]
+    Connection = dmGeneral.zcDB
+    AfterOpen = zqMuestrasAfterOpen
+    AfterScroll = zqMuestrasAfterScroll
+    OnCalcFields = zqMuestrasCalcFields
+    CachedUpdates = True
+    OnNewRecord = zqMuestrasNewRecord
+    SQL.Strings = (
+      'SELECT *'
+      'FROM muestras'
+      'WHERE idmuestra=:Id'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'Id'
+        ParamType = ptUnknown
+      end>
+    left = 26
+    top = 10
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'Id'
+        ParamType = ptUnknown
+      end>
+    object zqMuestrasidmuestra: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmuestra'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqMuestrasidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqMuestrasidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      OnValidate = zqMuestrasidlanceValidate
+    end
+    object zqMuestrasidtipo_muestra: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_muestra'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqMuestrasidtipo_trampa: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_trampa'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqMuestrasidespecie: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqMuestrascomentarios: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqMuestrasEncabezado: TStringField
+      DisplayWidth = 100
+      FieldKind = fkCalculated
+      FieldName = 'Encabezado'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object StringField1: TStringField
+      DisplayWidth = 180
+      FieldKind = fkLookup
+      FieldName = 'nombre_cientifico'
+      Index = 8
+      KeyFields = 'idespecie'
+      LookupCache = False
+      LookupDataSet = zqEspecies
+      LookupKeyFields = 'idespecie'
+      LookupResultField = 'nombre_cientifico'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object StringField2: TStringField
+      DisplayWidth = 180
+      FieldKind = fkLookup
+      FieldName = 'nombre_vulgar'
+      Index = 9
+      KeyFields = 'idespecie'
+      LookupCache = False
+      LookupDataSet = zqEspecies1
+      LookupKeyFields = 'idespecie'
+      LookupResultField = 'nombre_vulgar'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqMuestrases_submuestra: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'es_submuestra'
+      Index = 10
+      KeyFields = 'idtipo_muestra'
+      LookupCache = False
+      LookupDataSet = zqTiposMuestras
+      LookupKeyFields = 'idtipo_muestra'
+      LookupResultField = 'es_submuestra'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqMuestrases_relac_morf: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'es_relac_morf'
+      Index = 11
+      KeyFields = 'idtipo_muestra'
+      LookupCache = False
+      LookupDataSet = zqTiposMuestras
+      LookupKeyFields = 'idtipo_muestra'
+      LookupResultField = 'es_relac_morf'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object BytesField1: TBytesField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'cod_desc'
+      Index = 12
+      KeyFields = 'idtipo_muestra'
+      LookupCache = False
+      LookupDataSet = zqTiposMuestras
+      LookupKeyFields = 'idtipo_muestra'
+      LookupResultField = 'cod_desc'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqMuestrasdsc_virada: TStringField
+      DisplayWidth = 120
+      FieldKind = fkLookup
+      FieldName = 'dsc_virada'
+      Index = 13
+      KeyFields = 'idlance'
+      LookupCache = False
+      LookupDataSet = zqLances
+      LookupKeyFields = 'idlance'
+      LookupResultField = 'dsc_virada'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 120
+    end
+    object zqMuestrascod_tipo_muestra: TStringField
+      DisplayWidth = 4
+      FieldKind = fkLookup
+      FieldName = 'codigo'
+      Index = 14
+      KeyFields = 'idtipo_muestra'
+      LookupCache = False
+      LookupDataSet = zqTiposMuestras
+      LookupKeyFields = 'idtipo_muestra'
+      LookupResultField = 'codigo'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4
+    end
+    object zqMuestrasfecha: TDateField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'fecha_fin_virada'
+      Index = 15
+      KeyFields = 'idlance'
+      LookupCache = False
+      LookupDataSet = zqLances
+      LookupKeyFields = 'idlance'
+      LookupResultField = 'fecha_fin_virada'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqMuestrashora: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'hora_fin_virada'
+      Index = 16
+      KeyFields = 'idlance'
+      LookupCache = False
+      LookupDataSet = zqLances
+      LookupKeyFields = 'idlance'
+      LookupResultField = 'hora_fin_virada'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object StringField3: TStringField
+      DisplayWidth = 1104
+      FieldKind = fkLookup
+      FieldName = 'tipo_trampa'
+      Index = 17
+      KeyFields = 'idtipo_trampa'
+      LookupCache = False
+      LookupDataSet = zqTiposTrampa
+      LookupKeyFields = 'idtipo_trampa'
+      LookupResultField = 'cod_desc'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1104
+    end
+    object zqMuestrastipo_trampa_lance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'idtipo_trampa1'
+      Index = 18
+      KeyFields = 'idlance'
+      LookupCache = False
+      LookupDataSet = zqLances
+      LookupKeyFields = 'idlance'
+      LookupResultField = 'idtipo_trampa'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsMuestras: TDataSource[1]
+    DataSet = zqMuestras
+    left = 105
+    top = 10
+  end
+  object zqDetalleMuestras: TZQuery[2]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqDetalleMuestrasBeforeOpen
+    AfterOpen = zqDetalleMuestrasAfterOpen
+    OnCalcFields = zqDetalleMuestrasCalcFields
+    CachedUpdates = True
+    BeforePost = zqDetalleMuestrasBeforePost
+    OnNewRecord = zqDetalleMuestrasNewRecord
+    SQL.Strings = (
+      'SELECT *'
+      'FROM detalle_muestras'
+      'WHERE idmuestra=:idmuestra'
+      'ORDER BY nro_ejemplar'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmuestra'
+        ParamType = ptUnknown
+      end>
+    left = 25
+    top = 70
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmuestra'
+        ParamType = ptUnknown
+      end>
+    object zqDetalleMuestrasiddetalle_muestra: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'iddetalle_muestra'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDetalleMuestrasidmuestra: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmuestra'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDetalleMuestrasnro_ejemplar: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_ejemplar'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDetalleMuestraslargo: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'largo'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDetalleMuestrassexo: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'sexo'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDetalleMuestrasidcodigo_caparazon: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcodigo_caparazon'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDetalleMuestrasidcodigo_huevos: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcodigo_huevos'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestrasporcentaje_huevos: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcentaje_huevos'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspeso: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'peso'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '# g'
+      EditFormat = '#'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqDetalleMuestraspata_1_d_mero: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_1_d_mero'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_1_d_entera: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_1_d_entera'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_2_d_mero: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_2_d_mero'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_2_d_entera: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_2_d_entera'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_3_d_mero: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_3_d_mero'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_3_d_entera: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_3_d_entera'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_1_i_mero: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_1_i_mero'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_1_i_entera: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_1_i_entera'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_2_i_mero: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_2_i_mero'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_2_i_entera: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_2_i_entera'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_3_i_mero: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_3_i_mero'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestraspata_3_i_entera: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'pata_3_i_entera'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestrasdsc_caparazon: TBytesField
+      DisplayLabel = 'cod_caparazon'
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'cod_desc'
+      Index = 21
+      KeyFields = 'idcodigo_caparazon'
+      LookupCache = False
+      LookupDataSet = zqCodigosCaparazon
+      LookupKeyFields = 'idcodigo_caparazon'
+      LookupResultField = 'cod_desc'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestrasdsc_huevos: TBytesField
+      DisplayLabel = 'cod_huevos'
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'cod_desc1'
+      Index = 22
+      KeyFields = 'idcodigo_huevos'
+      LookupCache = False
+      LookupDataSet = zqCodigosHuevos
+      LookupKeyFields = 'idcodigo_huevos'
+      LookupResultField = 'cod_desc'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object LongintField1: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'codigo'
+      Index = 23
+      KeyFields = 'idcodigo_caparazon'
+      LookupCache = False
+      LookupDataSet = zqCodigosCaparazon
+      LookupKeyFields = 'idcodigo_caparazon'
+      LookupResultField = 'codigo'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object LongintField2: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'codigo1'
+      Index = 24
+      KeyFields = 'idcodigo_huevos'
+      LookupCache = False
+      LookupDataSet = zqCodigosHuevos
+      LookupKeyFields = 'idcodigo_huevos'
+      LookupResultField = 'codigo'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqDetalleMuestrasPesoKg: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'PesoKg'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+    end
+    object zqDetalleMuestrastiene_huevos: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'tiene_huevos'
+      Index = 26
+      KeyFields = 'idcodigo_huevos'
+      LookupCache = False
+      LookupDataSet = zqCodigosHuevos
+      LookupKeyFields = 'idcodigo_huevos'
+      LookupResultField = 'tiene_huevos'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsDetalleMuestras: TDataSource[3]
+    DataSet = zqDetalleMuestras
+    left = 105
+    top = 70
+  end
+  object zqEspecies1: TZQuery[4]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_especies'
+      'WHERE es_centolla=1'
+      'order by  comercial desc, '
+      'frecuente desc,'
+      'nombre_vulgar'
+    )
+    Params = <>
+    left = 25
+    top = 383
+    object zqEspeciesidespecie1: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqEspeciescodigo_rapido1: TStringField
+      DisplayWidth = 4
+      FieldKind = fkData
+      FieldName = 'codigo_rapido'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4
+    end
+    object zqEspeciescodigo_inidep1: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'codigo_inidep'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesnombre_cientifico1: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre_cientifico'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesnombre_vulgar1: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre_vulgar'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspecies1comercial: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'comercial'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqEspecies1frecuente: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'frecuente'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object zqEspecies: TZQuery[5]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_especies'
+      'WHERE es_centolla=1'
+      'order by comercial desc, frecuente desc,'
+      'nombre_cientifico'
+    )
+    Params = <>
+    left = 26
+    top = 335
+    object zqEspeciesidespecie: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqEspeciescodigo_rapido: TStringField
+      DisplayWidth = 4
+      FieldKind = fkData
+      FieldName = 'codigo_rapido'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4
+    end
+    object zqEspeciescodigo_inidep: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'codigo_inidep'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesnombre_cientifico: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre_cientifico'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciesnombre_vulgar: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre_vulgar'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqEspeciescomercial: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'comercial'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqEspeciesfrecuente: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'frecuente'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+  end
+  object zqCodigosCaparazon: TZQuery[6]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_codigos_caparazon'
+      'ORDER BY codigo'
+    )
+    Params = <>
+    left = 25
+    top = 130
+    object zqCodigosCaparazonidcodigo_caparazon: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcodigo_caparazon'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCodigosCaparazoncodigo: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqCodigosCaparazondescripcion: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqCodigosCaparazoncod_desc: TBytesField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_desc'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 177
+    end
+  end
+  object zqCodigosHuevos: TZQuery[7]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_codigos_huevos'
+      'ORDER BY codigo'
+    )
+    Params = <>
+    left = 25
+    top = 190
+    object zqCodigosHuevosidcodigo_huevos: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcodigo_huevos'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCodigosHuevoscodigo: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqCodigosHuevosdescripcion: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqCodigosHuevostiene_huevos: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'tiene_huevos'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqCodigosHuevoscod_desc: TBytesField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_desc'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 177
+    end
+  end
+  object zqLances: TZQuery[8]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqLancesBeforeOpen
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_lances_simple'
+      'WHERE idmarea=:idmarea'
+      'and virada=1'
+      'ORDER BY orden_virada'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 25
+    top = 440
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqLancesidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesnro_lance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_lance'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesnro_boya: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_boya'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesnro_linea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_linea'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesprospeccion: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'prospeccion'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesinvestigacion: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'investigacion'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesidlinea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlinea'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesidcarnada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcarnada'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLanceskg_carnada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'kg_carnada'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqLancesrumbo_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'rumbo_calado'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesfecha_ini_calado: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_calado'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLanceshora_ini_calado: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_calado'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesprofundidad_ini_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_calado'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_ini_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_calado'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_ini_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_calado'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancesfecha_fin_calado: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_calado'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLanceshora_fin_calado: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_calado'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesprofundidad_fin_calado: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_calado'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_fin_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_calado'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_fin_calado: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_calado'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancescant_trampas_caladas: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas_caladas'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesfecha_ini_virada: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_virada'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceshora_ini_virada: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_virada'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'hh:mm'
+    end
+    object zqLancesprofundidad_ini_virada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_virada'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_ini_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_virada'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_ini_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_virada'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancesfecha_fin_virada: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_virada'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceshora_fin_virada: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_virada'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesprofundidad_fin_virada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_virada'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLanceslat_fin_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_virada'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLanceslong_fin_virada: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_virada'
+      Index = 31
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
+    end
+    object zqLancesdsc_virada: TStringField
+      DisplayWidth = 120
+      FieldKind = fkData
+      FieldName = 'dsc_virada'
+      Index = 32
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      Size = 120
+    end
+    object zqLancescant_trampas_recuperadas: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_trampas_recuperadas'
+      Index = 33
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescanastos_procesados: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'canastos_procesados'
+      Index = 34
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescluster_por_canasto: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_por_canasto'
+      Index = 35
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescod_estado_mar: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_estado_mar'
+      Index = 36
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesnudos_viento: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nudos_viento'
+      Index = 37
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancesdireccion_viento: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'direccion_viento'
+      Index = 38
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqLancescomentarios_calado: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_calado'
+      Index = 39
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqLancescomentarios_virada: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_virada'
+      Index = 40
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqLancescalada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'calada'
+      Index = 41
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesvirada: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'virada'
+      Index = 42
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqLancesidtipo_trampa: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_trampa'
+      Index = 43
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object zqTiposMuestras: TZQuery[9]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_tipos_muestra'
+      'ORDER BY orden'
+    )
+    Params = <>
+    left = 26
+    top = 300
+    object zqTiposMuestrasidtipo_muestra: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_muestra'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqTiposMuestrascodigo: TStringField
+      DisplayWidth = 4
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 4
+    end
+    object zqTiposMuestrasdescripcion: TStringField
+      DisplayWidth = 100
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 100
+    end
+    object zqTiposMuestrasorden: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'orden'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqTiposMuestrases_submuestra: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'es_submuestra'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqTiposMuestrases_relac_morf: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'es_relac_morf'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqTiposMuestrascod_desc: TBytesField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_desc'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 87
+    end
+  end
+  object zqCodigosHuevos1: TZQuery[10]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_codigos_huevos'
+      'ORDER BY codigo'
+    )
+    Params = <>
+    left = 26
+    top = 250
+    object zqCodigosHuevos1idcodigo_huevos: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcodigo_huevos'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqCodigosHuevos1codigo: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqCodigosHuevos1descripcion: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqCodigosHuevos1tiene_huevos: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'tiene_huevos'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
+    object zqCodigosHuevos1cod_desc: TBytesField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cod_desc'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 177
+    end
+  end
+  object zqAntMuestra: TZQuery[11]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqAntMuestraBeforeOpen
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_muestras'
+      'WHERE idmarea = :idmarea'
+      'AND (:fecha_hora IS NULL OR CONVERT( CONCAT(fecha, '' '', hora) , DATETIME) < :fecha_hora)'
+      'ORDER BY fecha DESC , hora DESC'
+      'LIMIT 1'
+      ''
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_hora'
+        ParamType = ptUnknown
+      end>
+    left = 25
+    top = 505
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fecha_hora'
+        ParamType = ptUnknown
+      end>
+    object zqAntMuestraidmuestra: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmuestra'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntMuestraidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntMuestracod_tipo_muestra: TStringField
+      DisplayWidth = 4
+      FieldKind = fkData
+      FieldName = 'cod_tipo_muestra'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 4
+    end
+    object zqAntMuestratipo_muestra: TStringField
+      DisplayWidth = 100
+      FieldKind = fkData
+      FieldName = 'tipo_muestra'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 100
+    end
+    object zqAntMuestraidlance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idlance'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntMuestranro_lance: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_lance'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntMuestrafecha: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntMuestrahora: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqAntMuestraidespecie: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idespecie'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqAntMuestranombre_cientifico: TStringField
+      DisplayWidth = 372
+      FieldKind = fkData
+      FieldName = 'nombre_cientifico'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 372
+    end
+    object zqAntMuestranombre_vulgar: TStringField
+      DisplayWidth = 372
+      FieldKind = fkData
+      FieldName = 'nombre_vulgar'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 372
+    end
+    object zqAntMuestracomentarios: TStringField
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+  end
+  object zqTiposTrampa: TZQuery[12]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT tt.*, CONCAT(tt.codigo, '' - '',tt.descripcion) as cod_desc'
+      'FROM v_tipos_trampa tt'
+      'ORDER BY RIGHT(CONCAT(''000'',TRIM(codigo)),4)'
+    )
+    Params = <>
+    left = 105
+    top = 130
+    object zqTiposTrampaidtipo_trampa: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idtipo_trampa'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqTiposTrampacodigo: TStringField
+      DisplayWidth = 20
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqTiposTrampadescripcion: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'descripcion'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqTiposTrampacant_aros: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_aros'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqTiposTrampacod_desc: TStringField
+      DisplayWidth = 212
+      FieldKind = fkData
+      FieldName = 'cod_desc'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      Size = 212
+    end
+  end
+end

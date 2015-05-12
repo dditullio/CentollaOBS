@@ -1,0 +1,1200 @@
+inherited fmEditarMarea: TfmEditarMarea
+  Left = 552
+  Height = 465
+  Top = 145
+  Width = 411
+  Caption = 'Marea'
+  ClientHeight = 465
+  ClientWidth = 411
+  OnClose = FormClose
+  OnShow = FormShow
+  inherited paEncabezadoBase: TPanel
+    Width = 411
+    ClientWidth = 411
+    inherited paAccion: TPanel
+      Left = 296
+    end
+    inherited DividerBevel1: TDividerBevel
+      Left = 281
+      Width = 15
+    end
+    inherited paEncabezado: TPanel
+      Width = 280
+      ClientWidth = 280
+      inherited dbtEncabezado: TDBText
+        Height = 15
+        Width = 440
+        AutoSize = True
+        DataField = 'DscMarea'
+        DataSource = dsPrincipal
+      end
+    end
+  end
+  inherited paPrincipal: TPanel
+    Height = 395
+    Width = 411
+    ClientHeight = 395
+    ClientWidth = 411
+    object pcGeneral: TPageControl[0]
+      Left = 1
+      Height = 393
+      Top = 1
+      Width = 409
+      ActivePage = tsDatosGenerales
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 0
+      OnChange = pcGeneralChange
+      object tsDatosGenerales: TTabSheet
+        Caption = 'Datos generales'
+        ClientHeight = 365
+        ClientWidth = 401
+        object paFondo: TPanel
+          Left = 5
+          Height = 355
+          Top = 5
+          Width = 391
+          Align = alClient
+          BorderSpacing.Around = 5
+          BevelOuter = bvNone
+          ClientHeight = 355
+          ClientWidth = 391
+          TabOrder = 0
+          object GroupBox1: TGroupBox
+            Left = 0
+            Height = 72
+            Top = 0
+            Width = 391
+            Align = alTop
+            Caption = 'Identificación'
+            ClientHeight = 54
+            ClientWidth = 387
+            TabOrder = 0
+            object Label1: TLabel
+              Left = 62
+              Height = 15
+              Top = 8
+              Width = 110
+              Caption = 'Marea Proy. Centolla'
+              ParentColor = False
+            end
+            object Label2: TLabel
+              Left = 269
+              Height = 15
+              Top = 8
+              Width = 58
+              Caption = 'Marea OBS'
+              ParentColor = False
+            end
+            object dbedMareaBuque: TDBEdit
+              Left = 62
+              Height = 23
+              Top = 24
+              Width = 202
+              CustomEditMask = True
+              DataField = 'marea_buque'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              EditMask = '>CCC-00-00-00;1; '
+              MaxLength = 12
+              TabOrder = 1
+            end
+            object dbedMareaInidep: TDBEdit
+              Left = 269
+              Height = 23
+              Top = 24
+              Width = 112
+              DataField = 'nro_marea_inidep'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              MaxLength = 0
+              TabOrder = 2
+            end
+            object Label3: TLabel
+              Left = 6
+              Height = 15
+              Top = 8
+              Width = 22
+              Caption = 'Año'
+              ParentColor = False
+            end
+            object dbedAnio: TDBEdit
+              Left = 6
+              Height = 23
+              Top = 24
+              Width = 51
+              DataField = 'anio_marea'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              MaxLength = 0
+              TabOrder = 0
+            end
+          end
+          object GroupBox2: TGroupBox
+            Left = 0
+            Height = 283
+            Top = 72
+            Width = 391
+            Align = alClient
+            Caption = 'Datos del viaje'
+            ClientHeight = 265
+            ClientWidth = 387
+            TabOrder = 1
+            object Label4: TLabel
+              Left = 6
+              Height = 15
+              Top = 8
+              Width = 34
+              Caption = 'Buque'
+              ParentColor = False
+            end
+            object dblkBuque: TDBLookupComboBox
+              Left = 6
+              Height = 23
+              Top = 24
+              Width = 184
+              AutoComplete = True
+              DataField = 'Buque'
+              DataSource = dsPrincipal
+              ListFieldIndex = 0
+              LookupCache = False
+              TabOrder = 0
+            end
+            object Label5: TLabel
+              Left = 6
+              Height = 15
+              Top = 56
+              Width = 41
+              Caption = 'Capitán'
+              ParentColor = False
+            end
+            object dbedCapitan: TDBEdit
+              Left = 6
+              Height = 23
+              Top = 72
+              Width = 184
+              DataField = 'capitan'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              MaxLength = 0
+              TabOrder = 2
+            end
+            object Label6: TLabel
+              Left = 197
+              Height = 15
+              Top = 56
+              Width = 83
+              Caption = 'Oficial de pesca'
+              ParentColor = False
+            end
+            object dbedOficial: TDBEdit
+              Left = 197
+              Height = 23
+              Top = 72
+              Width = 184
+              DataField = 'oficial'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              MaxLength = 0
+              TabOrder = 3
+            end
+            object Label7: TLabel
+              Left = 6
+              Height = 15
+              Top = 165
+              Width = 103
+              Caption = 'Inicio real de marea'
+              ParentColor = False
+            end
+            object Label8: TLabel
+              Left = 6
+              Height = 15
+              Top = 213
+              Width = 43
+              Caption = 'Zarpada'
+              ParentColor = False
+            end
+            object Label9: TLabel
+              Left = 197
+              Height = 15
+              Top = 165
+              Width = 80
+              Caption = 'Arribo a puerto'
+              ParentColor = False
+            end
+            object Label10: TLabel
+              Left = 197
+              Height = 15
+              Top = 213
+              Width = 90
+              Caption = 'Fin real de marea'
+              ParentColor = False
+            end
+            object dbdtInicio: TDBDateTimePicker
+              Left = 6
+              Height = 23
+              Top = 181
+              Width = 83
+              DataField = 'fecha_inicio'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 6
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtInicioEnter
+            end
+            object dbdtZarpada: TDBDateTimePicker
+              Left = 6
+              Height = 23
+              Top = 229
+              Width = 83
+              DataField = 'fecha_zarpada'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 7
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtZarpadaEnter
+            end
+            object dbdtArribo: TDBDateTimePicker
+              Left = 197
+              Height = 23
+              Top = 181
+              Width = 83
+              DataField = 'fecha_arribo'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 8
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtArriboEnter
+            end
+            object dbdtFinalizacion: TDBDateTimePicker
+              Left = 197
+              Height = 23
+              Top = 229
+              Width = 83
+              DataField = 'fecha_finalizacion'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 9
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtFinalizacionEnter
+            end
+            object Label11: TLabel
+              Left = 197
+              Height = 15
+              Top = 8
+              Width = 61
+              Caption = 'Observador'
+              ParentColor = False
+            end
+            object dbedObservador: TDBEdit
+              Left = 197
+              Height = 23
+              Top = 24
+              Width = 184
+              DataField = 'observador'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              MaxLength = 0
+              TabOrder = 1
+            end
+            object Label12: TLabel
+              Left = 6
+              Height = 15
+              Top = 110
+              Width = 117
+              Caption = 'Peso caja de producto'
+              ParentColor = False
+            end
+            object dbedPesoCajaProd: TDBEdit
+              Left = 6
+              Height = 23
+              Top = 126
+              Width = 184
+              DataField = 'peso_caja_producto'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              MaxLength = 0
+              TabOrder = 4
+            end
+            object Label16: TLabel
+              Left = 197
+              Height = 15
+              Top = 110
+              Width = 69
+              Caption = 'Peso canasto'
+              ParentColor = False
+            end
+            object dbedPesoCanasto: TDBEdit
+              Left = 197
+              Height = 23
+              Top = 126
+              Width = 184
+              DataField = 'peso_canasto'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              MaxLength = 0
+              TabOrder = 5
+            end
+          end
+        end
+      end
+      object tsResumen: TTabSheet
+        Caption = 'Resumen'
+        ClientHeight = 365
+        ClientWidth = 401
+        object paBaseResumen: TPanel
+          Left = 5
+          Height = 355
+          Top = 5
+          Width = 391
+          Align = alClient
+          BorderSpacing.Around = 5
+          BevelOuter = bvNone
+          ClientHeight = 355
+          ClientWidth = 391
+          TabOrder = 0
+          object gbGeneral: TGroupBox
+            Left = 0
+            Height = 100
+            Top = 0
+            Width = 391
+            Align = alTop
+            Caption = 'Datos globales'
+            ClientHeight = 82
+            ClientWidth = 387
+            TabOrder = 0
+            object Label13: TLabel
+              Left = 10
+              Height = 15
+              Top = 10
+              Width = 105
+              Caption = 'Días de navegación:'
+              ParentColor = False
+            end
+            object Label14: TLabel
+              Left = 10
+              Height = 15
+              Top = 32
+              Width = 74
+              Caption = 'Días de pesca:'
+              ParentColor = False
+            end
+            object Label15: TLabel
+              Left = 10
+              Height = 15
+              Top = 55
+              Width = 115
+              Caption = 'Duración de la marea:'
+              ParentColor = False
+            end
+            object DBText1: TDBText
+              Left = 165
+              Height = 15
+              Top = 10
+              Width = 50
+              DataField = 'dias_navegados'
+              DataSource = dsDatosGen
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+            end
+            object DBText2: TDBText
+              Left = 165
+              Height = 15
+              Top = 32
+              Width = 50
+              DataField = 'dias_pesca'
+              DataSource = dsDatosGen
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+            end
+            object DBText3: TDBText
+              Left = 165
+              Height = 15
+              Top = 55
+              Width = 50
+              DataField = 'duracion_marea'
+              DataSource = dsDatosGen
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+            end
+          end
+          object dbDiario: TGroupBox
+            Left = 0
+            Height = 255
+            Top = 100
+            Width = 391
+            Align = alClient
+            Caption = 'Operaciones por fecha'
+            ClientHeight = 237
+            ClientWidth = 387
+            TabOrder = 1
+            object rxdbgDiario: TRxDBGrid
+              Left = 0
+              Height = 202
+              Top = 0
+              Width = 387
+              TitleButtons = False
+              AutoSort = True
+              Columns = <              
+                item
+                  Alignment = taCenter
+                  SizePriority = 0
+                  Title.Alignment = taCenter
+                  Title.Caption = 'Fecha'
+                  Title.Orientation = toHorizontal
+                  Width = 90
+                  FieldName = 'fecha'
+                  EditButtons = <>
+                  Filter.DropDownRows = 0
+                  Filter.EmptyValue = '(Todos)'
+                  Filter.EmptyFont.Style = [fsItalic]
+                  Filter.ItemIndex = -1
+                  Footer.Alignment = taCenter
+                  Footer.Value = 'Totales:'
+                  Footer.ValueType = fvtStaticText
+                end              
+                item
+                  Alignment = taCenter
+                  Title.Alignment = taCenter
+                  Title.Caption = 'Nº de líneas|Caladas'
+                  Title.Orientation = toHorizontal
+                  Width = 66
+                  FieldName = 'l_caladas'
+                  EditButtons = <>
+                  Filter.DropDownRows = 0
+                  Filter.EmptyValue = '(Todos)'
+                  Filter.EmptyFont.Style = [fsItalic]
+                  Filter.ItemIndex = -1
+                  Footer.Alignment = taCenter
+                  Footer.FieldName = 'l_caladas'
+                  Footer.ValueType = fvtSum
+                end              
+                item
+                  Alignment = taCenter
+                  Title.Alignment = taCenter
+                  Title.Caption = 'Nº de líneas|Viradas'
+                  Title.Orientation = toHorizontal
+                  Width = 66
+                  FieldName = 'l_viradas'
+                  EditButtons = <>
+                  Filter.DropDownRows = 0
+                  Filter.EmptyValue = '(Todos)'
+                  Filter.EmptyFont.Style = [fsItalic]
+                  Filter.ItemIndex = -1
+                  Footer.Alignment = taCenter
+                  Footer.FieldName = 'l_viradas'
+                  Footer.ValueType = fvtSum
+                end              
+                item
+                  Alignment = taCenter
+                  Title.Alignment = taCenter
+                  Title.Caption = 'Nº de muestras|Captura'
+                  Title.Orientation = toHorizontal
+                  Width = 66
+                  FieldName = 'm_captura'
+                  EditButtons = <>
+                  Filter.DropDownRows = 0
+                  Filter.EmptyValue = '(Todos)'
+                  Filter.EmptyFont.Style = [fsItalic]
+                  Filter.ItemIndex = -1
+                  Footer.Alignment = taCenter
+                  Footer.FieldName = 'm_captura'
+                  Footer.ValueType = fvtSum
+                end              
+                item
+                  Alignment = taCenter
+                  Title.Alignment = taCenter
+                  Title.Caption = 'Nº de muestras|Tallas'
+                  Title.Orientation = toHorizontal
+                  Width = 66
+                  FieldName = 'm_tallas'
+                  EditButtons = <>
+                  Filter.DropDownRows = 0
+                  Filter.EmptyValue = '(Todos)'
+                  Filter.EmptyFont.Style = [fsItalic]
+                  Filter.ItemIndex = -1
+                  Footer.Alignment = taCenter
+                  Footer.FieldName = 'm_tallas'
+                  Footer.ValueType = fvtSum
+                end>
+              KeyStrokes = <              
+                item
+                  Command = rxgcShowFindDlg
+                  ShortCut = 16454
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcShowColumnsDlg
+                  ShortCut = 16471
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcShowFilterDlg
+                  ShortCut = 16468
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcShowSortDlg
+                  ShortCut = 16467
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcShowQuickFilter
+                  ShortCut = 16465
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcHideQuickFilter
+                  ShortCut = 16456
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcSelectAll
+                  ShortCut = 16449
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcDeSelectAll
+                  ShortCut = 16429
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcInvertSelection
+                  ShortCut = 16426
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcOptimizeColumnsWidth
+                  ShortCut = 16427
+                  Enabled = True
+                end              
+                item
+                  Command = rxgcCopyCellValue
+                  ShortCut = 16451
+                  Enabled = True
+                end>
+              FooterOptions.Active = True
+              FooterOptions.Color = clBtnFace
+              FooterOptions.RowCount = 1
+              OptionsRx = [rdgAllowColumnsForm, rdgAllowDialogFind, rdgFooterRows, rdgAllowQuickFilter]
+              FooterColor = clBtnFace
+              FooterRowCount = 1
+              Align = alClient
+              AutoFillColumns = True
+              Color = clWindow
+              DrawFullLine = False
+              FocusColor = clRed
+              SelectedColor = clHighlight
+              GridLineStyle = psSolid
+              DataSource = dsResumen
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+              ParentColor = False
+              TabOrder = 0
+            end
+            object Panel1: TPanel
+              Left = 0
+              Height = 35
+              Top = 202
+              Width = 387
+              Align = alBottom
+              ClientHeight = 35
+              ClientWidth = 387
+              TabOrder = 1
+              object bbExportar: TBitBtn
+                Left = 0
+                Height = 28
+                Top = 0
+                Width = 88
+                Glyph.Data = {
+                  76060000424D7606000000000000360000002800000014000000140000000100
+                  20000000000040060000640000006400000000000000000000000000001A2527
+                  265B696D6BC3717673FC6F7472FF6F7371FF6E7371FF6D7270FF6D726FFF6C71
+                  6FFF6C716EFF6B706EFF6B6F6DFF6A6F6DFF6A6E6CFF696E6CFF696E6CFD6569
+                  66CB2A2C2B630000001F00000005727775ADCFD1D0FEFEFEFEFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFFFFFFFFFD9DBDBFF6E7270C500000007FFFFFF007A7F
+                  7DF6FDFDFDFFC2C5C3FFBBBFBDFFBBBFBEFFBCC0BEFFCACDCCFF7E7F7EFFDEE0
+                  DFFF7E7F7FFFDFE0E0FF7F7F7FFFDFE1E0FF7E7F7FFFDEE0E0FF7C7D7DFFFFFF
+                  FFFF737875FB6D727005FFFFFF007C817FFBFEFFFFFFBBBFBEFFF3F5F4FFF4F6
+                  F5FFF5F7F6FF7D7E7EFFFBFCFBFFFCFCFCFFFCFCFCFFFCFDFCFFFCFDFDFFFCFD
+                  FDFFFCFDFCFFFCFCFCFFDFE1E1FFFFFFFFFF777C7AFC70757308FFFFFF007F84
+                  81FBFFFFFFFFBCC0BEFFBCC0BFFFBDC1BFFFBDC1C0FFDADCDBFFFCFCFCFF9CA1
+                  A0FF9DA1A0FF9DA1A0FF9DA1A0FF9DA1A0FF9DA1A0FFFDFDFDFF808180FFFFFF
+                  FFFF7A7F7DFC74797608FFFFFF00828785FBFFFFFFFFBBBFBEFFF3F5F4FFF5F6
+                  F6FFF6F8F7FF7E7F7EFFFCFCFCFF9CA19FFFE9D4C0FFE9D4C0FFE9D4C0FFE9D4
+                  C0FFE9D4C0FFFCFDFDFFE0E1E1FFFFFFFFFF7D8280FC777C7908FFFFFF00858A
+                  88FBFFFFFFFFBCC0BDFFBBBFBEFFBCC0BEFFBCC0BFFFD9DBDAFFFAFBFBFF9CA0
+                  9FFFD7B08BFFD7B18BFFD7B18BFFD7B18BFFD7B08BFFFBFCFBFF7F7F7FFFFFFF
+                  FFFF808683FC7A7F7D08FFFFFF00888E8BFBFEFFFEFFBABEBCFFF0F2F1FFF1F3
+                  F2FFF2F4F3FF7C7D7CFFF9FAF9FF9CA09FFFFAFAFAFFCF9F72FFFAFBFAFFCF9F
+                  72FFCF9F72FFF9FAFAFFDDDFDFFFFFFFFFFF848986FC7D828008FFFFFF008B91
+                  8EFBFEFEFEFFBABEBCFFB9BDBCFFB9BEBCFFBABEBCFFD6D8D8FFF7F9F8FF9CA0
+                  9FFFF8F9F8FFF8F9F8FFF8F9F9FFF8F9F8FFCF9F72FFF8F9F8FF7B7D7CFFFFFF
+                  FFFF878C8AFC80868308FFFFFF008E9492FBFEFEFEFFB8BCBAFFEAEEECFFEBEE
+                  EDFFECEFEDFF787A79FFF2F3F2FFF6F7F7FFF2F3F3FFF6F8F7FFF2F4F3FFF6F8
+                  F7FFF2F3F3FFF6F7F7FFDADCDBFFFFFFFFFF8A8F8DFC83898608FFFFFF009197
+                  95FBFEFEFEFFB9BDBBFFB7BCBAFFB7BCBAFFB7BCBAFFC3C7C5FF787A79FFDADD
+                  DBFF787A79FFDADDDBFF787A79FFDADDDBFF787A79FFDADDDBFF777978FFFEFF
+                  FEFF8C928FFC878C8A08FFFFFF00959B98FBFEFEFEFFB7BCBAFFE9ECEBFFE9ED
+                  EBFFE9EDEBFFB7BCBAFFE9EDEBFFE8ECEAFFC1C5C3FFE7EBE9FFE6EBE8FFC0C5
+                  C2FFE6EAE8FFE6EAE8FFC0C4C2FFFEFEFEFF939795FC8A8F8D08FFFFFF00989E
+                  9BFBFEFEFEFFB8BDBAFFB7BCBAFFB7BCBAFFB7BBBAFFB6BBB9FFC1C5C3FFC1C5
+                  C3FFC1C4C3FFC0C4C2FFC0C4C2FFBFC3C1FFBFC3C1FFBFC3C1FFB7BCBAFFEAEA
+                  EAFF919795FC8D939005FFFFFF009BA19EFBFEFEFEFFB8BCBBFFE9EDEBFFE9ED
+                  EBFFE9EDEBFFB6BBB9FFE8EBE9FFE7EBE8FFC0C4C2FFE5E9E7FFE4E8E6FFB8BC
+                  BAFFC4C7C6FFA3A6A5FF9C9D9DFFE7E8E7FF969C99DAFFFFFF00FFFFFF009EA4
+                  A2FBFEFEFEFFBBA18DFFB99C86FFB89C86FFB89C86FFB99F8AFFB79B85FFB69B
+                  84FFB89C86FFB59983FFB59983FFA18874FF99897BFFB2AAA3FFFDFCFCFFD8D9
+                  D9FF969C998DFFFFFF00FFFFFF00A1A8A5FBFEFFFEFFBA9D88FFDDC7B0FFDDC6
+                  B0FFDCC6AFFFB89C86FFDBC5AEFFDBC5AEFFB69A84FFD9C3ACFFD8C3ACFF9B84
+                  73FFFEFEFDFFFFFFFFFFFCFCFCFFB9BEBCF7979D9A43FFFFFF00FFFFFF00A5AB
+                  A8FBFEFFFFFFC0A693FFBA9D88FFBA9D87FFB99D87FFBA9E88FFB89B85FFB79B
+                  85FFB89C86FFB59983FFB19680FFAA998BFFFFFFFFFFFFFFFFFFCCCECDFC9EA4
+                  A1BC9AA09E03FFFFFF00FFFFFF00A8AEABFBFFFFFFFFF1F3F2FFF0F2F1FFEEF1
+                  EFFFEDF0EEFFEBEEEDFFE9EDEBFFE7EBE9FFE5E9E7FFE3E8E5FFD4D9D6FFECED
+                  ECFFFEFEFEFFDBDDDCFEA1A8A5D59EA4A10AFFFFFF00FFFFFF00FFFFFF00ABB2
+                  AFF5FEFEFEFFF6F7F6FFF3F5F4FFF1F3F2FFEFF1F0FFEDF0EEFFEAEEECFFEAED
+                  ECFFECEFEEFFF4F5F5FFFAFAFAFFF9F9F9FFCBCFCDF8A4ABA8DCA2A8A516FFFF
+                  FF00FFFFFF00FFFFFF00FFFFFF00AFB6B39FD9DDDCFDFDFDFDFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFCFCFFF7F8F7FFF0F2F1FFD5D9D7F8A8AF
+                  ACE8A6ACAA5FA5ACA902FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+                }
+                TabOrder = 0
+              end
+            end
+          end
+        end
+        object paCalculando: TPanel
+          Left = 0
+          Height = 351
+          Top = 9
+          Width = 400
+          BevelOuter = bvNone
+          Caption = 'Calculando...'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+        end
+      end
+    end
+  end
+  inherited paControles: TPanel
+    Top = 429
+    Width = 411
+    ClientWidth = 411
+    inherited bbCancelar: TBitBtn
+      Left = 229
+      Height = 24
+    end
+    inherited bbAceptar: TBitBtn
+      Left = 317
+      Height = 24
+    end
+  end
+  inherited dsPrincipal: TDataSource
+    left = 296
+    top = 104
+  end
+  inherited zqPrincipal: TZQuery
+    Connection = dmGeneral.zcDB
+    OnCalcFields = zqPrincipalCalcFields
+    OnNewRecord = zqPrincipalNewRecord
+    SQL.Strings = (
+      'Select'
+      '  mareas.idmarea,'
+      '  mareas.nro_marea_inidep,'
+      '  mareas.anio_marea,'
+      '  mareas.marea_buque,'
+      '  mareas.idbuque,'
+      '  mareas.capitan,'
+      '  mareas.oficial,'
+      '  mareas.observador,'
+      '  mareas.fecha_inicio,'
+      '  mareas.fecha_zarpada,'
+      '  mareas.fecha_arribo,'
+      '  mareas.fecha_finalizacion,'
+      '  mareas.peso_caja_producto,'
+      '  mareas.peso_canasto'
+      'From'
+      '  mareas'
+      'WHERE idmarea=:Id'
+    )
+    left = 352
+    top = 160
+    object zqPrincipalidmarea: TLongintField[0]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalnro_marea_inidep: TLongintField[1]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_marea_inidep'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalanio_marea: TLongintField[2]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'anio_marea'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalmarea_buque: TStringField[3]
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'marea_buque'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      EditMask = '>'
+      Size = 180
+    end
+    object zqPrincipalidbuque: TLongintField[4]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idbuque'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalcapitan: TStringField[5]
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'capitan'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqPrincipaloficial: TStringField[6]
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'oficial'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqPrincipalobservador: TStringField[7]
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'observador'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqPrincipalfecha_inicio: TDateField[8]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_inicio'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalfecha_zarpada: TDateField[9]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_zarpada'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalfecha_arribo: TDateField[10]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_arribo'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalfecha_finalizacion: TDateField[11]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_finalizacion'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalpeso_caja_producto: TFloatField[12]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'peso_caja_producto'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+    object zqPrincipalNombreBuque: TStringField[13]
+      DisplayWidth = 180
+      FieldKind = fkLookup
+      FieldName = 'Buque'
+      Index = 13
+      KeyFields = 'idbuque'
+      LookupCache = False
+      LookupDataSet = zqBuques
+      LookupKeyFields = 'idbuque'
+      LookupResultField = 'nombre'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+    object zqPrincipalDscMarea: TStringField[14]
+      DisplayWidth = 150
+      FieldKind = fkCalculated
+      FieldName = 'DscMarea'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 150
+    end
+    object zqPrincipalpeso_canasto: TFloatField[15]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'peso_canasto'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 11
+    end
+  end
+  inherited zcePrincipal: TZControladorEdicion
+    ControlInicial = dbedAnio
+    OnValidateForm = zcePrincipalValidateForm
+    left = 352
+    top = 216
+  end
+  inherited zdgPrincipal: TZDatasetGroup
+    DatasetsComplementarios = <    
+      item
+        Dataset = zqBuques
+      end>
+    left = 352
+    top = 104
+  end
+  object zqBuques: TZQuery[8]
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SELECT * '
+      'FROM buques'
+      'ORDER BY nombre'
+    )
+    Params = <>
+    left = 352
+    top = 48
+    object zqBuquesidbuque: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idbuque'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqBuquesnombre: TStringField
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'nombre'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
+  end
+  object dsBuques: TDataSource[9]
+    DataSet = zqBuques
+    left = 296
+    top = 48
+  end
+  object zqResumen: TZQuery[10]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqResumenBeforeOpen
+    SQL.Strings = (
+      'SELECT *'
+      'FROM v_resumen_marea'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY fecha'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 296
+    top = 167
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqResumenidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqResumenfecha: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object zqResumenl_caladas: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'l_caladas'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumenl_viradas: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'l_viradas'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumenm_captura: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'm_captura'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqResumenm_tallas: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'm_tallas'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsResumen: TDataSource[11]
+    DataSet = zqResumen
+    left = 296
+    top = 220
+  end
+  object zqDatosGen: TZQuery[12]
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqDatosGenBeforeOpen
+    SQL.Strings = (
+      'SELECT '
+      '    idmarea,'
+      '    DATEDIFF(fecha_arribo, fecha_zarpada) + 1 AS dias_navegados,'
+      '    DATEDIFF(fecha_finalizacion, fecha_inicio) + 1 AS duracion_marea,'
+      '    (SELECT '
+      '            COUNT(1)'
+      '        FROM'
+      '            v_resumen_marea rm'
+      '        WHERE'
+      '            rm.idmarea = m.idmarea) AS dias_pesca'
+      'FROM'
+      '    mareas m'
+      'WHERE m.idmarea=:idmarea'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 296
+    top = 275
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    object zqDatosGenidmarea: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idmarea'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqDatosGendias_navegados: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'dias_navegados'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      DisplayFormat = '# días'
+    end
+    object zqDatosGenduracion_marea: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'duracion_marea'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      DisplayFormat = '# días'
+    end
+    object zqDatosGendias_pesca: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'dias_pesca'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      DisplayFormat = '# días'
+    end
+  end
+  object dsDatosGen: TDataSource[13]
+    DataSet = zqDatosGen
+    left = 360
+    top = 275
+  end
+  object dbgeExportar: TRxDBGridExportSpreadSheet[14]
+    RxDBGrid = rxdbgDiario
+    Caption = 'Guardar como hoja de cálculo'
+    PageName = 'Bitácora'
+    Options = [ressExportTitle, ressExportColors, ressExportFooter, ressOverwriteExisting]
+    left = 15
+    top = 430
+  end
+  object sdExportar: TSaveDialog[15]
+    DefaultExt = '.xls'
+    Filter = 'Hoja de cálculo Excel|*.xls'
+    left = 50
+    top = 430
+  end
+  object zcgDiario: TZControladorGrilla[16]
+    AltoBotones = 28
+    AnchoBotones = 88
+    BotonExportar = bbExportar
+    Grilla = rxdbgDiario
+    MostrarBotonExportar = True
+    ZDataset = zqResumen
+    left = 61
+    top = 299
+  end
+end
