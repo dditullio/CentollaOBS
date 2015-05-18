@@ -34,6 +34,7 @@ type
     Label2: TLabel;
     Label3: TLabel;
     mdsTmp: TMemDataset;
+    rgFormato: TRadioGroup;
     rgFiltro: TRadioGroup;
     zqExpLancescanastos_procesados: TLongintField;
     zqExpLancescant_trampas: TLargeintField;
@@ -140,6 +141,8 @@ type
     zqProducciontot_kilos: TFloatField;
     zuExpLances: TZUpdateSQL;
     procedure acExportarLancesExecute(Sender: TObject);
+    procedure ExportarTxt;
+    procedure ExportarExcel;
     procedure dbgLancesColEnter(Sender: TObject);
     procedure dblkLanceFinChange(Sender: TObject);
     procedure dblkLanceIniChange(Sender: TObject);
@@ -255,6 +258,14 @@ begin
 end;
 
 procedure TfmExportarLances.acExportarLancesExecute(Sender: TObject);
+begin
+  if rgFormato.ItemIndex=0 then
+     ExportarTxt
+  else
+    ExportarExcel;
+end;
+
+procedure TfmExportarLances.ExportarTxt;
 var
   s:TStringList;
   tmp, archivo:string;
@@ -378,6 +389,11 @@ begin
         s.Free;
     end;
   end;
+end;
+
+procedure TfmExportarLances.ExportarExcel;
+begin
+
 end;
 
 procedure TfmExportarLances.dbgLancesColEnter(Sender: TObject);

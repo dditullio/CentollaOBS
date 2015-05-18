@@ -1,4 +1,4 @@
-Modificaciones V1
+﻿Modificaciones V0.9
 
 * Se agrega la tabla "formato_trampas": codifica los tipos de trampa según su formato (Coreana, Ushuaia, etc).
 

@@ -1,10 +1,10 @@
 inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
   Left = 495
-  Height = 533
+  Height = 552
   Top = 83
   Width = 418
   Caption = 'Informe por e-mail'
-  ClientHeight = 533
+  ClientHeight = 552
   ClientWidth = 418
   OnShow = FormShow
   inherited paEncabezadoBase: TPanel
@@ -26,9 +26,9 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
     end
   end
   inherited paPrincipal: TPanel
-    Height = 463
+    Height = 482
     Width = 418
-    ClientHeight = 463
+    ClientHeight = 482
     ClientWidth = 418
     object gbProduccion: TGroupBox[0]
       Left = 10
@@ -100,6 +100,30 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
         UseDefaultSeparators = True
         HideDateTimeParts = []
         MonthNames = 'Long'
+      end
+      object rgFormato: TRadioGroup
+        Left = 210
+        Height = 45
+        Top = 6
+        Width = 176
+        AutoFill = True
+        Caption = 'Formato de archivo'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 27
+        ClientWidth = 172
+        Columns = 2
+        ItemIndex = 0
+        Items.Strings = (
+          'Texto'
+          'Excel'
+        )
+        TabOrder = 2
       end
     end
     object gbDestino: TGroupBox[1]
@@ -455,9 +479,36 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       HideDateTimeParts = []
       MonthNames = 'Long'
     end
+    object paProceso: TPanel[7]
+      Left = 1
+      Height = 21
+      Top = 460
+      Width = 416
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 21
+      ClientWidth = 416
+      TabOrder = 5
+      Visible = False
+      object pbProceso: TProgressBar
+        Left = 115
+        Height = 15
+        Top = 0
+        Width = 288
+        TabOrder = 0
+      end
+      object laProceso: TLabel
+        Left = 16
+        Height = 15
+        Top = 0
+        Width = 51
+        Caption = 'laProceso'
+        ParentColor = False
+      end
+    end
   end
   inherited paControles: TPanel
-    Top = 497
+    Top = 516
     Width = 418
     ClientWidth = 418
     inherited bbCancelar: TBitBtn
@@ -1171,10 +1222,10 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
     BeforeOpen = zqExpLancesBeforeOpen
     CachedUpdates = True
     SQL.Strings = (
-      'SELECT il.* '
-      'FROM v_informe_lances il'
+      'SELECT pdp.* '
+      'FROM v_planilla_datos_puente pdp'
       'WHERE idenvio_email=:idenvio_email'
-      'ORDER BY fecha_hora_fin_virada'
+      'ORDER BY orden_virada'
     )
     Params = <    
       item
@@ -1190,163 +1241,146 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
         Name = 'idenvio_email'
         ParamType = ptUnknown
       end>
-    object zqExpLancesidenvio_email: TLongintField
+    object zqExpLancesidmarea: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'idenvio_email'
+      FieldName = 'idmarea'
       Index = 0
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      Visible = False
     end
-    object zqExpLancesorden_virada: TLargeintField
+    object zqExpLancesidlance: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'orden_virada'
+      FieldName = 'idlance'
       Index = 1
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      Visible = False
     end
-    object zqExpLancesfecha_hora_ini_calado: TDateTimeField
+    object zqExpLancesnro_lance: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'fecha_hora_ini_calado'
+      FieldName = 'nro_lance'
       Index = 2
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      Visible = False
     end
-    object zqExpLancesfecha_hora_fin_virada: TDateTimeField
+    object zqExpLancesorden_virada: TLargeintField
+      DisplayLabel = 'Registro'
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'fecha_hora_fin_virada'
+      FieldName = 'orden_virada'
       Index = 3
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = False
+      Required = True
     end
-    object zqExpLancesprofundidad_ini_calado: TLongintField
+    object zqExpLancesnro_boya: TLongintField
+      DisplayLabel = 'Id.Línea'
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'profundidad_ini_calado'
+      FieldName = 'nro_boya'
       Index = 4
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = False
+      Required = True
     end
-    object zqExpLancesprofundidad_fin_calado: TLongintField
-      DisplayWidth = 10
+    object zqExpLancesinvestigacion: TStringField
+      DisplayLabel = 'Investigación'
+      DisplayWidth = 4
       FieldKind = fkData
-      FieldName = 'profundidad_fin_calado'
+      FieldName = 'investigacion'
       Index = 5
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = False
+      Required = True
+      Size = 4
     end
-    object zqExpLanceslat_ini_calado: TFloatField
+    object zqExpLancesrumbo: TLongintField
+      DisplayLabel = 'Rumbo'
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'lat_ini_calado'
+      FieldName = 'rumbo'
       Index = 6
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = 16
     end
-    object zqExpLanceslong_ini_calado: TFloatField
+    object zqExpLancescant_trampas: TLargeintField
+      DisplayLabel = 'Cant.Trampas'
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'long_ini_calado'
+      FieldName = 'cant_trampas'
       Index = 7
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = 16
     end
-    object zqExpLanceslat_fin_virada: TFloatField
+    object zqExpLancestrampas_pescando: TLongintField
+      DisplayLabel = 'Trampas pescando'
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'lat_fin_virada'
+      FieldName = 'trampas_pescando'
       Index = 8
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = 16
-    end
-    object zqExpLanceslong_fin_virada: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'long_fin_virada'
-      Index = 9
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = 16
-    end
-    object zqExpLancescant_trampas: TLargeintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'cant_trampas'
-      Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
     object zqExpLancestrampas_con_fallo: TLargeintField
+      DisplayLabel = 'Trampas con fallo'
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'trampas_con_fallo'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancesdistancia_entre_trampas: TLongintField
+      DisplayLabel = 'Distancia entre trampas'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'distancia_entre_trampas'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancescarnada: TStringField
+      DisplayLabel = 'Carnada'
+      DisplayWidth = 180
+      FieldKind = fkData
+      FieldName = 'carnada'
       Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      Size = 180
     end
-    object zqExpLancescentolla_total: TLongintField
+    object zqExpLanceskg_carnada: TFloatField
+      DisplayLabel = 'Kg. carnada'
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'centolla_total'
+      FieldName = 'kg_carnada'
       Index = 12
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqExpLancescentolla_comercial: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'centolla_comercial'
-      Index = 13
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqExpLancesporcent_trampas_obs: TFloatField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'porcent_trampas_obs'
-      Index = 14
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1355,15 +1389,493 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       MinValue = 0
       Precision = 7
     end
-    object zqExpLancescanastos_procesados: TLongintField
+    object zqExpLancesfecha_ini_calado: TDateField
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'canastos_procesados'
+      FieldName = 'fecha_ini_calado'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Visible = False
+    end
+    object zqExpLanceshora_ini_calado: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_calado'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Visible = False
+    end
+    object zqExpLancesfecha_hora_ini_calado: TDateTimeField
+      DisplayLabel = 'Inicio calado'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_hora_ini_calado'
       Index = 15
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      DisplayFormat = 'dd/mm/yyyy hh:mm'
+    end
+    object zqExpLancesfecha_hora_fin_calado: TDateTimeField
+      DisplayLabel = 'Fin calado'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_hora_fin_calado'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'dd/mm/yyyy hh:mm'
+    end
+    object zqExpLanceslat_ini_calado: TFloatField
+      DisplayLabel = 'Lat.Ini.Calado'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_calado'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 16
+    end
+    object zqExpLanceslong_ini_calado: TFloatField
+      DisplayLabel = 'Log.Ini.Calado'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_calado'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 16
+    end
+    object zqExpLanceslat_fin_calado: TFloatField
+      DisplayLabel = 'Lat.Fin.Calado'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_calado'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 16
+    end
+    object zqExpLanceslong_fin_calado: TFloatField
+      DisplayLabel = 'Long.Fin.Calado'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_calado'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 16
+    end
+    object zqExpLanceslat_prom_calado_dec: TFloatField
+      DisplayLabel = 'Lat.Calado SURFER'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_prom_calado_dec'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 22
+    end
+    object zqExpLanceslong_prom_calado_dec: TFloatField
+      DisplayLabel = 'Long.Calado SURFER'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_prom_calado_dec'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 22
+    end
+    object zqExpLancesprofundidad_ini_calado: TLongintField
+      DisplayLabel = 'Prof.Ini.Calado'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_calado'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancesprofundidad_fin_calado: TLongintField
+      DisplayLabel = 'Porf.Fin.Calado'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_calado'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancesfecha_fin_virada: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_virada'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Visible = False
+    end
+    object zqExpLanceshora_fin_virada: TTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_virada'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Visible = False
+    end
+    object zqExpLancesfecha_hora_ini_virada: TDateTimeField
+      DisplayLabel = 'Inicio virada'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_hora_ini_virada'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'dd/mm/yyyy hh:mm'
+    end
+    object zqExpLancesfecha_hora_fin_virada: TDateTimeField
+      DisplayLabel = 'Fin virada'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_hora_fin_virada'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'dd/mm/yyyy hh:mm'
+    end
+    object zqExpLanceslat_ini_virada: TFloatField
+      DisplayLabel = 'Lat.Ini.Virada'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_virada'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 16
+    end
+    object zqExpLanceslong_ini_virada: TFloatField
+      DisplayLabel = 'Long.Ini.Virada'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_ini_virada'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 16
+    end
+    object zqExpLanceslat_fin_virada: TFloatField
+      DisplayLabel = 'Lat.Fin.Virada'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_virada'
+      Index = 31
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 16
+    end
+    object zqExpLanceslong_fin_virada: TFloatField
+      DisplayLabel = 'Long.Fin.Virada'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'long_fin_virada'
+      Index = 32
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '##.####'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 16
+    end
+    object zqExpLancesprof_ini_virada: TLongintField
+      DisplayLabel = 'Prof.Ini.Virada'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'prof_ini_virada'
+      Index = 33
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancesprof_fin_virada: TLongintField
+      DisplayLabel = 'Prof.Fin.Virada'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'prof_fin_virada'
+      Index = 34
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLanceshoras_pesca: TLongintField
+      DisplayLabel = 'Horas de pesca'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'horas_pesca'
+      Index = 35
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancesdias_pesca: TFloatField
+      DisplayLabel = 'Días de pesca'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'dias_pesca'
+      Index = 36
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 5
+    end
+    object zqExpLancescentolla_total: TLongintField
+      DisplayLabel = 'Centolla total'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'centolla_total'
+      Index = 37
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancescentolla_comercial: TLongintField
+      DisplayLabel = 'Centolla comercial'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'centolla_comercial'
+      Index = 38
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancesarania_total: TLongintField
+      DisplayLabel = 'Cang. araña'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'arania_total'
+      Index = 39
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancescanastos_procesados: TLongintField
+      DisplayLabel = 'Canastos proc.'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'canastos_procesados'
+      Index = 40
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancescluster_por_canasto: TLargeintField
+      DisplayLabel = 'Cluster x canasto'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_por_canasto'
+      Index = 41
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancestrampas_con_aro: TLargeintField
+      DisplayLabel = 'Trampas con aros'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'trampas_con_aro'
+      Index = 42
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancescaptura_por_trampa: TFloatField
+      DisplayLabel = 'Captura x trampa'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'captura_por_trampa'
+      Index = 43
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 8
+    end
+    object zqExpLancescomerciales_por_trampa: TFloatField
+      DisplayLabel = 'Comerciales x trampa'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'comerciales_por_trampa'
+      Index = 44
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 8
+    end
+    object zqExpLancesporcent_trampas_obs: TFloatField
+      DisplayLabel = '% trampas observadas'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcent_trampas_obs'
+      Index = 45
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
+    object zqExpLancesmuestra: TStringField
+      DisplayLabel = 'Muestra'
+      DisplayWidth = 4
+      FieldKind = fkData
+      FieldName = 'muestra'
+      Index = 46
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 4
+    end
+    object zqExpLancescomentarios: TMemoField
+      DisplayLabel = 'Comentarios'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 47
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object zqExpLancesidenvio_email: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idenvio_email'
+      Index = 48
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Visible = False
+    end
+    object zqExpLancesfecha_envio: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_envio'
+      Index = 49
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Visible = False
+    end
+    object zqExpLancesfecha_ini_produccion: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_produccion'
+      Index = 50
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Visible = False
+    end
+    object zqExpLancesfecha_fin_produccion: TDateField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_produccion'
+      Index = 51
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Visible = False
     end
   end
   object dsTmp: TDataSource[14]

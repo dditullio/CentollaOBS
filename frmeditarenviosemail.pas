@@ -12,7 +12,7 @@ uses
   rxdbgrid, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, DbCtrls,
   Buttons, ActnList, DBGrids, EditBtn, frmzedicionbase, ZDataset, ZSqlUpdate,
   SQLQueryGroup, zcontroladoredicion, zdatasetgroup, db, datGeneral, LSConfig,
-  LCLIntf;
+  LCLIntf, ComCtrls, comobj, variants;
 
 type
 
@@ -44,7 +44,11 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    laProceso: TLabel;
     LongintField1: TLongintField;
+    paProceso: TPanel;
+    pbProceso: TProgressBar;
+    rgFormato: TRadioGroup;
     zqDetalleEnviosenviado: TLargeintField;
     zqDetalleEnviosiddetalle_envio_email: TLongintField;
     zqDetalleEnviosidenvio_email: TLongintField;
@@ -52,22 +56,58 @@ type
     zqDetalleEnviosidmarea: TLongintField;
     zqDetalleEnviosseleccionado: TLargeintField;
     zqExpLances: TZQuery;
+    zqExpLancesarania_total: TLongintField;
     zqExpLancescanastos_procesados: TLongintField;
     zqExpLancescant_trampas: TLargeintField;
+    zqExpLancescaptura_por_trampa: TFloatField;
+    zqExpLancescarnada: TStringField;
     zqExpLancescentolla_comercial: TLongintField;
     zqExpLancescentolla_total: TLongintField;
+    zqExpLancescluster_por_canasto: TLargeintField;
+    zqExpLancescomentarios: TMemoField;
+    zqExpLancescomerciales_por_trampa: TFloatField;
+    zqExpLancesdias_pesca: TFloatField;
+    zqExpLancesdistancia_entre_trampas: TLongintField;
+    zqExpLancesfecha_envio: TDateField;
+    zqExpLancesfecha_fin_produccion: TDateField;
+    zqExpLancesfecha_fin_virada: TDateField;
+    zqExpLancesfecha_hora_fin_calado: TDateTimeField;
     zqExpLancesfecha_hora_fin_virada: TDateTimeField;
     zqExpLancesfecha_hora_ini_calado: TDateTimeField;
+    zqExpLancesfecha_hora_ini_virada: TDateTimeField;
+    zqExpLancesfecha_ini_calado: TDateField;
+    zqExpLancesfecha_ini_produccion: TDateField;
+    zqExpLanceshoras_pesca: TLongintField;
+    zqExpLanceshora_fin_virada: TTimeField;
+    zqExpLanceshora_ini_calado: TTimeField;
     zqExpLancesidenvio_email: TLongintField;
+    zqExpLancesidlance: TLongintField;
+    zqExpLancesidmarea: TLongintField;
+    zqExpLancesinvestigacion: TStringField;
+    zqExpLanceskg_carnada: TFloatField;
+    zqExpLanceslat_fin_calado: TFloatField;
     zqExpLanceslat_fin_virada: TFloatField;
     zqExpLanceslat_ini_calado: TFloatField;
+    zqExpLanceslat_ini_virada: TFloatField;
+    zqExpLanceslat_prom_calado_dec: TFloatField;
+    zqExpLanceslong_fin_calado: TFloatField;
     zqExpLanceslong_fin_virada: TFloatField;
     zqExpLanceslong_ini_calado: TFloatField;
+    zqExpLanceslong_ini_virada: TFloatField;
+    zqExpLanceslong_prom_calado_dec: TFloatField;
+    zqExpLancesmuestra: TStringField;
+    zqExpLancesnro_boya: TLongintField;
+    zqExpLancesnro_lance: TLongintField;
     zqExpLancesorden_virada: TLargeintField;
     zqExpLancesporcent_trampas_obs: TFloatField;
     zqExpLancesprofundidad_fin_calado: TLongintField;
     zqExpLancesprofundidad_ini_calado: TLongintField;
+    zqExpLancesprof_fin_virada: TLongintField;
+    zqExpLancesprof_ini_virada: TLongintField;
+    zqExpLancesrumbo: TLongintField;
+    zqExpLancestrampas_con_aro: TLargeintField;
     zqExpLancestrampas_con_fallo: TLargeintField;
+    zqExpLancestrampas_pescando: TLongintField;
     zqLances: TZQuery;
     zqLancescalada: TLongintField;
     zqLancescanastos_procesados: TLongintField;
@@ -165,6 +205,8 @@ type
     zuDetalleEnvios: TZUpdateSQL;
     procedure acAgregarLancesExecute(Sender: TObject);
     procedure acExportarLancesExecute(Sender: TObject);
+    procedure ExportarTXT;
+    procedure ExportarExcel(xls:olevariant);
     procedure dedCarpetaArchivoAcceptDirectory(Sender: TObject;
       var Value: String);
     procedure dedCarpetaArchivoChange(Sender: TObject);
@@ -270,8 +312,61 @@ end;
 
 procedure TFmEditarEnviosEmail.acExportarLancesExecute(Sender: TObject);
 var
+  xls: olevariant;
+  archivo_origen, archivo_destino, tmp: WideString;
+  archivo:string;
+  i:integer;
+  OLD_DS:char;
+begin
+  if rgFormato.ItemIndex=0 then
+     ExportarTXT
+  else
+  begin
+    //Primero verifico que el objeto se pueda crear
+    try
+      xls := CreateOleObject('Excel.Application');
+    except
+      MessageDlg('No se puede abrir la aplicación Microsoft Office Excel, o la misma no está instalada', mtError, [mbClose], 0);
+      Exit;
+    end;
+    //Pongo el resto dentro de un Try para si o si finalizar Excel al terminar
+    if dedCarpetaArchivo.Directory <> '' then
+    begin
+        try
+          OLD_DS:=DecimalSeparator;
+          DecimalSeparator:=',';
+          archivo_origen := ExtractFilePath(Application.ExeName) +
+            'PlanillasExcel' + DirectorySeparator + 'InformeEmail.xls';
+          //Armo el nombre del archivo destino con año y número de marea
+          tmp:='Marea '+dmGeneral.zqMareaActivamarea_buque.AsString+' OBS '+dmGeneral.zqMareaActivaanio_marea.AsString+'-'+dmGeneral.zqMareaActivanro_marea_inidep.AsString;
+          archivo_destino := dedCarpetaArchivo.Directory+DirectorySeparator+'MAREA '+dmGeneral.zqMareaActivamarea_buque.AsString+' OBS '+dmGeneral.zqMareaActivaanio_marea.AsString+'-'+dmGeneral.zqMareaActivanro_marea_inidep.AsString+'-LANCES_'+RightStr('0'+zqPrincipalnro_envio.AsString,2) + '.xls';
+          if (not FileExistsUTF8(archivo_destino)) or (MessageDlg('El archivo '+archivo_destino+' ya existe. ¿Desea reemplazarlo?', mtConfirmation, [mbYes, mbNo],0) = mrYes) then
+          begin
+            CopyFile(archivo_origen, archivo_destino, [cffOverwriteFile]);
+            archivo_destino:=UTF8Decode(archivo_destino);
+            xls.Workbooks.Open(archivo_destino);
+            ExportarExcel(xls);
+            xls.ActiveWorkBook.Sheets('Lances').Activate;
+            xls.ActiveWorkBook.Save;
+            if MessageDlg('La planilla ha sido guardada en la carpeta indicada. ¿Desea abrir esta carpeta?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
+            begin
+              OpenDocument(dedCarpetaArchivo.Directory);
+            end;
+          end;
+        finally
+          DecimalSeparator:=OLD_DS;
+          xls.Quit;
+          xls := Unassigned;
+          Close;
+      end;
+    end;
+  end;
+end;
+
+procedure TFmEditarEnviosEmail.ExportarTXT;
+var
   s:TStringList;
-  tmp, archivo:string;
+  tmp, archivo, str_enc:string;
   i:integer;
   OLD_DC:char;
 begin
@@ -285,13 +380,25 @@ begin
         zdgPrincipal.ApplyUpdates;
         s:=TStringList.Create;
         //Creo el encabezado
+        s.Add(Trim('Informe Nº '+zqPrincipalnro_envio.AsString+' del '+zqPrincipalfecha.AsString));
         s.Add(Trim('Marea: '+dmGeneral.zqMareaActivaMarea.AsString));
         s.Add(Trim('Observador: '+dmGeneral.zqMareaActivaobservador.AsString));
-        s.Add(Trim('Informe Nº '+zqPrincipalnro_envio.AsString+' del '+zqPrincipalfecha.AsString));
         s.Add('');
-        s.Add('Registro;Inicio calado;Fin virado;Prof. ini; Prof. fin;Lat. calado;Long. calado;Lat. virado;Long. virado;Nro. trampas;Fallos;Captura total;Captura comercial;Porcent.Tpas.Obs.;Jaulas prod.');
+
         with zqExpLances do
         begin
+          //Para armar el encabezado, recorro todos los campos "Visibles" y concateno el "DisplayLabel"
+          str_enc:='';
+          for i:=0 to Fields.Count-1 do
+          begin
+            if Fields[i].Visible then
+               str_enc:=str_enc+Fields[i].DisplayLabel+';';
+          end;
+          //Elimino el ";" final
+          if RightStr(str_enc,1)=';' then
+             tmp:=LeftStr(str_enc,Length(str_enc)-1);
+          s.Add(str_enc);
+
           max_fecha_lance:=-1;
           DisableControls;
           Close;
@@ -299,22 +406,31 @@ begin
           First;
           if RecordCount>0 then
           begin
+            laProceso.Caption:='Lances';
+            pbProceso.Max:=RecordCount;
+            pbProceso.Position:=RecNo;
+            paProceso.Visible:=True;
             while not EOF do
             begin
+              pbProceso.Position:=RecNo;
+              Application.ProcessMessages;
               if zqExpLancesfecha_hora_fin_virada.AsDateTime>max_fecha_lance then
                  max_fecha_lance:=zqExpLancesfecha_hora_fin_virada.AsDateTime;
-              //Concateno el valor de todos los campos (menos el último, que lo proceso aparte para que no
-              //quede con un ";" final
-              //Empiezo en el campo [1] porque el [0] es idenvio
+              //Concateno el valor de todos los campos
+              //Sólo se incluyen los campos "Visibles"
               tmp:='';
-              for i:=1 to Fields.Count-2 do
+              for i:=0 to Fields.Count-1 do
               begin
-                tmp:=tmp+Fields[i].AsString+';';
+                if Fields[i].Visible then
+                   tmp:=tmp+Fields[i].AsString+';';
               end;
-              tmp:=tmp+Fields[i+1].AsString;
+              //Elimino el ";" final
+              if RightStr(tmp,1)=';' then
+                 tmp:=LeftStr(tmp,Length(tmp)-1);
               s.Add(Trim(tmp));
               Next;
             end;
+            paProceso.Visible:=False;
           end else
           begin
             MessageDlg('No se encontró información de lances para exportar', mtInformation, [mbOK],0)
@@ -331,6 +447,10 @@ begin
            First;
            if RecordCount>0 then
            begin
+             laProceso.Caption:='Producción';
+             pbProceso.Max:=RecordCount;
+             pbProceso.Position:=RecNo;
+             paProceso.Visible:=True;
              //Armo la línea de encabezado
              s.Add('');
              s.Add('Producción:');
@@ -347,6 +467,8 @@ begin
              s.Add(tmp);
              while not EOF do
              begin
+               pbProceso.Position:=RecNo;
+               Application.ProcessMessages;
                tmp:=FieldByName('fecha').AsString+';';
                //Agrego los valores siempre que exista el producto
                for i:=1 to 10 do
@@ -362,6 +484,7 @@ begin
                s.Add(Trim(tmp));
                Next;
              end;
+             paProceso.Visible:=False;
            end else
            begin
              MessageDlg('No se encontró información de producción para exportar', mtInformation, [mbOK],0)
@@ -390,6 +513,197 @@ begin
       finally
         DecimalSeparator:=OLD_DC;
         s.Free;
+    end;
+  end;
+end;
+
+procedure TFmEditarEnviosEmail.ExportarExcel(xls:olevariant);
+const
+  XLCENTER=-4108;
+  PWD='proyectocentolla';
+var
+  tmp:WideString;
+  archivo:string;
+  i:integer;
+  fila, columna: integer;
+
+begin
+  if dedCarpetaArchivo.Directory <> '' then
+  begin
+    if zqPrincipal.State in [dsInsert,dsEdit] then
+       zqPrincipal.Post;
+    zdgPrincipal.ApplyUpdates;
+
+    xls.ActiveWorkBook.Sheets('Lances').Activate;
+
+    with zqExpLances do
+    begin
+      //Para armar el encabezado, recotto todos los campos "Visibles" y utilizo el "DisplayLabel"
+      fila:=5;
+      columna :=1;
+      for i:=0 to Fields.Count-1 do
+      begin
+        if Fields[i].Visible then
+        begin
+          tmp := UTF8Decode(Fields[i].DisplayLabel);
+          xls.Cells[fila, columna] := tmp;
+          xls.Cells[fila, columna].HorizontalAlignment:=XLCENTER;
+          inc(columna);
+        end;
+      end;
+
+      //Proceso datos de lances
+      max_fecha_lance:=-1;
+      DisableControls;
+      Close;
+      Open;
+      First;
+      if RecordCount>0 then
+      begin
+        laProceso.Caption:='Lances';
+        pbProceso.Max:=RecordCount;
+        pbProceso.Position:=RecNo;
+        paProceso.Visible:=True;
+        fila:=6;
+        while not EOF do
+        begin
+          pbProceso.Position:=RecNo;
+          Application.ProcessMessages;
+          columna :=1;
+          if zqExpLancesfecha_hora_fin_virada.AsDateTime>max_fecha_lance then
+             max_fecha_lance:=zqExpLancesfecha_hora_fin_virada.AsDateTime;
+          //Sólo se incluyen los campos "Visibles"
+          for i:=0 to Fields.Count-1 do
+          begin
+            if Fields[i].Visible then
+            begin
+              //Verifico el tipo de campo para que queden mien en el excel
+              if Fields[i] is TNumericField then
+                 xls.Cells[fila, columna] := Fields[i].AsFloat
+              else if Fields[i] is TDateTimeField then
+                 xls.Cells[fila, columna] := Fields[i].AsDateTime
+              else
+              begin
+                 tmp := UTF8Decode(Fields[i].AsString);
+                 xls.Cells[fila, columna] := tmp;
+              end;
+              xls.Cells[fila, columna].EntireColumn.AutoFit;
+              inc(columna);
+            end;
+          end;
+          Next;
+          inc(fila);
+        end;
+
+        //Creo el encabezado. Lo hago al final para que no afecte el "Autofit" de las primeras columnas
+        tmp := UTF8Decode(Trim('Informe Nº '+zqPrincipalnro_envio.AsString+' del '+zqPrincipalfecha.AsString));
+        xls.Cells[1, 1] := tmp;
+        tmp := UTF8Decode(Trim(dmGeneral.zqMareaActivaMarea.AsString));
+        xls.Cells[2, 2] := tmp;
+        tmp := UTF8Decode(Trim(dmGeneral.zqMareaActivaobservador.AsString));
+        xls.Cells[3, 2] := tmp;
+
+        //Protejo la hoja para que el usuario no modifique los datos
+        xls.ActiveWorkBook.ActiveSheet.Protect(PWD);
+
+        paProceso.Visible:=False;
+      end else
+      begin
+        MessageDlg('No se encontró información de lances para exportar', mtInformation, [mbOK],0)
+      end;
+      First;
+      EnableControls;
+    end;
+
+    //Agrego los datos de producción
+    tmp := UTF8Decode('Producción'); //Lo hago así porque el acento da problemas
+    xls.ActiveWorkBook.Sheets(tmp).Activate;
+    with zqProduccion do
+    begin
+       Close;
+       Open;
+       First;
+       fila:=1;
+       columna:=1;
+       if RecordCount>0 then
+       begin
+         laProceso.Caption:='Producción';
+         pbProceso.Max:=RecordCount;
+         pbProceso.Position:=RecNo;
+         paProceso.Visible:=True;
+         //Armo la línea de encabezado
+         tmp := UTF8Decode('Fecha');
+         xls.Cells[fila, columna] := tmp;
+         xls.Cells[fila, columna].HorizontalAlignment:=XLCENTER;
+         inc(columna);
+         //Pongo el encabezado con las categorías
+         for i:=1 to 10 do
+         begin
+           if FieldByName('p'+IntToStr(i)).AsString<>'' then
+           begin
+             tmp := UTF8Decode('Cajas '+FieldByName('p'+IntToStr(i)).AsString);
+             xls.Cells[fila, columna] := tmp;
+             xls.Cells[fila, columna].HorizontalAlignment:=XLCENTER;
+             inc(columna);
+             tmp := UTF8Decode('Kilos '+FieldByName('p'+IntToStr(i)).AsString);
+             xls.Cells[fila, columna] := tmp;
+             xls.Cells[fila, columna].HorizontalAlignment:=XLCENTER;
+             inc(columna);
+           end;
+         end;
+         tmp := UTF8Decode('Total Cajas');
+         xls.Cells[fila, columna] := tmp;
+         xls.Cells[fila, columna].HorizontalAlignment:=XLCENTER;
+         inc(columna);
+         tmp := UTF8Decode('Total Kilos');
+         xls.Cells[fila, columna] := tmp;
+         xls.Cells[fila, columna].HorizontalAlignment:=XLCENTER;
+
+         //Proceso los datos
+         fila:=2;
+         while not EOF do
+         begin
+           pbProceso.Position:=RecNo;
+           Application.ProcessMessages;
+           columna:=1;
+           tmp := UTF8Decode(FieldByName('fecha').AsString);
+           xls.Cells[fila, columna] := tmp;
+           inc(columna);
+
+           //Agrego los valores siempre que exista el producto
+           for i:=1 to 10 do
+           begin
+             if FieldByName('p'+IntToStr(i)).AsString<>'' then
+             begin
+               tmp := UTF8Decode(FieldByName('cajas_p'+IntToStr(i)).AsString);
+               xls.Cells[fila, columna] := tmp;
+               inc(columna);
+
+               tmp := UTF8Decode(FieldByName('kilos_p'+IntToStr(i)).AsString);
+               xls.Cells[fila, columna] := tmp;
+               inc(columna);
+
+             end;
+           end;
+           tmp := UTF8Decode(FieldByName('tot_cajas').AsString);
+           xls.Cells[fila, columna] := tmp;
+           inc(columna);
+
+           tmp := UTF8Decode(FieldByName('tot_kilos').AsString);
+           xls.Cells[fila, columna] := tmp;
+
+           Next;
+           inc(fila);
+         end;
+
+         //Protejo la hoja para que el usuario no modifique los datos
+         xls.ActiveWorkBook.ActiveSheet.Protect(PWD);
+
+         paProceso.Visible:=False;
+       end else
+       begin
+         MessageDlg('No se encontró información de producción para exportar', mtInformation, [mbOK],0)
+       end;
     end;
   end;
 end;

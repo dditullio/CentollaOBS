@@ -558,7 +558,7 @@ begin
   begin
      zqPrincipalVelocCalado.Value := zqPrincipalDistCalado.Value * 60 / zqPrincipalTiempoCalado.Value;
      // Pongo en rojo valores dudosos
-     if (zqPrincipalVelocCalado.Value > 5.5) or
+     if (zqPrincipalVelocCalado.Value > 6.5) or
        (zqPrincipalVelocCalado.Value < 3) then
        dbtVelocCalado.Font.Color := clRed
      else

@@ -336,6 +336,7 @@
         <ComponentName Value="fmExportarLances"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmexportarlances"/>
       </Unit29>
       <Unit30>
         <Filename Value="frmfactoresconversion.pas"/>
@@ -386,6 +387,7 @@
         <ComponentName Value="FmEnviosEmail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmenviosemail"/>
       </Unit36>
       <Unit37>
         <Filename Value="frmeditarenviosemail.pas"/>
@@ -393,6 +395,7 @@
         <ComponentName Value="FmEditarEnviosEmail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmEditarEnviosEmail"/>
       </Unit37>
       <Unit38>
         <Filename Value="frmeditartipostrampa.pas"/>

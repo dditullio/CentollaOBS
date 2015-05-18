@@ -130,15 +130,15 @@ type
   private
     { private declarations }
     Procedure HabilitarAcciones;
-    procedure GenerarDatosPuenteOLD(xls:olevariant);
-    procedure GenerarDatosPuente(xls:olevariant);
-    procedure GenerarCapturas(xls:olevariant);
-    procedure GenerarAcomp(xls:olevariant);
-    procedure GenerarMuestras(xls:olevariant);
-    procedure GenerarSubmuestras(xls:olevariant);
-    procedure GenerarProduccion(xls:olevariant);
-    procedure GenerarFC(xls:olevariant);
-    procedure GenerarMarcas(xls:olevariant);
+    procedure GenerarDatosPuenteOLD(xls:olevariant; Password: WideString);
+    procedure GenerarDatosPuente(xls:olevariant; Password: WideString);
+    procedure GenerarCapturas(xls:olevariant; Password: WideString);
+    procedure GenerarAcomp(xls:olevariant; Password: WideString);
+    procedure GenerarMuestras(xls:olevariant; Password: WideString);
+    procedure GenerarSubmuestras(xls:olevariant; Password: WideString);
+    procedure GenerarProduccion(xls:olevariant; Password: WideString);
+    procedure GenerarFC(xls:olevariant; Password: WideString);
+    procedure GenerarMarcas(xls:olevariant; Password: WideString);
   public
     { public declarations }
   end;
@@ -254,6 +254,8 @@ begin
 end;
 
 procedure TfmMareaAExcel.acGenerarPlanillaExecute(Sender: TObject);
+const
+  PWD='proyectocentolla';
 var
   xls: olevariant;
   archivo_origen, archivo_destino, tmp: WideString;
@@ -301,14 +303,14 @@ begin
           CopyFile(archivo_origen, archivo_destino, [cffOverwriteFile]);
           archivo_destino:=UTF8Decode(archivo_destino);
           xls.Workbooks.Open(archivo_destino);
-          GenerarDatosPuente(xls);
-          GenerarCapturas(xls);
-//          GenerarAcomp(xls);
-          GenerarMuestras(xls);
-          GenerarSubmuestras(xls);
-          GenerarProduccion(xls);
-          GenerarFC(xls);
-          GenerarMarcas(xls);
+          GenerarDatosPuente(xls, PWD);
+          GenerarCapturas(xls, PWD);
+//          GenerarAcomp(xls, PWD);
+          GenerarMuestras(xls, PWD);
+          GenerarSubmuestras(xls, PWD);
+          GenerarProduccion(xls, PWD);
+          GenerarFC(xls, PWD);
+          GenerarMarcas(xls, PWD);
           xls.ActiveWorkBook.Sheets('Datos de puente').Activate;
           xls.ActiveWorkBook.Save;
           if MessageDlg('La planilla ha sido guardada en la carpeta indicada. ¿Desea abrir esta carpeta?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
@@ -330,7 +332,7 @@ begin
   acGenerarPlanilla.Enabled:=(dedCarpetaPlanilla.Directory<>'');
 end;
 
-procedure TfmMareaAExcel.GenerarDatosPuenteOLD(xls: olevariant);
+procedure TfmMareaAExcel.GenerarDatosPuenteOLD(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   fila, columna: integer;
@@ -405,9 +407,9 @@ begin
   imPuente.Visible:=True;
 end;
 
-procedure TfmMareaAExcel.GenerarDatosPuente(xls: olevariant);
+procedure TfmMareaAExcel.GenerarDatosPuente(xls: olevariant; Password: WideString);
 const
-  PRIM_COL_ESPECIES=39;
+  PRIM_COL_ESPECIES=41;
 var
   tmp: WideString;
   fila, columna: integer;
@@ -468,44 +470,46 @@ begin
       xls.Cells[fila, 16] := FieldByName('long_fin_calado').AsFloat;
       xls.Cells[fila, 17] := FieldByName('lat_prom_calado_dec').AsFloat;
       xls.Cells[fila, 18] := FieldByName('long_prom_calado_dec').AsFloat;
+      xls.Cells[fila, 19] := FieldByName('prof_ini_calado').AsInteger;
+      xls.Cells[fila, 20] := FieldByName('prof_fin_calado').AsInteger;
 
-      xls.Cells[fila, 19] := FieldByName('fecha_hora_ini_virada').AsDateTime;
-      xls.Cells[fila, 20] := FieldByName('fecha_hora_fin_virada').AsDateTime;
-      xls.Cells[fila, 21] := FieldByName('lat_ini_virada').AsFloat;
-      xls.Cells[fila, 22] := FieldByName('long_ini_virada').AsFloat;
-      xls.Cells[fila, 23] := FieldByName('lat_fin_virada').AsFloat;
-      xls.Cells[fila, 24] := FieldByName('long_fin_virada').AsFloat;
-      xls.Cells[fila, 25] := FieldByName('prof_ini_virada').AsInteger;
-      xls.Cells[fila, 26] := FieldByName('prof_fin_virada').AsInteger;
+      xls.Cells[fila, 21] := FieldByName('fecha_hora_ini_virada').AsDateTime;
+      xls.Cells[fila, 22] := FieldByName('fecha_hora_fin_virada').AsDateTime;
+      xls.Cells[fila, 23] := FieldByName('lat_ini_virada').AsFloat;
+      xls.Cells[fila, 24] := FieldByName('long_ini_virada').AsFloat;
+      xls.Cells[fila, 25] := FieldByName('lat_fin_virada').AsFloat;
+      xls.Cells[fila, 26] := FieldByName('long_fin_virada').AsFloat;
+      xls.Cells[fila, 27] := FieldByName('prof_ini_virada').AsInteger;
+      xls.Cells[fila, 28] := FieldByName('prof_fin_virada').AsInteger;
       if not FieldByName('dias_pesca').IsNull then
-        xls.Cells[fila, 27] := FieldByName('dias_pesca').AsFloat;
+        xls.Cells[fila, 29] := FieldByName('dias_pesca').AsFloat;
       if not FieldByName('porcent_trampas_obs').IsNull then
-        xls.Cells[fila, 28] := FieldByName('porcent_trampas_obs').AsFloat;
+        xls.Cells[fila, 30] := FieldByName('porcent_trampas_obs').AsFloat;
       if not FieldByName('centolla_total').IsNull then
-        xls.Cells[fila, 29] := FieldByName('centolla_total').AsInteger;
+        xls.Cells[fila, 31] := FieldByName('centolla_total').AsInteger;
       if not FieldByName('centolla_comercial').IsNull then
-        xls.Cells[fila, 30] := FieldByName('centolla_comercial').AsInteger;
+        xls.Cells[fila, 32] := FieldByName('centolla_comercial').AsInteger;
 
       if not FieldByName('captura_por_trampa').IsNull then
-        xls.Cells[fila, 31] := FieldByName('captura_por_trampa').AsFloat;
+        xls.Cells[fila, 33] := FieldByName('captura_por_trampa').AsFloat;
       if not FieldByName('comerciales_por_trampa').IsNull then
-        xls.Cells[fila, 32] := FieldByName('comerciales_por_trampa').AsFloat;
+        xls.Cells[fila, 34] := FieldByName('comerciales_por_trampa').AsFloat;
 
       if not FieldByName('arania_total').IsNull then
-        xls.Cells[fila, 33] := FieldByName('arania_total').AsInteger;
+        xls.Cells[fila, 35] := FieldByName('arania_total').AsInteger;
       if not FieldByName('canastos_procesados').IsNull then
-        xls.Cells[fila, 34] := FieldByName('canastos_procesados').AsInteger;
+        xls.Cells[fila, 36] := FieldByName('canastos_procesados').AsInteger;
       if (not FieldByName('cluster_por_canasto').IsNull) and (FieldByName('cluster_por_canasto').AsInteger>0) then
-        xls.Cells[fila, 35] := FieldByName('cluster_por_canasto').AsInteger;
+        xls.Cells[fila, 37] := FieldByName('cluster_por_canasto').AsInteger;
       if not FieldByName('trampas_con_aro').IsNull then
-        xls.Cells[fila, 36] := FieldByName('trampas_con_aro').AsInteger;
+        xls.Cells[fila, 38] := FieldByName('trampas_con_aro').AsInteger;
       if not FieldByName('muestra').IsNull then
       begin
         tmp := UTF8Decode(FieldByName('muestra').AsString);
-        xls.Cells[fila, 37] := tmp;
+        xls.Cells[fila, 39] := tmp;
       end;
       tmp := UTF8Decode(FieldByName('comentarios').AsString);
-      xls.Cells[fila, 38] := tmp;
+      xls.Cells[fila, 40] := tmp;
 
       // Recorro las especies. Filtro por lance y agrego si es necesario.
       Columna:=PRIM_COL_ESPECIES;
@@ -530,9 +534,12 @@ begin
   end;
   Application.ProcessMessages;
   imPuente.Visible:=True;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
 end;
 
-procedure TfmMareaAExcel.GenerarCapturas(xls: olevariant);
+procedure TfmMareaAExcel.GenerarCapturas(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   fila, columna, tmp_count: integer;
@@ -593,9 +600,12 @@ begin
   pbCapturas.Position:=pbCapturas.Max;
   Application.ProcessMessages;
   imCapturas.Visible:=True;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
 end;
 
-procedure TfmMareaAExcel.GenerarAcomp(xls: olevariant);
+procedure TfmMareaAExcel.GenerarAcomp(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   fila, columna: integer;
@@ -627,9 +637,12 @@ begin
   end;
   Application.ProcessMessages;
   imAcomp.Visible:=True;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
 end;
 
-procedure TfmMareaAExcel.GenerarMuestras(xls: olevariant);
+procedure TfmMareaAExcel.GenerarMuestras(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   fila, columna, tmp_count: integer;
@@ -672,9 +685,12 @@ begin
   pbMuestras.Position := pbMuestras.Max;
   Application.ProcessMessages;
   imMuestras.Visible:=True;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
 end;
 
-procedure TfmMareaAExcel.GenerarSubmuestras(xls: olevariant);
+procedure TfmMareaAExcel.GenerarSubmuestras(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   fila, columna, sexo, registros, nro_ejemp_talla, talla_ant: integer;
@@ -733,9 +749,12 @@ begin
   end;
   Application.ProcessMessages;
   imSubmuestras.Visible:=True;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
 end;
 
-procedure TfmMareaAExcel.GenerarProduccion(xls: olevariant);
+procedure TfmMareaAExcel.GenerarProduccion(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   fila, columna, prod: integer;
@@ -778,9 +797,12 @@ begin
   end;
   Application.ProcessMessages;
   imProduccion.Visible:=True;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
 end;
 
-procedure TfmMareaAExcel.GenerarFC(xls: olevariant);
+procedure TfmMareaAExcel.GenerarFC(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   filaFC, filaRM, columna: integer;
@@ -852,9 +874,12 @@ begin
   end;
   Application.ProcessMessages;
   imFactor.Visible:=True;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
 end;
 
-procedure TfmMareaAExcel.GenerarMarcas(xls: olevariant);
+procedure TfmMareaAExcel.GenerarMarcas(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   fila, columna: integer;
@@ -925,6 +950,9 @@ begin
   end;
   Application.ProcessMessages;
   imMarcado.Visible:=True;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
 end;
 
 end.
