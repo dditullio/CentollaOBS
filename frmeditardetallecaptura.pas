@@ -59,6 +59,10 @@ type
     procedure alTrampaPExecute(Sender: TObject);
     procedure alTrampaRExecute(Sender: TObject);
     procedure alTrampaSExecute(Sender: TObject);
+    procedure dblkEstadoTrampaChange(Sender: TObject);
+    procedure dblkEstadoTrampaExit(Sender: TObject);
+    procedure dblkEstadoTrampaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure dblkTipoTrampaExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure zcePrincipalInitRecord(Sender: TObject);
@@ -87,31 +91,17 @@ begin
   dbtEspCient2.Visible:=(dmCapturas.OrdenEspecies=1);
   dbtEspVulgar3.Visible:=(dmCapturas.OrdenEspecies=0);
   dbtEspCient3.Visible:=(dmCapturas.OrdenEspecies=1);
-  paEspecie1.Enabled:=(dmCapturas.HayEspecie1);
-  paEspecie2.Enabled:=(dmCapturas.HayEspecie2);
-  paEspecie3.Enabled:=(dmCapturas.HayEspecie3);
-  if dmCapturas.zqCapturaidtipo_trampa.IsNull then
-  begin
-    dblkTipoTrampa.TabStop:=True;
-    if dblkTipoTrampa.CanFocus then
-    begin
-      ActiveControl:=dblkTipoTrampa;
-      zcePrincipal.ControlInicial:=dblkTipoTrampa;
-    end
-  end else
-  begin
-    dblkTipoTrampa.TabStop:=False;
-    //if paEspecie1.Enabled and dbedTotal1.CanFocus then
-    //begin
-    //  ActiveControl:=dbedTotal1;
-    //  zcePrincipal.ControlInicial:=dbedTotal1;
-    //end;
-    if dbedCantTrampas.CanFocus then
-    begin
-      ActiveControl:=dbedCantTrampas;
-      zcePrincipal.ControlInicial:=dbedCantTrampas;
-    end;
-  end;
+  paEspecie1.Enabled:=((dmCapturas.zqDetCapturaidestado_trampa.IsNull or not (dmCapturas.zqDetCapturaEsNoObservado.AsBoolean)) and dmCapturas.HayEspecie1);
+  paEspecie2.Enabled:=((dmCapturas.zqDetCapturaidestado_trampa.IsNull or not (dmCapturas.zqDetCapturaEsNoObservado.AsBoolean)) and dmCapturas.HayEspecie2);
+  paEspecie3.Enabled:=((dmCapturas.zqDetCapturaidestado_trampa.IsNull or not (dmCapturas.zqDetCapturaEsNoObservado.AsBoolean)) and dmCapturas.HayEspecie3);
+  //Se comenta lo siguiente porque así pasa siempre por el campo, tenga o no valor
+  //if (dmCapturas.zqCapturaidtipo_trampa.IsNull) or (dmCapturas.zqCapturacant_aros.IsNull) then
+  //begin
+  //  dblkTipoTrampa.TabStop:=True;
+  //end else
+  //begin
+  //  dblkTipoTrampa.TabStop:=False;
+  //end;
 end;
 
 procedure TfmDetalleCaptura.zcePrincipalInitRecord(Sender: TObject);
@@ -202,6 +192,7 @@ begin
   if dmCapturas.zqDetCaptura.State in [dsInsert, dsEdit] then
   begin
     dmCapturas.zqDetCapturaidestado_trampa.Value:=dmCapturas.zqEstadosTrampa.Lookup('codigo','A','idestado_trampa');
+    dblkEstadoTrampaChange(dblkEstadoTrampa);
   end;
 end;
 
@@ -212,7 +203,7 @@ begin
   if dmCapturas.zqDetCaptura.State in [dsInsert, dsEdit] then
   begin
     dmCapturas.zqDetCapturaidestado_trampa.Value:=dmCapturas.zqEstadosTrampa.Lookup('codigo','M','idestado_trampa');
-//    zcePrincipal.Guardar;
+    dblkEstadoTrampaChange(dblkEstadoTrampa);
   end;
 end;
 
@@ -223,6 +214,7 @@ begin
   if dmCapturas.zqDetCaptura.State in [dsInsert, dsEdit] then
   begin
     dmCapturas.zqDetCapturaidestado_trampa.Value:=dmCapturas.zqEstadosTrampa.Lookup('codigo','N','idestado_trampa');
+    dblkEstadoTrampaChange(dblkEstadoTrampa);
   end;
 end;
 
@@ -233,6 +225,7 @@ begin
   if dmCapturas.zqDetCaptura.State in [dsInsert, dsEdit] then
   begin
     dmCapturas.zqDetCapturaidestado_trampa.Value:=dmCapturas.zqEstadosTrampa.Lookup('codigo','P','idestado_trampa');
+    dblkEstadoTrampaChange(dblkEstadoTrampa);
   end;
 end;
 
@@ -243,6 +236,7 @@ begin
   if dmCapturas.zqDetCaptura.State in [dsInsert, dsEdit] then
   begin
     dmCapturas.zqDetCapturaidestado_trampa.Value:=dmCapturas.zqEstadosTrampa.Lookup('codigo','R','idestado_trampa');
+    dblkEstadoTrampaChange(dblkEstadoTrampa);
   end;
 end;
 
@@ -253,7 +247,30 @@ begin
   if dmCapturas.zqDetCaptura.State in [dsInsert, dsEdit] then
   begin
     dmCapturas.zqDetCapturaidestado_trampa.Value:=dmCapturas.zqEstadosTrampa.Lookup('codigo','S','idestado_trampa');
+    dblkEstadoTrampaChange(dblkEstadoTrampa);
   end;
+end;
+
+procedure TfmDetalleCaptura.dblkEstadoTrampaChange(Sender: TObject);
+begin
+  paEspecie1.Enabled:=((LeftStr(dblkEstadoTrampa.Text,1)<>'N') and dmCapturas.HayEspecie1);
+  paEspecie2.Enabled:=((LeftStr(dblkEstadoTrampa.Text,1)<>'N') and dmCapturas.HayEspecie2);
+  paEspecie3.Enabled:=((LeftStr(dblkEstadoTrampa.Text,1)<>'N') and dmCapturas.HayEspecie3);
+end;
+
+procedure TfmDetalleCaptura.dblkEstadoTrampaExit(Sender: TObject);
+begin
+  paEspecie1.Enabled:=((LeftStr(dblkEstadoTrampa.Text,1)<>'N') and dmCapturas.HayEspecie1);
+  paEspecie2.Enabled:=((LeftStr(dblkEstadoTrampa.Text,1)<>'N') and dmCapturas.HayEspecie2);
+  paEspecie3.Enabled:=((LeftStr(dblkEstadoTrampa.Text,1)<>'N') and dmCapturas.HayEspecie3);
+end;
+
+procedure TfmDetalleCaptura.dblkEstadoTrampaKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  paEspecie1.Enabled:=((LeftStr(dblkEstadoTrampa.Text,1)<>'N') and dmCapturas.HayEspecie1);
+  paEspecie2.Enabled:=((LeftStr(dblkEstadoTrampa.Text,1)<>'N') and dmCapturas.HayEspecie2);
+  paEspecie3.Enabled:=((LeftStr(dblkEstadoTrampa.Text,1)<>'N') and dmCapturas.HayEspecie3);
 end;
 
 end.

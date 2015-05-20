@@ -306,7 +306,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
       end
       object dbgLista: TRxDBGrid
         Left = 0
-        Height = 175
+        Height = 176
         Top = 0
         Width = 345
         TitleButtons = False
@@ -333,7 +333,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
             Title.Caption = 'Aros'
             Title.Orientation = toHorizontal
             Width = 40
-            FieldName = 'codigo'
+            FieldName = 'cant_aros'
             EditButtons = <>
             Filter.DropDownRows = 0
             Filter.EmptyValue = '(Todos)'

@@ -3,6 +3,7 @@ inherited fmDetalleCaptura: TfmDetalleCaptura
   Height = 353
   Top = 203
   Width = 422
+  ActiveControl = dbedCantTrampas
   Caption = 'Captura por trampa'
   ClientHeight = 353
   ClientWidth = 422
@@ -33,19 +34,19 @@ inherited fmDetalleCaptura: TfmDetalleCaptura
     ClientHeight = 283
     ClientWidth = 422
     object Label1: TLabel[0]
-      Left = 75
+      Left = 10
       Height = 15
-      Top = 5
+      Top = 55
       Width = 24
       Caption = '&Tipo'
       FocusControl = dblkTipoTrampa
       ParentColor = False
     end
     object dblkTipoTrampa: TDBLookupComboBox[1]
-      Left = 75
+      Left = 10
       Height = 23
-      Top = 25
-      Width = 340
+      Top = 75
+      Width = 405
       AutoComplete = True
       DataField = 'cod_desc_tipo_trampa'
       DataSource = dmCapturas.dsDetCaptura
@@ -53,13 +54,12 @@ inherited fmDetalleCaptura: TfmDetalleCaptura
       LookupCache = False
       NullValueKey = 46
       OnExit = dblkTipoTrampaExit
-      TabOrder = 1
-      TabStop = False
+      TabOrder = 3
     end
     object Label3: TLabel[2]
       Left = 150
       Height = 15
-      Top = 55
+      Top = 5
       Width = 76
       Caption = '&Estado trampa'
       FocusControl = dblkEstadoTrampa
@@ -68,7 +68,7 @@ inherited fmDetalleCaptura: TfmDetalleCaptura
     object dblkEstadoTrampa: TDBLookupComboBox[3]
       Left = 150
       Height = 23
-      Top = 75
+      Top = 25
       Width = 265
       AutoComplete = True
       DataField = 'cod_desc_estado_trampa'
@@ -76,10 +76,13 @@ inherited fmDetalleCaptura: TfmDetalleCaptura
       ListFieldIndex = 0
       LookupCache = False
       NullValueKey = 46
-      TabOrder = 3
+      OnChange = dblkEstadoTrampaChange
+      OnExit = dblkEstadoTrampaExit
+      OnKeyDown = dblkEstadoTrampaKeyDown
+      TabOrder = 2
     end
     object paEspecie1: TPanel[4]
-      Left = 13
+      Left = 14
       Height = 50
       Top = 125
       Width = 402
@@ -289,7 +292,8 @@ inherited fmDetalleCaptura: TfmDetalleCaptura
       Height = 15
       Top = 5
       Width = 48
-      Caption = 'Nº orden'
+      Caption = 'Nº &orden'
+      FocusControl = dbedNroTrampa
       ParentColor = False
     end
     object dbedNroTrampa: TDBEdit[9]
@@ -305,23 +309,24 @@ inherited fmDetalleCaptura: TfmDetalleCaptura
       TabStop = False
     end
     object Label11: TLabel[10]
-      Left = 10
+      Left = 80
       Height = 15
-      Top = 55
+      Top = 5
       Width = 48
-      Caption = 'Cantidad'
+      Caption = '&Cantidad'
+      FocusControl = dbedCantTrampas
       ParentColor = False
     end
     object dbedCantTrampas: TDBEdit[11]
-      Left = 10
+      Left = 80
       Height = 23
-      Top = 75
-      Width = 135
+      Top = 25
+      Width = 65
       DataField = 'cant_trampas'
       DataSource = dmCapturas.dsDetCaptura
       CharCase = ecNormal
       MaxLength = 0
-      TabOrder = 2
+      TabOrder = 1
     end
   end
   inherited paControles: TPanel
@@ -347,6 +352,7 @@ inherited fmDetalleCaptura: TfmDetalleCaptura
   end
   inherited zcePrincipal: TZControladorEdicion
     AltaContinua = True
+    ControlInicial = dbedCantTrampas
     EsSubform = True
     OnValidateForm = zcePrincipalValidateForm
     OnInitRecord = zcePrincipalInitRecord

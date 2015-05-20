@@ -17,6 +17,9 @@ type
     dsEspecies2: TDataSource;
     dsEspecies3: TDataSource;
     LongintField1: TLongintField;
+    LongintField2: TLongintField;
+    zqCapturacant_aros: TLongintField;
+    zqDetCapturaEsNoObservado: TSmallintField;
     StringField4: TStringField;
     StringField5: TStringField;
     StringField6: TStringField;
@@ -136,11 +139,13 @@ type
     zqEstadosTrampacod_desc: TStringField;
     zqEstadosTrampadescripcion: TStringField;
     zqEstadosTrampaes_fallo: TSmallintField;
+    zqEstadosTrampaes_no_observado: TSmallintField;
     zqEstadosTrampaidestado_trampa: TLongintField;
     zqEstadosTramparequiere_nro_ejemplares: TSmallintField;
     zqEstadoTrampaPredetidestado_trampa: TLongintField;
     zqLancescalada: TLongintField;
     zqLancescanastos_procesados: TLongintField;
+    zqLancescant_aros: TLongintField;
     zqLancescant_trampas_caladas: TLongintField;
     zqLancescant_trampas_recuperadas: TLongintField;
     zqLancescluster_por_canasto: TLongintField;
@@ -333,7 +338,7 @@ begin
   zqDetCapturaiddetalle_captura.Value:=NuevoID((DataSet as TZQuery).Connection,'detalle_capturas');
   zqDetCapturaidcaptura.Value:=zqCapturaidcaptura.Value;
   zqDetCapturanro_orden.Value:=max_nro_trampa+1;
-  if not zqCapturaidtipo_trampa.IsNull then
+  if (not zqCapturaidtipo_trampa.IsNull) and (not zqCapturacant_aros.IsNull) then
      zqDetCapturaidtipo_trampa.Value:=zqCapturaidtipo_trampa.Value;
   zqDetCapturacant_trampas.Value:=1;
   if (not zqEstadoTrampaPredetidestado_trampa.IsNull) and (zqDetCapturaidestado_trampa.IsNull) then

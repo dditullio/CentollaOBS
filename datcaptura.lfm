@@ -369,6 +369,20 @@ inherited dmCapturas: TdmCapturas
       Required = False
       Size = 120
     end
+    object zqCapturacant_aros: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'cant_aros'
+      Index = 25
+      KeyFields = 'idlance'
+      LookupCache = False
+      LookupDataSet = zqLances
+      LookupKeyFields = 'idlance'
+      LookupResultField = 'cant_aros'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   object zqDetCaptura: TZQuery[4]
     Connection = dmGeneral.zcDB
@@ -675,6 +689,34 @@ inherited dmCapturas: TdmCapturas
       ReadOnly = False
       Required = True
     end
+    object zqDetCapturaEsNoObservado: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'es_no_observado'
+      Index = 23
+      KeyFields = 'idestado_trampa'
+      LookupCache = False
+      LookupDataSet = zqEstadosTrampa
+      LookupKeyFields = 'idestado_trampa'
+      LookupResultField = 'es_no_observado'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object LongintField2: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkLookup
+      FieldName = 'cant_aros'
+      Index = 24
+      KeyFields = 'idtipo_trampa'
+      LookupCache = False
+      LookupDataSet = zqTiposTrampa
+      LookupKeyFields = 'idtipo_trampa'
+      LookupResultField = 'cant_aros'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   object zqTiposTrampa: TZQuery[5]
     Connection = dmGeneral.zcDB
@@ -869,6 +911,16 @@ inherited dmCapturas: TdmCapturas
       ReadOnly = True
       Required = False
       Size = 196
+    end
+    object zqEstadosTrampaes_no_observado: TSmallintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'es_no_observado'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
     end
   end
   object dsEstadosTrampa: TDataSource[9]
@@ -1575,6 +1627,16 @@ inherited dmCapturas: TdmCapturas
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+    end
+    object zqLancescant_aros: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cant_aros'
+      Index = 45
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
     end
   end
   object dsLances: TDataSource[15]
