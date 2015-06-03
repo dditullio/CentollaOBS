@@ -78,6 +78,7 @@ type
     property IdMareaActiva: integer read FIdMareaActiva write SetIdMareaActiva;
     property DscMareaActiva: string read GetDscMareaActiva;
     property FactorCalculoCaptura: double read GetFactorConversion;
+    procedure ConectarBaseDeDatos;
   end;
 
 var
@@ -92,80 +93,8 @@ implementation
 procedure TdmGeneral.DataModuleCreate(Sender: TObject);
 var
   tmp_MareaActiva: integer;
-  lib_standard, lib_embedded: string;
-  servidor_local: string;
 begin
-  zcDB.Connected := False;
-  {$IFDEF MSWINDOWS}
-  lib_standard := ExtractFilePath(Application.ExeName) + 'libmysql.dll';
-  lib_embedded := ExtractFilePath(Application.ExeName) + 'libmysqld.dll';
-  if DirectoryExistsUTF8(GetAppConfigDir(False) + DirectorySeparator + 'DB_Centolla') then
-    sqlmLog.FileName := GetAppConfigDir(False) + DirectorySeparator +
-      'DB_Centolla' + DirectorySeparator + 'CentollaOBS_log.txt'
-  else
-    sqlmLog.FileName := ExtractFilePath(Application.ExeName) + 'CentollaOBS_log.txt';
-  {$ENDIF}
-  {$IFDEF UNIX}
-  lib_standard := ExtractFilePath(Application.ExeName) + 'libmysqlclient.so.18.0.0';
-  sqlmLog.FileName := ExtractFilePath(Application.ExeName) + 'CentollaOBS_log.txt';
-  {$ENDIF}
-  sqlmLog.Active:=True;
-  try
-    SetSplashScreenStatus('Conectando a la base de datos...');
-    zcDB.LibraryLocation := lib_standard;
-    zcDB.Connected := True;
-  except
-    {$IFDEF MSWINDOWS}
-    try
-      zcDB.Connected := False;
-      //No se pudo conectar con el servidor, intento abrir en modo "embedded"
-      //Primero en la carpeta actual, y si no en LocalData
-      SetSplashScreenStatus('Iniciando base de datos local...');
-      //Lo siguiente es sólo para windows:
-      servidor_local:='';
-      if DirectoryExistsUTF8(ExtractFilePath(Application.ExeName) + 'DB_Centolla' +
-        DirectorySeparator + 'server') then
-      begin
-        servidor_local := StringReplace(ExtractFilePath(Application.ExeName) + 'DB_Centolla' +
-          DirectorySeparator + 'server' + DirectorySeparator, DirectorySeparator, '/', [rfReplaceAll]);
-      end
-      else if DirectoryExistsUTF8(GetAppConfigDir(False) + 'DB_Centolla' +
-        DirectorySeparator + 'server') then
-      begin
-        servidor_local := StringReplace(GetAppConfigDir(False) + 'DB_Centolla' +
-          DirectorySeparator + 'server' + DirectorySeparator, DirectorySeparator, '/', [rfReplaceAll]);
-      end;
-
-      if servidor_local='' then
-      begin
-        MessageDlg(
-          'No se encuentra la carpeta de instalación de la base de datos. Informe de este error al desarrollador de la aplicación, o pruebe reainstalando la misma (perderá todos los datos cargados!!!)', mtError, [mbClose], 0);
-        exit;
-      end;
-
-      zcDB.Properties.Add('ServerArgument1=--basedir=' + servidor_local);
-      zcDB.Properties.Add('ServerArgument2=--datadir=' + servidor_local + 'data');
-      zcDB.Properties.Add('ServerArgument3=--character-sets-dir=' +
-        servidor_local + 'share/charsets');
-      zcDB.Properties.Add('ServerArgument4=--language=' + servidor_local + 'share/spanish');
-      zcDB.Properties.Add('ServerArgument5=--basedir=' + servidor_local);
-      zcDB.Properties.Add('ServerArgument6=--key_buffer_size=32M');
-
-      zcDB.LibraryLocation := lib_embedded;
-      zcDB.Protocol := 'mysqld-5';
-      zcDB.Connected := True;
-    except
-      MessageDlg(
-        'No se puede conectar con la base de datos. Informe de este error al desarrollador de la aplicación, o pruebe reainstalando la misma (perderá todos los datos cargados!!!)', mtError, [mbClose], 0);
-      Application.MainForm.Close;
-    end;
-    {$ENDIF}
-    {$IFDEF UNIX}
-    MessageDlg(
-      'No se puede conectar con la base de datos. Informe de este error al desarrollador de la aplicación, o pruebe reainstalando la misma (perderá todos los datos cargados!!!)', mtError, [mbClose], 0);
-    Application.MainForm.Close;
-    {$ENDIF}
-  end;
+  ConectarBaseDeDatos;
   SetSplashScreenStatus('Estableciendo marea activa...');
 
   zqMareas.Close;
@@ -260,6 +189,85 @@ begin
   if zqMareaActiva.Active then
     zqMareaActiva.Close;
   zqMareaActiva.Open;
+end;
+
+procedure TdmGeneral.ConectarBaseDeDatos;
+var
+  lib_standard, lib_embedded: string;
+  servidor_local: string;
+
+begin
+  zcDB.Connected := False;
+  {$IFDEF MSWINDOWS}
+  lib_standard := ExtractFilePath(Application.ExeName) + 'libmysql.dll';
+  lib_embedded := ExtractFilePath(Application.ExeName) + 'libmysqld.dll';
+  if DirectoryExistsUTF8(GetAppConfigDir(False) + DirectorySeparator + 'DB_Centolla') then
+    sqlmLog.FileName := GetAppConfigDir(False) + DirectorySeparator +
+      'DB_Centolla' + DirectorySeparator + 'CentollaOBS_log.txt'
+  else
+    sqlmLog.FileName := ExtractFilePath(Application.ExeName) + 'CentollaOBS_log.txt';
+  {$ENDIF}
+  {$IFDEF UNIX}
+  lib_standard := ExtractFilePath(Application.ExeName) + 'libmysqlclient.so.18.0.0';
+  sqlmLog.FileName := ExtractFilePath(Application.ExeName) + 'CentollaOBS_log.txt';
+  {$ENDIF}
+  sqlmLog.Active:=True;
+  try
+    SetSplashScreenStatus('Conectando a la base de datos...');
+    zcDB.LibraryLocation := lib_standard;
+    zcDB.Connected := True;
+  except
+    {$IFDEF MSWINDOWS}
+    try
+      zcDB.Connected := False;
+      //No se pudo conectar con el servidor, intento abrir en modo "embedded"
+      //Primero en la carpeta actual, y si no en LocalData
+      SetSplashScreenStatus('Iniciando base de datos local...');
+      //Lo siguiente es sólo para windows:
+      servidor_local:='';
+      if DirectoryExistsUTF8(ExtractFilePath(Application.ExeName) + 'DB_Centolla' +
+        DirectorySeparator + 'server') then
+      begin
+        servidor_local := StringReplace(ExtractFilePath(Application.ExeName) + 'DB_Centolla' +
+          DirectorySeparator + 'server' + DirectorySeparator, DirectorySeparator, '/', [rfReplaceAll]);
+      end
+      else if DirectoryExistsUTF8(GetAppConfigDir(False) + 'DB_Centolla' +
+        DirectorySeparator + 'server') then
+      begin
+        servidor_local := StringReplace(GetAppConfigDir(False) + 'DB_Centolla' +
+          DirectorySeparator + 'server' + DirectorySeparator, DirectorySeparator, '/', [rfReplaceAll]);
+      end;
+
+      if servidor_local='' then
+      begin
+        MessageDlg(
+          'No se encuentra la carpeta de instalación de la base de datos. Informe de este error al desarrollador de la aplicación, o pruebe reainstalando la misma (perderá todos los datos cargados!!!)', mtError, [mbClose], 0);
+        exit;
+      end;
+
+      zcDB.Properties.Add('ServerArgument1=--basedir=' + servidor_local);
+      zcDB.Properties.Add('ServerArgument2=--datadir=' + servidor_local + 'data');
+      zcDB.Properties.Add('ServerArgument3=--character-sets-dir=' +
+        servidor_local + 'share/charsets');
+      zcDB.Properties.Add('ServerArgument4=--language=' + servidor_local + 'share/spanish');
+      zcDB.Properties.Add('ServerArgument5=--basedir=' + servidor_local);
+      zcDB.Properties.Add('ServerArgument6=--key_buffer_size=32M');
+
+      zcDB.LibraryLocation := lib_embedded;
+      zcDB.Protocol := 'mysqld-5';
+      zcDB.Connected := True;
+    except
+      MessageDlg(
+        'No se puede conectar con la base de datos. Informe de este error al desarrollador de la aplicación, o pruebe reainstalando la misma (perderá todos los datos cargados!!!)', mtError, [mbClose], 0);
+      Application.MainForm.Close;
+    end;
+    {$ENDIF}
+    {$IFDEF UNIX}
+    MessageDlg(
+      'No se puede conectar con la base de datos. Informe de este error al desarrollador de la aplicación, o pruebe reainstalando la misma (perderá todos los datos cargados!!!)', mtError, [mbClose], 0);
+    Application.MainForm.Close;
+    {$ENDIF}
+  end;
 end;
 
 end.

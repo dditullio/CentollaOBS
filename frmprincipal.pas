@@ -10,7 +10,7 @@ uses
   StdCtrls, Buttons, DbCtrls, frmbase, frmmareas,datGeneral,
   frmlances, frmSplashScreenForm, frmdatosbase,
   frmcapturas, frmmuestras,frmProduccion, frmexportarlances, frmfactoresconversion,
-  frmresumenproduccion, frmmarcado, frmmareaaexcel, frmenviosemail;
+  frmresumenproduccion, frmmarcado, frmmareaaexcel, frmenviosemail, frmbackup;
 
 type
 
@@ -29,6 +29,7 @@ type
     acInformes: TAction;
     acResumenProduccion: TAction;
     acMarcado: TAction;
+    acBackup: TAction;
     alPrincipal: TActionList;
     apGeneral: TApplicationProperties;
     BitBtn1: TBitBtn;
@@ -46,6 +47,8 @@ type
     MenuItem13: TMenuItem;
     MenuItem14: TMenuItem;
     MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
+    MenuItem17: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -68,6 +71,7 @@ type
     ToolButton10: TToolButton;
     ToolButton11: TToolButton;
     ToolButton12: TToolButton;
+    ToolButton13: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -77,6 +81,7 @@ type
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
     tsInicio: TTabSheet;
+    procedure acBackupExecute(Sender: TObject);
     procedure acFactoresConversionExecute(Sender: TObject);
     procedure acCapturasExecute(Sender: TObject);
     procedure acEnvioEmailExecute(Sender: TObject);
@@ -204,6 +209,11 @@ begin
   if (sender is taction) then
     imageindex:=(sender as taction).ImageIndex;
   ActivarForm(fmFactoresConversion, imageindex);
+end;
+
+procedure TfmPrincipal.acBackupExecute(Sender: TObject);
+begin
+  fmbackup.ShowModal;
 end;
 
 procedure TfmPrincipal.acEnvioEmailExecute(Sender: TObject);

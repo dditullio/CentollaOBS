@@ -16,7 +16,7 @@
     </i18n>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
-      <MinorVersionNr Value="5"/>
+      <MajorVersionNr Value="1"/>
       <Language Value="040A"/>
       <Attributes pvaPreRelease="True"/>
       <StringTable CompanyName="INIDEP" FileDescription="Aplicación para el registro de datos de muestreo a bordo de buques destinados a Centolla " LegalCopyright="Copyright © 2014 - Daniel Di Tullio - danieldt2000@hotmail.com" OriginalFilename="CentollaOBS.exe" ProductName="Centolla OBS" ProductVersion="0.5"/>
@@ -62,66 +62,75 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="19">
+    <RequiredPackages Count="22">
       <Item1>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="LazUtils"/>
       </Item1>
       <Item2>
-        <PackageName Value="MemDSLaz"/>
+        <PackageName Value="pl_exsystem"/>
       </Item2>
       <Item3>
-        <PackageName Value="lr_imgexport"/>
+        <PackageName Value="pl_abbrevia"/>
       </Item3>
       <Item4>
-        <PackageName Value="lr_pdfexport"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item4>
       <Item5>
-        <PackageName Value="lazreport"/>
+        <PackageName Value="MemDSLaz"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_fortesreport"/>
+        <PackageName Value="lr_imgexport"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_jujiboutils"/>
+        <PackageName Value="lr_pdfexport"/>
       </Item7>
       <Item8>
-        <PackageName Value="pl_fzcontrols"/>
+        <PackageName Value="lazreport"/>
       </Item8>
       <Item9>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="pl_fortesreport"/>
       </Item9>
       <Item10>
-        <PackageName Value="pl_rx"/>
+        <PackageName Value="pl_jujiboutils"/>
       </Item10>
       <Item11>
-        <PackageName Value="pl_zeosdbo"/>
+        <PackageName Value="pl_fzcontrols"/>
       </Item11>
       <Item12>
-        <PackageName Value="pl_lazsolutions"/>
+        <PackageName Value="TAChartLazarusPkg"/>
       </Item12>
       <Item13>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pl_rx"/>
       </Item13>
       <Item14>
-        <PackageName Value="mis_componentes"/>
+        <PackageName Value="pl_zeosdbo"/>
       </Item14>
       <Item15>
-        <PackageName Value="DateTimeCtrls"/>
+        <PackageName Value="pl_lazsolutions"/>
       </Item15>
       <Item16>
-        <PackageName Value="IDEIntf"/>
+        <PackageName Value="FCL"/>
       </Item16>
       <Item17>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="mis_componentes"/>
       </Item17>
       <Item18>
-        <PackageName Value="SQLDBLaz"/>
+        <PackageName Value="DateTimeCtrls"/>
       </Item18>
       <Item19>
-        <PackageName Value="LCL"/>
+        <PackageName Value="IDEIntf"/>
       </Item19>
+      <Item20>
+        <PackageName Value="LazControls"/>
+      </Item20>
+      <Item21>
+        <PackageName Value="SQLDBLaz"/>
+      </Item21>
+      <Item22>
+        <PackageName Value="LCL"/>
+      </Item22>
     </RequiredPackages>
-    <Units Count="39">
+    <Units Count="40">
       <Unit0>
         <Filename Value="CentollaOBS.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -374,6 +383,7 @@
         <ComponentName Value="fmMareaAExcel"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmmareaaexcel"/>
       </Unit35>
       <Unit36>
         <Filename Value="frmenviosemail.pas"/>
@@ -388,6 +398,7 @@
         <ComponentName Value="FmEditarEnviosEmail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmEditarEnviosEmail"/>
       </Unit37>
       <Unit38>
         <Filename Value="frmeditartipostrampa.pas"/>
@@ -396,6 +407,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit38>
+      <Unit39>
+        <Filename Value="frmbackup.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmBackup"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmbackup"/>
+      </Unit39>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

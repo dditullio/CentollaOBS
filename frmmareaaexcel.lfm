@@ -765,8 +765,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idlance'
         ParamType = ptUnknown
       end>
-    left = 340
-    top = 265
+    left = 335
+    top = 250
     ParamData = <    
       item
         DataType = ftUnknown
@@ -790,8 +790,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 310
-    top = 265
+    left = 305
+    top = 250
     ParamData = <    
       item
         DataType = ftUnknown
@@ -815,8 +815,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 370
-    top = 265
+    left = 365
+    top = 250
     ParamData = <    
       item
         DataType = ftUnknown

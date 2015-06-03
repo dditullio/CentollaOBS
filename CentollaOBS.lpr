@@ -8,16 +8,17 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   sysutils, Forms, lazcontrols, datetimectrls, pl_zeosdbo, pl_rx,
-  tachartlazaruspkg, pl_fortesreport, memdslaz, pl_luicontrols, frmPrincipal,
-  datGeneral, frmbase, frmlistabase, frmmareas, frmzedicionbase,
-  DefaultTranslator, frmEditarMarea, datBase, frmlances, funciones,
-  lr_pdfexport, frmSplashScreenForm, frmeditarlances, frmlineas, frmdatosbase,
-  frmeditarlineas, frmeditarproductos, frmeditarcarnada, frmcapturas,
-  datcaptura, frmeditarmuestras, frmeditarcapturas, frmeditardetallecaptura,
-  frmeditarbycatch, frmmuestras, datmuestras, frmeditardetallemuestra,
-  frmProduccion, frmeditarproduccion, frmexportarlances, frmfactoresconversion,
-  frmeditarfactorconversion, frmresumenproduccion, frmmarcado, frmeditarmarcado,
-  frmmareaaexcel, frmenviosemail, frmEditarEnviosEmail, frmeditartipostrampa;
+  tachartlazaruspkg, pl_fortesreport, memdslaz, pl_luicontrols, pl_abbrevia,
+  pl_exsystem, frmPrincipal, datGeneral, frmbase, frmlistabase, frmmareas,
+  frmzedicionbase, DefaultTranslator, frmEditarMarea, datBase, frmlances,
+  funciones, lr_pdfexport, frmSplashScreenForm, frmeditarlances, frmlineas,
+  frmdatosbase, frmeditarlineas, frmeditarproductos, frmeditarcarnada,
+  frmcapturas, datcaptura, frmeditarmuestras, frmeditarcapturas,
+  frmeditardetallecaptura, frmeditarbycatch, frmmuestras, datmuestras,
+  frmeditardetallemuestra, frmProduccion, frmeditarproduccion,
+  frmexportarlances, frmfactoresconversion, frmeditarfactorconversion,
+  frmresumenproduccion, frmmarcado, frmeditarmarcado, frmmareaaexcel,
+  frmenviosemail, frmEditarEnviosEmail, frmeditartipostrampa, frmbackup;
 
 {$R *.res}
 
@@ -49,6 +50,7 @@ begin
   Application.CreateForm(TFmEnviosEmail, FmEnviosEmail);
   Application.CreateForm(TFmEditarEnviosEmail, FmEditarEnviosEmail);
   Application.CreateForm(TfmEditarTiposTrampa, fmEditarTiposTrampa);
+  Application.CreateForm(TfmBackup, fmBackup);
   Application.Run;
 end.
 

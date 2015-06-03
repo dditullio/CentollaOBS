@@ -1,0 +1,251 @@
+object fmBackup: TfmBackup
+  Left = 272
+  Height = 275
+  Top = 180
+  Width = 402
+  Caption = 'Copia de seguridad'
+  ClientHeight = 275
+  ClientWidth = 402
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '1.3'
+  object gbDestino: TGroupBox
+    Left = 0
+    Height = 55
+    Top = 70
+    Width = 395
+    Caption = 'Destino del archivo'
+    ClientHeight = 37
+    ClientWidth = 391
+    TabOrder = 0
+    object dedCarpetaArchivo: TDirectoryEdit
+      Left = 5
+      Height = 23
+      Top = 6
+      Width = 295
+      OnAcceptDirectory = dedCarpetaArchivoAcceptDirectory
+      ShowHidden = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 0
+      OnChange = dedCarpetaArchivoChange
+      OnExit = dedCarpetaArchivoExit
+    end
+    object bbGuardar: TBitBtn
+      Left = 302
+      Height = 26
+      Top = 5
+      Width = 84
+      Action = acBackup
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001F1F
+        252F1D1D1FEC1C1B1EFF757575FF787878FF787878FF787878FF787878FF7878
+        78FF787878FF1A191BFF19191BFF1D1C1FFF1F1F21EFFFFFFF00FFFFFF002222
+        24ED2A2A2DFF323135FF8B8A8BFF29282BFF201F21FF909090FF909090FF9090
+        90FF909090FF343336FF201F21FF4E4D51FF212023FFFFFFFF00FFFFFF002524
+        26FF39383BFF39383BFF999999FF323134FF262528FF9F9F9FFF9F9F9FFF9F9F
+        9FFF9F9F9FFF3F3E41FF252426FF58575AFF252426FFFFFFFF00FFFFFF002A29
+        2BFF403F42FF403F42FFA7A7A7FF3D3C3FFF333335FFAEAEAEFFAEAEAEFFAEAE
+        AEFFAEAEAEFF414042FF272728FF444346FF2A292BFFFFFFFF00FFFFFF002E2D
+        30FF464549FF464549FFCDCDCDFFD6D6D6FFD5D5D6FFD5D5D5FFD6D6D6FFD6D6
+        D6FFD3D3D3FF272629FF242326FF464549FF2E2D30FFFFFFFF00FFFFFF003130
+        32FF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A
+        4DFF4B4A4DFF4B4A4DFF4B4A4DFF4B4A4DFF313032FFFFFFFF00FFFFFF003333
+        35FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF4F4E
+        51FF4F4E51FF4F4E51FF4F4E51FF4F4E51FF333335FFFFFFFF00FFFFFF003635
+        37FF535254FFE8DED4FFE8DDD0FFE8DDD0FFE8DDD0FFE7DCD0FFE7DCCFFFE7DB
+        CFFFE6DBCEFFE6DACDFFE6DACFFF535254FF363537FFFFFFFF00FFFFFF003837
+        39FF565557FFF1EAE2FFB8A28BFFB8A28BFFB8A28BFFB8A28BFFB7A18AFFB7A1
+        8AFFB7A08AFFB6A089FFEDE5DCFF565557FF383739FFFFFFFF00FFFFFF003B3A
+        3BFF5A595BFFF7F3EEFFF7F3EFFFF7F3EFFFF7F3EFFFF7F3EEFFF6F2EEFFF6F1
+        EDFFF5F0EBFFF4EFE9FFF3EDE7FF5A595BFF3B3A3BFFFFFFFF00FFFFFF003D3C
+        3DFF5D5C5EFFFDFCFBFFFBF9F8FFFBF9F9FFFBF9F8FFFBF9F8FFFAF8F7FFFAF7
+        F5FFF9F6F4FFF8F4F2FFF9F6F2FF5D5C5EFF3D3C3DFFFFFFFF00FFFFFF003F3E
+        40FF616062FFFDFAF9FFCFB69CFFCFB69CFFCFB69CFFCFB69CFFCFB69DFFCFB7
+        9DFFD0B79EFFD0B89FFFFEFDFDFF616062FF3F3E40FFFFFFFF00FFFFFF004140
+        42FF59595AFFFAF4F1FFFAF4F0FFFAF4F0FFFAF4F0FFFAF4F1FFFAF5F2FFFBF6
+        F3FFFCF8F5FFFCF9F7FFFDFBF9FF646365FF414042FFFFFFFF00FFFFFF004B4B
+        4CEF444344FFB9B4B3FFB9B4B3FFB9B4B3FFB9B4B3FFB9B6B4FFBBB6B4FFBCB8
+        B6FFBCB9B7FFBCB9B8FFBCB9B9FF444344FF4B4B4CEFFFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
+      TabOrder = 1
+    end
+  end
+  object Label1: TLabel
+    Left = 65
+    Height = 50
+    Top = 5
+    Width = 245
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Copia de seguridad completa de la base de datos'
+    Font.Height = -16
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    WordWrap = True
+  end
+  object GroupBox1: TGroupBox
+    Left = 10
+    Height = 90
+    Top = 130
+    Width = 385
+    Caption = 'Opciones adicionales'
+    ClientHeight = 72
+    ClientWidth = 381
+    TabOrder = 1
+    object cbCopiaTXT: TCheckBox
+      Left = 35
+      Height = 19
+      Top = 40
+      Width = 300
+      Caption = 'Incluir copia de datos en formato de texto delimitado'
+      Checked = True
+      State = cbChecked
+      TabOrder = 0
+    end
+    object Label2: TLabel
+      Left = 5
+      Height = 15
+      Top = 10
+      Width = 362
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'La copia de seguridad de almacenará en formato SQL'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+  end
+  object paProceso: TPanel
+    Left = 0
+    Height = 50
+    Top = 225
+    Width = 402
+    Align = alBottom
+    ClientHeight = 50
+    ClientWidth = 402
+    TabOrder = 2
+    Visible = False
+    object Label3: TLabel
+      Left = 7
+      Height = 15
+      Top = 5
+      Width = 71
+      Caption = 'Procesando...'
+      ParentColor = False
+    end
+    object pbProceso: TProgressBar
+      Left = 7
+      Height = 20
+      Top = 24
+      Width = 385
+      Style = pbstMarquee
+      TabOrder = 0
+    end
+  end
+  object alBackup: TActionList
+    left = 350
+    top = 15
+    object acBackup: TAction
+      Caption = 'Guardar'
+      OnExecute = acBackupExecute
+    end
+  end
+  object azBackup: TAbZipper
+    AutoSave = True
+    DOSMode = False
+    StoreOptions = [soStripDrive, soStripPath, soRemoveDots]
+    left = 20
+    top = 15
+  end
+  object prBackup: TProcessUTF8
+    Active = False
+    Options = [poNoConsole]
+    Priority = ppNormal
+    StartupOptions = []
+    ShowWindow = swoNone
+    WindowColumns = 0
+    WindowHeight = 0
+    WindowLeft = 0
+    WindowRows = 0
+    WindowTop = 0
+    WindowWidth = 0
+    FillAttribute = 0
+    left = 85
+    top = 10
+  end
+  object zqTablasYVistas: TZQuery
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SHOW FULL TABLES'
+      'WHERE table_type = :tipo'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'tipo'
+        ParamType = ptUnknown
+      end>
+    left = 120
+    top = 10
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'tipo'
+        ParamType = ptUnknown
+      end>
+    object zqTablasYVistasTables_in_centolla: TStringField
+      DisplayWidth = 256
+      FieldKind = fkData
+      FieldName = 'Tables_in_centolla'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 256
+    end
+    object zqTablasYVistasTable_type: TStringField
+      DisplayWidth = 256
+      FieldKind = fkData
+      FieldName = 'Table_type'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 256
+    end
+  end
+  object zqCampos: TZQuery
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      ''
+    )
+    Params = <>
+    left = 160
+    top = 10
+  end
+  object zqGetCreate: TZQuery
+    Connection = dmGeneral.zcDB
+    Params = <>
+    left = 195
+    top = 10
+  end
+  object zqDatosTabla: TZQuery
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      ''
+    )
+    Params = <>
+    left = 245
+    top = 10
+  end
+end
