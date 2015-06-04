@@ -213,6 +213,7 @@ end;
 
 procedure TfmPrincipal.acBackupExecute(Sender: TObject);
 begin
+  CerrarOtrasHojas(nil);
   fmbackup.ShowModal;
 end;
 
@@ -313,15 +314,15 @@ var
   ats: TStringList;
 begin
   ats:= TStringList.Create;
-  if F<>nil then
-  begin
+  //if F<>nil then
+  //begin
     //Buscar si está abierto en alguna pestaña
     for i:=0 to pcContenido.PageCount-1 do
     begin
-      if (Assigned(pcContenido.Pages[i])) and (pcContenido.Pages[i].Name<>'ts'+F.Name) then
+      if (Assigned(pcContenido.Pages[i])) and ((not Assigned (F)) or (pcContenido.Pages[i].Name<>'ts'+F.Name)) then
         ats.Add(pcContenido.Pages[i].Name);
     end;
-  end;
+  //end;
   for i:=0 to ats.Count-1 do
   begin
     pcContenido.FindComponent(ats[i]).Free;
@@ -336,7 +337,7 @@ begin
   //Habilito acciones de menu
   for i := 0 to Pred(alPrincipal.ActionCount) do
   begin
-    if (alPrincipal.Actions[i] is TAction) and (alPrincipal.Actions[i].Name<>'acMareas') then
+    if (alPrincipal.Actions[i] is TAction) and (alPrincipal.Actions[i].Tag=0) then
       begin
         (alPrincipal.Actions[i] as TAction).Enabled:=dmGeneral.IdMareaActiva>0;
       end;

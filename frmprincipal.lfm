@@ -91,6 +91,7 @@ object fmPrincipal: TfmPrincipal
         ShowHint = True
         TabOrder = 1
         object ToolButton2: TToolButton
+          Tag = 1
           Left = 0
           Top = 0
           Action = acMareas
@@ -6751,6 +6752,7 @@ object fmPrincipal: TfmPrincipal
       OnExecute = acLancesExecute
     end
     object acMareas: TAction
+      Tag = 1
       Caption = 'Mareas'
       Hint = 'Configurar los datos básicos de la marea'
       ImageIndex = 3
@@ -6813,6 +6815,7 @@ object fmPrincipal: TfmPrincipal
       Visible = False
     end
     object acBackup: TAction
+      Tag = 1
       Caption = 'Copia de seguridad'
       ImageIndex = 14
       OnExecute = acBackupExecute

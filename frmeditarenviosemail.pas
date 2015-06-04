@@ -9,22 +9,24 @@ uses
   Windows,windirs,
   {$ENDIF}
   Classes, SysUtils, FileUtil, DividerBevel, DateTimePicker, DBDateTimePicker,
-  rxdbgrid, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, DbCtrls,
-  Buttons, ActnList, DBGrids, EditBtn, frmzedicionbase, ZDataset, ZSqlUpdate,
-  SQLQueryGroup, zcontroladoredicion, zdatasetgroup, db, datGeneral, LSConfig,
-  LCLIntf, ComCtrls, comobj, variants;
+  AbZipper, rxdbgrid, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
+  DbCtrls, Buttons, ActnList, DBGrids, EditBtn, frmzedicionbase, ZDataset,
+  ZSqlUpdate, SQLQueryGroup, zcontroladoredicion, zdatasetgroup, db, datGeneral,
+  LSConfig, LCLIntf, ComCtrls, comobj, variants;
 
 type
 
   { TFmEditarEnviosEmail }
 
   TFmEditarEnviosEmail = class(TZEdicionBase)
+    azEnvio: TAbZipper;
     acExportarLances: TAction;
     acExportarLances1: TAction;
     acAgregarLances: TAction;
     ActionList1: TActionList;
     bbAgregar: TBitBtn;
     bbGuardar: TBitBtn;
+    ckComprimir: TCheckBox;
     DateTimeField1: TDateTimeField;
     DateTimeField2: TDateTimeField;
     dsDetalleEnvios: TDataSource;
@@ -278,7 +280,7 @@ end;
 
 procedure TFmEditarEnviosEmail.HabilitarAcciones;
 begin
-  acExportarLances.Enabled:=(dedCarpetaArchivo.Directory<>'');
+  acExportarLances.Enabled:=((dedCarpetaArchivo.Directory<>'') and (DirectoryExistsUTF8(dedCarpetaArchivo.Directory)));
   acAgregarLances.Enabled:=zcePrincipal.Accion=ED_MODIFICAR;
 end;
 
@@ -314,7 +316,7 @@ procedure TFmEditarEnviosEmail.acExportarLancesExecute(Sender: TObject);
 var
   xls: olevariant;
   archivo_origen, archivo_destino, tmp: WideString;
-  archivo:string;
+  archivo, archivo_zip:string;
   i:integer;
   OLD_DS:char;
 begin
@@ -345,18 +347,43 @@ begin
             CopyFile(archivo_origen, archivo_destino, [cffOverwriteFile]);
             archivo_destino:=UTF8Decode(archivo_destino);
             xls.Workbooks.Open(archivo_destino);
+
+            //Se realiza la exportación del archivo
             ExportarExcel(xls);
+
             xls.ActiveWorkBook.Sheets('Lances').Activate;
             xls.ActiveWorkBook.Save;
-            if MessageDlg('La planilla ha sido guardada en la carpeta indicada. ¿Desea abrir esta carpeta?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
+            xls.Quit;
+            xls := Unassigned;
+
+            //Si se indicó, lo comprimo en ZIP
+            if ckComprimir.Checked then
+            begin
+              archivo_zip:=StringReplace(archivo_destino, '.xls', '.zip', [rfReplaceAll, rfIgnoreCase]);
+              //No lo borro, así si quiero puedo agregar el otro formato
+              //if FileExistsUTF8(archivo_zip) then
+              //   DeleteFileUTF8(archivo_zip);
+              azEnvio.BaseDirectory:=dedCarpetaArchivo.Directory;
+              azEnvio.FileName:=archivo_zip;
+
+              //Agego los archivos de script
+              azEnvio.AddFiles(archivo_destino,0);
+              DeleteFileUTF8(archivo_destino);
+              azEnvio.CloseArchive;
+            end;
+
+            if MessageDlg('El informe ha sido guardado en la carpeta indicada. ¿Desea abrir esta carpeta?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
             begin
               OpenDocument(dedCarpetaArchivo.Directory);
             end;
           end;
         finally
           DecimalSeparator:=OLD_DS;
-          xls.Quit;
-          xls := Unassigned;
+          if xls <> Unassigned then
+          begin
+            xls.Quit;
+            xls := Unassigned;
+          end;
           Close;
       end;
     end;
@@ -366,7 +393,7 @@ end;
 procedure TFmEditarEnviosEmail.ExportarTXT;
 var
   s:TStringList;
-  tmp, archivo, str_enc:string;
+  tmp, archivo, archivo_zip, str_enc:string;
   i:integer;
   OLD_DC:char;
 begin
@@ -499,16 +526,32 @@ begin
         if (not FileExistsUTF8(archivo)) or (MessageDlg('El archivo '+archivo+' ya existe. ¿Desea reemplazarlo?', mtConfirmation, [mbYes, mbNo],0) = mrYes) then
         begin
           s.SaveToFile(archivo);
-          if MessageDlg('El informe de lances se ha generado correctamente y se ha guardado en '+archivo+'. ¿Desea visualizar el contenido del archivo?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
+
+          if ckComprimir.Checked then
           begin
-            OpenDocument(archivo);
-            //{$IFDEF MSWINDOWS}
-            //  ShellExecute(Handle, 'open', PChar(archivo), nil, nil, SW_SHOWNORMAL)
-            //{$ENDIF}
-            //{$IFDEF UNIX}
-            //  Shell(format('gv %s',[ExpandFileNameUTF8(archivo)]));
-            //{$ENDIF}
+            archivo_zip:=StringReplace(archivo, '.txt', '.zip', [rfReplaceAll, rfIgnoreCase]);
+            //No lo borro, así si quiero puedo agregar el otro formato
+            //if FileExistsUTF8(archivo_zip) then
+            //   DeleteFileUTF8(archivo_zip);
+            azEnvio.BaseDirectory:=dedCarpetaArchivo.Directory;
+            azEnvio.FileName:=archivo_zip;
+
+            //Agego los archivos de script
+            azEnvio.AddFiles(archivo,0);
+            DeleteFileUTF8(archivo);
+            azEnvio.CloseArchive;
           end;
+
+          if MessageDlg('El informe ha sido guardado en la carpeta indicada. ¿Desea abrir esta carpeta?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
+          begin
+              OpenDocument(dedCarpetaArchivo.Directory);
+          end;
+
+          //Como puede ser un zip, en lugar del documento abrí la carpeta
+          //if MessageDlg('El informe de lances se ha generado correctamente y se ha guardado en '+archivo+'. ¿Desea visualizar el contenido del archivo?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
+          //begin
+          //  OpenDocument(archivo);
+          //end;
         end;
       finally
         DecimalSeparator:=OLD_DC;
@@ -738,7 +781,7 @@ var
 begin
   LSLoadConfig(['destino_archivo_lances'],[destino],[@destino]);
   {$IFDEF MSWINDOWS}
-  if destino='' then
+  if (destino='') or (not DirectoryExistsUTF8(destino)) then
      destino:=GetWindowsSpecialDir(CSIDL_PERSONAL);
   {$ENDIF}
   dedCarpetaArchivo.Directory := destino;

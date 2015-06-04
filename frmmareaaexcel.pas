@@ -175,7 +175,7 @@ begin
   imMarcado.Visible:=False;
   LSLoadConfig(['destino_planilla_informe'],[destino],[@destino]);
   {$IFDEF MSWINDOWS}
-  if destino='' then
+  if (destino='') or (not DirectoryExistsUTF8(destino)) then
      destino:=GetWindowsSpecialDir(CSIDL_PERSONAL);
   {$ENDIF}
   dedCarpetaPlanilla.Directory := destino;
@@ -329,7 +329,7 @@ end;
 
 procedure TfmMareaAExcel.HabilitarAcciones;
 begin
-  acGenerarPlanilla.Enabled:=(dedCarpetaPlanilla.Directory<>'');
+  acGenerarPlanilla.Enabled:=((dedCarpetaPlanilla.Directory<>'') and (DirectoryExistsUTF8(dedCarpetaPlanilla.Directory)));
 end;
 
 procedure TfmMareaAExcel.GenerarDatosPuenteOLD(xls: olevariant; Password: WideString);
