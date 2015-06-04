@@ -22,7 +22,9 @@ type
     alBackup: TActionList;
     bbGuardar: TBitBtn;
     bbGuardar1: TBitBtn;
-    cbCopiaTXT: TCheckBox;
+    ckCopiaTXT: TCheckBox;
+    ckEstructura: TCheckBox;
+    ckDatos: TCheckBox;
     dedCarpetaArchivo: TDirectoryEdit;
     edArchivoSQL: TEdit;
     gbDestino: TGroupBox;
@@ -53,13 +55,12 @@ type
     zqRutinasroutine_type: TStringField;
     zqTablasYVistas: TZQuery;
     zqCampos: TZQuery;
-    zqTablasYVistasTables_in_centolla: TStringField;
-    zqTablasYVistasTable_type: TStringField;
     zqDatosTabla: TZQuery;
     zqRutinas: TZQuery;
     zqDefRutina: TZQuery;
     procedure acBackupExecute(Sender: TObject);
     procedure acRestaurarExecute(Sender: TObject);
+    procedure ckDatosChange(Sender: TObject);
     procedure dedCarpetaArchivo1AcceptFileName(Sender: TObject;
       var Value: String);
     procedure dedCarpetaArchivoAcceptDirectory(Sender: TObject;
@@ -70,7 +71,8 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure sbRestaurarClick(Sender: TObject);
-    function EjecutarRestauracion: boolean;
+    function EjecutarRestauracion(proc_tablas, proc_rutinas:Boolean): Boolean;
+    procedure zqRutinasBeforeOpen(DataSet: TDataSet);
   private
     { private declarations }
     Procedure HabilitarAcciones;
@@ -81,7 +83,7 @@ type
     function SentenciaInsert(tabla:string):string;
     function FormatField(f: TField):string;
     function CrearEstructuraVista(vista:string):string;
-    procedure CrearTablasYDatos(var str_sql: TStringList);
+    procedure CrearTablasYDatos(var str_sql: TStringList; crear_estructura:Boolean=True;incluir_datos:Boolean=True);
     procedure CrearEncabezadoTablas(var str_sql: TStringList);
     procedure CrearPieTablas(var str_sql: TStringList);
     procedure GenerarEstructuraVistas(var str_sql: TStringList);
@@ -96,18 +98,19 @@ type
 const
     NEWLINE=#13#10;
     PREFIJO_BKP='BKP_DB_CENTOLLA_';
+    CARPETA_TEMP='CentollaOBS';
     CADENA_TABLAS='TABLAS';
     CADENA_RUTINAS='RUTINAS';
     EXTENSION_ARCH_BACKUP='.obk';
 
     OLD_SET_VAR_ENCABEZADO=
                '-- -----------------------------------------------------'+NEWLINE+
-               '-- Esquema centolla'+NEWLINE+
+               '-- Esquema <ESQUEMA>'+NEWLINE+
                '-- -----------------------------------------------------'+NEWLINE+
                ''+NEWLINE+
-               'CREATE SCHEMA IF NOT EXISTS `centolla` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;'+NEWLINE+
+               'CREATE SCHEMA IF NOT EXISTS `<ESQUEMA>` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;'+NEWLINE+
                ''+NEWLINE+
-               'USE `centolla` ;'+NEWLINE+
+               'USE `<ESQUEMA>` ;'+NEWLINE+
                ''+NEWLINE+
                ''+NEWLINE+
                '/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;'+NEWLINE+
@@ -148,6 +151,7 @@ const
                 '--'+NEWLINE+
                 'LOCK TABLES `<TABLA>` WRITE;'+NEWLINE+
                 '/*!40000 ALTER TABLE `<TABLA>` DISABLE KEYS */;'+NEWLINE+
+                'REPLACE INTO `<TABLA>` (<CAMPOS>) VALUES <INSERT_VALUES>'+NEWLINE+
                 'INSERT INTO `<TABLA>` (<CAMPOS>) VALUES <INSERT_VALUES>;'+NEWLINE+
                 '/*!40000 ALTER TABLE `<TABLA>` ENABLE KEYS */;'+NEWLINE+
                 'UNLOCK TABLES;'+NEWLINE;
@@ -183,12 +187,12 @@ const
 
      SET_VAR_ENCABEZADO=
                 '-- -----------------------------------------------------'+NEWLINE+
-                '-- Esquema centolla'+NEWLINE+
+                '-- Esquema <ESQUEMA>'+NEWLINE+
                 '-- -----------------------------------------------------'+NEWLINE+
                 ''+NEWLINE+
-                'CREATE SCHEMA IF NOT EXISTS `centolla` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;'+NEWLINE+
+                'CREATE SCHEMA IF NOT EXISTS `<ESQUEMA>` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;'+NEWLINE+
                 ''+NEWLINE+
-                'USE `centolla` ;'+NEWLINE+
+                'USE `<ESQUEMA>` ;'+NEWLINE+
                 ''+NEWLINE+
                 ''+NEWLINE+
                 'SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT ;'+NEWLINE+
@@ -223,6 +227,9 @@ const
                  '<SENTENCIA_CREATE_TABLE>;'+NEWLINE+
                  'SET character_set_client = @saved_cs_client ;'+NEWLINE;
 
+      //Se utiliza la sentencia REPLACE en lugar de INSERT, así, si se ejecuta
+      //varias veces no da error de registros duplicados, sino que se reemplazan
+      //los existentes y se agregan los nuevos
       INSERT_TEMPLATE=
                  '--'+NEWLINE+
                  '-- Volcado de datos de la tabla `<TABLA>`'+NEWLINE+
@@ -230,7 +237,7 @@ const
                  ''+NEWLINE+
                  'LOCK TABLES `<TABLA>` WRITE;'+NEWLINE+
                  'ALTER TABLE `<TABLA>` DISABLE KEYS ;'+NEWLINE+
-                 'INSERT INTO `<TABLA>` (<CAMPOS>) VALUES <INSERT_VALUES>;'+NEWLINE+
+                 'REPLACE INTO `<TABLA>` (<CAMPOS>) VALUES <INSERT_VALUES>;'+NEWLINE+
                  'ALTER TABLE `<TABLA>` ENABLE KEYS ;'+NEWLINE+
                  'UNLOCK TABLES;'+NEWLINE;
 
@@ -294,9 +301,9 @@ var
 begin
 
     temp_dir:=GetTempDir;
-    if not DirectoryExistsUTF8(temp_dir+DirectorySeparator+'CentollaOBS') then
-       CreateDirUTF8(temp_dir+DirectorySeparator+'CentollaOBS');
-    temp_dir:=temp_dir+DirectorySeparator+'CentollaOBS';
+    if not DirectoryExistsUTF8(temp_dir+DirectorySeparator+CARPETA_TEMP) then
+       CreateDirUTF8(temp_dir+DirectorySeparator+CARPETA_TEMP);
+    temp_dir:=temp_dir+DirectorySeparator+CARPETA_TEMP;
 
     str_fecha:=FormatDateTime('yyyy-mm-dd-hhmm', Now);
     nombre_base:=temp_dir+DirectorySeparator+PREFIJO_BKP;
@@ -304,10 +311,13 @@ begin
     archivo_backup_rutinas:=nombre_base+CADENA_RUTINAS+EXTENSION_ARCH_BACKUP;
 
     paProceso.Visible:=True;
+
+    //Generar archivos SQL
     ExportarDB_SQL(archivo_backup_tablas, archivo_backup_rutinas);
 
-    if cbCopiaTXT.Checked then
+    if ckCopiaTXT.Checked then
     begin
+      //Generar archivos TXT
       ExportarDB_TXT(temp_dir);
     end;
     paProceso.Visible:=False;
@@ -323,13 +333,16 @@ begin
 
       //Agego los archivos de script
       azBackup.AddFiles(archivo_backup_tablas,0);
-      azBackup.AddFiles(archivo_backup_rutinas,0);
+      if ckEstructura.Checked then
+         azBackup.AddFiles(archivo_backup_rutinas,0);
 
       //Borro los archivos porque ya no se necesitan
       DeleteFileUTF8(archivo_backup_tablas);
-      DeleteFileUTF8(archivo_backup_rutinas);
 
-      if cbCopiaTXT.Checked then
+      if FileExistsUTF8(archivo_backup_rutinas) then
+         DeleteFileUTF8(archivo_backup_rutinas);
+
+      if ckCopiaTXT.Checked then
       begin
         //Agrego los TXT. Busco cada una de las tablas del sistema
         zqTablasYVistas.Close;
@@ -341,7 +354,7 @@ begin
           First;
           while not EOF do
           begin
-            tabla:=zqTablasYVistasTables_in_centolla.AsString;
+            tabla:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
             archivo_txt:=temp_dir+DirectorySeparator+tabla+'.txt';
             if FileExistsUTF8(archivo_txt) then
             begin
@@ -371,6 +384,7 @@ end;
 procedure TfmBackup.acRestaurarExecute(Sender: TObject);
 var
   str_confirm: string;
+  proc_tablas, proc_rutinas: Boolean;
 begin
     if MessageDlg('ATENCIÓN!!!','La restauración de una copia de seguridad es una operación que destruye toda la información actual registrada en la aplicación, y la reemplaza por los datos contenidos en la copia de seguridad. ¿Está seguro de que desea perder los datos actuales?', mtConfirmation, [mbYes, mbNo],0, mbNo) = mrYes then
     begin
@@ -380,7 +394,10 @@ begin
         if LowerCase(str_confirm)=LowerCase('Voy a perder mis datos actuales') then
         begin
           //Se inicia la restauración
-          if EjecutarRestauracion then
+          proc_tablas:=true;
+          proc_rutinas:=Assigned(sl_rutinas) and (sl_rutinas.Count>0);
+
+          if EjecutarRestauracion (proc_tablas, proc_rutinas) then
           begin
              MessageDlg('El proceso de restauración ha finalizado.', mtInformation, [mbOK],0);
              Close;
@@ -395,6 +412,13 @@ begin
       end;
 
     end;
+end;
+
+procedure TfmBackup.ckDatosChange(Sender: TObject);
+begin
+  ckCopiaTXT.Enabled:=ckDatos.Checked;
+  if ckDatos.Checked=False then
+     ckCopiaTXT.Checked:=False;
 end;
 
 procedure TfmBackup.dedCarpetaArchivo1AcceptFileName(Sender: TObject;
@@ -445,6 +469,7 @@ begin
   end;
   dedCarpetaArchivo.Directory := destino;
   pcBackup.ActivePage:=tsBackup;
+  odRestaurar.Filter:='Archivos de copia de seguridad|'+PREFIJO_BKP+'*.zip';
   HabilitarAcciones;
 end;
 
@@ -464,9 +489,9 @@ begin
     //Extraigo los archivos, verifico que existan los 2 SQLS (.obk), y que la
     //cabecera sea correcta
     temp_dir:=GetTempDir;
-     if not DirectoryExistsUTF8(temp_dir+DirectorySeparator+'CentollaOBS') then
-        CreateDirUTF8(temp_dir+DirectorySeparator+'CentollaOBS');
-     temp_dir:=temp_dir+DirectorySeparator+'CentollaOBS';
+     if not DirectoryExistsUTF8(temp_dir+DirectorySeparator+CARPETA_TEMP) then
+        CreateDirUTF8(temp_dir+DirectorySeparator+CARPETA_TEMP);
+     temp_dir:=temp_dir+DirectorySeparator+CARPETA_TEMP;
 
      auzBackup.BaseDirectory:=temp_dir;
     auzBackup.FileName:=odRestaurar.FileName;
@@ -475,10 +500,14 @@ begin
     script_tablas:=temp_dir+DirectorySeparator+PREFIJO_BKP+CADENA_TABLAS+EXTENSION_ARCH_BACKUP;
     script_rutinas:=temp_dir+DirectorySeparator+PREFIJO_BKP+CADENA_RUTINAS+EXTENSION_ARCH_BACKUP;
 
-    if FileExistsUTF8(script_tablas) and FileExistsUTF8(script_rutinas) then
+    if FileExistsUTF8(script_tablas) then
     begin
       sl_tablas.LoadFromFile(script_tablas);
-      sl_rutinas.LoadFromFile(script_rutinas);
+      //Si la copia de seguridad es sólo de datos, no existe el archivo de rutinas
+      if FileExistsUTF8(script_rutinas) then
+      begin
+           sl_rutinas.LoadFromFile(script_rutinas);
+      end;
       //Se oculta el memo para acelerar la carga del texto
       meSQL.Visible:=False;
       meSQL.Text:=sl_tablas.Text;
@@ -487,8 +516,8 @@ begin
 
       //Leo sólo uno de los archivos para verificar
       if (sl_tablas[0] <> '-- ---------------------------------------------')
-         or (sl_tablas[1] <> '-- Tablas y datos de la base de datos "Centolla"')
-         or (sl_tablas[2] <> '-- Generado desde la aplicación "CentollaOBS"')
+         or (sl_tablas[1] <> '-- Tablas y datos de la base de datos "'+dmGeneral.zcDB.Database+'"')
+         or (sl_tablas[2] <> '-- Generado desde la aplicación "'+ApplicationName+'"')
          or (sl_tablas[4] <> '-- ---------------------------------------------') then
       begin
         if MessageDlg('Advertencia','El archivo seleccionado no parece ser una copia de seguridad generada por esta aplicación. Pueden generarse daños en los datos, perderse toda la información registrada, o inutilizar totalmente esta aplicación. ¿Está seguro de que desea utilizar este archivo?', mtWarning, [mbYes, mbNo],0, mbNo) = mrNo then
@@ -499,7 +528,8 @@ begin
         end;
       end;
        DeleteFileUTF8(script_tablas);
-       DeleteFileUTF8(script_rutinas);
+      if FileExistsUTF8(script_rutinas) then
+         DeleteFileUTF8(script_rutinas);
     end else
     begin
       MessageDlg('El archivo seleccionado no parece ser una copia de seguridad realizada por esta aplicación. No se puede procesar el archivo', mtError, [mbOK],0);
@@ -511,7 +541,7 @@ begin
 
 end;
 
-function TfmBackup.EjecutarRestauracion: boolean;
+function TfmBackup.EjecutarRestauracion(proc_tablas, proc_rutinas: Boolean): Boolean;
 var
   restOK: boolean;
   linea: string;
@@ -524,52 +554,68 @@ begin
    Cursor:=crHourGlass;
    Application.ProcessMessages;
    restOK:=False;
-   //Se utilizan los componentes de SQLdb ya que los de ZeosDB no permiten la ejecución de un script
-   //Se copian los datos de conección desde la base de datos general
-   conRestaurar.HostName:=dmGeneral.zcDB.HostName;
-   conRestaurar.Port:=dmGeneral.zcDB.Port;
-   conRestaurar.UserName:=dmGeneral.zcDB.User;
-   conRestaurar.Password:=dmGeneral.zcDB.Password;
-   conRestaurar.DatabaseName:=dmGeneral.zcDB.Database;
-   try
-     //Desconecto la base de datos principal para realizar el proceso
-     dmGeneral.zcDB.Connected:=False;
+   if (proc_tablas or proc_rutinas) then
+   begin
+       //Se utilizan los componentes de SQLdb ya que los de ZeosDB no permiten la ejecución de un script
+       //Se copian los datos de conección desde la base de datos general
+       conRestaurar.HostName:=dmGeneral.zcDB.HostName;
+       conRestaurar.Port:=dmGeneral.zcDB.Port;
+       conRestaurar.UserName:=dmGeneral.zcDB.User;
+       conRestaurar.Password:=dmGeneral.zcDB.Password;
+       conRestaurar.DatabaseName:=dmGeneral.zcDB.Database;
+       try
+         //Desconecto la base de datos principal para realizar el proceso
+         dmGeneral.zcDB.Connected:=False;
 
-     conRestaurar.Connected:= True;
+         conRestaurar.Connected:= True;
 
-     trRestaurar.StartTransaction;
+         trRestaurar.StartTransaction;
 
-     scRestaurar.Terminator:=';';
-     scRestaurar.Script.Text:=sl_tablas.Text;
-     scRestaurar.ExecuteScript;
+         if proc_tablas then
+         begin
+             scRestaurar.Terminator:=';';
+             scRestaurar.Script.Text:=sl_tablas.Text;
+             scRestaurar.ExecuteScript;
+         end;
 
-     //Por un problema de compatibilidad con el componente de script,
-     //debe eliminarse el "DELIMITER" y configurarlo directamente
-     //en el componente
+         //Por un problema de compatibilidad con el componente de script,
+         //debe eliminarse el "DELIMITER" y configurarlo directamente
+         //en el componente
 
-     for i:=0 to sl_rutinas.Count-1 do
-     begin
-       sl_rutinas[i]:=StringReplace(sl_rutinas[i], 'DELIMITER $$', '', [rfReplaceAll, rfIgnoreCase]);
-       sl_rutinas[i]:=StringReplace(sl_rutinas[i], 'DELIMITER ;', '', [rfReplaceAll, rfIgnoreCase]);
-     end;
-     scRestaurar.Terminator:='$$';
-     scRestaurar.Script.Text:=sl_rutinas.Text;
-     scRestaurar.ExecuteScript;
-     trRestaurar.Commit;
+         if proc_rutinas then
+         begin
+             for i:=0 to sl_rutinas.Count-1 do
+             begin
+               sl_rutinas[i]:=StringReplace(sl_rutinas[i], 'DELIMITER $$', '', [rfReplaceAll, rfIgnoreCase]);
+               sl_rutinas[i]:=StringReplace(sl_rutinas[i], 'DELIMITER ;', '', [rfReplaceAll, rfIgnoreCase]);
+             end;
+             scRestaurar.Terminator:='$$';
+             scRestaurar.Script.Text:=sl_rutinas.Text;
+             scRestaurar.ExecuteScript;
+         end;
 
-     restOK:=True;
-   except
-     trRestaurar.Rollback;
-     MessageDlg('Ocurrió un error al realizar la restauración de la copia de seguridad.', mtError, [mbOK],0);
+         trRestaurar.Commit;
+
+         restOK:=True;
+       except
+         trRestaurar.Rollback;
+         MessageDlg('Ocurrió un error al realizar la restauración de la copia de seguridad.', mtError, [mbOK],0);
+       end;
+       conRestaurar.Connected:=False;
+
+       //Reconecto la base de datos principal
+       dmGeneral.zcDB.Connect;
+
+       meSQL.Visible:=True;
+       Cursor:=oldCursor;
+       HabilitarAcciones;
    end;
-   conRestaurar.Connected:=False;
-
-   //Reconecto la base de datos principal
-   dmGeneral.zcDB.Connect;
-
-   meSQL.Visible:=True;
-   Cursor:=oldCursor;
    Result:=restOK;
+end;
+
+procedure TfmBackup.zqRutinasBeforeOpen(DataSet: TDataSet);
+begin
+    zqRutinas.ParamByName('db').Value:=dmGeneral.zcDB.Database;
 end;
 
 procedure TfmBackup.HabilitarAcciones;
@@ -592,7 +638,7 @@ begin
    //Se arma un encabezado con las variables de inicio del script
    CrearEncabezadoTablas(str_sql_tablas);
 
-   CrearTablasYDatos(str_sql_tablas);
+   CrearTablasYDatos(str_sql_tablas, ckEstructura.Checked, ckDatos.Checked);
 
    //Se agrega el seteo de variables al final
    CrearPieTablas(str_sql_tablas);
@@ -604,36 +650,38 @@ begin
 
    str_sql_tablas.Free;
 
-   //Generación del script de rutinas (vistas, stored procedures, funciones y triggers
-   str_sql_rutinas:=TStringList.Create;
-
-   CrearEncabezadoRutinas(str_sql_rutinas);
-
-   //Las vistas las creo en dos pasadas. Primero creo una estructura falsa
-   //para que las vistas que usan otras vistas no den error.
-   //Luego creo las funciones y procedimientos
-   //En la segunda pasada, borro la estructura falsa y creo la vista
-   GenerarEstructuraVistas(str_sql_rutinas);
-
-   //Antes de crear la vista final, creo las funciones. Primero creo una "fachada"
-   //para que la función exista si es requerida por otra cuando se cree la versión
-   //final en la segunda pasada
-
-   CrearRutinas(str_sql_rutinas);
-
-   //Segunda pasada de vistas: Para cada vista, creo la estructura final
-   CrearVistasReales(str_sql_rutinas);
-
-   //Finalizo con las variables de cierre
-   CrearPieRutinas(str_sql_rutinas);
-
-  if archivo_rutinas <> '' then
+   if ckEstructura.Checked then
    begin
-     str_sql_rutinas.SaveToFile(archivo_rutinas);
-   end;
+       //Generación del script de rutinas (vistas, stored procedures, funciones y triggers
+       str_sql_rutinas:=TStringList.Create;
 
-   str_sql_rutinas.Free;
+       CrearEncabezadoRutinas(str_sql_rutinas);
 
+       //Las vistas las creo en dos pasadas. Primero creo una estructura falsa
+       //para que las vistas que usan otras vistas no den error.
+       //Luego creo las funciones y procedimientos
+       //En la segunda pasada, borro la estructura falsa y creo la vista
+       GenerarEstructuraVistas(str_sql_rutinas);
+
+       //Antes de crear la vista final, creo las funciones. Primero creo una "fachada"
+       //para que la función exista si es requerida por otra cuando se cree la versión
+       //final en la segunda pasada
+
+       CrearRutinas(str_sql_rutinas);
+
+       //Segunda pasada de vistas: Para cada vista, creo la estructura final
+       CrearVistasReales(str_sql_rutinas);
+
+       //Finalizo con las variables de cierre
+       CrearPieRutinas(str_sql_rutinas);
+
+     if archivo_rutinas <> '' then
+     begin
+          str_sql_rutinas.SaveToFile(archivo_rutinas);
+     end;
+
+      str_sql_rutinas.Free;
+  end;
 end;
 
 procedure TfmBackup.ExportarDB_TXT(carpeta: string);
@@ -657,7 +705,7 @@ begin
      First;
      while not EOF do
      begin
-       tabla:=zqTablasYVistasTables_in_centolla.AsString;
+       tabla:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
        zqDatosTabla.Close;
        zqDatosTabla.SQL.Text:='SELECT * FROM '+tabla;
        zqDatosTabla.Open;
@@ -897,7 +945,8 @@ begin
      result:=sentencia;
 end;
 
-procedure TfmBackup.CrearTablasYDatos(var str_sql: TStringList);
+procedure TfmBackup.CrearTablasYDatos(var str_sql: TStringList;
+  crear_estructura: Boolean; incluir_datos: Boolean);
 var
    tabla: string;
 begin
@@ -913,9 +962,15 @@ begin
      First;
      while not EOF do
      begin
-       tabla:=zqTablasYVistasTables_in_centolla.AsString;
-       str_sql.Add(SentenciaCreateTable(tabla));
-       str_sql.Add(SentenciaInsert(tabla));
+       tabla:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
+       if crear_estructura then
+       begin
+              str_sql.Add(SentenciaCreateTable(tabla));
+       end;
+       if incluir_datos then
+       begin
+            str_sql.Add(SentenciaInsert(tabla));
+       end;
        Application.ProcessMessages;
        Next;
      end;
@@ -924,15 +979,18 @@ begin
 end;
 
 procedure TfmBackup.CrearEncabezadoTablas(var str_sql: TStringList);
+var
+   var_encabezado:string;
 begin
     str_sql.Add('-- ---------------------------------------------');
-    str_sql.Add('-- Tablas y datos de la base de datos "Centolla"');
-    str_sql.Add('-- Generado desde la aplicación "CentollaOBS"');
+    str_sql.Add('-- Tablas y datos de la base de datos "'+dmGeneral.zcDB.Database+'"');
+    str_sql.Add('-- Generado desde la aplicación "'+ApplicationName+'"');
     str_sql.Add('-- Fecha y hora de resguardo: '+FormatDateTime('dd/mm/yyyy hh:mm', Now));
     str_sql.Add('-- ---------------------------------------------');
     str_sql.Add('');
     //Seteo las variables globales del script
-    str_sql.Add(SET_VAR_ENCABEZADO);
+    var_encabezado:=StringReplace(SET_VAR_ENCABEZADO,'<ESQUEMA>',dmGeneral.zcDB.Database,[rfReplaceAll, rfIgnoreCase]);
+    str_sql.Add(var_encabezado);
     str_sql.Add(NEWLINE);
     str_sql.Add('-- ------------------ --');
     str_sql.Add('-- Tablas del sistema --');
@@ -969,7 +1027,7 @@ begin
      First;
      while not EOF do
      begin
-       vista:=zqTablasYVistasTables_in_centolla.AsString;
+       vista:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
        //Las funciones GIS no son del todo compatibles, así que las salteo
        if LowerCase(LeftStr(vista, 5))<>'v_gis' then
        begin
@@ -1086,7 +1144,7 @@ begin
      First;
      while not EOF do
      begin
-       vista:=zqTablasYVistasTables_in_centolla.AsString;
+       vista:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
        //Las funciones GIS no son del todo compatibles, así que las salteo
        if LowerCase(LeftStr(vista, 5))<>'v_gis' then
        begin
@@ -1105,8 +1163,8 @@ var
 begin
    str_sql.Add('DELIMITER $$');
    str_sql.Add('-- ---------------------------------------------');
-   str_sql.Add('-- Rutinas de la base de datos "Centolla"');
-   str_sql.Add('-- realizada desde la aplicación "CentollaOBS"');
+   str_sql.Add('-- Rutinas de la base de datos "'+dmGeneral.zcDB.Database+'"');
+   str_sql.Add('-- realizada desde la aplicación "'+ApplicationName+'"');
    str_sql.Add('-- Fecha y hora de resguardo: '+FormatDateTime('dd/mm/yyyy hh:mm', Now));
    str_sql.Add('-- ---------------------------------------------');
    str_sql.Add('');
@@ -1115,6 +1173,7 @@ begin
    //Por compatibilidad con la ejecución del script en Lazarus, se utiliza el
    //mismo delimitador que en las funciones y stored procedures
    variables:=StringReplace(SET_VAR_ENCABEZADO,';','$$',[rfReplaceAll, rfIgnoreCase]);
+   variables:=StringReplace(variables,'<ESQUEMA>',dmGeneral.zcDB.Database,[rfReplaceAll, rfIgnoreCase]);
    str_sql.Add(variables);
    str_sql.Add('DELIMITER ;');
    str_sql.Add(NEWLINE);

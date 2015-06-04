@@ -1,0 +1,719 @@
+-- ---------------------------------------------
+-- Tablas y datos de la base de datos "Centolla"
+-- Generado desde la aplicación "CentollaOBS"
+-- Fecha y hora de resguardo: 04/06/2015 12:28
+-- ---------------------------------------------
+
+-- -----------------------------------------------------
+-- Esquema centolla
+-- -----------------------------------------------------
+
+CREATE SCHEMA IF NOT EXISTS `centolla` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;
+
+USE `centolla` ;
+
+
+SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT ;
+SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS ;
+SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION ;
+SET NAMES utf8 ;
+SET @OLD_TIME_ZONE=@@TIME_ZONE ;
+SET TIME_ZONE='+00:00' ;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 ;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 ;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' ;
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 ;
+
+
+
+-- ------------------ --
+-- Tablas del sistema --
+-- ------------------ --
+
+--
+-- Estructura de la tabla `buques`
+--
+
+DROP TABLE IF EXISTS `buques`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `buques` (
+  `idbuque` int(11) NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `factor_conversion` int(11) DEFAULT NULL,
+  `puerto_registro` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `peso_promedio_caja_prod` decimal(9,3) DEFAULT NULL,
+  PRIMARY KEY (`idbuque`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `bycatch`
+--
+
+DROP TABLE IF EXISTS `bycatch`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `bycatch` (
+  `idbycatch` int(11) NOT NULL,
+  `idcaptura` int(11) NOT NULL,
+  `idespecie` int(11) NOT NULL,
+  `cantidad` int(11) DEFAULT NULL,
+  `peso` decimal(9,3) DEFAULT NULL,
+  PRIMARY KEY (`idbycatch`),
+  KEY `fk_bycatch_especies1_idx` (`idespecie`),
+  KEY `fk_bycatch_capturas1_idx` (`idcaptura`),
+  CONSTRAINT `fk_bycatch_capturas1` FOREIGN KEY (`idcaptura`) REFERENCES `capturas` (`idcaptura`) ON DELETE CASCADE,
+  CONSTRAINT `fk_bycatch_especies1` FOREIGN KEY (`idespecie`) REFERENCES `especies` (`idespecie`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `capturas`
+--
+
+DROP TABLE IF EXISTS `capturas`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `capturas` (
+  `idcaptura` int(11) NOT NULL,
+  `idlance` int(11) NOT NULL,
+  `idespecie1` int(11) DEFAULT NULL,
+  `idespecie2` int(11) DEFAULT NULL,
+  `idespecie3` int(11) DEFAULT NULL,
+  `comentarios` varchar(256) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idcaptura`),
+  UNIQUE KEY `idlance_UNIQUE` (`idlance`),
+  KEY `fk_capturas_lances1_idx` (`idlance`),
+  KEY `fk_capturas_especies1_idx` (`idespecie1`),
+  KEY `fk_capturas_especies2_idx` (`idespecie2`),
+  KEY `fk_capturas_especies3_idx` (`idespecie3`),
+  CONSTRAINT `fk_capturas_especies1` FOREIGN KEY (`idespecie1`) REFERENCES `especies` (`idespecie`),
+  CONSTRAINT `fk_capturas_especies2` FOREIGN KEY (`idespecie2`) REFERENCES `especies` (`idespecie`),
+  CONSTRAINT `fk_capturas_especies3` FOREIGN KEY (`idespecie3`) REFERENCES `especies` (`idespecie`),
+  CONSTRAINT `fk_capturas_lances1` FOREIGN KEY (`idlance`) REFERENCES `lances` (`idlance`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `carnadas`
+--
+
+DROP TABLE IF EXISTS `carnadas`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `carnadas` (
+  `idcarnada` int(11) NOT NULL,
+  `idmarea` int(11) NOT NULL,
+  `descripcion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`idcarnada`),
+  KEY `fk_carnadas_mareas1_idx` (`idmarea`),
+  CONSTRAINT `fk_carnadas_mareas1` FOREIGN KEY (`idmarea`) REFERENCES `mareas` (`idmarea`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `codigos_caparazon`
+--
+
+DROP TABLE IF EXISTS `codigos_caparazon`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `codigos_caparazon` (
+  `idcodigo_caparazon` int(11) NOT NULL,
+  `codigo` int(11) DEFAULT NULL,
+  `descripcion` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idcodigo_caparazon`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `codigos_huevos`
+--
+
+DROP TABLE IF EXISTS `codigos_huevos`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `codigos_huevos` (
+  `idcodigo_huevos` int(11) NOT NULL,
+  `codigo` int(11) DEFAULT NULL,
+  `descripcion` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tiene_huevos` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idcodigo_huevos`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `cuadrantes_geograficos`
+--
+
+DROP TABLE IF EXISTS `cuadrantes_geograficos`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `cuadrantes_geograficos` (
+  `Codigo` varchar(1) COLLATE utf8_spanish_ci NOT NULL,
+  `Cuadrante` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `Es_Latitud` tinyint(1) NOT NULL,
+  `Es_Longitud` tinyint(1) NOT NULL,
+  `Predeterminado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `detalle_capturas`
+--
+
+DROP TABLE IF EXISTS `detalle_capturas`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `detalle_capturas` (
+  `iddetalle_captura` int(11) NOT NULL,
+  `idcaptura` int(11) NOT NULL,
+  `nro_orden` int(11) NOT NULL,
+  `cant_trampas` int(11) NOT NULL DEFAULT '1',
+  `idtipo_trampa` int(11) NOT NULL,
+  `idestado_puerta` int(11) DEFAULT NULL,
+  `idestado_trampa` int(11) DEFAULT NULL,
+  `total_especie1` int(11) DEFAULT NULL,
+  `comerciales_especie1` int(11) DEFAULT NULL,
+  `total_especie2` int(11) DEFAULT NULL,
+  `comerciales_especie2` int(11) DEFAULT NULL,
+  `total_especie3` int(11) DEFAULT NULL,
+  `comerciales_especie3` int(11) DEFAULT NULL,
+  PRIMARY KEY (`iddetalle_captura`),
+  KEY `fk_detalle_capturas_estados_trampa1_idx` (`idestado_trampa`),
+  KEY `fk_detalle_capturas_tipos_trampa1_idx` (`idtipo_trampa`),
+  KEY `fk_detalle_capturas_estados_puerta1_idx` (`idestado_puerta`),
+  KEY `fk_detalle_capturas_capturas1_idx` (`idcaptura`),
+  KEY `idx_nro_trampa` (`idcaptura`,`nro_orden`),
+  CONSTRAINT `fk_detalle_capturas_capturas1` FOREIGN KEY (`idcaptura`) REFERENCES `capturas` (`idcaptura`) ON DELETE CASCADE,
+  CONSTRAINT `fk_detalle_capturas_estados_puerta1` FOREIGN KEY (`idestado_puerta`) REFERENCES `estados_puerta` (`idestado_puerta`),
+  CONSTRAINT `fk_detalle_capturas_estados_trampa1` FOREIGN KEY (`idestado_trampa`) REFERENCES `estados_trampa` (`idestado_trampa`),
+  CONSTRAINT `fk_detalle_capturas_tipos_trampa1` FOREIGN KEY (`idtipo_trampa`) REFERENCES `tipos_trampa` (`idtipo_trampa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `detalle_envios_email`
+--
+
+DROP TABLE IF EXISTS `detalle_envios_email`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `detalle_envios_email` (
+  `iddetalle_envio_email` int(11) NOT NULL,
+  `idenvio_email` int(11) NOT NULL,
+  `idlance` int(11) NOT NULL,
+  PRIMARY KEY (`iddetalle_envio_email`),
+  KEY `fk_detalle_envios_email_envios_email1_idx` (`idenvio_email`),
+  KEY `fk_detalle_envios_email_lances1_idx` (`idlance`),
+  CONSTRAINT `fk_detalle_envios_email_envios_email1` FOREIGN KEY (`idenvio_email`) REFERENCES `envios_email` (`idenvio_email`) ON DELETE CASCADE,
+  CONSTRAINT `fk_detalle_envios_email_lances1` FOREIGN KEY (`idlance`) REFERENCES `lances` (`idlance`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `detalle_muestras`
+--
+
+DROP TABLE IF EXISTS `detalle_muestras`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `detalle_muestras` (
+  `iddetalle_muestra` int(11) NOT NULL,
+  `idmuestra` int(11) NOT NULL,
+  `nro_ejemplar` int(11) NOT NULL,
+  `largo` int(11) NOT NULL,
+  `sexo` int(11) NOT NULL,
+  `idcodigo_caparazon` int(11) NOT NULL,
+  `idcodigo_huevos` int(11) DEFAULT NULL,
+  `porcentaje_huevos` int(11) DEFAULT NULL,
+  `peso` decimal(9,3) DEFAULT NULL,
+  `pata_1_d_mero` int(11) DEFAULT NULL,
+  `pata_1_d_entera` int(11) DEFAULT NULL,
+  `pata_2_d_mero` int(11) DEFAULT NULL,
+  `pata_2_d_entera` int(11) DEFAULT NULL,
+  `pata_3_d_mero` int(11) DEFAULT NULL,
+  `pata_3_d_entera` int(11) DEFAULT NULL,
+  `pata_1_i_mero` int(11) DEFAULT NULL,
+  `pata_1_i_entera` int(11) DEFAULT NULL,
+  `pata_2_i_mero` int(11) DEFAULT NULL,
+  `pata_2_i_entera` int(11) DEFAULT NULL,
+  `pata_3_i_mero` int(11) DEFAULT NULL,
+  `pata_3_i_entera` int(11) DEFAULT NULL,
+  PRIMARY KEY (`iddetalle_muestra`),
+  KEY `fk_detalle_muestras_muestras1_idx` (`idmuestra`),
+  KEY `fk_detalle_muestras_codigos_caparazon1_idx` (`idcodigo_caparazon`),
+  KEY `fk_detalle_muestras_codigos_huevos1_idx` (`idcodigo_huevos`),
+  KEY `idx_nro_ejemplar` (`idmuestra`,`nro_ejemplar`),
+  CONSTRAINT `fk_detalle_muestras_codigos_caparazon1` FOREIGN KEY (`idcodigo_caparazon`) REFERENCES `codigos_caparazon` (`idcodigo_caparazon`),
+  CONSTRAINT `fk_detalle_muestras_codigos_huevos1` FOREIGN KEY (`idcodigo_huevos`) REFERENCES `codigos_huevos` (`idcodigo_huevos`),
+  CONSTRAINT `fk_detalle_muestras_muestras1` FOREIGN KEY (`idmuestra`) REFERENCES `muestras` (`idmuestra`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `envios_email`
+--
+
+DROP TABLE IF EXISTS `envios_email`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `envios_email` (
+  `idenvio_email` int(11) NOT NULL,
+  `idmarea` int(11) NOT NULL,
+  `nro_envio` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `fecha_ini_produccion` date DEFAULT NULL,
+  `fecha_fin_produccion` date DEFAULT NULL,
+  `notas` varchar(2000) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idenvio_email`),
+  KEY `fk_envios_email_mareas1_idx` (`idmarea`),
+  CONSTRAINT `fk_envios_email_mareas1` FOREIGN KEY (`idmarea`) REFERENCES `mareas` (`idmarea`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `especies`
+--
+
+DROP TABLE IF EXISTS `especies`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `especies` (
+  `idespecie` int(11) NOT NULL,
+  `codigo_rapido` varchar(1) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `codigo_inidep` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `nombre_cientifico` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `nombre_vulgar` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `comercial` tinyint(1) NOT NULL DEFAULT '0',
+  `es_centolla` tinyint(1) NOT NULL DEFAULT '0',
+  `es_arania` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idespecie`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `estados_mar`
+--
+
+DROP TABLE IF EXISTS `estados_mar`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `estados_mar` (
+  `cod_estado_mar` int(11) NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `viento_min_nudos` int(11) DEFAULT NULL,
+  `viento_max_nudos` int(11) DEFAULT NULL,
+  `altura_media_olas` decimal(5,2) DEFAULT NULL,
+  `altura_max_olas` decimal(5,2) DEFAULT NULL,
+  `simbolo` blob,
+  PRIMARY KEY (`cod_estado_mar`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `estados_puerta`
+--
+
+DROP TABLE IF EXISTS `estados_puerta`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `estados_puerta` (
+  `idestado_puerta` int(11) NOT NULL,
+  `codigo` int(11) NOT NULL,
+  `descripcion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `mal` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idestado_puerta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `estados_trampa`
+--
+
+DROP TABLE IF EXISTS `estados_trampa`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `estados_trampa` (
+  `idestado_trampa` int(11) NOT NULL,
+  `codigo` varchar(1) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descripcion` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `es_fallo` tinyint(1) NOT NULL DEFAULT '0',
+  `requiere_nro_ejemplares` tinyint(1) NOT NULL DEFAULT '1',
+  `requiere_tipo_trampa` tinyint(1) NOT NULL DEFAULT '1',
+  `es_no_observado` tinyint(1) NOT NULL DEFAULT '0',
+  `es_muestra` tinyint(1) NOT NULL DEFAULT '0',
+  `predeterminado` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idestado_trampa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `eventos_marca`
+--
+
+DROP TABLE IF EXISTS `eventos_marca`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `eventos_marca` (
+  `idevento_marca` int(11) NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `es_marcado` tinyint(1) NOT NULL DEFAULT '0',
+  `es_recaptura` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idevento_marca`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `factores_conversion`
+--
+
+DROP TABLE IF EXISTS `factores_conversion`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `factores_conversion` (
+  `idfactor_conversion` int(11) NOT NULL,
+  `idmarea` int(11) NOT NULL,
+  `idlance` int(11) NOT NULL,
+  `peso_entero` decimal(9,3) NOT NULL,
+  `pc_crudo` decimal(9,3) NOT NULL,
+  `pg_crudo` decimal(9,3) NOT NULL,
+  `pc_cocido` decimal(9,3) DEFAULT NULL,
+  `pg_cocido` decimal(9,3) DEFAULT NULL,
+  `pc_congelado` decimal(9,3) DEFAULT NULL,
+  `pg_congelado` decimal(9,3) DEFAULT NULL,
+  `pc_descongelado` decimal(9,3) DEFAULT NULL,
+  `pg_descongelado` decimal(9,3) DEFAULT NULL,
+  `comentarios` varchar(256) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idfactor_conversion`),
+  UNIQUE KEY `idlance_UNIQUE` (`idlance`),
+  KEY `fk_factores_conversion_mareas1_idx` (`idmarea`),
+  KEY `fk_factores_conversion_lances1_idx` (`idlance`),
+  CONSTRAINT `fk_factores_conversion_lances1` FOREIGN KEY (`idlance`) REFERENCES `lances` (`idlance`),
+  CONSTRAINT `fk_factores_conversion_mareas1` FOREIGN KEY (`idmarea`) REFERENCES `mareas` (`idmarea`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `formatos_trampa`
+--
+
+DROP TABLE IF EXISTS `formatos_trampa`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `formatos_trampa` (
+  `idformato_trampa` int(11) NOT NULL,
+  `codigo` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idformato_trampa`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `generador_ids`
+--
+
+DROP TABLE IF EXISTS `generador_ids`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `generador_ids` (
+  `Tabla` varchar(64) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Esta tabla es utilizada por un generador de claves primarias (Ids). Reemplaza en cierto modo al autoincrement, sólo que en este caso el valor se obtiene antes, al iniciar la edicion del nuevo registro en el cliente mediante el llamado a la función nuevo',
+  `Ultimo_id_generado` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Tabla`),
+  UNIQUE KEY `Tabla_UNIQUE` (`Tabla`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `lances`
+--
+
+DROP TABLE IF EXISTS `lances`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `lances` (
+  `idlance` int(11) NOT NULL,
+  `idmarea` int(11) NOT NULL,
+  `nro_lance` int(11) DEFAULT NULL,
+  `prospeccion` tinyint(1) NOT NULL DEFAULT '0',
+  `investigacion` tinyint(1) NOT NULL DEFAULT '0',
+  `idtipo_trampa` int(11) DEFAULT NULL,
+  `idlinea` int(11) DEFAULT NULL,
+  `nro_boya` int(11) NOT NULL,
+  `nro_linea` int(11) DEFAULT NULL,
+  `distancia_entre_trampas` int(11) DEFAULT NULL,
+  `idcarnada` int(11) NOT NULL,
+  `kg_carnada` decimal(5,2) DEFAULT NULL,
+  `rumbo_calado` int(11) DEFAULT NULL,
+  `fecha_ini_calado` date NOT NULL,
+  `hora_ini_calado` time NOT NULL,
+  `profundidad_ini_calado` int(11) DEFAULT NULL,
+  `lat_ini_calado` decimal(10,4) NOT NULL,
+  `long_ini_calado` decimal(10,4) NOT NULL,
+  `fecha_fin_calado` date NOT NULL,
+  `hora_fin_calado` time NOT NULL,
+  `profundidad_fin_calado` int(11) DEFAULT NULL,
+  `lat_fin_calado` decimal(10,4) DEFAULT NULL,
+  `long_fin_calado` decimal(10,4) DEFAULT NULL,
+  `cant_trampas_caladas` int(11) NOT NULL,
+  `fecha_ini_virada` date DEFAULT NULL,
+  `hora_ini_virada` time DEFAULT NULL,
+  `profundidad_ini_virada` int(11) DEFAULT NULL,
+  `lat_ini_virada` decimal(10,4) DEFAULT NULL,
+  `long_ini_virada` decimal(10,4) DEFAULT NULL,
+  `fecha_fin_virada` date DEFAULT NULL,
+  `hora_fin_virada` time DEFAULT NULL,
+  `profundidad_fin_virada` int(11) DEFAULT NULL,
+  `lat_fin_virada` decimal(10,4) DEFAULT NULL,
+  `long_fin_virada` decimal(10,4) DEFAULT NULL,
+  `canastos_procesados` int(11) DEFAULT NULL,
+  `cluster_por_canasto` int(11) DEFAULT NULL,
+  `cod_estado_mar` int(11) DEFAULT NULL,
+  `nudos_viento` int(11) DEFAULT NULL,
+  `direccion_viento` int(11) DEFAULT NULL,
+  `comentarios_calado` varchar(256) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `comentarios_virada` varchar(256) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idlance`),
+  UNIQUE KEY `nro_lance_UNIQUE` (`idmarea`,`nro_lance`),
+  KEY `fk_lances_carnadas1_idx` (`idcarnada`),
+  KEY `fk_lances_mareas1_idx` (`idmarea`),
+  KEY `fk_lances_estados_mar1_idx` (`cod_estado_mar`),
+  KEY `fk_lances_tipos_trampa1_idx` (`idtipo_trampa`),
+  CONSTRAINT `fk_lances_carnadas1` FOREIGN KEY (`idcarnada`) REFERENCES `carnadas` (`idcarnada`),
+  CONSTRAINT `fk_lances_estados_mar1` FOREIGN KEY (`cod_estado_mar`) REFERENCES `estados_mar` (`cod_estado_mar`),
+  CONSTRAINT `fk_lances_mareas1` FOREIGN KEY (`idmarea`) REFERENCES `mareas` (`idmarea`),
+  CONSTRAINT `fk_lances_tipos_trampa1` FOREIGN KEY (`idtipo_trampa`) REFERENCES `tipos_trampa` (`idtipo_trampa`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `marcas`
+--
+
+DROP TABLE IF EXISTS `marcas`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `marcas` (
+  `idmarca` int(11) NOT NULL,
+  `idmarea` int(11) NOT NULL,
+  `idevento_marca` int(11) NOT NULL,
+  `idespecie` int(11) NOT NULL,
+  `cod_marca` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `cod_marca_original` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `latitud` decimal(10,4) NOT NULL,
+  `longitud` decimal(10,4) NOT NULL,
+  `profundidad` int(11) DEFAULT NULL,
+  `largo` int(11) NOT NULL,
+  `sexo` int(11) NOT NULL,
+  `idcodigo_caparazon` int(11) NOT NULL,
+  `idcodigo_huevos` int(11) DEFAULT NULL,
+  `porcentaje_huevos` int(11) DEFAULT NULL,
+  `peso` decimal(9,3) DEFAULT NULL,
+  `vivo` tinyint(1) NOT NULL DEFAULT '1',
+  `remarcado` tinyint(1) NOT NULL DEFAULT '0',
+  `liberado` tinyint(1) NOT NULL DEFAULT '1',
+  `procesado` tinyint(1) NOT NULL DEFAULT '0',
+  `comentarios` varchar(256) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `enviado` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`idmarca`),
+  KEY `fk_marcas_codigos_caparazon1_idx` (`idcodigo_caparazon`),
+  KEY `fk_marcas_codigos_huevos1_idx` (`idcodigo_huevos`),
+  KEY `fk_marcas_mareas1_idx` (`idmarea`),
+  KEY `fk_marcas_especies1_idx` (`idespecie`),
+  KEY `fk_marcas_eventos_marca1_idx` (`idevento_marca`),
+  CONSTRAINT `fk_marcas_codigos_caparazon1` FOREIGN KEY (`idcodigo_caparazon`) REFERENCES `codigos_caparazon` (`idcodigo_caparazon`),
+  CONSTRAINT `fk_marcas_codigos_huevos1` FOREIGN KEY (`idcodigo_huevos`) REFERENCES `codigos_huevos` (`idcodigo_huevos`),
+  CONSTRAINT `fk_marcas_especies1` FOREIGN KEY (`idespecie`) REFERENCES `especies` (`idespecie`),
+  CONSTRAINT `fk_marcas_eventos_marca1` FOREIGN KEY (`idevento_marca`) REFERENCES `eventos_marca` (`idevento_marca`),
+  CONSTRAINT `fk_marcas_mareas1` FOREIGN KEY (`idmarea`) REFERENCES `mareas` (`idmarea`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `mareas`
+--
+
+DROP TABLE IF EXISTS `mareas`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `mareas` (
+  `idmarea` int(11) NOT NULL,
+  `nro_marea_inidep` int(11) NOT NULL,
+  `anio_marea` int(11) NOT NULL,
+  `marea_buque` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `idbuque` int(11) NOT NULL,
+  `capitan` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `oficial` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `observador` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fecha_inicio` date DEFAULT NULL,
+  `fecha_zarpada` date DEFAULT NULL,
+  `fecha_arribo` date DEFAULT NULL,
+  `fecha_finalizacion` date DEFAULT NULL,
+  `peso_caja_producto` decimal(9,3) DEFAULT NULL,
+  `peso_canasto` decimal(9,3) DEFAULT NULL,
+  PRIMARY KEY (`idmarea`),
+  KEY `fk_mareas_buques_idx` (`idbuque`),
+  CONSTRAINT `fk_mareas_buques2` FOREIGN KEY (`idbuque`) REFERENCES `buques` (`idbuque`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `muestras`
+--
+
+DROP TABLE IF EXISTS `muestras`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `muestras` (
+  `idmuestra` int(11) NOT NULL,
+  `idmarea` int(11) NOT NULL,
+  `idtipo_muestra` int(11) NOT NULL COMMENT 'M=Muestra, S=Submuestra, R=Relaciones Morfométricas',
+  `idtipo_trampa` int(11) DEFAULT NULL,
+  `idlance` int(11) DEFAULT NULL,
+  `idespecie` int(11) NOT NULL,
+  `comentarios` varchar(256) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idmuestra`),
+  UNIQUE KEY `idlance_UNIQUE` (`idtipo_muestra`,`idlance`),
+  KEY `fk_muestras_lances1_idx` (`idlance`),
+  KEY `fk_muestras_especies1_idx` (`idespecie`),
+  KEY `fk_muestras_tipos_muestra1_idx` (`idtipo_muestra`),
+  KEY `fk_muestras_mareas1_idx` (`idmarea`),
+  KEY `fk_muestras_tipos_trampa1_idx` (`idtipo_trampa`),
+  CONSTRAINT `fk_muestras_especies1` FOREIGN KEY (`idespecie`) REFERENCES `especies` (`idespecie`),
+  CONSTRAINT `fk_muestras_lances1` FOREIGN KEY (`idlance`) REFERENCES `lances` (`idlance`),
+  CONSTRAINT `fk_muestras_mareas1` FOREIGN KEY (`idmarea`) REFERENCES `mareas` (`idmarea`),
+  CONSTRAINT `fk_muestras_tipos_muestra1` FOREIGN KEY (`idtipo_muestra`) REFERENCES `tipos_muestra` (`idtipo_muestra`),
+  CONSTRAINT `fk_muestras_tipos_trampa1` FOREIGN KEY (`idtipo_trampa`) REFERENCES `tipos_trampa` (`idtipo_trampa`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `produccion`
+--
+
+DROP TABLE IF EXISTS `produccion`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `produccion` (
+  `idproduccion` int(11) NOT NULL,
+  `idmarea` int(11) NOT NULL,
+  `idproducto` int(11) NOT NULL,
+  `fecha` date DEFAULT NULL,
+  `cant_cajas` int(11) DEFAULT NULL,
+  `kilos` decimal(9,3) DEFAULT NULL,
+  PRIMARY KEY (`idproduccion`),
+  UNIQUE KEY `producto_UNIQUE` (`idmarea`,`fecha`,`idproducto`),
+  KEY `fk_produccion_productos1_idx` (`idproducto`),
+  CONSTRAINT `fk_produccion_mareas1` FOREIGN KEY (`idmarea`) REFERENCES `mareas` (`idmarea`),
+  CONSTRAINT `fk_produccion_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `productos`
+--
+
+DROP TABLE IF EXISTS `productos`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `productos` (
+  `idproducto` int(11) NOT NULL,
+  `idmarea` int(11) NOT NULL,
+  `codigo` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descripcion` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `orden` int(11) DEFAULT NULL,
+  `cod_manchas` int(11) DEFAULT NULL COMMENT '0=sin, 1=pocas, 2=muchas',
+  `rotos` tinyint(1) DEFAULT NULL,
+  `talla_min` int(11) DEFAULT NULL,
+  `talla_max` int(11) DEFAULT NULL,
+  `peso_min` decimal(9,3) DEFAULT NULL,
+  `peso_max` decimal(9,3) DEFAULT NULL,
+  `porcent_carne_min` int(11) DEFAULT NULL,
+  `porcent_carne_max` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idproducto`),
+  KEY `fk_productos_mareas1_idx` (`idmarea`),
+  CONSTRAINT `fk_productos_mareas1` FOREIGN KEY (`idmarea`) REFERENCES `mareas` (`idmarea`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `tipos_linea`
+--
+
+DROP TABLE IF EXISTS `tipos_linea`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `tipos_linea` (
+  `idtipo_linea` int(11) NOT NULL,
+  `descripcion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `pesca` tinyint(1) NOT NULL DEFAULT '1',
+  `investigacion` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idtipo_linea`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `tipos_muestra`
+--
+
+DROP TABLE IF EXISTS `tipos_muestra`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `tipos_muestra` (
+  `idtipo_muestra` int(11) NOT NULL,
+  `codigo` varchar(1) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(25) COLLATE utf8_spanish_ci NOT NULL,
+  `orden` int(11) NOT NULL,
+  `es_submuestra` tinyint(1) NOT NULL DEFAULT '0',
+  `es_relac_morf` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idtipo_muestra`),
+  UNIQUE KEY `orden_UNIQUE` (`orden`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+--
+-- Estructura de la tabla `tipos_trampa`
+--
+
+DROP TABLE IF EXISTS `tipos_trampa`;
+SET @saved_cs_client     = @@character_set_client ;
+SET character_set_client = utf8 ;
+CREATE TABLE `tipos_trampa` (
+  `idtipo_trampa` int(11) NOT NULL,
+  `idformato_trampa` int(11) DEFAULT NULL,
+  `codigo` varchar(5) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cant_aros` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idtipo_trampa`),
+  KEY `fk_tipos_trampa_formatos_trampa1_idx` (`idformato_trampa`),
+  CONSTRAINT `fk_tipos_trampa_formatos_trampa1` FOREIGN KEY (`idformato_trampa`) REFERENCES `formatos_trampa` (`idformato_trampa`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+SET character_set_client = @saved_cs_client ;
+
+
+
+
+
+SET TIME_ZONE=@OLD_TIME_ZONE ;
+SET SQL_MODE=@OLD_SQL_MODE ;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS ;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS ;
+SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT ;
+SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS ;
+SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION ;
+SET SQL_NOTES=@OLD_SQL_NOTES ;
+
+
+
+-- ----------------------------------------------------
+-- Fin de la copia de seguridad: 04/06/2015 12:28
+-- ----------------------------------------------------
+
+

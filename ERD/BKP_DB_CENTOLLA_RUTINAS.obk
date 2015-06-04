@@ -1,0 +1,2817 @@
+DELIMITER $$
+-- ---------------------------------------------
+-- Rutinas de la base de datos "Centolla"
+-- realizada desde la aplicación "CentollaOBS"
+-- Fecha y hora de resguardo: 04/06/2015 12:28
+-- ---------------------------------------------
+
+-- -----------------------------------------------------
+-- Esquema centolla
+-- -----------------------------------------------------
+
+CREATE SCHEMA IF NOT EXISTS `centolla` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci $$
+
+USE `centolla` $$
+
+
+SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT $$
+SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS $$
+SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION $$
+SET NAMES utf8 $$
+SET @OLD_TIME_ZONE=@@TIME_ZONE $$
+SET TIME_ZONE='+00:00' $$
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 $$
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 $$
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' $$
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 $$
+
+DELIMITER ;
+
+
+-- -------------------------------- --
+-- Estructura de vistas del sistema --
+-- -------------------------------- --
+--
+-- Estructura temporaria para vista `v_capturas`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_capturas` $$
+DROP VIEW IF EXISTS `v_capturas` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_capturas` AS SELECT 1 AS `idcaptura`,
+1 AS `idmarea`,
+1 AS `idlance`,
+1 AS `nro_lance`,
+1 AS `orden_virada`,
+1 AS `nro_boya`,
+1 AS `nro_linea`,
+1 AS `fecha`,
+1 AS `hora`,
+1 AS `comentarios`,
+1 AS `idespecie1`,
+1 AS `idespecie2`,
+1 AS `idespecie3` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_capturas_resumen`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_capturas_resumen` $$
+DROP VIEW IF EXISTS `v_capturas_resumen` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_capturas_resumen` AS SELECT 1 AS `idmarea`,
+1 AS `idcaptura`,
+1 AS `idlance`,
+1 AS `idespecie1`,
+1 AS `idespecie2`,
+1 AS `idespecie3`,
+1 AS `comentarios`,
+1 AS `canastos_procesados`,
+1 AS `cluster_por_canasto`,
+1 AS `cluster_canasto_calc`,
+1 AS `trampas_recup`,
+1 AS `centolla_total`,
+1 AS `centolla_comercial`,
+1 AS `arania_total`,
+1 AS `porcent_trampas_obs`,
+1 AS `cant_sin_aro`,
+1 AS `cant_con_aro`,
+1 AS `trampas_con_fallo`,
+1 AS `trampas_sin_puerta` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_codigos_caparazon`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_codigos_caparazon` $$
+DROP VIEW IF EXISTS `v_codigos_caparazon` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_codigos_caparazon` AS SELECT 1 AS `idcodigo_caparazon`,
+1 AS `codigo`,
+1 AS `descripcion`,
+1 AS `cod_desc` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_codigos_huevos`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_codigos_huevos` $$
+DROP VIEW IF EXISTS `v_codigos_huevos` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_codigos_huevos` AS SELECT 1 AS `idcodigo_huevos`,
+1 AS `codigo`,
+1 AS `descripcion`,
+1 AS `tiene_huevos`,
+1 AS `cod_desc` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_comparacion_produccion`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_comparacion_produccion` $$
+DROP VIEW IF EXISTS `v_comparacion_produccion` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_comparacion_produccion` AS SELECT 1 AS `fecha`,
+1 AS `prod`,
+1 AS `cajas_prod`,
+1 AS `kg_prod`,
+1 AS `diferencia`,
+1 AS `peso_prom` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_datos_lineas`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_datos_lineas` $$
+DROP VIEW IF EXISTS `v_datos_lineas` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_datos_lineas` AS SELECT 1 AS `idmarea`,
+1 AS `nro_boya`,
+1 AS `nro_linea`,
+1 AS `idtipo_trampa`,
+1 AS `distancia_entre_trampas`,
+1 AS `cant_trampas`,
+1 AS `investigacion`,
+1 AS `calada` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_detalle_captura`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_detalle_captura` $$
+DROP VIEW IF EXISTS `v_detalle_captura` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_detalle_captura` AS SELECT 1 AS `idmarea`,
+1 AS `idlance`,
+1 AS `nro_lance`,
+1 AS `fecha`,
+1 AS `inicio`,
+1 AS `fin`,
+1 AS `idcaptura`,
+1 AS `nro_orden`,
+1 AS `cant_trampas`,
+1 AS `tipo_trampa`,
+1 AS `estado_puerta`,
+1 AS `estado_trampa`,
+1 AS `centolla_total`,
+1 AS `centolla_comercial`,
+1 AS `centolla_no_comercial`,
+1 AS `arania` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_detalle_envios_email`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_detalle_envios_email` $$
+DROP VIEW IF EXISTS `v_detalle_envios_email` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_detalle_envios_email` AS SELECT 1 AS `idmarea`,
+1 AS `fecha`,
+1 AS `iddetalle_envio_email`,
+1 AS `idenvio_email`,
+1 AS `idlance`,
+1 AS `nro_lance`,
+1 AS `fecha_calado`,
+1 AS `fecha_virado` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_envios_email`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_envios_email` $$
+DROP VIEW IF EXISTS `v_envios_email` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_envios_email` AS SELECT 1 AS `idenvio_email`,
+1 AS `idmarea`,
+1 AS `nro_envio`,
+1 AS `fecha`,
+1 AS `fecha_ini_produccion`,
+1 AS `fecha_fin_produccion`,
+1 AS `detalle`,
+1 AS `notas` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_especies`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_especies` $$
+DROP VIEW IF EXISTS `v_especies` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_especies` AS SELECT 1 AS `idespecie`,
+1 AS `codigo_rapido`,
+1 AS `codigo_inidep`,
+1 AS `nombre_cientifico`,
+1 AS `nombre_vulgar`,
+1 AS `comercial`,
+1 AS `es_centolla`,
+1 AS `es_arania`,
+1 AS `frecuente` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_factores_conversion`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_factores_conversion` $$
+DROP VIEW IF EXISTS `v_factores_conversion` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_factores_conversion` AS SELECT 1 AS `idfactor_conversion`,
+1 AS `idmarea`,
+1 AS `idlance`,
+1 AS `nro_lance`,
+1 AS `fecha`,
+1 AS `hora`,
+1 AS `peso_entero`,
+1 AS `pc_crudo`,
+1 AS `pg_crudo`,
+1 AS `pc_cocido`,
+1 AS `pg_cocido`,
+1 AS `pc_congelado`,
+1 AS `pg_congelado`,
+1 AS `pc_descongelado`,
+1 AS `pg_descongelado`,
+1 AS `peso_crudo`,
+1 AS `peso_cocido`,
+1 AS `peso_congelado`,
+1 AS `peso_descongelado`,
+1 AS `factor_captura`,
+1 AS `factor_final`,
+1 AS `comentarios` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_fechas_marea`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_fechas_marea` $$
+DROP VIEW IF EXISTS `v_fechas_marea` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_fechas_marea` AS SELECT 1 AS `idmarea`,
+1 AS `fecha` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_informe_lances`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_informe_lances` $$
+DROP VIEW IF EXISTS `v_informe_lances` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_informe_lances` AS SELECT 1 AS `idmarea`,
+1 AS `idenvio_email`,
+1 AS `fecha_envio`,
+1 AS `fecha_ini_produccion`,
+1 AS `fecha_fin_produccion`,
+1 AS `idlance`,
+1 AS `nro_lance`,
+1 AS `orden_virada`,
+1 AS `investigacion`,
+1 AS `operacion`,
+1 AS `cant_trampas`,
+1 AS `trampas_con_fallo`,
+1 AS `trampas_sin_puerta`,
+1 AS `fecha_hora_ini_calado`,
+1 AS `fecha_hora_fin_virada`,
+1 AS `profundidad_ini_calado`,
+1 AS `profundidad_fin_calado`,
+1 AS `lat_ini_calado`,
+1 AS `long_ini_calado`,
+1 AS `lat_fin_virada`,
+1 AS `long_fin_virada`,
+1 AS `centolla_total`,
+1 AS `centolla_comercial`,
+1 AS `porcent_trampas_obs`,
+1 AS `canastos_procesados`,
+1 AS `comentarios_calado`,
+1 AS `comentarios_virada` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_lances_orden_virada`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_lances_orden_virada` $$
+DROP VIEW IF EXISTS `v_lances_orden_virada` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_lances_orden_virada` AS SELECT 1 AS `idmarea`,
+1 AS `idlance`,
+1 AS `orden_virada` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_lances_simple`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_lances_simple` $$
+DROP VIEW IF EXISTS `v_lances_simple` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_lances_simple` AS SELECT 1 AS `idlance`,
+1 AS `idmarea`,
+1 AS `nro_lance`,
+1 AS `orden_virada`,
+1 AS `fecha_hora_orden`,
+1 AS `dsc_virada`,
+1 AS `nro_boya`,
+1 AS `nro_linea`,
+1 AS `prospeccion`,
+1 AS `investigacion`,
+1 AS `idtipo_trampa`,
+1 AS `cant_aros`,
+1 AS `idcarnada`,
+1 AS `kg_carnada`,
+1 AS `rumbo_calado`,
+1 AS `fecha_ini_calado`,
+1 AS `hora_ini_calado`,
+1 AS `profundidad_ini_calado`,
+1 AS `lat_ini_calado`,
+1 AS `long_ini_calado`,
+1 AS `fecha_fin_calado`,
+1 AS `hora_fin_calado`,
+1 AS `profundidad_fin_calado`,
+1 AS `lat_fin_calado`,
+1 AS `long_fin_calado`,
+1 AS `cant_trampas_caladas`,
+1 AS `distancia_calado`,
+1 AS `prom_separacion_trampas`,
+1 AS `fecha_ini_virada`,
+1 AS `hora_ini_virada`,
+1 AS `profundidad_ini_virada`,
+1 AS `lat_ini_virada`,
+1 AS `long_ini_virada`,
+1 AS `fecha_fin_virada`,
+1 AS `hora_fin_virada`,
+1 AS `profundidad_fin_virada`,
+1 AS `lat_fin_virada`,
+1 AS `long_fin_virada`,
+1 AS `distancia_virada`,
+1 AS `horas_en_agua`,
+1 AS `dias_en_agua`,
+1 AS `cant_trampas_recuperadas`,
+1 AS `canastos_procesados`,
+1 AS `cluster_por_canasto`,
+1 AS `porcent_trampas_obs`,
+1 AS `cod_estado_mar`,
+1 AS `nudos_viento`,
+1 AS `direccion_viento`,
+1 AS `comentarios_calado`,
+1 AS `comentarios_virada`,
+1 AS `calada`,
+1 AS `virada` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_marcas`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_marcas` $$
+DROP VIEW IF EXISTS `v_marcas` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_marcas` AS SELECT 1 AS `idmarca`,
+1 AS `idmarea`,
+1 AS `idevento_marca`,
+1 AS `evento`,
+1 AS `idespecie`,
+1 AS `nombre_vulgar`,
+1 AS `nombre_cientifico`,
+1 AS `cod_marca`,
+1 AS `cod_marca_original`,
+1 AS `fecha`,
+1 AS `hora`,
+1 AS `latitud`,
+1 AS `longitud`,
+1 AS `profundidad`,
+1 AS `largo`,
+1 AS `sexo`,
+1 AS `idcodigo_caparazon`,
+1 AS `idcodigo_huevos`,
+1 AS `porcentaje_huevos`,
+1 AS `peso`,
+1 AS `vivo`,
+1 AS `remarcado`,
+1 AS `liberado`,
+1 AS `comentarios` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_mareas`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_mareas` $$
+DROP VIEW IF EXISTS `v_mareas` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_mareas` AS SELECT 1 AS `idmarea`,
+1 AS `Marea`,
+1 AS `nro_marea_inidep`,
+1 AS `anio_marea`,
+1 AS `marea_buque`,
+1 AS `idbuque`,
+1 AS `Buque`,
+1 AS `puerto_registro`,
+1 AS `factor_conversion`,
+1 AS `capitan`,
+1 AS `oficial`,
+1 AS `observador`,
+1 AS `fecha_inicio`,
+1 AS `fecha_zarpada`,
+1 AS `fecha_arribo`,
+1 AS `fecha_finalizacion`,
+1 AS `peso_caja_producto`,
+1 AS `peso_canasto`,
+1 AS `dias_pesca`,
+1 AS `cant_lances` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_muestras`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_muestras` $$
+DROP VIEW IF EXISTS `v_muestras` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_muestras` AS SELECT 1 AS `idmuestra`,
+1 AS `idmarea`,
+1 AS `cod_tipo_muestra`,
+1 AS `tipo_muestra`,
+1 AS `idlance`,
+1 AS `nro_lance`,
+1 AS `orden_virada`,
+1 AS `investigacion`,
+1 AS `fecha`,
+1 AS `hora`,
+1 AS `idespecie`,
+1 AS `nombre_cientifico`,
+1 AS `nombre_vulgar`,
+1 AS `machos_menor_90`,
+1 AS `machos_90_109`,
+1 AS `machos_mayor_109`,
+1 AS `hembras_menor_90`,
+1 AS `hembras_90_109`,
+1 AS `hembras_mayor_109`,
+1 AS `comentarios` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_planilla_bycatch`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_planilla_bycatch` $$
+DROP VIEW IF EXISTS `v_planilla_bycatch` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_planilla_bycatch` AS SELECT 1 AS `idmarea`,
+1 AS `nro_lance`,
+1 AS `idespecie`,
+1 AS `nombre_vulgar`,
+1 AS `especie`,
+1 AS `cantidad`,
+1 AS `peso`,
+1 AS `filtro` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_planilla_capturas`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_planilla_capturas` $$
+DROP VIEW IF EXISTS `v_planilla_capturas` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_planilla_capturas` AS SELECT 1 AS `idmarea`,
+1 AS `nro_lance`,
+1 AS `orden_virada`,
+1 AS `nro_orden`,
+1 AS `cant_trampas`,
+1 AS `cant_aros`,
+1 AS `estado_puerta`,
+1 AS `estado_trampa`,
+1 AS `nomb_cient_especie1`,
+1 AS `nomb_cient_especie2`,
+1 AS `nomb_cient_especie3`,
+1 AS `total_especie1`,
+1 AS `comerciales_especie1`,
+1 AS `total_especie2`,
+1 AS `comerciales_especie2`,
+1 AS `total_especie3`,
+1 AS `comerciales_especie3` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_planilla_datos_puente`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_planilla_datos_puente` $$
+DROP VIEW IF EXISTS `v_planilla_datos_puente` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_planilla_datos_puente` AS SELECT 1 AS `idmarea`,
+1 AS `idlance`,
+1 AS `nro_lance`,
+1 AS `orden_virada`,
+1 AS `nro_boya`,
+1 AS `rumbo`,
+1 AS `investigacion`,
+1 AS `cant_trampas`,
+1 AS `trampas_pescando`,
+1 AS `distancia_entre_trampas`,
+1 AS `carnada`,
+1 AS `kg_carnada`,
+1 AS `fecha_ini_calado`,
+1 AS `hora_ini_calado`,
+1 AS `fecha_hora_ini_calado`,
+1 AS `fecha_hora_fin_calado`,
+1 AS `prof_ini_calado`,
+1 AS `prof_fin_calado`,
+1 AS `long_prom_calado_dec`,
+1 AS `lat_prom_calado_dec`,
+1 AS `fecha_fin_virada`,
+1 AS `hora_fin_virada`,
+1 AS `fecha_hora_ini_virada`,
+1 AS `fecha_hora_fin_virada`,
+1 AS `lat_ini_calado`,
+1 AS `long_ini_calado`,
+1 AS `lat_fin_calado`,
+1 AS `long_fin_calado`,
+1 AS `lat_ini_virada`,
+1 AS `long_ini_virada`,
+1 AS `lat_fin_virada`,
+1 AS `long_fin_virada`,
+1 AS `prof_ini_virada`,
+1 AS `prof_fin_virada`,
+1 AS `horas_pesca`,
+1 AS `dias_pesca`,
+1 AS `centolla_total`,
+1 AS `centolla_comercial`,
+1 AS `arania_total`,
+1 AS `canastos_procesados`,
+1 AS `cluster_por_canasto`,
+1 AS `trampas_con_fallo`,
+1 AS `trampas_con_aro`,
+1 AS `trampas_sin_puerta`,
+1 AS `captura_por_trampa`,
+1 AS `comerciales_por_trampa`,
+1 AS `porcent_trampas_obs`,
+1 AS `muestra`,
+1 AS `comentarios`,
+1 AS `idenvio_email`,
+1 AS `fecha_envio`,
+1 AS `fecha_ini_produccion`,
+1 AS `fecha_fin_produccion` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_planilla_factores_conversion`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_planilla_factores_conversion` $$
+DROP VIEW IF EXISTS `v_planilla_factores_conversion` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_planilla_factores_conversion` AS SELECT 1 AS `idfactor_conversion`,
+1 AS `idmarea`,
+1 AS `idlance`,
+1 AS `nro_lance`,
+1 AS `fecha`,
+1 AS `peso_entero`,
+1 AS `pc_crudo`,
+1 AS `pg_crudo`,
+1 AS `pc_cocido`,
+1 AS `pg_cocido`,
+1 AS `pc_congelado`,
+1 AS `pg_congelado`,
+1 AS `pc_descongelado`,
+1 AS `pg_descongelado`,
+1 AS `comentarios` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_planilla_marcas`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_planilla_marcas` $$
+DROP VIEW IF EXISTS `v_planilla_marcas` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_planilla_marcas` AS SELECT 1 AS `idmarca`,
+1 AS `idmarea`,
+1 AS `evento`,
+1 AS `idespecie`,
+1 AS `nombre_vulgar`,
+1 AS `nombre_cientifico`,
+1 AS `cod_marca`,
+1 AS `cod_marca_original`,
+1 AS `fecha_hora`,
+1 AS `latitud`,
+1 AS `longitud`,
+1 AS `profundidad`,
+1 AS `largo`,
+1 AS `sexo`,
+1 AS `codigo_caparazon`,
+1 AS `codigo_huevos`,
+1 AS `porcentaje_huevos`,
+1 AS `peso`,
+1 AS `vivo`,
+1 AS `remarcado`,
+1 AS `liberado`,
+1 AS `comentarios`,
+1 AS `enviado` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_planilla_muestras`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_planilla_muestras` $$
+DROP VIEW IF EXISTS `v_planilla_muestras` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_planilla_muestras` AS SELECT 1 AS `idmarea`,
+1 AS `nro_lance`,
+1 AS `orden_virada`,
+1 AS `nro_ejemplar`,
+1 AS `cod_tipo_trampa`,
+1 AS `cant_aros`,
+1 AS `largo`,
+1 AS `sexo`,
+1 AS `estado_caparazon`,
+1 AS `codigo_huevos`,
+1 AS `porcentaje_huevos` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_planilla_produccion`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_planilla_produccion` $$
+DROP VIEW IF EXISTS `v_planilla_produccion` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_planilla_produccion` AS SELECT 1 AS `idmarea`,
+1 AS `fecha`,
+1 AS `tot_cajas`,
+1 AS `tot_kilos`,
+1 AS `p1`,
+1 AS `cajas_p1`,
+1 AS `kilos_p1`,
+1 AS `p2`,
+1 AS `cajas_p2`,
+1 AS `kilos_p2`,
+1 AS `p3`,
+1 AS `cajas_p3`,
+1 AS `kilos_p3`,
+1 AS `p4`,
+1 AS `cajas_p4`,
+1 AS `kilos_p4`,
+1 AS `p5`,
+1 AS `cajas_p5`,
+1 AS `kilos_p5`,
+1 AS `p6`,
+1 AS `cajas_p6`,
+1 AS `kilos_p6`,
+1 AS `p7`,
+1 AS `cajas_p7`,
+1 AS `kilos_p7`,
+1 AS `p8`,
+1 AS `cajas_p8`,
+1 AS `kilos_p8`,
+1 AS `p9`,
+1 AS `cajas_p9`,
+1 AS `kilos_p9`,
+1 AS `p10`,
+1 AS `cajas_p10`,
+1 AS `kilos_p10` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_planilla_relac_morf`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_planilla_relac_morf` $$
+DROP VIEW IF EXISTS `v_planilla_relac_morf` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_planilla_relac_morf` AS SELECT 1 AS `idmuestra`,
+1 AS `idlance`,
+1 AS `nro_lance`,
+1 AS `orden_virada`,
+1 AS `fecha`,
+1 AS `especie`,
+1 AS `idespecie`,
+1 AS `nro_ejemplar`,
+1 AS `largo`,
+1 AS `peso`,
+1 AS `pata_1_d_mero`,
+1 AS `pata_1_d_entera`,
+1 AS `pata_2_d_mero`,
+1 AS `pata_2_d_entera`,
+1 AS `pata_3_d_mero`,
+1 AS `pata_3_d_entera`,
+1 AS `pata_1_i_mero`,
+1 AS `pata_1_i_entera`,
+1 AS `pata_2_i_mero`,
+1 AS `pata_2_i_entera`,
+1 AS `pata_3_i_mero`,
+1 AS `pata_3_i_entera`,
+1 AS `comentarios` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_planilla_submuestras`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_planilla_submuestras` $$
+DROP VIEW IF EXISTS `v_planilla_submuestras` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_planilla_submuestras` AS SELECT 1 AS `idmarea`,
+1 AS `nro_lance`,
+1 AS `nro_ejemplar`,
+1 AS `largo`,
+1 AS `peso`,
+1 AS `sexo`,
+1 AS `estado_caparazon`,
+1 AS `codigo_huevos`,
+1 AS `porcentaje_huevos` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_produccion`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_produccion` $$
+DROP VIEW IF EXISTS `v_produccion` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_produccion` AS SELECT 1 AS `idproduccion`,
+1 AS `idmarea`,
+1 AS `idproducto`,
+1 AS `fecha`,
+1 AS `cant_cajas`,
+1 AS `kilos`,
+1 AS `codigo`,
+1 AS `detalle`,
+1 AS `orden` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_produccion_por_fecha`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_produccion_por_fecha` $$
+DROP VIEW IF EXISTS `v_produccion_por_fecha` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_produccion_por_fecha` AS SELECT 1 AS `idmarea`,
+1 AS `fecha`,
+1 AS `tot_cajas`,
+1 AS `tot_kilos`,
+1 AS `p1`,
+1 AS `cajas_p1`,
+1 AS `kilos_p1`,
+1 AS `p2`,
+1 AS `cajas_p2`,
+1 AS `kilos_p2`,
+1 AS `p3`,
+1 AS `cajas_p3`,
+1 AS `kilos_p3`,
+1 AS `p4`,
+1 AS `cajas_p4`,
+1 AS `kilos_p4`,
+1 AS `p5`,
+1 AS `cajas_p5`,
+1 AS `kilos_p5`,
+1 AS `p6`,
+1 AS `cajas_p6`,
+1 AS `kilos_p6`,
+1 AS `p7`,
+1 AS `cajas_p7`,
+1 AS `kilos_p7`,
+1 AS `p8`,
+1 AS `cajas_p8`,
+1 AS `kilos_p8`,
+1 AS `p9`,
+1 AS `cajas_p9`,
+1 AS `kilos_p9`,
+1 AS `p10`,
+1 AS `cajas_p10`,
+1 AS `kilos_p10` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_productos`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_productos` $$
+DROP VIEW IF EXISTS `v_productos` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_productos` AS SELECT 1 AS `idproducto`,
+1 AS `idmarea`,
+1 AS `codigo`,
+1 AS `descripcion`,
+1 AS `orden`,
+1 AS `detalle` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_rendimiento_lineas`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_rendimiento_lineas` $$
+DROP VIEW IF EXISTS `v_rendimiento_lineas` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_rendimiento_lineas` AS SELECT 1 AS `idmarea`,
+1 AS `fecha`,
+1 AS `nro_lance`,
+1 AS `nro_linea`,
+1 AS `nro_orden`,
+1 AS `cant_trampas`,
+1 AS `total`,
+1 AS `comercial`,
+1 AS `no_comercial`,
+1 AS `arania` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_resumen_marea`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_resumen_marea` $$
+DROP VIEW IF EXISTS `v_resumen_marea` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_resumen_marea` AS SELECT 1 AS `idmarea`,
+1 AS `fecha`,
+1 AS `l_caladas`,
+1 AS `l_viradas`,
+1 AS `m_captura`,
+1 AS `m_tallas` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_tipos_muestra`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_tipos_muestra` $$
+DROP VIEW IF EXISTS `v_tipos_muestra` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_tipos_muestra` AS SELECT 1 AS `idtipo_muestra`,
+1 AS `codigo`,
+1 AS `descripcion`,
+1 AS `orden`,
+1 AS `es_submuestra`,
+1 AS `es_relac_morf`,
+1 AS `cod_desc` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
+-- Estructura temporaria para vista `v_tipos_trampa`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_tipos_trampa` $$
+DROP VIEW IF EXISTS `v_tipos_trampa` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_tipos_trampa` AS SELECT 1 AS `idtipo_trampa`,
+1 AS `idformato_trampa`,
+1 AS `codigo`,
+1 AS `descripcion`,
+1 AS `cant_aros` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+
+-- ------------------------------------------------------- --
+-- Definición de Funciones y Stored Procedures del sistema --
+-- ------------------------------------------------------- --
+
+-- --------------------- --
+-- Creación de cabeceras --
+-- --------------------- --
+
+--
+-- Estructura base de Rutina BuscarMaxID
+--
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS BuscarMaxID$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarmaxid`(nombre_tabla varchar(64), OUT max_id INT(10))
+BEGIN
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina distancia_millas
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS distancia_millas$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `distancia_millas`(lat_ini decimal(8,4), long_ini decimal(8,4), lat_fin decimal(8,4), long_fin decimal(8,4)) RETURNS decimal(7,3)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_cant_comerciales_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_cant_comerciales_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_comerciales_lance`(p_idlance int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_cant_tot_arania_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_cant_tot_arania_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_tot_arania_lance`(p_idlance int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_cant_tot_centolla_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_cant_tot_centolla_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_tot_centolla_lance`(p_idlance int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina F_CANT_TRAMPAS_PESCANDO_LANCE
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS F_CANT_TRAMPAS_PESCANDO_LANCE$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_pescando_lance`(p_idlance INT) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_captura_por_trampa_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_captura_por_trampa_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_captura_por_trampa_lance`(p_idlance INT) RETURNS decimal(6,2)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina F_CLUSTER_POR_CANASTO_LANCE
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS F_CLUSTER_POR_CANASTO_LANCE$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cluster_por_canasto_lance`(p_idlance int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_comerciales_por_trampa_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_comerciales_por_trampa_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_comerciales_por_trampa_lance`(p_idlance INT) RETURNS decimal(6,2)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_factor_extrapolacion_captura
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_factor_extrapolacion_captura$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_factor_extrapolacion_captura`(p_idlance int) RETURNS decimal(6,3)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_fieldbyindex
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_fieldbyindex$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_fieldbyindex`(str varchar(1000), ind int, sep varchar(1)) RETURNS varchar(1000) CHARSET utf8 COLLATE utf8_spanish_ci
+    NO SQL
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_porcentaje_trampas_observadas
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_porcentaje_trampas_observadas$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_porcentaje_trampas_observadas`(p_idlance int) RETURNS decimal(5,2)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_prom_trampas_boya
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_prom_trampas_boya$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_prom_trampas_boya`(p_idmarea int, p_nro_boya int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_prom_trampas_linea
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_prom_trampas_linea$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_prom_trampas_linea`(p_idlinea int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina nuevo_id
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS nuevo_id$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nuevo_id`(nombre_tabla VARCHAR(64)) RETURNS int(11)
+    READS SQL DATA
+BEGIN
+RETURN NULL;
+END$$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina sp_nuevo_id
+--
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_nuevo_id$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nuevo_id`(IN p_nombre_tabla VARCHAR(64), OUT p_id INT(11))
+BEGIN
+END$$
+DELIMITER ;
+
+
+-- ---------------------------------------------------- --
+-- Definición completa de Funciones y Stored Procedures --
+-- ---------------------------------------------------- --
+
+
+--
+-- Definición completa de Rutina BuscarMaxID
+--
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS BuscarMaxID$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarmaxid`(nombre_tabla varchar(64), OUT max_id INT(10))
+BEGIN
+    DECLARE l_campo_id VARCHAR(128);
+
+	#BUSCO EL NOMBRE DEL CAMPO ID DE LA TABLA
+	SELECT COLUMN_NAME into l_campo_id FROM information_schema.columns
+    WHERE TABLE_SCHEMA = DATABASE()
+	AND TABLE_NAME=CONVERT(nombre_tabla using utf8)
+	AND COLUMN_KEY='PRI';
+	#PREPARO EL SQL PARA RECUPERAR EL MÁXIMO ID DE LA TABLA
+	SET @SQL=CONCAT('SELECT MAX(',l_campo_id,') INTO @id FROM ',convert(nombre_tabla using utf8));
+	PREPARE stmt FROM @SQL;
+	EXECUTE stmt;
+	SET max_id=@id;
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina distancia_millas
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS distancia_millas$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `distancia_millas`(lat_ini decimal(8,4), long_ini decimal(8,4), lat_fin decimal(8,4), long_fin decimal(8,4)) RETURNS decimal(7,3)
+    DETERMINISTIC
+BEGIN
+# Las posiciones en los parámetros deben pasarse en el formato GGMM.SS
+
+declare grados_lat_ini int;
+declare minutos_lat_ini decimal(5,2);
+declare grados_long_ini int;
+declare minutos_long_ini decimal(5,2);
+declare grados_lat_fin int;
+declare minutos_lat_fin decimal(5,2);
+declare grados_long_fin int;
+declare minutos_long_fin decimal(5,2);
+
+
+declare lat_ini_dec decimal(8,4);
+declare long_ini_dec decimal(8,4);
+declare lat_fin_dec decimal(8,4);
+declare long_fin_dec decimal(8,4);
+
+if (ISNULL(lat_ini) OR ISNULL(long_ini) OR ISNULL(lat_fin) OR ISNULL(long_fin)) then
+	RETURN NULL;
+else
+	set grados_lat_ini=FLOOR(lat_ini/100);
+	set minutos_lat_ini=lat_ini-(FLOOR(lat_ini/100)*100);
+	set grados_long_ini=FLOOR(long_ini/100);
+	set minutos_long_ini=long_ini-(FLOOR(long_ini/100)*100);
+	
+	set grados_lat_fin=FLOOR(lat_fin/100);
+	set minutos_lat_fin=lat_fin-(FLOOR(lat_fin/100)*100);
+	set grados_long_fin=FLOOR(long_fin/100);
+	set minutos_long_fin=long_fin-(FLOOR(long_fin/100)*100);
+
+	set lat_ini_dec=grados_lat_ini+(minutos_lat_ini/60);
+	set long_ini_dec=grados_long_ini+(minutos_long_ini/60);
+	set lat_fin_dec=grados_lat_fin+(minutos_lat_fin/60);
+	set long_fin_dec=grados_long_fin+(minutos_long_fin/60);
+
+	RETURN (acos(sin(radians(lat_ini_dec)) * sin(radians(lat_fin_dec)) + 
+	cos(radians(lat_ini_dec)) * cos(radians(lat_fin_dec)) * 
+	cos(radians(long_ini_dec) - radians(long_fin_dec))) * 3443.918466522678);
+end if;
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_cant_comerciales_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_cant_comerciales_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_comerciales_lance`(p_idlance int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+
+DECLARE l_tot_especie_1 INT(11);
+DECLARE l_tot_especie_2 INT(11);
+DECLARE l_tot_especie_3 INT(11);
+DECLARE l_tot_muestra INT(11);
+DECLARE l_observadas INT;
+DECLARE l_no_observadas INT;
+DECLARE l_factor DECIMAL(6,3);
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND (dc.idestado_trampa IS NULL
+        OR et.es_no_observado = 0));
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_no_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND et.es_no_observado = 1);
+
+
+IF l_observadas>0 THEN
+	SET l_factor = (l_observadas+l_no_observadas)/l_observadas;
+ELSE
+	SET l_factor = 0;
+END IF;
+
+
+SELECT COALESCE(SUM(dc.comerciales_especie1),0)
+INTO l_tot_especie_1
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie1
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COALESCE(SUM(dc.comerciales_especie2),0)
+INTO l_tot_especie_2
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie2
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COALESCE(SUM(dc.comerciales_especie3),0)
+INTO l_tot_especie_3
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie3
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COUNT(0)
+INTO l_tot_muestra
+                    FROM muestras m,
+                        detalle_muestras dm,
+                        especies e
+                    WHERE
+						m.idlance=p_idlance and
+                        dm.idmuestra = m.idmuestra
+                            AND e.idespecie = m.idespecie
+                            AND e.es_centolla = 1
+                            AND dm.sexo = 1
+                            AND dm.largo>=110;
+                            
+
+
+ RETURN (l_tot_especie_1+l_tot_especie_2+l_tot_especie_3+l_tot_muestra) * l_factor;
+
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_cant_tot_arania_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_cant_tot_arania_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_tot_arania_lance`(p_idlance int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+
+DECLARE l_tot_especie_1 INT(11);
+DECLARE l_tot_especie_2 INT(11);
+DECLARE l_tot_especie_3 INT(11);
+DECLARE l_tot_muestra INT(11);
+DECLARE l_observadas INT;
+DECLARE l_no_observadas INT;
+DECLARE l_factor DECIMAL(6,3);
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND (dc.idestado_trampa IS NULL
+        OR et.es_no_observado = 0));
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_no_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND et.es_no_observado = 1);
+
+
+IF l_observadas>0 THEN
+	SET l_factor = (l_observadas+l_no_observadas)/l_observadas;
+ELSE
+	SET l_factor = 0;
+END IF;
+
+SELECT COALESCE(SUM(dc.total_especie1),0)
+INTO l_tot_especie_1
+                    FROM capturas c,
+                        detalle_capturas dc,
+                        especies e
+                    WHERE
+						c.idlance=p_idlance and
+                        dc.idcaptura = c.idcaptura
+                            AND e.idespecie = c.idespecie1
+                            AND e.es_arania = 1;
+
+SELECT COALESCE(SUM(dc.total_especie2),0)
+INTO l_tot_especie_2
+                    FROM capturas c,
+                        detalle_capturas dc,
+                        especies e
+                    WHERE
+						c.idlance=p_idlance and
+                        dc.idcaptura = c.idcaptura
+                            AND e.idespecie = c.idespecie2
+                            AND e.es_arania = 1;
+SELECT COALESCE(SUM(dc.total_especie3),0)
+INTO l_tot_especie_3
+                    FROM capturas c,
+                        detalle_capturas dc,
+                        especies e
+                    WHERE
+						c.idlance=p_idlance and
+                        dc.idcaptura = c.idcaptura
+                            AND e.idespecie = c.idespecie3
+                            AND e.es_arania = 1;
+                            
+RETURN (l_tot_especie_1+l_tot_especie_2+l_tot_especie_3) * l_factor;
+
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_cant_tot_centolla_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_cant_tot_centolla_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_tot_centolla_lance`(p_idlance int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+
+DECLARE l_tot_especie_1 INT(11);
+DECLARE l_tot_especie_2 INT(11);
+DECLARE l_tot_especie_3 INT(11);
+DECLARE l_tot_muestra INT(11);
+DECLARE l_observadas INT;
+DECLARE l_no_observadas INT;
+DECLARE l_factor DECIMAL(6,3);
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND (dc.idestado_trampa IS NULL
+        OR et.es_no_observado = 0));
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_no_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND et.es_no_observado = 1);
+
+
+IF l_observadas>0 THEN
+	SET l_factor = (l_observadas+l_no_observadas)/l_observadas;
+ELSE
+	SET l_factor = 0;
+END IF;
+
+SELECT COALESCE(SUM(dc.total_especie1),0)
+INTO l_tot_especie_1
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie1
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COALESCE(SUM(dc.total_especie2),0)
+INTO l_tot_especie_2
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie2
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COALESCE(SUM(dc.total_especie3),0)
+INTO l_tot_especie_3
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie3
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COUNT(0)
+INTO l_tot_muestra
+                    FROM muestras m,
+                        detalle_muestras dm,
+                        especies e
+                    WHERE
+						m.idlance=p_idlance and
+                        dm.idmuestra = m.idmuestra
+                            AND e.idespecie = m.idespecie
+                            AND e.es_centolla = 1;
+
+RETURN (l_tot_especie_1+l_tot_especie_2+l_tot_especie_3+l_tot_muestra) * l_factor;
+                            
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina F_CANT_TRAMPAS_PESCANDO_LANCE
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS F_CANT_TRAMPAS_PESCANDO_LANCE$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_pescando_lance`(p_idlance INT) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+DECLARE l_cant_correctas INT;
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_cant_correctas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND (dc.idestado_trampa IS NULL
+        OR (et.es_no_observado = 0 AND et.es_fallo = 0)));
+
+IF l_cant_correctas > 0 THEN
+	RETURN l_cant_correctas;
+ELSE
+	RETURN NULL;
+END IF;
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_captura_por_trampa_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_captura_por_trampa_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_captura_por_trampa_lance`(p_idlance INT) RETURNS decimal(6,2)
+    DETERMINISTIC
+BEGIN
+
+DECLARE l_tot_especie_1 INT(11);
+DECLARE l_tot_especie_2 INT(11);
+DECLARE l_tot_especie_3 INT(11);
+DECLARE l_tot_muestra INT(11);
+DECLARE l_cant_correctas INT;
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_cant_correctas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND (dc.idestado_trampa IS NULL
+        OR (et.es_no_observado = 0 AND et.es_fallo = 0)));
+
+SELECT COALESCE(SUM(dc.total_especie1),0)
+INTO l_tot_especie_1
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie1
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COALESCE(SUM(dc.total_especie2),0)
+INTO l_tot_especie_2
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie2
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COALESCE(SUM(dc.total_especie3),0)
+INTO l_tot_especie_3
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie3
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COUNT(0)
+INTO l_tot_muestra
+                    FROM muestras m,
+                        detalle_muestras dm,
+                        especies e
+                    WHERE
+						m.idlance=p_idlance and
+                        dm.idmuestra = m.idmuestra
+                            AND e.idespecie = m.idespecie
+                            AND e.es_centolla = 1;
+IF l_cant_correctas > 0 THEN
+	RETURN (l_tot_especie_1+l_tot_especie_2+l_tot_especie_3+l_tot_muestra) / l_cant_correctas;
+ELSE
+	RETURN 0;
+END IF;
+
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina F_CLUSTER_POR_CANASTO_LANCE
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS F_CLUSTER_POR_CANASTO_LANCE$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cluster_por_canasto_lance`(p_idlance int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+
+#Si en la linea hay trampas no observadas, devuelvo lo que se ingresó manualmente
+#si no, hago el cálculo en base a la captura
+IF EXISTS( SELECT 
+                    1
+                FROM
+                    capturas c join detalle_capturas dc ON dc.idcaptura=c.idcaptura
+                    JOIN estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+                WHERE
+                    c.idlance=p_idlance
+                        AND et.codigo = 'N') THEN
+	RETURN (SELECT l.cluster_por_canasto
+    FROM lances l
+    WHERE l.idlance=p_idlance);
+ELSE
+	RETURN (SELECT COALESCE(l.cluster_por_canasto,
+                IF (`l`.`canastos_procesados`>0,FLOOR((F_CANT_COMERCIALES_LANCE(`l`.`idlance`) * 2) / `l`.`canastos_procesados`),0))
+    FROM lances l
+    WHERE l.idlance=p_idlance);
+END IF;
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_comerciales_por_trampa_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_comerciales_por_trampa_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_comerciales_por_trampa_lance`(p_idlance INT) RETURNS decimal(6,2)
+    DETERMINISTIC
+BEGIN
+
+DECLARE l_tot_especie_1 INT(11);
+DECLARE l_tot_especie_2 INT(11);
+DECLARE l_tot_especie_3 INT(11);
+DECLARE l_tot_muestra INT(11);
+DECLARE l_cant_correctas INT;
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_cant_correctas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND (dc.idestado_trampa IS NULL
+        OR (et.es_no_observado = 0 AND et.es_fallo = 0)));
+
+SELECT COALESCE(SUM(dc.comerciales_especie1),0)
+INTO l_tot_especie_1
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie1
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COALESCE(SUM(dc.comerciales_especie2),0)
+INTO l_tot_especie_2
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie2
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COALESCE(SUM(dc.comerciales_especie3),0)
+INTO l_tot_especie_3
+                    FROM capturas c JOIN
+                        detalle_capturas dc on dc.idcaptura=c.idcaptura
+                        LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
+                        JOIN especies e on e.idespecie = c.idespecie3
+                    WHERE
+						c.idlance=p_idlance
+                            AND e.es_centolla = 1
+                            AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
+                            OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
+
+SELECT COUNT(0)
+INTO l_tot_muestra
+                    FROM muestras m,
+                        detalle_muestras dm,
+                        especies e
+                    WHERE
+						m.idlance=p_idlance and
+                        dm.idmuestra = m.idmuestra
+                            AND e.idespecie = m.idespecie
+                            AND e.es_centolla = 1
+                            AND dm.sexo = 1
+                            AND dm.largo>=110;
+                            
+
+IF l_cant_correctas > 0 THEN
+	RETURN (l_tot_especie_1+l_tot_especie_2+l_tot_especie_3+l_tot_muestra) / l_cant_correctas;
+ELSE
+	RETURN 0;
+END IF;
+
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_factor_extrapolacion_captura
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_factor_extrapolacion_captura$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_factor_extrapolacion_captura`(p_idlance int) RETURNS decimal(6,3)
+    DETERMINISTIC
+BEGIN
+DECLARE l_observadas INT;
+DECLARE l_no_observadas INT;
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND (dc.idestado_trampa IS NULL
+        OR et.es_no_observado = 0));
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_no_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND et.es_no_observado = 1);
+
+IF l_observadas>0 THEN
+	RETURN (l_observadas+l_no_observadas)/l_observadas;
+ELSE
+	RETURN 0;
+END IF;
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_fieldbyindex
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_fieldbyindex$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_fieldbyindex`(str varchar(1000), ind int, sep varchar(1)) RETURNS varchar(1000) CHARSET utf8 COLLATE utf8_spanish_ci
+    NO SQL
+BEGIN
+#Si busco el primero, no hace falta complicarse, se isa directamente el substring_index
+IF ind=1 THEN
+	RETURN SUBSTRING_INDEX(str,sep,ind);
+#Si la cadena en "ind" es igual a la de "ind-1" quiere decir que no hay mas campos,
+#entonces devuelvo nulo
+ELSEIF SUBSTRING_INDEX(str,sep,ind)=SUBSTRING_INDEX(str,sep,ind-1) THEN
+	RETURN NULL;
+ELSE
+	RETURN TRIM(REVERSE(SUBSTRING(REVERSE(SUBSTRING_INDEX(str,sep,ind)),1,LOCATE(sep,REVERSE(SUBSTRING_INDEX(str,sep,ind)))-1)));
+END IF;
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_porcentaje_trampas_observadas
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_porcentaje_trampas_observadas$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_porcentaje_trampas_observadas`(p_idlance int) RETURNS decimal(5,2)
+    DETERMINISTIC
+BEGIN
+
+DECLARE l_observadas INT;
+DECLARE l_no_observadas INT;
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND (dc.idestado_trampa IS NULL
+        OR et.es_no_observado = 0));
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_no_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND et.es_no_observado = 1);
+
+
+IF (l_observadas+l_no_observadas)>0 THEN
+	RETURN ROUND((l_observadas*100)/(l_observadas+l_no_observadas),0);
+ELSE
+	RETURN NULL;
+END IF;
+
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_prom_trampas_boya
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_prom_trampas_boya$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_prom_trampas_boya`(p_idmarea int, p_nro_boya int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+
+DECLARE prom_trampas int;
+
+select ROUND(AVG(ct.cant_trampas)) into prom_trampas
+from 
+(select sum(dc.cant_trampas) as cant_trampas
+from detalle_capturas dc
+join capturas c on c.idcaptura=dc.idcaptura
+join lances la on la.idlance=c.idlance
+where la.idmarea=p_idmarea
+and la.nro_boya=p_nro_boya
+group by c.idcaptura) AS ct;
+
+IF prom_trampas=0 THEN
+	RETURN NULL;
+ELSE
+	RETURN prom_trampas;
+END IF;
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_prom_trampas_linea
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_prom_trampas_linea$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_prom_trampas_linea`(p_idlinea int) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+
+DECLARE prom_trampas int;
+
+select ROUND(AVG(ct.cant_trampas)) into prom_trampas
+from 
+(select count(1) as cant_trampas
+from detalle_capturas dc
+join capturas c on c.idcaptura=dc.idcaptura
+join lances la on la.idlance=c.idlance
+where la.idlinea=p_idlinea
+group by c.idcaptura) AS ct;
+
+IF prom_trampas=0 THEN
+	RETURN NULL;
+ELSE
+	RETURN prom_trampas;
+END IF;
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina nuevo_id
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS nuevo_id$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nuevo_id`(nombre_tabla VARCHAR(64)) RETURNS int(11)
+    READS SQL DATA
+BEGIN
+    DECLARE l_max_id INT;
+    DECLARE l_nuevo_id INT;
+    DECLARE l_msg VARCHAR(100);
+
+    #VERIFICO QUE LA TABLA PASADA COMO PARÁMETRO EXISTA EN LA BASE DE DATOS
+    IF NOT EXISTS (SELECT 1 
+        FROM INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_SCHEMA = DATABASE()
+        AND TABLE_NAME = CONVERT(nombre_tabla USING utf8)) THEN
+        SET l_msg=CONCAT('La tabla ',nombre_tabla, ' no existe');
+            SIGNAL SQLSTATE '42S02'
+                SET MESSAGE_TEXT = l_msg, MYSQL_ERRNO = 1146;
+            return -1;
+    END IF;
+    
+    #SI LA TABLA REQUERIDA EXISTE EN LA TABLA DEL GENERADOR, INCREMENTO EL CONTADOR EN 1 Y DEVUELVO EL VALOR.
+    #SI NO EXISTE, LA AGREGO E INICIALIZO EN 1 DEVOLVIENDO ESTE VALOR
+    IF EXISTS (SELECT 1 FROM generador_ids WHERE tabla = nombre_tabla) THEN
+        #INCREMENTO EL CONTADOR
+        UPDATE generador_ids SET ultimo_id_generado=ultimo_id_generado+1
+            WHERE tabla = nombre_tabla;
+        #TOMO EL NUEVO VALOR
+        SELECT ultimo_id_generado INTO l_nuevo_id
+            FROM generador_ids
+            WHERE tabla = nombre_tabla;
+        #DEVUELVO Y FINALIZA LA FUNCIÓN
+        RETURN l_nuevo_id;
+    ELSE #NO EXISTE, CREO EL REGISTRO
+		#BUSCO EL MÁXIMO ID DE LA TABLA
+		SET l_max_id=0;
+#		CALL BuscarMaxID(convert(nombre_tabla using utf8), l_max_id); 
+        INSERT INTO generador_ids (tabla, ultimo_id_generado) VALUES (LOWER(nombre_tabla), l_max_id+1);
+        RETURN l_max_id+1;
+    END IF;    
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina sp_nuevo_id
+--
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_nuevo_id$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nuevo_id`(IN p_nombre_tabla VARCHAR(64), OUT p_id INT(11))
+BEGIN
+	DECLARE l_campo_id VARCHAR(64);
+    DECLARE l_nuevo_id INT(11);
+    DECLARE l_msg VARCHAR(100);
+
+    #VERIFICO QUE LA TABLA PASADA COMO PARÁMETRO EXISTA EN LA BASE DE DATOS
+    IF NOT EXISTS (SELECT 1 
+        FROM INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_SCHEMA = DATABASE()
+        AND TABLE_NAME = CONVERT(p_nombre_tabla USING UTF8)) THEN
+        SET l_msg=CONCAT('La tabla ',p_nombre_tabla, ' no existe');
+            SIGNAL SQLSTATE '42S02'
+                SET MESSAGE_TEXT = l_msg, MYSQL_ERRNO = 1146;
+		SET p_id=-1;
+	ELSE 
+		#BUSCO EL MAXIMO ID EXISTENTE EN LA TABLA
+		SELECT column_name INTO L_CAMPO_ID FROM information_schema.columns
+		WHERE TABLE_SCHEMA=DATABASE()
+		AND TABLE_NAME = CONVERT(p_nombre_tabla USING UTF8)
+		AND column_key='PRI';
+		#ARMO UN SQL DINÁMICO PARA OBTENER EL MAX ID en la variable l_max_id
+		SELECT CONCAT('SELECT COALESCE(MAX(',l_campo_id,'),0) into @max_id FROM ',p_nombre_tabla) INTO @L_STR_SQL;
+		PREPARE stmt FROM @L_STR_SQL;
+		EXECUTE stmt;
+		
+		#SI LA TABLA REQUERIDA EXISTE EN LA TABLA DEL GENERADOR, INCREMENTO EL CONTADOR EN 1 Y DEVUELVO EL VALOR.
+		#SI NO EXISTE, LA AGREGO E INICIALIZO EN 1 DEVOLVIENDO ESTE VALOR
+		IF EXISTS (SELECT 1 FROM generador_ids WHERE tabla = p_nombre_tabla) THEN
+			#INCREMENTO EL CONTADOR
+			UPDATE generador_ids SET ultimo_id_generado=IF(ultimo_id_generado>@max_id,ultimo_id_generado,@max_id)+1
+				WHERE tabla = p_nombre_tabla;
+			#TOMO EL NUEVO VALOR
+			SELECT ultimo_id_generado INTO p_id
+				FROM generador_ids
+				WHERE tabla = p_nombre_tabla;
+			#FINALIZA LA FUNCIÓN
+		ELSE #NO EXISTE, CREO EL REGISTRO
+			INSERT INTO generador_ids (tabla, ultimo_id_generado) VALUES (LOWER(p_nombre_tabla), @max_id+1);
+			SET p_id=@max_id+1;
+		END IF;    
+    END IF;
+END$$
+DELIMITER ;
+--
+-- Estructura final para la vista `v_capturas`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_capturas` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_capturas` AS select `ca`.`idcaptura` AS `idcaptura`,`la`.`idmarea` AS `idmarea`,`la`.`idlance` AS `idlance`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`la`.`nro_boya` AS `nro_boya`,`la`.`nro_linea` AS `nro_linea`,`la`.`fecha_ini_virada` AS `fecha`,`la`.`hora_ini_virada` AS `hora`,`ca`.`comentarios` AS `comentarios`,`ca`.`idespecie1` AS `idespecie1`,`ca`.`idespecie2` AS `idespecie2`,`ca`.`idespecie3` AS `idespecie3` from ((`capturas` `ca` join `lances` `la`) left join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) where (`la`.`idlance` = `ca`.`idlance`) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_capturas_resumen`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_capturas_resumen` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_capturas_resumen` AS select `l`.`idmarea` AS `idmarea`,`c`.`idcaptura` AS `idcaptura`,`c`.`idlance` AS `idlance`,`c`.`idespecie1` AS `idespecie1`,`c`.`idespecie2` AS `idespecie2`,`c`.`idespecie3` AS `idespecie3`,`c`.`comentarios` AS `comentarios`,`l`.`canastos_procesados` AS `canastos_procesados`,`l`.`cluster_por_canasto` AS `cluster_por_canasto`,`F_CLUSTER_POR_CANASTO_LANCE`(`l`.`idlance`) AS `cluster_canasto_calc`,(select count(0) from `detalle_capturas` `dc` where (`dc`.`idcaptura` = `c`.`idcaptura`)) AS `trampas_recup`,`F_CANT_TOT_CENTOLLA_LANCE`(`l`.`idlance`) AS `centolla_total`,`F_CANT_COMERCIALES_LANCE`(`l`.`idlance`) AS `centolla_comercial`,`F_CANT_TOT_ARANIA_LANCE`(`l`.`idlance`) AS `arania_total`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`l`.`idlance`) AS `porcent_trampas_obs`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `tipos_trampa` `tc`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`tc`.`idtipo_trampa` = `dc`.`idtipo_trampa`) and (`tc`.`cant_aros` = 0))) AS `cant_sin_aro`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `tipos_trampa` `tt`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`tt`.`idtipo_trampa` = `dc`.`idtipo_trampa`) and (`tt`.`cant_aros` > 0))) AS `cant_con_aro`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `estados_trampa` `et`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`et`.`idestado_trampa` = `dc`.`idestado_trampa`) and (`et`.`es_fallo` = 1))) AS `trampas_con_fallo`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `estados_puerta` `ep`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`ep`.`idestado_puerta` = `dc`.`idestado_puerta`) and (`ep`.`mal` = 1))) AS `trampas_sin_puerta` from (`capturas` `c` join `lances` `l`) where (`l`.`idlance` = `c`.`idlance`) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_codigos_caparazon`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_codigos_caparazon` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_codigos_caparazon` AS select `cc`.`idcodigo_caparazon` AS `idcodigo_caparazon`,`cc`.`codigo` AS `codigo`,`cc`.`descripcion` AS `descripcion`,concat(convert(`cc`.`codigo` using utf8),' - ',`cc`.`descripcion`) AS `cod_desc` from `codigos_caparazon` `cc` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_codigos_huevos`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_codigos_huevos` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_codigos_huevos` AS select `ch`.`idcodigo_huevos` AS `idcodigo_huevos`,`ch`.`codigo` AS `codigo`,`ch`.`descripcion` AS `descripcion`,`ch`.`tiene_huevos` AS `tiene_huevos`,concat(convert(`ch`.`codigo` using utf8),' - ',`ch`.`descripcion`) AS `cod_desc` from `codigos_huevos` `ch` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_comparacion_produccion`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_comparacion_produccion` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_comparacion_produccion` AS select `fm`.`fecha` AS `fecha`,(select (sum(`l`.`canastos_procesados`) * 20.3) from `lances` `l` where ((`l`.`idmarea` = `fm`.`idmarea`) and (`l`.`fecha_fin_virada` = `fm`.`fecha`))) AS `prod`,(select sum(`p`.`cant_cajas`) from `produccion` `p` where ((`p`.`idmarea` = `fm`.`idmarea`) and (`p`.`fecha` = `fm`.`fecha`))) AS `cajas_prod`,(select sum(`p`.`kilos`) from `produccion` `p` where ((`p`.`idmarea` = `fm`.`idmarea`) and (`p`.`fecha` = `fm`.`fecha`))) AS `kg_prod`,(select (sum(`l`.`canastos_procesados`) * 20.3) from `lances` `l` where (((`l`.`idmarea` = `fm`.`idmarea`) and (`l`.`fecha_fin_virada` = `fm`.`fecha`)) - (select sum(`p`.`kilos`) from `produccion` `p` where ((`p`.`idmarea` = `fm`.`idmarea`) and (`p`.`fecha` = `fm`.`fecha`))))) AS `diferencia`,(select sum(`p`.`kilos`) from `produccion` `p` where (((`p`.`idmarea` = `fm`.`idmarea`) and (`p`.`fecha` = `fm`.`fecha`)) / (select sum(`l`.`canastos_procesados`) from `lances` `l` where ((`l`.`idmarea` = `fm`.`idmarea`) and (`l`.`fecha_fin_virada` = `fm`.`fecha`))))) AS `peso_prom` from `v_fechas_marea` `fm` where (`fm`.`idmarea` = 11) group by `fm`.`fecha` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_datos_lineas`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_datos_lineas` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_datos_lineas` AS select `la`.`idmarea` AS `idmarea`,`la`.`nro_boya` AS `nro_boya`,`la`.`nro_linea` AS `nro_linea`,max(`la`.`idtipo_trampa`) AS `idtipo_trampa`,if((round(`F_PROM_TRAMPAS_BOYA`(`la`.`idmarea`,`la`.`nro_boya`),0) > 0),(round((floor(avg(floor((((`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) * 1852) - 100) / round(`F_PROM_TRAMPAS_BOYA`(`la`.`idmarea`,`la`.`nro_boya`),0))))) / 5),0) * 5),0) AS `distancia_entre_trampas`,round(avg(`F_PROM_TRAMPAS_BOYA`(`la`.`idmarea`,`la`.`nro_boya`)),0) AS `cant_trampas`,max(`la`.`investigacion`) AS `investigacion`,if(exists(select 1 from `lances` `la2` where ((`la2`.`idmarea` = `la`.`idmarea`) and (`la2`.`nro_boya` = `la`.`nro_boya`) and isnull(`la2`.`fecha_fin_virada`))),1,0) AS `calada` from `lances` `la` group by `la`.`idmarea`,`la`.`nro_boya`,`la`.`nro_linea` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_detalle_captura`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_detalle_captura` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_captura` AS select `l`.`idmarea` AS `idmarea`,`l`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`l`.`fecha_ini_virada` AS `fecha`,if((`l`.`lat_ini_virada` < `l`.`lat_fin_virada`),'Norte','Sur') AS `inicio`,if((`l`.`lat_ini_virada` > `l`.`lat_fin_virada`),'Norte','Sur') AS `fin`,`dc`.`idcaptura` AS `idcaptura`,`dc`.`nro_orden` AS `nro_orden`,`dc`.`cant_trampas` AS `cant_trampas`,`tt`.`codigo` AS `tipo_trampa`,`ep`.`codigo` AS `estado_puerta`,`et`.`codigo` AS `estado_trampa`,coalesce(((if(`e1`.`es_centolla`,`dc`.`total_especie1`,0) + if(`e2`.`es_centolla`,`dc`.`total_especie2`,0)) + if(`e3`.`es_centolla`,`dc`.`total_especie3`,0)),0) AS `centolla_total`,coalesce(((if(`e1`.`es_centolla`,`dc`.`comerciales_especie1`,0) + if(`e2`.`es_centolla`,`dc`.`comerciales_especie2`,0)) + if(`e3`.`es_centolla`,`dc`.`comerciales_especie3`,0)),0) AS `centolla_comercial`,coalesce(((if(`e1`.`es_centolla`,(`dc`.`total_especie1` - `dc`.`comerciales_especie1`),0) + if(`e2`.`es_centolla`,(`dc`.`total_especie2` - `dc`.`comerciales_especie2`),0)) + if(`e3`.`es_centolla`,(`dc`.`total_especie3` - `dc`.`comerciales_especie3`),0)),0) AS `centolla_no_comercial`,coalesce(((if(`e1`.`es_arania`,`dc`.`total_especie1`,0) + if(`e2`.`es_arania`,`dc`.`total_especie2`,0)) + if(`e3`.`es_arania`,`dc`.`total_especie3`,0)),0) AS `arania` from ((((((((`detalle_capturas` `dc` join `capturas` `c` on((`c`.`idcaptura` = `dc`.`idcaptura`))) join `lances` `l` on((`l`.`idlance` = `c`.`idlance`))) join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `dc`.`idtipo_trampa`))) left join `estados_puerta` `ep` on((`ep`.`idestado_puerta` = `dc`.`idestado_puerta`))) left join `estados_trampa` `et` on((`et`.`idestado_trampa` = `dc`.`idestado_trampa`))) left join `especies` `e1` on((`e1`.`idespecie` = `c`.`idespecie1`))) left join `especies` `e2` on((`e2`.`idespecie` = `c`.`idespecie2`))) left join `especies` `e3` on((`e3`.`idespecie` = `c`.`idespecie3`))) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_detalle_envios_email`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_detalle_envios_email` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_envios_email` AS select `ee`.`idmarea` AS `idmarea`,`ee`.`fecha` AS `fecha`,`dem`.`iddetalle_envio_email` AS `iddetalle_envio_email`,`dem`.`idenvio_email` AS `idenvio_email`,`dem`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`l`.`fecha_ini_calado` AS `fecha_calado`,`l`.`fecha_fin_virada` AS `fecha_virado` from ((`envios_email` `ee` join `detalle_envios_email` `dem` on((`dem`.`idenvio_email` = `ee`.`idenvio_email`))) join `lances` `l` on((`l`.`idlance` = `dem`.`idlance`))) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_envios_email`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_envios_email` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_envios_email` AS select `ee`.`idenvio_email` AS `idenvio_email`,`ee`.`idmarea` AS `idmarea`,`ee`.`nro_envio` AS `nro_envio`,`ee`.`fecha` AS `fecha`,`ee`.`fecha_ini_produccion` AS `fecha_ini_produccion`,`ee`.`fecha_fin_produccion` AS `fecha_fin_produccion`,(select concat(count(1),' lances incluidos') from `detalle_envios_email` `dee` where (`dee`.`idenvio_email` = `ee`.`idenvio_email`)) AS `detalle`,`ee`.`notas` AS `notas` from `envios_email` `ee` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_especies`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_especies` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_especies` AS select `e`.`idespecie` AS `idespecie`,`e`.`codigo_rapido` AS `codigo_rapido`,`e`.`codigo_inidep` AS `codigo_inidep`,concat(`e`.`nombre_cientifico`,' (',`e`.`nombre_vulgar`,')') AS `nombre_cientifico`,concat(`e`.`nombre_vulgar`,' (',`e`.`nombre_cientifico`,')') AS `nombre_vulgar`,`e`.`comercial` AS `comercial`,`e`.`es_centolla` AS `es_centolla`,`e`.`es_arania` AS `es_arania`,(exists(select 1 from `capturas` `c` where ((`c`.`idespecie1` = `e`.`idespecie`) or (`c`.`idespecie2` = `e`.`idespecie`) or (`c`.`idespecie3` = `e`.`idespecie`))) or exists(select 1 from `bycatch` `b` where (`b`.`idespecie` = `e`.`idespecie`))) AS `frecuente` from `especies` `e` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_factores_conversion`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_factores_conversion` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_factores_conversion` AS select `fc`.`idfactor_conversion` AS `idfactor_conversion`,`fc`.`idmarea` AS `idmarea`,`fc`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`l`.`fecha_ini_virada` AS `fecha`,`l`.`hora_ini_virada` AS `hora`,`fc`.`peso_entero` AS `peso_entero`,`fc`.`pc_crudo` AS `pc_crudo`,`fc`.`pg_crudo` AS `pg_crudo`,`fc`.`pc_cocido` AS `pc_cocido`,`fc`.`pg_cocido` AS `pg_cocido`,`fc`.`pc_congelado` AS `pc_congelado`,`fc`.`pg_congelado` AS `pg_congelado`,`fc`.`pc_descongelado` AS `pc_descongelado`,`fc`.`pg_descongelado` AS `pg_descongelado`,(`fc`.`pc_crudo` + `fc`.`pg_crudo`) AS `peso_crudo`,(`fc`.`pc_cocido` + `fc`.`pg_cocido`) AS `peso_cocido`,(`fc`.`pc_congelado` + `fc`.`pg_congelado`) AS `peso_congelado`,(`fc`.`pc_descongelado` + `fc`.`pg_descongelado`) AS `peso_descongelado`,if(((`fc`.`pc_congelado` + `fc`.`pg_congelado`) > 0),(`fc`.`peso_entero` / (`fc`.`pc_congelado` + `fc`.`pg_congelado`)),0) AS `factor_captura`,if(((`fc`.`pc_descongelado` + `fc`.`pg_descongelado`) > 0),(`fc`.`peso_entero` / (`fc`.`pc_descongelado` + `fc`.`pg_descongelado`)),0) AS `factor_final`,`fc`.`comentarios` AS `comentarios` from (`factores_conversion` `fc` join `lances` `l`) where (`l`.`idlance` = `fc`.`idlance`) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_fechas_marea`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_fechas_marea` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_fechas_marea` AS select `l`.`idmarea` AS `idmarea`,`l`.`fecha_ini_calado` AS `fecha` from `lances` `l` where (`l`.`fecha_ini_calado` is not null) union select `l`.`idmarea` AS `idmarea`,`l`.`fecha_fin_calado` AS `fecha` from `lances` `l` where (`l`.`fecha_fin_calado` is not null) union select `l`.`idmarea` AS `idmarea`,`l`.`fecha_ini_virada` AS `fecha` from `lances` `l` where (`l`.`fecha_ini_virada` is not null) union select `l`.`idmarea` AS `idmarea`,`l`.`fecha_fin_virada` AS `fecha` from `lances` `l` where (`l`.`fecha_fin_virada` is not null) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_informe_lances`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_informe_lances` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_informe_lances` AS select `ee`.`idmarea` AS `idmarea`,`ee`.`idenvio_email` AS `idenvio_email`,`ee`.`fecha` AS `fecha_envio`,`ee`.`fecha_ini_produccion` AS `fecha_ini_produccion`,`ee`.`fecha_fin_produccion` AS `fecha_fin_produccion`,`dem`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,if((`l`.`investigacion` = 1),'S','N') AS `investigacion`,'Virado' AS `operacion`,if(exists(select 1 from `capturas` `c` where (`c`.`idlance` = `l`.`idlance`)),(select sum(`dc`.`cant_trampas`) from (`capturas` `c` join `detalle_capturas` `dc`) where ((`c`.`idlance` = `l`.`idlance`) and (`dc`.`idcaptura` = `c`.`idcaptura`))),NULL) AS `cant_trampas`,`c`.`trampas_con_fallo` AS `trampas_con_fallo`,`c`.`trampas_sin_puerta` AS `trampas_sin_puerta`,cast(concat(`l`.`fecha_ini_calado`,' ',`l`.`hora_ini_calado`) as datetime) AS `fecha_hora_ini_calado`,cast(concat(`l`.`fecha_fin_virada`,' ',`l`.`hora_fin_virada`) as datetime) AS `fecha_hora_fin_virada`,`l`.`profundidad_ini_calado` AS `profundidad_ini_calado`,`l`.`profundidad_fin_calado` AS `profundidad_fin_calado`,(`l`.`lat_ini_calado` / 100) AS `lat_ini_calado`,(`l`.`long_ini_calado` / 100) AS `long_ini_calado`,(`l`.`lat_fin_virada` / 100) AS `lat_fin_virada`,(`l`.`long_fin_virada` / 100) AS `long_fin_virada`,`c`.`centolla_total` AS `centolla_total`,`c`.`centolla_comercial` AS `centolla_comercial`,`c`.`porcent_trampas_obs` AS `porcent_trampas_obs`,`l`.`canastos_procesados` AS `canastos_procesados`,`l`.`comentarios_calado` AS `comentarios_calado`,`l`.`comentarios_virada` AS `comentarios_virada` from ((((`envios_email` `ee` join `detalle_envios_email` `dem` on((`dem`.`idenvio_email` = `ee`.`idenvio_email`))) join `lances` `l` on((`l`.`idlance` = `dem`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) left join `v_capturas_resumen` `c` on((`c`.`idlance` = `l`.`idlance`))) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_lances_orden_virada`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_lances_orden_virada` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lances_orden_virada` AS select `l`.`idmarea` AS `idmarea`,`l`.`idlance` AS `idlance`,count(0) AS `orden_virada` from (`lances` `l` join `lances` `l2`) where ((`l2`.`idmarea` = `l`.`idmarea`) and (cast(concat(`l`.`fecha_fin_virada`,' ',`l`.`hora_fin_virada`) as datetime) >= cast(concat(`l2`.`fecha_fin_virada`,' ',`l2`.`hora_fin_virada`) as datetime))) group by `l`.`fecha_fin_virada`,`l`.`hora_fin_virada` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_lances_simple`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_lances_simple` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lances_simple` AS select `la`.`idlance` AS `idlance`,`la`.`idmarea` AS `idmarea`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,coalesce(cast(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`) as datetime),cast(concat(`la`.`fecha_ini_calado`,' ',`la`.`hora_ini_calado`) as datetime)) AS `fecha_hora_orden`,concat(`ov`.`orden_virada`,' - ',date_format(`la`.`fecha_fin_virada`,'%d/%m/%Y'),' ',date_format(`la`.`hora_fin_virada`,'%H:%i'),if((`la`.`investigacion` = 1),' (invest.)','')) AS `dsc_virada`,`la`.`nro_boya` AS `nro_boya`,`la`.`nro_linea` AS `nro_linea`,`la`.`prospeccion` AS `prospeccion`,`la`.`investigacion` AS `investigacion`,`la`.`idtipo_trampa` AS `idtipo_trampa`,`tt`.`cant_aros` AS `cant_aros`,`la`.`idcarnada` AS `idcarnada`,`la`.`kg_carnada` AS `kg_carnada`,`la`.`rumbo_calado` AS `rumbo_calado`,`la`.`fecha_ini_calado` AS `fecha_ini_calado`,`la`.`hora_ini_calado` AS `hora_ini_calado`,`la`.`profundidad_ini_calado` AS `profundidad_ini_calado`,`la`.`lat_ini_calado` AS `lat_ini_calado`,`la`.`long_ini_calado` AS `long_ini_calado`,`la`.`fecha_fin_calado` AS `fecha_fin_calado`,`la`.`hora_fin_calado` AS `hora_fin_calado`,`la`.`profundidad_fin_calado` AS `profundidad_fin_calado`,`la`.`lat_fin_calado` AS `lat_fin_calado`,`la`.`long_fin_calado` AS `long_fin_calado`,`la`.`cant_trampas_caladas` AS `cant_trampas_caladas`,`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) AS `distancia_calado`,if((`la`.`cant_trampas_caladas` > 0),floor((((`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) * 1852) - 100) / `la`.`cant_trampas_caladas`)),NULL) AS `prom_separacion_trampas`,`la`.`fecha_ini_virada` AS `fecha_ini_virada`,`la`.`hora_ini_virada` AS `hora_ini_virada`,`la`.`profundidad_ini_virada` AS `profundidad_ini_virada`,`la`.`lat_ini_virada` AS `lat_ini_virada`,`la`.`long_ini_virada` AS `long_ini_virada`,`la`.`fecha_fin_virada` AS `fecha_fin_virada`,`la`.`hora_fin_virada` AS `hora_fin_virada`,`la`.`profundidad_fin_virada` AS `profundidad_fin_virada`,`la`.`lat_fin_virada` AS `lat_fin_virada`,`la`.`long_fin_virada` AS `long_fin_virada`,`DISTANCIA_MILLAS`(`la`.`lat_ini_virada`,`la`.`long_ini_virada`,`la`.`lat_fin_virada`,`la`.`long_fin_virada`) AS `distancia_virada`,hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) AS `horas_en_agua`,round((hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) / 24),1) AS `dias_en_agua`,if(exists(select 1 from `capturas` `c` where (`c`.`idlance` = `la`.`idlance`)),(select count(0) from (`capturas` `c` join `detalle_capturas` `dc`) where ((`c`.`idlance` = `la`.`idlance`) and (`dc`.`idcaptura` = `c`.`idcaptura`))),NULL) AS `cant_trampas_recuperadas`,`la`.`canastos_procesados` AS `canastos_procesados`,`F_CLUSTER_POR_CANASTO_LANCE`(`la`.`idlance`) AS `cluster_por_canasto`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`la`.`idlance`) AS `porcent_trampas_obs`,`la`.`cod_estado_mar` AS `cod_estado_mar`,`la`.`nudos_viento` AS `nudos_viento`,`la`.`direccion_viento` AS `direccion_viento`,`la`.`comentarios_calado` AS `comentarios_calado`,`la`.`comentarios_virada` AS `comentarios_virada`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),1,0) AS `calada`,if(((`la`.`fecha_ini_virada` is not null) and (`la`.`fecha_fin_virada` is not null)),1,0) AS `virada` from (((`lances` `la` join `mareas` `m` on((`m`.`idmarea` = `la`.`idmarea`))) left join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `la`.`idtipo_trampa`))) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_marcas`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_marcas` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_marcas` AS select `m`.`idmarca` AS `idmarca`,`m`.`idmarea` AS `idmarea`,`m`.`idevento_marca` AS `idevento_marca`,`em`.`nombre` AS `evento`,`m`.`idespecie` AS `idespecie`,concat(`e`.`nombre_vulgar`,' (',`e`.`nombre_cientifico`,')') AS `nombre_vulgar`,concat(`e`.`nombre_cientifico`,' (',`e`.`nombre_vulgar`,')') AS `nombre_cientifico`,`m`.`cod_marca` AS `cod_marca`,`m`.`cod_marca_original` AS `cod_marca_original`,`m`.`fecha` AS `fecha`,`m`.`hora` AS `hora`,`m`.`latitud` AS `latitud`,`m`.`longitud` AS `longitud`,`m`.`profundidad` AS `profundidad`,`m`.`largo` AS `largo`,`m`.`sexo` AS `sexo`,`m`.`idcodigo_caparazon` AS `idcodigo_caparazon`,`m`.`idcodigo_huevos` AS `idcodigo_huevos`,`m`.`porcentaje_huevos` AS `porcentaje_huevos`,`m`.`peso` AS `peso`,`m`.`vivo` AS `vivo`,`m`.`remarcado` AS `remarcado`,`m`.`liberado` AS `liberado`,`m`.`comentarios` AS `comentarios` from ((`marcas` `m` join `especies` `e`) join `eventos_marca` `em`) where ((`e`.`idespecie` = `m`.`idespecie`) and (`em`.`idevento_marca` = `m`.`idevento_marca`)) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_mareas`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_mareas` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_mareas` AS select `m`.`idmarea` AS `idmarea`,concat(`b`.`nombre`,' - Proy. Centolla: ',`m`.`marea_buque`,' - OBS: ',convert(`m`.`nro_marea_inidep` using utf8),'/',convert(`m`.`anio_marea` using utf8)) AS `Marea`,`m`.`nro_marea_inidep` AS `nro_marea_inidep`,`m`.`anio_marea` AS `anio_marea`,`m`.`marea_buque` AS `marea_buque`,`m`.`idbuque` AS `idbuque`,`b`.`nombre` AS `Buque`,`b`.`puerto_registro` AS `puerto_registro`,`b`.`factor_conversion` AS `factor_conversion`,`m`.`capitan` AS `capitan`,`m`.`oficial` AS `oficial`,`m`.`observador` AS `observador`,`m`.`fecha_inicio` AS `fecha_inicio`,`m`.`fecha_zarpada` AS `fecha_zarpada`,`m`.`fecha_arribo` AS `fecha_arribo`,`m`.`fecha_finalizacion` AS `fecha_finalizacion`,`m`.`peso_caja_producto` AS `peso_caja_producto`,`m`.`peso_canasto` AS `peso_canasto`,(select count(distinct `l`.`fecha_ini_virada`) from `lances` `l` where (`l`.`idmarea` = `m`.`idmarea`)) AS `dias_pesca`,(select count(`l`.`nro_lance`) from `lances` `l` where (`l`.`idmarea` = `m`.`idmarea`)) AS `cant_lances` from (`mareas` `m` join `buques` `b`) where (`b`.`idbuque` = `m`.`idbuque`) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_muestras`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_muestras` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_muestras` AS select `m`.`idmuestra` AS `idmuestra`,`m`.`idmarea` AS `idmarea`,`tm`.`codigo` AS `cod_tipo_muestra`,`tm`.`descripcion` AS `tipo_muestra`,`m`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`l`.`investigacion` AS `investigacion`,`l`.`fecha_ini_virada` AS `fecha`,`l`.`hora_ini_virada` AS `hora`,`m`.`idespecie` AS `idespecie`,concat(`e`.`nombre_cientifico`,' (',`e`.`nombre_vulgar`,')') AS `nombre_cientifico`,concat(`e`.`nombre_vulgar`,' (',`e`.`nombre_cientifico`,')') AS `nombre_vulgar`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` < 90))) AS `machos_menor_90`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` between 90 and 109))) AS `machos_90_109`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` >= 110))) AS `machos_mayor_109`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 2) and (`dm`.`largo` < 90))) AS `hembras_menor_90`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 2) and (`dm`.`largo` between 90 and 109))) AS `hembras_90_109`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 2) and (`dm`.`largo` >= 110))) AS `hembras_mayor_109`,`m`.`comentarios` AS `comentarios` from ((((`muestras` `m` left join `lances` `l` on((`l`.`idlance` = `m`.`idlance`))) left join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) join `tipos_muestra` `tm`) join `especies` `e`) where ((`tm`.`idtipo_muestra` = `m`.`idtipo_muestra`) and (`e`.`idespecie` = `m`.`idespecie`)) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_planilla_bycatch`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_planilla_bycatch` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_bycatch` AS select `l`.`idmarea` AS `idmarea`,`l`.`nro_lance` AS `nro_lance`,`e`.`idespecie` AS `idespecie`,`e`.`nombre_vulgar` AS `nombre_vulgar`,concat(`e`.`nombre_vulgar`,' (',`e`.`nombre_cientifico`,')') AS `especie`,`b`.`cantidad` AS `cantidad`,`b`.`peso` AS `peso`,concat(convert(`l`.`nro_lance` using utf8),'AA',`e`.`idespecie`) AS `filtro` from (((`bycatch` `b` join `capturas` `c` on((`c`.`idcaptura` = `b`.`idcaptura`))) join `lances` `l` on((`l`.`idlance` = `c`.`idlance`))) join `especies` `e` on((`e`.`idespecie` = `b`.`idespecie`))) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_planilla_capturas`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_planilla_capturas` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_capturas` AS select `la`.`idmarea` AS `idmarea`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`dc`.`nro_orden` AS `nro_orden`,`dc`.`cant_trampas` AS `cant_trampas`,`tt`.`cant_aros` AS `cant_aros`,`ep`.`codigo` AS `estado_puerta`,`et`.`codigo` AS `estado_trampa`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie1`)) AS `nomb_cient_especie1`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie2`)) AS `nomb_cient_especie2`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie3`)) AS `nomb_cient_especie3`,`dc`.`total_especie1` AS `total_especie1`,`dc`.`comerciales_especie1` AS `comerciales_especie1`,`dc`.`total_especie2` AS `total_especie2`,`dc`.`comerciales_especie2` AS `comerciales_especie2`,`dc`.`total_especie3` AS `total_especie3`,`dc`.`comerciales_especie3` AS `comerciales_especie3` from ((((((`detalle_capturas` `dc` join `capturas` `c` on((`c`.`idcaptura` = `dc`.`idcaptura`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `dc`.`idtipo_trampa`))) left join `estados_puerta` `ep` on((`ep`.`idestado_puerta` = `dc`.`idestado_puerta`))) left join `estados_trampa` `et` on((`et`.`idestado_trampa` = `dc`.`idestado_trampa`))) join `lances` `la` on((`la`.`idlance` = `c`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_planilla_datos_puente`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_planilla_datos_puente` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_datos_puente` AS select `l`.`idmarea` AS `idmarea`,`l`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`l`.`nro_boya` AS `nro_boya`,`l`.`rumbo_calado` AS `rumbo`,if((`l`.`investigacion` = 1),'S','N') AS `investigacion`,if(exists(select 1 from `capturas` `c` where (`c`.`idlance` = `l`.`idlance`)),(select sum(`dc`.`cant_trampas`) from (`capturas` `c` join `detalle_capturas` `dc`) where ((`c`.`idlance` = `l`.`idlance`) and (`dc`.`idcaptura` = `c`.`idcaptura`))),`l`.`cant_trampas_caladas`) AS `cant_trampas`,`F_CANT_TRAMPAS_PESCANDO_LANCE`(`l`.`idlance`) AS `trampas_pescando`,`l`.`distancia_entre_trampas` AS `distancia_entre_trampas`,`ca`.`descripcion` AS `carnada`,`l`.`kg_carnada` AS `kg_carnada`,`l`.`fecha_ini_calado` AS `fecha_ini_calado`,`l`.`hora_ini_calado` AS `hora_ini_calado`,cast(concat(`l`.`fecha_ini_calado`,' ',`l`.`hora_ini_calado`) as datetime) AS `fecha_hora_ini_calado`,cast(concat(`l`.`fecha_fin_calado`,' ',`l`.`hora_fin_calado`) as datetime) AS `fecha_hora_fin_calado`,`l`.`profundidad_ini_calado` AS `prof_ini_calado`,`l`.`profundidad_fin_calado` AS `prof_fin_calado`,round((((-(1) * (floor((`l`.`long_ini_calado` / 100)) + ((((`l`.`long_ini_calado` / 100) - floor((`l`.`long_ini_calado` / 100))) * 100) / 60))) + (-(1) * (floor((`l`.`long_fin_calado` / 100)) + ((((`l`.`long_fin_calado` / 100) - floor((`l`.`long_fin_calado` / 100))) * 100) / 60)))) / 2),4) AS `long_prom_calado_dec`,round((((-(1) * (floor((`l`.`lat_ini_calado` / 100)) + ((((`l`.`lat_ini_calado` / 100) - floor((`l`.`lat_ini_calado` / 100))) * 100) / 60))) + (-(1) * (floor((`l`.`lat_fin_calado` / 100)) + ((((`l`.`lat_fin_calado` / 100) - floor((`l`.`lat_fin_calado` / 100))) * 100) / 60)))) / 2),4) AS `lat_prom_calado_dec`,`l`.`fecha_fin_virada` AS `fecha_fin_virada`,`l`.`hora_fin_virada` AS `hora_fin_virada`,cast(concat(`l`.`fecha_ini_virada`,' ',`l`.`hora_ini_virada`) as datetime) AS `fecha_hora_ini_virada`,cast(concat(`l`.`fecha_fin_virada`,' ',`l`.`hora_fin_virada`) as datetime) AS `fecha_hora_fin_virada`,(`l`.`lat_ini_calado` / 100) AS `lat_ini_calado`,(`l`.`long_ini_calado` / 100) AS `long_ini_calado`,(`l`.`lat_fin_calado` / 100) AS `lat_fin_calado`,(`l`.`long_fin_calado` / 100) AS `long_fin_calado`,(`l`.`lat_ini_virada` / 100) AS `lat_ini_virada`,(`l`.`long_ini_virada` / 100) AS `long_ini_virada`,(`l`.`lat_fin_virada` / 100) AS `lat_fin_virada`,(`l`.`long_fin_virada` / 100) AS `long_fin_virada`,`l`.`profundidad_ini_virada` AS `prof_ini_virada`,`l`.`profundidad_fin_virada` AS `prof_fin_virada`,hour(timediff(coalesce(concat(`l`.`fecha_ini_virada`,' ',`l`.`hora_ini_virada`),`m`.`fecha_arribo`,now()),concat(`l`.`fecha_fin_calado`,' ',`l`.`hora_fin_calado`))) AS `horas_pesca`,round((hour(timediff(coalesce(concat(`l`.`fecha_ini_virada`,' ',`l`.`hora_ini_virada`),`m`.`fecha_arribo`,now()),concat(`l`.`fecha_fin_calado`,' ',`l`.`hora_fin_calado`))) / 24),1) AS `dias_pesca`,`c`.`centolla_total` AS `centolla_total`,`c`.`centolla_comercial` AS `centolla_comercial`,`c`.`arania_total` AS `arania_total`,`l`.`canastos_procesados` AS `canastos_procesados`,coalesce(`l`.`cluster_por_canasto`,if(((`l`.`canastos_procesados` is not null) and (`l`.`canastos_procesados` > 0)),floor(((`centolla`.`f_cant_comerciales_lance`(`l`.`idlance`) * 2) / `l`.`canastos_procesados`)),NULL)) AS `cluster_por_canasto`,`c`.`trampas_con_fallo` AS `trampas_con_fallo`,`c`.`cant_con_aro` AS `trampas_con_aro`,`c`.`trampas_sin_puerta` AS `trampas_sin_puerta`,`F_CAPTURA_POR_TRAMPA_LANCE`(`l`.`idlance`) AS `captura_por_trampa`,`F_COMERCIALES_POR_TRAMPA_LANCE`(`l`.`idlance`) AS `comerciales_por_trampa`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`l`.`idlance`) AS `porcent_trampas_obs`,if(exists(select 1 from `muestras` `mu` where (`mu`.`idlance` = `l`.`idlance`)),'S','N') AS `muestra`,concat_ws(' | ',if((trim(`l`.`comentarios_calado`) = ''),NULL,`l`.`comentarios_calado`),if((trim(`l`.`comentarios_virada`) = ''),NULL,`l`.`comentarios_virada`)) AS `comentarios`,`ee`.`idenvio_email` AS `idenvio_email`,`ee`.`fecha` AS `fecha_envio`,`ee`.`fecha_ini_produccion` AS `fecha_ini_produccion`,`ee`.`fecha_fin_produccion` AS `fecha_fin_produccion` from ((((((`lances` `l` join `mareas` `m` on((`m`.`idmarea` = `l`.`idmarea`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) left join `v_capturas_resumen` `c` on((`c`.`idlance` = `l`.`idlance`))) left join `carnadas` `ca` on((`ca`.`idcarnada` = `l`.`idcarnada`))) left join `detalle_envios_email` `dem` on((`dem`.`idlance` = `l`.`idlance`))) left join `envios_email` `ee` on((`ee`.`idenvio_email` = `dem`.`idenvio_email`))) where ((`l`.`fecha_ini_virada` is not null) and (`l`.`fecha_fin_virada` is not null)) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_planilla_factores_conversion`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_planilla_factores_conversion` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_factores_conversion` AS select `fc`.`idfactor_conversion` AS `idfactor_conversion`,`fc`.`idmarea` AS `idmarea`,`fc`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`l`.`fecha_ini_virada` AS `fecha`,`fc`.`peso_entero` AS `peso_entero`,`fc`.`pc_crudo` AS `pc_crudo`,`fc`.`pg_crudo` AS `pg_crudo`,`fc`.`pc_cocido` AS `pc_cocido`,`fc`.`pg_cocido` AS `pg_cocido`,`fc`.`pc_congelado` AS `pc_congelado`,`fc`.`pg_congelado` AS `pg_congelado`,`fc`.`pc_descongelado` AS `pc_descongelado`,`fc`.`pg_descongelado` AS `pg_descongelado`,`fc`.`comentarios` AS `comentarios` from (`factores_conversion` `fc` join `lances` `l` on((`l`.`idlance` = `fc`.`idlance`))) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_planilla_marcas`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_planilla_marcas` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_marcas` AS select `m`.`idmarca` AS `idmarca`,`m`.`idmarea` AS `idmarea`,`em`.`nombre` AS `evento`,`m`.`idespecie` AS `idespecie`,concat(`e`.`nombre_vulgar`,' (',`e`.`nombre_cientifico`,')') AS `nombre_vulgar`,concat(`e`.`nombre_cientifico`,' (',`e`.`nombre_vulgar`,')') AS `nombre_cientifico`,`m`.`cod_marca` AS `cod_marca`,`m`.`cod_marca_original` AS `cod_marca_original`,cast(concat(`m`.`fecha`,' ',`m`.`hora`) as datetime) AS `fecha_hora`,(`m`.`latitud` / 100) AS `latitud`,(`m`.`longitud` / 100) AS `longitud`,`m`.`profundidad` AS `profundidad`,`m`.`largo` AS `largo`,`m`.`sexo` AS `sexo`,`cc`.`codigo` AS `codigo_caparazon`,`ch`.`codigo` AS `codigo_huevos`,`m`.`porcentaje_huevos` AS `porcentaje_huevos`,`m`.`peso` AS `peso`,if((`m`.`vivo` = 1),'S','N') AS `vivo`,if((`m`.`remarcado` = 1),'S','N') AS `remarcado`,if((`m`.`liberado` = 1),'S','N') AS `liberado`,`m`.`comentarios` AS `comentarios`,`m`.`enviado` AS `enviado` from ((((`marcas` `m` join `especies` `e`) join `eventos_marca` `em`) join `codigos_caparazon` `cc` on((`m`.`idcodigo_caparazon` = `cc`.`idcodigo_caparazon`))) left join `codigos_huevos` `ch` on((`ch`.`idcodigo_huevos` = `m`.`idcodigo_huevos`))) where ((`e`.`idespecie` = `m`.`idespecie`) and (`em`.`idevento_marca` = `m`.`idevento_marca`)) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_planilla_muestras`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_planilla_muestras` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_muestras` AS select `l`.`idmarea` AS `idmarea`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`dm`.`nro_ejemplar` AS `nro_ejemplar`,`tt`.`codigo` AS `cod_tipo_trampa`,`tt`.`cant_aros` AS `cant_aros`,`dm`.`largo` AS `largo`,`dm`.`sexo` AS `sexo`,`cc`.`codigo` AS `estado_caparazon`,`ch`.`codigo` AS `codigo_huevos`,`dm`.`porcentaje_huevos` AS `porcentaje_huevos` from (((((((`muestras` `m` left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `m`.`idtipo_trampa`))) join `detalle_muestras` `dm`) join `tipos_muestra` `tm` on((`tm`.`idtipo_muestra` = `m`.`idtipo_muestra`))) join `lances` `l` on((`l`.`idlance` = `m`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) left join `codigos_huevos` `ch` on((`ch`.`idcodigo_huevos` = `dm`.`idcodigo_huevos`))) join `codigos_caparazon` `cc` on((`cc`.`idcodigo_caparazon` = `dm`.`idcodigo_caparazon`))) where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`tm`.`es_submuestra` = 0) and (`tm`.`es_relac_morf` = 0)) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_planilla_produccion`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_planilla_produccion` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_produccion` AS select `pf`.`idmarea` AS `idmarea`,`pf`.`fecha` AS `fecha`,`pf`.`tot_cajas` AS `tot_cajas`,`pf`.`tot_kilos` AS `tot_kilos`,`pf`.`p1` AS `p1`,`pf`.`cajas_p1` AS `cajas_p1`,`pf`.`kilos_p1` AS `kilos_p1`,`pf`.`p2` AS `p2`,`pf`.`cajas_p2` AS `cajas_p2`,`pf`.`kilos_p2` AS `kilos_p2`,`pf`.`p3` AS `p3`,`pf`.`cajas_p3` AS `cajas_p3`,`pf`.`kilos_p3` AS `kilos_p3`,`pf`.`p4` AS `p4`,`pf`.`cajas_p4` AS `cajas_p4`,`pf`.`kilos_p4` AS `kilos_p4`,`pf`.`p5` AS `p5`,`pf`.`cajas_p5` AS `cajas_p5`,`pf`.`kilos_p5` AS `kilos_p5`,`pf`.`p6` AS `p6`,`pf`.`cajas_p6` AS `cajas_p6`,`pf`.`kilos_p6` AS `kilos_p6`,`pf`.`p7` AS `p7`,`pf`.`cajas_p7` AS `cajas_p7`,`pf`.`kilos_p7` AS `kilos_p7`,`pf`.`p8` AS `p8`,`pf`.`cajas_p8` AS `cajas_p8`,`pf`.`kilos_p8` AS `kilos_p8`,`pf`.`p9` AS `p9`,`pf`.`cajas_p9` AS `cajas_p9`,`pf`.`kilos_p9` AS `kilos_p9`,`pf`.`p10` AS `p10`,`pf`.`cajas_p10` AS `cajas_p10`,`pf`.`kilos_p10` AS `kilos_p10` from `v_produccion_por_fecha` `pf` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_planilla_relac_morf`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_planilla_relac_morf` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_relac_morf` AS select `m`.`idmuestra` AS `idmuestra`,`m`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`l`.`fecha_ini_virada` AS `fecha`,concat(`e`.`nombre_cientifico`,' (',`e`.`nombre_vulgar`,')') AS `especie`,`m`.`idespecie` AS `idespecie`,`dm`.`nro_ejemplar` AS `nro_ejemplar`,`dm`.`largo` AS `largo`,`dm`.`peso` AS `peso`,`dm`.`pata_1_d_mero` AS `pata_1_d_mero`,`dm`.`pata_1_d_entera` AS `pata_1_d_entera`,`dm`.`pata_2_d_mero` AS `pata_2_d_mero`,`dm`.`pata_2_d_entera` AS `pata_2_d_entera`,`dm`.`pata_3_d_mero` AS `pata_3_d_mero`,`dm`.`pata_3_d_entera` AS `pata_3_d_entera`,`dm`.`pata_1_i_mero` AS `pata_1_i_mero`,`dm`.`pata_1_i_entera` AS `pata_1_i_entera`,`dm`.`pata_2_i_mero` AS `pata_2_i_mero`,`dm`.`pata_2_i_entera` AS `pata_2_i_entera`,`dm`.`pata_3_i_mero` AS `pata_3_i_mero`,`dm`.`pata_3_i_entera` AS `pata_3_i_entera`,`m`.`comentarios` AS `comentarios` from (((((`muestras` `m` join `tipos_muestra` `tm` on((`tm`.`idtipo_muestra` = `m`.`idtipo_muestra`))) join `lances` `l` on((`l`.`idlance` = `m`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) join `detalle_muestras` `dm` on((`dm`.`idmuestra` = `m`.`idmuestra`))) join `especies` `e` on((`e`.`idespecie` = `m`.`idespecie`))) where (`tm`.`es_relac_morf` = 1) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_planilla_submuestras`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_planilla_submuestras` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_submuestras` AS select `m`.`idmarea` AS `idmarea`,`l`.`nro_lance` AS `nro_lance`,`dm`.`nro_ejemplar` AS `nro_ejemplar`,`dm`.`largo` AS `largo`,`dm`.`peso` AS `peso`,`dm`.`sexo` AS `sexo`,`cc`.`codigo` AS `estado_caparazon`,`ch`.`codigo` AS `codigo_huevos`,`dm`.`porcentaje_huevos` AS `porcentaje_huevos` from (((((`muestras` `m` join `detalle_muestras` `dm`) join `tipos_muestra` `tm` on((`tm`.`idtipo_muestra` = `m`.`idtipo_muestra`))) left join `lances` `l` on((`l`.`idlance` = `m`.`idlance`))) left join `codigos_huevos` `ch` on((`ch`.`idcodigo_huevos` = `dm`.`idcodigo_huevos`))) join `codigos_caparazon` `cc` on((`cc`.`idcodigo_caparazon` = `dm`.`idcodigo_caparazon`))) where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`tm`.`es_submuestra` = 1) and (`tm`.`es_relac_morf` = 0)) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_produccion`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_produccion` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_produccion` AS select `p`.`idproduccion` AS `idproduccion`,`p`.`idmarea` AS `idmarea`,`p`.`idproducto` AS `idproducto`,`p`.`fecha` AS `fecha`,`p`.`cant_cajas` AS `cant_cajas`,cast(coalesce(`p`.`kilos`,(`p`.`cant_cajas` * `m`.`peso_caja_producto`),0) as decimal(8,2)) AS `kilos`,`vp`.`codigo` AS `codigo`,`vp`.`detalle` AS `detalle`,`vp`.`orden` AS `orden` from ((`produccion` `p` join `v_productos` `vp`) join `mareas` `m`) where ((`vp`.`idproducto` = `p`.`idproducto`) and (`m`.`idmarea` = `p`.`idmarea`)) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_produccion_por_fecha`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_produccion_por_fecha` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_produccion_por_fecha` AS select `vp`.`idmarea` AS `idmarea`,`vp`.`fecha` AS `fecha`,sum(`vp`.`cant_cajas`) AS `tot_cajas`,sum(`vp`.`kilos`) AS `tot_kilos`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),1,',') AS `p1`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),1,',')))) AS `cajas_p1`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),1,',')))) AS `kilos_p1`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),2,',') AS `p2`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),2,',')))) AS `cajas_p2`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),2,',')))) AS `kilos_p2`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),3,',') AS `p3`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),3,',')))) AS `cajas_p3`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),3,',')))) AS `kilos_p3`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),4,',') AS `p4`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),4,',')))) AS `cajas_p4`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),4,',')))) AS `kilos_p4`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),5,',') AS `p5`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),5,',')))) AS `cajas_p5`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),5,',')))) AS `kilos_p5`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),6,',') AS `p6`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),6,',')))) AS `cajas_p6`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),6,',')))) AS `kilos_p6`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),7,',') AS `p7`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),7,',')))) AS `cajas_p7`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),7,',')))) AS `kilos_p7`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),8,',') AS `p8`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),8,',')))) AS `cajas_p8`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),8,',')))) AS `kilos_p8`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),9,',') AS `p9`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),9,',')))) AS `cajas_p9`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),9,',')))) AS `kilos_p9`,`F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),10,',') AS `p10`,(select sum(`vp2`.`cant_cajas`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),10,',')))) AS `cajas_p10`,(select sum(`vp2`.`kilos`) from `v_produccion` `vp2` where ((`vp2`.`idmarea` = `vp`.`idmarea`) and (`vp2`.`fecha` = `vp`.`fecha`) and (`vp2`.`codigo` = `F_FIELDBYINDEX`((select group_concat(`p`.`codigo` order by `p`.`orden` ASC separator ',') from `productos` `p` where (`p`.`idmarea` = `vp`.`idmarea`)),10,',')))) AS `kilos_p10` from `v_produccion` `vp` group by `vp`.`idmarea`,`vp`.`fecha` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_productos`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_productos` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_productos` AS select `productos`.`idproducto` AS `idproducto`,`productos`.`idmarea` AS `idmarea`,`productos`.`codigo` AS `codigo`,`productos`.`descripcion` AS `descripcion`,`productos`.`orden` AS `orden`,coalesce(concat_ws(',',concat('Clusters ',if((`productos`.`rotos` = 0),'enteros','rotos o incompletos')),if((`productos`.`cod_manchas` = 0),' sin manchas',if((`productos`.`cod_manchas` = 1),' manchados',' muy manchados')),if(((`productos`.`talla_min` is not null) and (`productos`.`talla_max` is not null)),concat(' entre ',format(`productos`.`talla_min`,0),' y ',format(`productos`.`talla_max`,0),' cm'),if((`productos`.`peso_min` is not null),concat(' de más de ',format(`productos`.`talla_min`,0),' cm'),concat(' de menos de ',format(`productos`.`talla_max`,0),' cm'))),if(((`productos`.`peso_min` is not null) and (`productos`.`peso_max` is not null)),concat(' entre ',format(`productos`.`peso_min`,0),' y ',format(`productos`.`peso_max`,0),' g'),if((`productos`.`peso_min` is not null),concat(' de más de ',format(`productos`.`peso_min`,0),' g'),concat(' de menos de ',format(`productos`.`peso_max`,0),' g'))),if(((`productos`.`porcent_carne_min` is not null) and (`productos`.`porcent_carne_max` is not null)),concat(' con carne entre el ',`productos`.`porcent_carne_min`,'% y el ',`productos`.`porcent_carne_max`,'%'),if((`productos`.`porcent_carne_min` is not null),concat(' con más del ',format(`productos`.`porcent_carne_min`,0),'% de carne'),concat(' con menos del ',format(`productos`.`porcent_carne_max`,0),'% de carne'))),if((`productos`.`descripcion` <> ''),concat(' ',lcase(`productos`.`descripcion`)),NULL)),'') AS `detalle` from `productos` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_rendimiento_lineas`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_rendimiento_lineas` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_rendimiento_lineas` AS select `vdc`.`idmarea` AS `idmarea`,`vdc`.`fecha` AS `fecha`,`la`.`nro_lance` AS `nro_lance`,`la`.`nro_linea` AS `nro_linea`,`vdc`.`nro_orden` AS `nro_orden`,`vdc`.`cant_trampas` AS `cant_trampas`,(select floor(avg(`dc1`.`centolla_total`)) from `v_detalle_captura` `dc1` where ((`dc1`.`idcaptura` = `vdc`.`idcaptura`) and (`dc1`.`nro_orden` > (`vdc`.`nro_orden` - 10)) and (`dc1`.`nro_orden` <= `vdc`.`nro_orden`))) AS `total`,(select floor(avg(`dc1`.`centolla_comercial`)) from `v_detalle_captura` `dc1` where ((`dc1`.`idcaptura` = `vdc`.`idcaptura`) and (`dc1`.`nro_orden` > (`vdc`.`nro_orden` - 10)) and (`dc1`.`nro_orden` <= `vdc`.`nro_orden`))) AS `comercial`,(select floor(avg((`dc1`.`centolla_total` - `dc1`.`centolla_comercial`))) from `v_detalle_captura` `dc1` where ((`dc1`.`idcaptura` = `vdc`.`idcaptura`) and (`dc1`.`nro_orden` > (`vdc`.`nro_orden` - 10)) and (`dc1`.`nro_orden` <= `vdc`.`nro_orden`))) AS `no_comercial`,(select floor(avg(`dc1`.`arania`)) from `v_detalle_captura` `dc1` where ((`dc1`.`idcaptura` = `vdc`.`idcaptura`) and (`dc1`.`nro_orden` > (`vdc`.`nro_orden` - 10)) and (`dc1`.`nro_orden` <= `vdc`.`nro_orden`))) AS `arania` from (`v_detalle_captura` `vdc` join `lances` `la` on((`la`.`idlance` = `vdc`.`idlance`))) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_resumen_marea`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_resumen_marea` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_resumen_marea` AS select `fechas`.`idmarea` AS `idmarea`,`fechas`.`fecha` AS `fecha`,(select count(1) from `v_lances_simple` `l` where ((`l`.`idmarea` = `fechas`.`idmarea`) and (`l`.`fecha_ini_calado` = `fechas`.`fecha`))) AS `l_caladas`,(select count(1) from `v_lances_simple` `l` where ((`l`.`idmarea` = `fechas`.`idmarea`) and (`l`.`fecha_fin_virada` = `fechas`.`fecha`))) AS `l_viradas`,(select count(1) from `v_capturas` `cap` where ((`cap`.`idmarea` = `fechas`.`idmarea`) and (`cap`.`fecha` = `fechas`.`fecha`))) AS `m_captura`,(select count(1) from `v_muestras` `mt` where ((`mt`.`idmarea` = `fechas`.`idmarea`) and (`mt`.`fecha` = `fechas`.`fecha`) and (`mt`.`cod_tipo_muestra` = 'M'))) AS `m_tallas` from `v_fechas_marea` `fechas` where (`fechas`.`fecha` is not null) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_tipos_muestra`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_tipos_muestra` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_tipos_muestra` AS select `tm`.`idtipo_muestra` AS `idtipo_muestra`,`tm`.`codigo` AS `codigo`,`tm`.`descripcion` AS `descripcion`,`tm`.`orden` AS `orden`,`tm`.`es_submuestra` AS `es_submuestra`,`tm`.`es_relac_morf` AS `es_relac_morf`,concat(convert(`tm`.`codigo` using utf8),' - ',`tm`.`descripcion`) AS `cod_desc` from `tipos_muestra` `tm` $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+--
+-- Estructura final para la vista `v_tipos_trampa`
+--
+
+DELIMITER $$
+DROP VIEW IF EXISTS `v_tipos_trampa` $$
+SET @saved_cs_client          = @@character_set_client $$
+SET @saved_cs_results         = @@character_set_results $$
+SET @saved_col_connection     = @@collation_connection $$
+SET character_set_client      = utf8 $$
+SET character_set_results     = utf8 $$
+SET collation_connection      = utf8_general_ci $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_tipos_trampa` AS select `tt`.`idtipo_trampa` AS `idtipo_trampa`,`tt`.`idformato_trampa` AS `idformato_trampa`,`tt`.`codigo` AS `codigo`,concat(`ft`.`descripcion`,if(isnull(`tt`.`cant_aros`),' con cantidad variable de aros',concat(if((`tt`.`cant_aros` = 0),' sin',concat(' con ',`tt`.`cant_aros`)),if((`tt`.`cant_aros` = 1),' aro',' aros')))) AS `descripcion`,`tt`.`cant_aros` AS `cant_aros` from (`tipos_trampa` `tt` join `formatos_trampa` `ft` on((`ft`.`idformato_trampa` = `tt`.`idformato_trampa`))) $$
+SET character_set_client      = @saved_cs_client $$
+SET character_set_results     = @saved_cs_results $$
+SET collation_connection      = @saved_col_connection $$
+DELIMITER ;
+
+
+
+
+DELIMITER $$
+SET TIME_ZONE=@OLD_TIME_ZONE $$
+SET SQL_MODE=@OLD_SQL_MODE $$
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS $$
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS $$
+SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT $$
+SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS $$
+SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION $$
+SET SQL_NOTES=@OLD_SQL_NOTES $$
+
+DELIMITER ;
+
+
+-- ----------------------------------------------------
+-- Fin de la copia de seguridad: 04/06/2015 12:28
+-- ----------------------------------------------------
+
+
