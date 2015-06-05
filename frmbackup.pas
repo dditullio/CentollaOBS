@@ -39,13 +39,14 @@ type
     odRestaurar: TOpenDialog;
     paEncabezado: TPanel;
     Panel1: TPanel;
-    Panel2: TPanel;
+    paMensajeEspera: TPanel;
     pcBackup: TPageControl;
     paProceso: TPanel;
     prBackup: TProcessUTF8;
     pbProceso: TProgressBar;
     sbRestaurar: TSpeedButton;
     scRestaurar: TSQLScript;
+    dblRestaurar: TSQLDBLibraryLoader;
     trRestaurar: TSQLTransaction;
     tsRestaurar: TTabSheet;
     tsBackup: TTabSheet;
@@ -58,6 +59,7 @@ type
     zqDatosTabla: TZQuery;
     zqRutinas: TZQuery;
     zqDefRutina: TZQuery;
+    zqTriggers: TZQuery;
     procedure acBackupExecute(Sender: TObject);
     procedure acRestaurarExecute(Sender: TObject);
     procedure ckDatosChange(Sender: TObject);
@@ -88,6 +90,7 @@ type
     procedure CrearPieTablas(var str_sql: TStringList);
     procedure GenerarEstructuraVistas(var str_sql: TStringList);
     procedure CrearRutinas(var str_sql: TStringList);
+    procedure CrearTriggers(var str_sql: TStringList);
     procedure CrearVistasReales(var str_sql: TStringList);
     procedure CrearEncabezadoRutinas(var str_sql: TStringList);
     procedure CrearPieRutinas(var str_sql: TStringList);
@@ -102,88 +105,9 @@ const
     CADENA_TABLAS='TABLAS';
     CADENA_RUTINAS='RUTINAS';
     EXTENSION_ARCH_BACKUP='.obk';
+    INSERT_SIMPLE=0;
+    INSERT_MULTIPLE=1;
 
-    OLD_SET_VAR_ENCABEZADO=
-               '-- -----------------------------------------------------'+NEWLINE+
-               '-- Esquema <ESQUEMA>'+NEWLINE+
-               '-- -----------------------------------------------------'+NEWLINE+
-               ''+NEWLINE+
-               'CREATE SCHEMA IF NOT EXISTS `<ESQUEMA>` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;'+NEWLINE+
-               ''+NEWLINE+
-               'USE `<ESQUEMA>` ;'+NEWLINE+
-               ''+NEWLINE+
-               ''+NEWLINE+
-               '/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;'+NEWLINE+
-                '/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;'+NEWLINE+
-                '/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;'+NEWLINE+
-                '/*!40101 SET NAMES utf8 */;'+NEWLINE+
-                '/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;'+NEWLINE+
-                '/*!40103 SET TIME_ZONE=''+00:00'' */;'+NEWLINE+
-                '/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;'+NEWLINE+
-                '/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;'+NEWLINE+
-                '/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=''NO_AUTO_VALUE_ON_ZERO'' */;'+NEWLINE+
-                '/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;'+NEWLINE;
-
-     OLD_SET_VAR_PIE=
-                '/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;'+NEWLINE+
-                '/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;'+NEWLINE+
-                '/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;'+NEWLINE+
-                '/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;'+NEWLINE+
-                '/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;'+NEWLINE+
-                '/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;'+NEWLINE+
-                '/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;'+NEWLINE+
-                '/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;'+NEWLINE;
-
-     OLD_CREATE_TABLE_TEMPLATE=
-                '--'+NEWLINE+
-                '-- Estructura de la tabla `<TABLA>`'+NEWLINE+
-                '--'+NEWLINE+
-                ''+NEWLINE+
-                'DROP TABLE IF EXISTS `<TABLA>`;'+NEWLINE+
-                '/*!40101 SET @saved_cs_client     = @@character_set_client */;'+NEWLINE+
-                '/*!40101 SET character_set_client = utf8 */;'+NEWLINE+
-                '<SENTENCIA_CREATE_TABLE>;'+NEWLINE+
-                '/*!40101 SET character_set_client = @saved_cs_client */;'+NEWLINE;
-
-     OLD_INSERT_TEMPLATE=
-                '--'+NEWLINE+
-                '-- Volcado de datos de la tabla `<TABLA>`'+NEWLINE+
-                '--'+NEWLINE+
-                'LOCK TABLES `<TABLA>` WRITE;'+NEWLINE+
-                '/*!40000 ALTER TABLE `<TABLA>` DISABLE KEYS */;'+NEWLINE+
-                'REPLACE INTO `<TABLA>` (<CAMPOS>) VALUES <INSERT_VALUES>'+NEWLINE+
-                'INSERT INTO `<TABLA>` (<CAMPOS>) VALUES <INSERT_VALUES>;'+NEWLINE+
-                '/*!40000 ALTER TABLE `<TABLA>` ENABLE KEYS */;'+NEWLINE+
-                'UNLOCK TABLES;'+NEWLINE;
-
-     OLD_CREATE_VIEW_STRUCTURE_TEMPLATE=
-                '--'+NEWLINE+
-                '-- Estructura temporaria para vista `<VISTA>`'+NEWLINE+
-                '--'+NEWLINE+
-                ''+NEWLINE+
-                'DROP TABLE IF EXISTS `<VISTA>`;'+NEWLINE+
-                '/*!50001 DROP VIEW IF EXISTS `<VISTA>`*/;'+NEWLINE+
-                'SET @saved_cs_client     = @@character_set_client;'+NEWLINE+
-                'SET character_set_client = utf8;'+NEWLINE+
-                '/*!50001 CREATE VIEW `<VISTA>` AS SELECT <VIEW_FIELDS>*/;'+NEWLINE+
-                'SET character_set_client = @saved_cs_client;'+NEWLINE;
-
-     OLD_CREATE_VIEW_TEMPLATE=
-                '--'+NEWLINE+
-                '-- Estructura final para la vista `<VISTA>`'+NEWLINE+
-                '--'+NEWLINE+
-                ''+NEWLINE+
-                '/*!50001 DROP VIEW IF EXISTS `<VISTA>`*/;'+NEWLINE+
-                '/*!50001 SET @saved_cs_client          = @@character_set_client */;'+NEWLINE+
-                '/*!50001 SET @saved_cs_results         = @@character_set_results */;'+NEWLINE+
-                '/*!50001 SET @saved_col_connection     = @@collation_connection */;'+NEWLINE+
-                '/*!50001 SET character_set_client      = utf8 */;'+NEWLINE+
-                '/*!50001 SET character_set_results     = utf8 */;'+NEWLINE+
-                '/*!50001 SET collation_connection      = utf8_general_ci */;'+NEWLINE+
-                '/*!50001 <SENTENCIA_CREATE_VIEW> */;'+NEWLINE+
-                '/*!50001 SET character_set_client      = @saved_cs_client */;'+NEWLINE+
-                '/*!50001 SET character_set_results     = @saved_cs_results */;'+NEWLINE+
-                '/*!50001 SET collation_connection      = @saved_col_connection */;'+NEWLINE;
 
      SET_VAR_ENCABEZADO=
                 '-- -----------------------------------------------------'+NEWLINE+
@@ -230,7 +154,21 @@ const
       //Se utiliza la sentencia REPLACE en lugar de INSERT, así, si se ejecuta
       //varias veces no da error de registros duplicados, sino que se reemplazan
       //los existentes y se agregan los nuevos
-      INSERT_TEMPLATE=
+      INSERT_SINGLE_TEMPLATE=
+                 '--'+NEWLINE+
+                 '-- Volcado de datos de la tabla `<TABLA>`'+NEWLINE+
+                 '--'+NEWLINE+
+                 ''+NEWLINE+
+                 'LOCK TABLES `<TABLA>` WRITE;'+NEWLINE+
+                 'ALTER TABLE `<TABLA>` DISABLE KEYS ;'+NEWLINE+
+                 '<SENTENCIAS_INSERT>;'+NEWLINE+
+                 'ALTER TABLE `<TABLA>` ENABLE KEYS ;'+NEWLINE+
+                 'UNLOCK TABLES;'+NEWLINE;
+
+      INSERT_SINGLE_LINE_TEMPLATE=
+                 'REPLACE INTO `<TABLA>` (<CAMPOS>) VALUES <INSERT_VALUES>;'+NEWLINE;
+
+      INSERT_MULTI_TEMPLATE=
                  '--'+NEWLINE+
                  '-- Volcado de datos de la tabla `<TABLA>`'+NEWLINE+
                  '--'+NEWLINE+
@@ -274,6 +212,13 @@ const
                  'SET character_set_client      = @saved_cs_client $$'+NEWLINE+
                  'SET character_set_results     = @saved_cs_results $$'+NEWLINE+
                  'SET collation_connection      = @saved_col_connection $$'+NEWLINE+
+                 'DELIMITER ;'+NEWLINE;
+
+      CREATE_TRIGGER_TEMPLATE=
+                 'DELIMITER $$'+NEWLINE+
+                 'DROP TRIGGER IF EXISTS <TRIGGER> $$'+NEWLINE+
+                 ''+NEWLINE+
+                 '<SENTENCIA_CREATE_TRIGGER> $$'+NEWLINE+
                  'DELIMITER ;'+NEWLINE;
 
 var
@@ -550,8 +495,8 @@ var
 begin
    acRestaurar.Enabled:=False;
    meSQL.Visible:=False;
-   oldCursor:=Cursor;
-   Cursor:=crHourGlass;
+   oldCursor:=paMensajeEspera.Cursor;
+   paMensajeEspera.Cursor:=crHourGlass;
    Application.ProcessMessages;
    restOK:=False;
    if (proc_tablas or proc_rutinas) then
@@ -563,10 +508,9 @@ begin
        conRestaurar.UserName:=dmGeneral.zcDB.User;
        conRestaurar.Password:=dmGeneral.zcDB.Password;
        conRestaurar.DatabaseName:=dmGeneral.zcDB.Database;
+       dblRestaurar.LibraryName:=dmGeneral.zcDB.LibraryLocation;
+       dblRestaurar.Enabled:=True;
        try
-         //Desconecto la base de datos principal para realizar el proceso
-         dmGeneral.zcDB.Connected:=False;
-
          conRestaurar.Connected:= True;
 
          trRestaurar.StartTransaction;
@@ -589,6 +533,7 @@ begin
                sl_rutinas[i]:=StringReplace(sl_rutinas[i], 'DELIMITER $$', '', [rfReplaceAll, rfIgnoreCase]);
                sl_rutinas[i]:=StringReplace(sl_rutinas[i], 'DELIMITER ;', '', [rfReplaceAll, rfIgnoreCase]);
              end;
+             sl_rutinas.SaveToFile('d:\tmp\rutinas.sql');
              scRestaurar.Terminator:='$$';
              scRestaurar.Script.Text:=sl_rutinas.Text;
              scRestaurar.ExecuteScript;
@@ -598,16 +543,21 @@ begin
 
          restOK:=True;
        except
-         trRestaurar.Rollback;
-         MessageDlg('Ocurrió un error al realizar la restauración de la copia de seguridad.', mtError, [mbOK],0);
+         on E:ESQLDatabaseError do
+         begin
+           trRestaurar.Rollback;
+           MessageDlg('Ocurrió un error al realizar la restauración de la copia de seguridad: '+NEWLINE+NEWLINE+E.Message, mtError, [mbOK],0);
+         end;
        end;
        conRestaurar.Connected:=False;
 
-       //Reconecto la base de datos principal
+       //Desconecto y reconecto la base de datos principal
+       dmGeneral.zcDB.Connected:=False;
+       dblRestaurar.Enabled:=False;
        dmGeneral.zcDB.Connect;
 
        meSQL.Visible:=True;
-       Cursor:=oldCursor;
+       paMensajeEspera.Cursor:=oldCursor;
        HabilitarAcciones;
    end;
    Result:=restOK;
@@ -671,6 +621,9 @@ begin
 
        //Segunda pasada de vistas: Para cada vista, creo la estructura final
        CrearVistasReales(str_sql_rutinas);
+
+       //Creación de Triggers
+       CrearTriggers(str_sql_rutinas);
 
        //Finalizo con las variables de cierre
        CrearPieRutinas(str_sql_rutinas);
@@ -788,17 +741,21 @@ var
    sentencia: string;
    insert_values_reg:string;
    insert_values_gral:string;
+   paquete_insert: string;
    campos:string;
    i: integer;
    first_record:boolean;
    first_field:boolean;
    primero:boolean;
+   nro_reg_paquete:Integer;
+   max_reg_paquete: integer=1000;
 begin
-     sentencia:='';
-
      zqDatosTabla.Close;
      zqDatosTabla.SQL.Text:='SELECT * FROM '+tabla;
      zqDatosTabla.Open;
+
+     //Para optimizar el rendimiento y evitar errores en tablas con muchos registros,
+     //hago varios grupos de inserts haciendo paquetes de a <max_reg_paquete> registros
 
      //Si no hay datos, no se genera la sentencia INSERT, se devuelve una cadena vacía
      if zqDatosTabla.RecordCount>0 then
@@ -807,6 +764,10 @@ begin
        //Genero la lista de los nombres de campo
        campos:='';
        primero:=True;
+       paquete_insert:='';
+       sentencia:='';
+
+       //Armo la lista con los nombres de campo
        for i:=0 to  zqDatosTabla.FieldCount-1 do
        begin
          if primero then
@@ -840,17 +801,39 @@ begin
               end;
             end;
             insert_values_reg:=insert_values_reg+')';
+
             if first_record then
             begin
               first_record:=False;
+              nro_reg_paquete:=1;
               insert_values_gral:=insert_values_reg;
             end else
+            begin
               insert_values_gral:=insert_values_gral+','+insert_values_reg;
+              inc(nro_reg_paquete);
+            end;
+
+            //Si alcanzo los <max_reg_paquete> registros, armo un paquete y vuelvo a empezar
+            if nro_reg_paquete>=max_reg_paquete then
+            begin
+              paquete_insert:=StringReplace(INSERT_MULTI_TEMPLATE, '<TABLA>', tabla, [rfReplaceAll, rfIgnoreCase]);
+              paquete_insert:=StringReplace(paquete_insert, '<CAMPOS>', campos, [rfReplaceAll, rfIgnoreCase]);
+              paquete_insert:=StringReplace(paquete_insert, '<INSERT_VALUES>', insert_values_gral, [rfReplaceAll, rfIgnoreCase]);
+              sentencia:=sentencia+paquete_insert;
+              insert_values_gral:='';
+              first_record:=True;
+            end;
+
             Next;
           end;
-          sentencia:=StringReplace(INSERT_TEMPLATE, '<TABLA>', tabla, [rfReplaceAll, rfIgnoreCase]);
-          sentencia:=StringReplace(sentencia, '<CAMPOS>', campos, [rfReplaceAll, rfIgnoreCase]);
-          sentencia:=StringReplace(sentencia, '<INSERT_VALUES>', insert_values_gral, [rfReplaceAll, rfIgnoreCase]);
+          //Si quedan registros en el paquete, los agrego a la sentencia
+          if insert_values_gral<>'' then
+          begin
+            paquete_insert:=StringReplace(INSERT_MULTI_TEMPLATE, '<TABLA>', tabla, [rfReplaceAll, rfIgnoreCase]);
+            paquete_insert:=StringReplace(paquete_insert, '<CAMPOS>', campos, [rfReplaceAll, rfIgnoreCase]);
+            paquete_insert:=StringReplace(paquete_insert, '<INSERT_VALUES>', insert_values_gral, [rfReplaceAll, rfIgnoreCase]);
+            sentencia:=sentencia+paquete_insert;
+          end;
         end;
      end;
      result := sentencia;
@@ -1029,7 +1012,7 @@ begin
      begin
        vista:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
        //Las funciones GIS no son del todo compatibles, así que las salteo
-       if LowerCase(LeftStr(vista, 5))<>'v_gis' then
+       if (LowerCase(LeftStr(vista, 5))<>'v_gis') and (LowerCase(LeftStr(vista, 6))<>'v_geom') then
        begin
          str_sql.Add(CrearEstructuraVista(vista));
          Application.ProcessMessages;
@@ -1071,13 +1054,13 @@ begin
      begin
        drop_rutina:='DELIMITER $$'+NEWLINE+'DROP PROCEDURE IF EXISTS '+zqRutinasroutine_name.AsString+'$$'+NEWLINE+'DELIMITER ;';
           def_rutina:=zqDefRutina.FieldByName('Create Procedure').AsString;
-          def_rutina:=StringReplace(def_rutina, zqRutinasroutine_definition.AsString, 'BEGIN'+NEWLINE+'END$$', [rfReplaceAll, rfIgnoreCase]);;
+          def_rutina:=StringReplace(def_rutina, zqRutinasroutine_definition.AsString, 'BEGIN'+NEWLINE+'END $$', [rfReplaceAll, rfIgnoreCase]);;
      end
      else
      begin
        drop_rutina:='DELIMITER $$'+NEWLINE+'DROP FUNCTION IF EXISTS '+zqRutinasroutine_name.AsString+'$$'+NEWLINE+'DELIMITER ;';
           def_rutina:=zqDefRutina.FieldByName('Create Function').AsString;
-          def_rutina:=StringReplace(def_rutina, zqRutinasroutine_definition.AsString, 'BEGIN'+NEWLINE+'RETURN NULL;'+NEWLINE+'END$$', [rfReplaceAll, rfIgnoreCase]);;
+          def_rutina:=StringReplace(def_rutina, zqRutinasroutine_definition.AsString, 'BEGIN'+NEWLINE+'RETURN NULL;'+NEWLINE+'END $$', [rfReplaceAll, rfIgnoreCase]);;
      end;
 
      //por una cuestión estética, fuerzo el nombre de la rutina a minúsculas
@@ -1135,6 +1118,44 @@ begin
    end;
 end;
 
+procedure TfmBackup.CrearTriggers(var str_sql: TStringList);
+var
+   trigger: string;
+   sentencia: string;
+begin
+   //Obtengo los triggers de la base de datos
+   zqTriggers.Close;
+   zqTriggers.Open;
+
+   str_sql.Add(NEWLINE);
+   str_sql.Add('-- -------- --');
+   str_sql.Add('-- Triggers --');
+   str_sql.Add('-- -------- --');
+   str_sql.Add('');
+
+   //Para cada trigger, armo la sentencia de creación
+   with zqTriggers do
+   begin
+     First;
+     while not EOF do
+     begin
+
+       trigger:=zqTriggers.FieldByName('Trigger').AsString;
+
+       zqGetCreate.Close;
+       zqGetCreate.SQL.Text:='SHOW CREATE TRIGGER '+trigger;
+       zqGetCreate.Open;
+       sentencia:=StringReplace(CREATE_TRIGGER_TEMPLATE, '<TRIGGER>', trigger, [rfReplaceAll, rfIgnoreCase]);
+       sentencia:=StringReplace(sentencia, '<SENTENCIA_CREATE_TRIGGER>', zqGetCreate.FieldByName('SQL Original Statement').AsString, [rfReplaceAll, rfIgnoreCase]);
+       str_sql.Add(sentencia);
+
+       Application.ProcessMessages;
+       Next;
+     end;
+   end;
+   str_sql.Add(NEWLINE);
+end;
+
 procedure TfmBackup.CrearVistasReales(var str_sql: TStringList);
 var
    vista: string;
@@ -1146,7 +1167,7 @@ begin
      begin
        vista:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
        //Las funciones GIS no son del todo compatibles, así que las salteo
-       if LowerCase(LeftStr(vista, 5))<>'v_gis' then
+       if (LowerCase(LeftStr(vista, 5))<>'v_gis') and (LowerCase(LeftStr(vista, 6))<>'v_geom') then
        begin
          str_sql.Add(SentenciaCreateView(vista));
          str_sql.Add('');

@@ -311,7 +311,7 @@ object fmBackup: TfmBackup
         Caption = 'Vista preliminar del archivo:'
         ParentColor = False
       end
-      object Panel2: TPanel
+      object paMensajeEspera: TPanel
         Left = 0
         Height = 115
         Top = 85
@@ -401,7 +401,7 @@ object fmBackup: TfmBackup
     WindowTop = 0
     WindowWidth = 0
     FillAttribute = 0
-    left = 85
+    left = 45
     top = 15
   end
   object zqTablasYVistas: TZQuery
@@ -416,7 +416,7 @@ object fmBackup: TfmBackup
         Name = 'tipo'
         ParamType = ptUnknown
       end>
-    left = 120
+    left = 80
     top = 15
     ParamData = <    
       item
@@ -518,7 +518,7 @@ object fmBackup: TfmBackup
   object odRestaurar: TOpenDialog
     Title = 'Abrir un archivo de copia de seguridad'
     Options = [ofFileMustExist, ofEnableSizing, ofViewDetail]
-    left = 55
+    left = 15
     top = 15
   end
   object auzBackup: TAbUnZipper
@@ -526,6 +526,7 @@ object fmBackup: TfmBackup
     top = 45
   end
   object scRestaurar: TSQLScript
+    DataBase = conRestaurar
     Transaction = trRestaurar
     Directives.Strings = (
       'SET TERM'
@@ -558,8 +559,23 @@ object fmBackup: TfmBackup
     Connected = False
     LoginPrompt = False
     KeepConnection = False
-    Transaction = trRestaurar
     left = 20
+    top = 255
+  end
+  object zqTriggers: TZQuery
+    Connection = dmGeneral.zcDB
+    SQL.Strings = (
+      'SHOW TRIGGERS'
+    )
+    Params = <>
+    left = 120
+    top = 15
+  end
+  object dblRestaurar: TSQLDBLibraryLoader
+    Enabled = False
+    ConnectionType = 'MySQL 5.5'
+    LibraryName = 'libmysql.dll'
+    left = 200
     top = 255
   end
 end

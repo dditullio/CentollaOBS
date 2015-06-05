@@ -384,7 +384,7 @@ begin
             xls.Quit;
             xls := Unassigned;
           end;
-          Close;
+          //Close;
       end;
     end;
   end;
