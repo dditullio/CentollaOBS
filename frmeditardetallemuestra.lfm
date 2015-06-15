@@ -190,7 +190,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
       end
       object tsRelacMorf: TTabSheet
         Caption = 'Relaciones morfométricas'
-        ClientHeight = 237
+        ClientHeight = 239
         ClientWidth = 385
         object gbDerecha: TGroupBox
           Left = 85
@@ -230,7 +230,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p1dm: TDBEdit
             Left = 6
-            Height = 25
+            Height = 23
             Top = 28
             Width = 72
             DataField = 'pata_1_d_mero'
@@ -241,7 +241,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p2dm: TDBEdit
             Left = 80
-            Height = 25
+            Height = 23
             Top = 28
             Width = 72
             DataField = 'pata_2_d_mero'
@@ -252,7 +252,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p3dm: TDBEdit
             Left = 150
-            Height = 25
+            Height = 23
             Top = 28
             Width = 72
             DataField = 'pata_3_d_mero'
@@ -263,7 +263,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p1de: TDBEdit
             Left = 6
-            Height = 25
+            Height = 23
             Top = 56
             Width = 72
             DataField = 'pata_1_d_entera'
@@ -274,7 +274,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p2de: TDBEdit
             Left = 78
-            Height = 25
+            Height = 23
             Top = 56
             Width = 72
             DataField = 'pata_2_d_entera'
@@ -285,7 +285,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p3de: TDBEdit
             Left = 150
-            Height = 25
+            Height = 23
             Top = 56
             Width = 72
             DataField = 'pata_3_d_entera'
@@ -297,9 +297,9 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object Label4: TLabel
           Left = 5
-          Height = 17
+          Height = 15
           Top = 55
-          Width = 32
+          Width = 30
           Caption = 'Mero'
           Font.Style = [fsBold]
           ParentColor = False
@@ -307,9 +307,9 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object Label5: TLabel
           Left = 5
-          Height = 17
+          Height = 15
           Top = 83
-          Width = 70
+          Width = 64
           Caption = 'Pata entera'
           Font.Style = [fsBold]
           ParentColor = False
@@ -317,9 +317,9 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object Label6: TLabel
           Left = 5
-          Height = 17
+          Height = 15
           Top = 170
-          Width = 32
+          Width = 30
           Caption = 'Mero'
           Font.Style = [fsBold]
           ParentColor = False
@@ -327,9 +327,9 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object Label7: TLabel
           Left = 5
-          Height = 17
+          Height = 15
           Top = 198
-          Width = 70
+          Width = 64
           Caption = 'Pata entera'
           Font.Style = [fsBold]
           ParentColor = False
@@ -373,7 +373,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p1im: TDBEdit
             Left = 6
-            Height = 25
+            Height = 23
             Top = 28
             Width = 72
             DataField = 'pata_1_i_mero'
@@ -384,7 +384,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p2im: TDBEdit
             Left = 78
-            Height = 25
+            Height = 23
             Top = 28
             Width = 72
             DataField = 'pata_2_i_mero'
@@ -395,7 +395,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p3im: TDBEdit
             Left = 150
-            Height = 25
+            Height = 23
             Top = 28
             Width = 72
             DataField = 'pata_3_i_mero'
@@ -406,7 +406,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p1ie: TDBEdit
             Left = 6
-            Height = 25
+            Height = 23
             Top = 56
             Width = 72
             DataField = 'pata_1_i_entera'
@@ -417,7 +417,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p2ie: TDBEdit
             Left = 78
-            Height = 25
+            Height = 23
             Top = 56
             Width = 72
             DataField = 'pata_2_i_entera'
@@ -428,7 +428,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           end
           object dbed_p3ie: TDBEdit
             Left = 150
-            Height = 25
+            Height = 23
             Top = 56
             Width = 72
             DataField = 'pata_3_i_entera'

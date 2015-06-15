@@ -349,7 +349,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
             ShortCut = 16451
             Enabled = True
           end>
-        OptionsRx = [rdgAllowColumnsForm, rdgAllowDialogFind, rdgAllowQuickFilter]
+        OptionsRx = [rdgAllowColumnsForm]
         AutoFillColumns = True
         Color = clWindow
         DrawFullLine = False
@@ -1230,6 +1230,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
   object zqExpLances: TZQuery[13]
     Connection = dmGeneral.zcDB
     BeforeOpen = zqExpLancesBeforeOpen
+    OnCalcFields = zqExpLancesCalcFields
     CachedUpdates = True
     SQL.Strings = (
       'SELECT pdp.* '
@@ -1330,7 +1331,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       Required = False
     end
     object zqExpLancescant_trampas: TLargeintField
-      DisplayLabel = 'Cant.Trampas'
+      DisplayLabel = 'Trampas totales'
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'cant_trampas'
@@ -1339,13 +1340,44 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      DisplayFormat = '###'
     end
-    object zqExpLancestrampas_pescando: TLongintField
-      DisplayLabel = 'Trampas pescando'
+    object zqExpLancestrampas_sin_aro: TFloatField
+      DisplayLabel = 'Trampas sin aros'
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'trampas_pescando'
+      FieldName = 'trampas_sin_aro'
       Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '###'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 8
+    end
+    object zqExpLancestrampas_con_3_aros: TFloatField
+      DisplayLabel = 'Trampas con 3 aros'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'trampas_con_3_aros'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '###'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 8
+    end
+    object zqExpLancesotras_trampas: TLongintField
+      DisplayLabel = 'Otros tipos de trampa'
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'otras_trampas'
+      Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1356,7 +1388,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'trampas_con_fallo'
-      Index = 9
+      Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1367,7 +1399,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'distancia_entre_trampas'
-      Index = 10
+      Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1378,7 +1410,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 180
       FieldKind = fkData
       FieldName = 'carnada'
-      Index = 11
+      Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1390,7 +1422,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'kg_carnada'
-      Index = 12
+      Index = 14
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1403,7 +1435,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_ini_calado'
-      Index = 13
+      Index = 15
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1414,7 +1446,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'hora_ini_calado'
-      Index = 14
+      Index = 16
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1426,7 +1458,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_hora_ini_calado'
-      Index = 15
+      Index = 17
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1438,7 +1470,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_hora_fin_calado'
-      Index = 16
+      Index = 18
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1450,7 +1482,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_ini_calado'
-      Index = 17
+      Index = 19
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1465,7 +1497,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_ini_calado'
-      Index = 18
+      Index = 20
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1480,7 +1512,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_fin_calado'
-      Index = 19
+      Index = 21
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1495,7 +1527,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_fin_calado'
-      Index = 20
+      Index = 22
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1510,7 +1542,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_prom_calado_dec'
-      Index = 21
+      Index = 23
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1525,7 +1557,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_prom_calado_dec'
-      Index = 22
+      Index = 24
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1540,7 +1572,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'profundidad_ini_calado'
-      Index = 23
+      Index = 25
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1551,7 +1583,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'profundidad_fin_calado'
-      Index = 24
+      Index = 26
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1561,7 +1593,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_fin_virada'
-      Index = 25
+      Index = 27
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1572,7 +1604,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'hora_fin_virada'
-      Index = 26
+      Index = 28
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1584,7 +1616,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_hora_ini_virada'
-      Index = 27
+      Index = 29
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1596,7 +1628,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_hora_fin_virada'
-      Index = 28
+      Index = 30
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1608,7 +1640,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_ini_virada'
-      Index = 29
+      Index = 31
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1623,7 +1655,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_ini_virada'
-      Index = 30
+      Index = 32
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1638,7 +1670,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_fin_virada'
-      Index = 31
+      Index = 33
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1653,7 +1685,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_fin_virada'
-      Index = 32
+      Index = 34
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1668,7 +1700,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'prof_ini_virada'
-      Index = 33
+      Index = 35
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1679,7 +1711,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'prof_fin_virada'
-      Index = 34
+      Index = 36
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1690,7 +1722,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'horas_pesca'
-      Index = 35
+      Index = 37
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1701,7 +1733,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'dias_pesca'
-      Index = 36
+      Index = 38
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1710,12 +1742,26 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       MinValue = 0
       Precision = 5
     end
+    object zqExpLancesporcent_trampas_obs: TFloatField
+      DisplayLabel = '% trampas observadas'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcent_trampas_obs'
+      Index = 39
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 7
+    end
     object zqExpLancescentolla_total: TLongintField
       DisplayLabel = 'Centolla total'
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'centolla_total'
-      Index = 37
+      Index = 40
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1726,51 +1772,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'centolla_comercial'
-      Index = 38
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqExpLancesarania_total: TLongintField
-      DisplayLabel = 'Cang. araña'
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'arania_total'
-      Index = 39
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqExpLancescanastos_procesados: TLongintField
-      DisplayLabel = 'Canastos proc.'
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'canastos_procesados'
-      Index = 40
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqExpLancescluster_por_canasto: TLargeintField
-      DisplayLabel = 'Cluster x canasto'
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'cluster_por_canasto'
       Index = 41
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqExpLancestrampas_con_aro: TLargeintField
-      DisplayLabel = 'Trampas con aros'
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'trampas_con_aro'
-      Index = 42
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1781,7 +1783,35 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'captura_por_trampa'
+      Index = 42
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 8
+    end
+    object zqExpLancescaptura_por_trampa_sin_aros: TFloatField
+      DisplayLabel = 'Captura x trampa s/aros'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'captura_por_trampa_sin_aros'
       Index = 43
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 8
+    end
+    object zqExpLancescaptura_por_trampa_3_aros: TFloatField
+      DisplayLabel = 'Captura x trampa c/3 aros'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'captura_por_trampa_3_aros'
+      Index = 44
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1795,7 +1825,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'comerciales_por_trampa'
-      Index = 44
+      Index = 45
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1804,26 +1834,45 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       MinValue = 0
       Precision = 8
     end
-    object zqExpLancesporcent_trampas_obs: TFloatField
-      DisplayLabel = '% trampas observadas'
+    object zqExpLancesarania_total: TLongintField
+      DisplayLabel = 'Cang. araña'
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'porcent_trampas_obs'
-      Index = 45
+      FieldName = 'arania_total'
+      Index = 46
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      MaxValue = 0
-      MinValue = 0
-      Precision = 7
+    end
+    object zqExpLancescanastos_procesados: TLongintField
+      DisplayLabel = 'Canastos proc.'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'canastos_procesados'
+      Index = 47
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqExpLancescluster_por_canasto: TLargeintField
+      DisplayLabel = 'Cluster x canasto'
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'cluster_por_canasto'
+      Index = 48
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
     end
     object zqExpLancesmuestra: TStringField
       DisplayLabel = 'Muestra'
       DisplayWidth = 4
       FieldKind = fkData
       FieldName = 'muestra'
-      Index = 46
+      Index = 49
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1835,7 +1884,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'comentarios'
-      Index = 47
+      Index = 50
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1847,7 +1896,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'idenvio_email'
-      Index = 48
+      Index = 51
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1858,7 +1907,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_envio'
-      Index = 49
+      Index = 52
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1869,7 +1918,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_ini_produccion'
-      Index = 50
+      Index = 53
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1880,7 +1929,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_fin_produccion'
-      Index = 51
+      Index = 54
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False

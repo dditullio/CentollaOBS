@@ -62,6 +62,8 @@ type
     zqExpLancescanastos_procesados: TLongintField;
     zqExpLancescant_trampas: TLargeintField;
     zqExpLancescaptura_por_trampa: TFloatField;
+    zqExpLancescaptura_por_trampa_3_aros: TFloatField;
+    zqExpLancescaptura_por_trampa_sin_aros: TFloatField;
     zqExpLancescarnada: TStringField;
     zqExpLancescentolla_comercial: TLongintField;
     zqExpLancescentolla_total: TLongintField;
@@ -101,15 +103,16 @@ type
     zqExpLancesnro_boya: TLongintField;
     zqExpLancesnro_lance: TLongintField;
     zqExpLancesorden_virada: TLargeintField;
+    zqExpLancesotras_trampas: TLongintField;
     zqExpLancesporcent_trampas_obs: TFloatField;
     zqExpLancesprofundidad_fin_calado: TLongintField;
     zqExpLancesprofundidad_ini_calado: TLongintField;
     zqExpLancesprof_fin_virada: TLongintField;
     zqExpLancesprof_ini_virada: TLongintField;
     zqExpLancesrumbo: TLongintField;
-    zqExpLancestrampas_con_aro: TLargeintField;
+    zqExpLancestrampas_con_3_aros: TFloatField;
     zqExpLancestrampas_con_fallo: TLargeintField;
-    zqExpLancestrampas_pescando: TLongintField;
+    zqExpLancestrampas_sin_aro: TFloatField;
     zqLances: TZQuery;
     zqLancescalada: TLongintField;
     zqLancescanastos_procesados: TLongintField;
@@ -219,6 +222,7 @@ type
     procedure zqDetalleEnviosBeforeOpen(DataSet: TDataSet);
     procedure zqDetalleEnviosNewRecord(DataSet: TDataSet);
     procedure zqExpLancesBeforeOpen(DataSet: TDataSet);
+    procedure zqExpLancesCalcFields(DataSet: TDataSet);
     procedure zqLancesBeforeOpen(DataSet: TDataSet);
     procedure zqLancesPendientesBeforeOpen(DataSet: TDataSet);
     procedure zqPrincipalNewRecord(DataSet: TDataSet);
@@ -312,6 +316,11 @@ begin
   zqExpLances.ParamByName('idenvio_email').Value:=zqPrincipalidenvio_email.Value;
 end;
 
+procedure TFmEditarEnviosEmail.zqExpLancesCalcFields(DataSet: TDataSet);
+begin
+    zqExpLancesotras_trampas.AsInteger:=zqExpLancescant_trampas.AsInteger-zqExpLancestrampas_sin_aro.AsInteger-zqExpLancestrampas_con_3_aros.AsInteger;
+end;
+
 procedure TFmEditarEnviosEmail.acExportarLancesExecute(Sender: TObject);
 var
   xls: olevariant;
@@ -393,7 +402,7 @@ end;
 procedure TFmEditarEnviosEmail.ExportarTXT;
 var
   s:TStringList;
-  tmp, archivo, archivo_zip, str_enc:string;
+  tmp_str, tmp_fld, archivo, archivo_zip, str_enc:string;
   i:integer;
   OLD_DC:char;
 begin
@@ -423,7 +432,7 @@ begin
           end;
           //Elimino el ";" final
           if RightStr(str_enc,1)=';' then
-             tmp:=LeftStr(str_enc,Length(str_enc)-1);
+             tmp_str:=LeftStr(str_enc,Length(str_enc)-1);
           s.Add(str_enc);
 
           max_fecha_lance:=-1;
@@ -445,16 +454,22 @@ begin
                  max_fecha_lance:=zqExpLancesfecha_hora_fin_virada.AsDateTime;
               //Concateno el valor de todos los campos
               //Sólo se incluyen los campos "Visibles"
-              tmp:='';
+              tmp_str:='';
               for i:=0 to Fields.Count-1 do
               begin
                 if Fields[i].Visible then
-                   tmp:=tmp+Fields[i].AsString+';';
+                begin
+                  if (not Fields[i].IsNull) and (Fields[i] is TFloatField) then
+                     tmp_fld:=FormatFloat('##.####', Fields[i].Value)
+                  else
+                     tmp_fld:=Fields[i].AsString;
+                  tmp_str:=tmp_str+tmp_fld+';';
+                end;
               end;
               //Elimino el ";" final
-              if RightStr(tmp,1)=';' then
-                 tmp:=LeftStr(tmp,Length(tmp)-1);
-              s.Add(Trim(tmp));
+              if RightStr(tmp_str,1)=';' then
+                 tmp_str:=LeftStr(tmp_str,Length(tmp_str)-1);
+              s.Add(Trim(tmp_str));
               Next;
             end;
             paProceso.Visible:=False;
@@ -481,34 +496,34 @@ begin
              //Armo la línea de encabezado
              s.Add('');
              s.Add('Producción:');
-             tmp:='Fecha;';
+             tmp_str:='Fecha;';
              for i:=1 to 10 do
              begin
                if FieldByName('p'+IntToStr(i)).AsString<>'' then
                begin
-                 tmp:=tmp+'Cajas '+FieldByName('p'+IntToStr(i)).AsString+';';
-                 tmp:=tmp+'Kilos '+FieldByName('p'+IntToStr(i)).AsString+';';
+                 tmp_str:=tmp_str+'Cajas '+FieldByName('p'+IntToStr(i)).AsString+';';
+                 tmp_str:=tmp_str+'Kilos '+FieldByName('p'+IntToStr(i)).AsString+';';
                end;
              end;
-             tmp:=tmp+'Total Cajas;Total Kilos';
-             s.Add(tmp);
+             tmp_str:=tmp_str+'Total Cajas;Total Kilos';
+             s.Add(tmp_str);
              while not EOF do
              begin
                pbProceso.Position:=RecNo;
                Application.ProcessMessages;
-               tmp:=FieldByName('fecha').AsString+';';
+               tmp_str:=FieldByName('fecha').AsString+';';
                //Agrego los valores siempre que exista el producto
                for i:=1 to 10 do
                begin
                  if FieldByName('p'+IntToStr(i)).AsString<>'' then
                  begin
-                   tmp:=tmp+FieldByName('cajas_p'+IntToStr(i)).AsString+';';
-                   tmp:=tmp+FieldByName('kilos_p'+IntToStr(i)).AsString+';';
+                   tmp_str:=tmp_str+FieldByName('cajas_p'+IntToStr(i)).AsString+';';
+                   tmp_str:=tmp_str+FieldByName('kilos_p'+IntToStr(i)).AsString+';';
                  end;
                end;
-               tmp:=tmp+FieldByName('tot_cajas').AsString+';';
-               tmp:=tmp+FieldByName('tot_kilos').AsString;
-               s.Add(Trim(tmp));
+               tmp_str:=tmp_str+FieldByName('tot_cajas').AsString+';';
+               tmp_str:=tmp_str+FieldByName('tot_kilos').AsString;
+               s.Add(Trim(tmp_str));
                Next;
              end;
              paProceso.Visible:=False;
@@ -565,7 +580,7 @@ const
   XLCENTER=-4108;
   PWD='proyectocentolla';
 var
-  tmp:WideString;
+  tmp, tmp_fld:WideString;
   archivo:string;
   i:integer;
   fila, columna: integer;
@@ -620,9 +635,10 @@ begin
           begin
             if Fields[i].Visible then
             begin
-              //Verifico el tipo de campo para que queden mien en el excel
+              //Verifico el tipo de campo para que queden bien en el excel
+              //Si es numérico, redondeo a un máximo de 4 dígitos
               if Fields[i] is TNumericField then
-                 xls.Cells[fila, columna] := Fields[i].AsFloat
+                 xls.Cells[fila, columna] := Round(Fields[i].AsFloat*10000)/10000
               else if Fields[i] is TDateTimeField then
                  xls.Cells[fila, columna] := Fields[i].AsDateTime
               else

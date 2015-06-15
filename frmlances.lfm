@@ -26,13 +26,8 @@ inherited fmLances: TfmLances
         inherited paBuscador: TPanel
           Width = 945
           ClientWidth = 945
-          inherited laBuscar: TLabel
-            Height = 15
-            Width = 35
-          end
           inherited edBuscar: TEdit
             Left = 344
-            Height = 23
             Width = 566
           end
           inherited bbBuscar: TBitBtn
@@ -468,7 +463,7 @@ inherited fmLances: TfmLances
             FooterOptions.Active = True
             FooterOptions.Color = clBtnFace
             FooterOptions.RowCount = 1
-            OptionsRx = [rdgDblClickOptimizeColWidth, rdgFooterRows, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgFooterRows, rdgCaseInsensitiveSort]
             FooterColor = clBtnFace
             FooterRowCount = 1
             DataSource = dsLances
@@ -495,6 +490,7 @@ inherited fmLances: TfmLances
     end
   end
   inherited zcgLista: TZControladorGrilla
+    SeleccionarUltimo = True
     ControlEdicion = fmEditarLances.zcePrincipal
     MostrarBotonExportar = True
     ZDataset = zqLances

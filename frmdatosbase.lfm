@@ -390,7 +390,7 @@ inherited fmDatosBase: TfmDatosBase
                 ShortCut = 16451
                 Enabled = True
               end>
-            OptionsRx = [rdgDblClickOptimizeColWidth, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgCaseInsensitiveSort]
             Align = alTop
             Anchors = [akTop, akLeft, akRight, akBottom]
             AutoAdvance = aaNone
@@ -803,7 +803,7 @@ inherited fmDatosBase: TfmDatosBase
                 ShortCut = 16451
                 Enabled = True
               end>
-            OptionsRx = [rdgDblClickOptimizeColWidth, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgCaseInsensitiveSort]
             Align = alTop
             Anchors = [akTop, akLeft, akRight, akBottom]
             AutoAdvance = aaNone
@@ -1202,7 +1202,7 @@ inherited fmDatosBase: TfmDatosBase
                 ShortCut = 16451
                 Enabled = True
               end>
-            OptionsRx = [rdgDblClickOptimizeColWidth, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgCaseInsensitiveSort]
             Align = alTop
             Anchors = [akTop, akLeft, akRight, akBottom]
             AutoAdvance = aaNone
@@ -1615,7 +1615,7 @@ inherited fmDatosBase: TfmDatosBase
                 ShortCut = 16451
                 Enabled = True
               end>
-            OptionsRx = [rdgDblClickOptimizeColWidth, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgCaseInsensitiveSort]
             Align = alTop
             Anchors = [akTop, akLeft, akRight, akBottom]
             AutoAdvance = aaNone
@@ -1712,6 +1712,7 @@ inherited fmDatosBase: TfmDatosBase
     BotonEditar = bbEditar
     BotonExportar = bbExportarLineas
     BotonEliminar = bbEliminar
+    SeleccionarUltimo = False
     Grilla = dbgLineas
     MostrarBotonExportar = True
     ZDataset = zqLineas
@@ -1841,6 +1842,7 @@ inherited fmDatosBase: TfmDatosBase
     BotonEditar = bbEditar1
     BotonExportar = bbExportarProductos
     BotonEliminar = bbEliminar1
+    SeleccionarUltimo = False
     ControlEdicion = fmEditarProductos.zcePrincipal
     Grilla = dbgProductos
     MostrarBotonExportar = True
@@ -2030,6 +2032,7 @@ inherited fmDatosBase: TfmDatosBase
     BotonEditar = bbEditar2
     BotonExportar = bbExportarCarnadas
     BotonEliminar = bbEliminar2
+    SeleccionarUltimo = False
     ControlEdicion = fmEditarCarnada.zcePrincipal
     Grilla = dbgCarnadas
     MostrarBotonExportar = True
@@ -2117,6 +2120,7 @@ inherited fmDatosBase: TfmDatosBase
     BotonEditar = bbEditar3
     BotonExportar = bbExportarTiposTrampa
     BotonEliminar = bbEliminar3
+    SeleccionarUltimo = False
     ControlEdicion = fmEditarTiposTrampa.zcePrincipal
     Grilla = dbgTiposTrampa
     MostrarBotonExportar = True

@@ -717,6 +717,21 @@ inherited dmCapturas: TdmCapturas
       ReadOnly = False
       Required = False
     end
+    object zqDetCapturadsc_abrev: TStringField
+      DisplayWidth = 68
+      FieldKind = fkLookup
+      FieldName = 'dsc_abrev'
+      Index = 25
+      KeyFields = 'idtipo_trampa'
+      LookupCache = False
+      LookupDataSet = zqTiposTrampa
+      LookupKeyFields = 'idtipo_trampa'
+      LookupResultField = 'dsc_abrev'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 68
+    end
   end
   object zqTiposTrampa: TZQuery[5]
     Connection = dmGeneral.zcDB
@@ -779,6 +794,17 @@ inherited dmCapturas: TdmCapturas
       ReadOnly = True
       Required = False
       Size = 212
+    end
+    object zqTiposTrampadsc_abrev: TStringField
+      DisplayWidth = 68
+      FieldKind = fkData
+      FieldName = 'dsc_abrev'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 68
     end
   end
   object zqEstadosPuerta: TZQuery[6]

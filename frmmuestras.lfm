@@ -1,23 +1,24 @@
 inherited fmMuestras: TfmMuestras
-  Height = 472
+  Height = 501
+  Top = 132
   Width = 616
   Caption = 'Muestras'
-  ClientHeight = 472
+  ClientHeight = 501
   ClientWidth = 616
   inherited paBase: TPanel
-    Height = 472
+    Height = 501
     Width = 616
-    ClientHeight = 472
+    ClientHeight = 501
     ClientWidth = 616
     inherited paContenido: TPanel
-      Height = 454
+      Height = 483
       Width = 616
-      ClientHeight = 454
+      ClientHeight = 483
       ClientWidth = 616
       inherited paLista: TPanel
-        Height = 454
+        Height = 483
         Width = 385
-        ClientHeight = 454
+        ClientHeight = 483
         ClientWidth = 385
         inherited paBuscador: TPanel
           Width = 385
@@ -35,24 +36,24 @@ inherited fmMuestras: TfmMuestras
           end
         end
         inherited paGrilla: TPanel
-          Height = 400
+          Height = 429
           Width = 375
-          ClientHeight = 400
+          ClientHeight = 429
           ClientWidth = 375
           inherited bbEliminar: TBitBtn
             Left = 108
-            Top = 369
+            Top = 398
           end
           inherited bbAgregar: TBitBtn
             Left = 197
-            Top = 369
+            Top = 398
           end
           inherited bbEditar: TBitBtn
             Left = 286
-            Top = 369
+            Top = 398
           end
           inherited dbgLista: TRxDBGrid
-            Height = 369
+            Height = 398
             Width = 375
             Columns = <            
               item
@@ -170,21 +171,21 @@ inherited fmMuestras: TfmMuestras
             DataSource = dsMuestras
           end
           inherited bbExportar: TBitBtn
-            Top = 369
+            Top = 398
           end
         end
       end
       inherited paDetalles: TPanel
         Left = 385
-        Height = 454
+        Height = 483
         Width = 231
-        ClientHeight = 454
+        ClientHeight = 483
         ClientWidth = 231
         Visible = True
         object Chart1: TChart[0]
           Left = 0
-          Height = 149
-          Top = 36
+          Height = 164
+          Top = 20
           Width = 231
           AxisList = <          
             item
@@ -245,7 +246,7 @@ inherited fmMuestras: TfmMuestras
         end
         object Panel1: TPanel[1]
           Left = 0
-          Height = 36
+          Height = 20
           Top = 0
           Width = 231
           Align = alTop
@@ -256,7 +257,7 @@ inherited fmMuestras: TfmMuestras
         object lsepEjempTalla: TLSExpandPanel[2]
           Left = 0
           Height = 114
-          Top = 340
+          Top = 369
           Width = 231
           Align = alBottom
           ChildSizing.ControlsPerLine = 3
@@ -440,7 +441,7 @@ inherited fmMuestras: TfmMuestras
         object paTitLP: TPanel[3]
           Left = 0
           Height = 15
-          Top = 185
+          Top = 184
           Width = 231
           Align = alBottom
           Caption = 'Largo - peso'
@@ -450,7 +451,7 @@ inherited fmMuestras: TfmMuestras
         object Chart2: TChart[4]
           Left = 0
           Height = 140
-          Top = 200
+          Top = 199
           Width = 231
           AxisList = <          
             item
@@ -488,6 +489,62 @@ inherited fmMuestras: TfmMuestras
             Source = dbcsLargoPeso
           end
         end
+        object Panel2: TPanel[5]
+          Left = 0
+          Height = 30
+          Top = 339
+          Width = 231
+          Align = alBottom
+          BevelOuter = bvNone
+          ChildSizing.TopBottomSpacing = 5
+          ChildSizing.HorizontalSpacing = 5
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 4
+          ClientHeight = 30
+          ClientWidth = 231
+          Color = clBtnFace
+          ParentColor = False
+          TabOrder = 5
+          object Label7: TLabel
+            Left = 0
+            Height = 15
+            Top = 5
+            Width = 63
+            Caption = 'Ejemplares:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtTotales: TDBText
+            Left = 68
+            Height = 15
+            Top = 5
+            Width = 56
+            DataField = 'ejemplares_totales'
+            DataSource = dsMuestras
+            ParentColor = False
+          end
+          object Label8: TLabel
+            Left = 129
+            Height = 15
+            Top = 5
+            Width = 70
+            Caption = 'Comerciales:'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object dbtComerciales: TDBText
+            Left = 204
+            Height = 15
+            Top = 5
+            Width = 83
+            DataField = 'comerciales'
+            DataSource = dsMuestras
+            ParentColor = False
+          end
+        end
       end
     end
     inherited paComando: TPanel
@@ -500,6 +557,7 @@ inherited fmMuestras: TfmMuestras
     end
   end
   inherited zcgLista: TZControladorGrilla
+    SeleccionarUltimo = True
     ControlEdicion = fmEditarMuestras.zcePrincipal
     MostrarBotonExportar = True
     ZDataset = zqMuestras
@@ -747,6 +805,26 @@ inherited fmMuestras: TfmMuestras
       FieldKind = fkData
       FieldName = 'orden_virada'
       Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqMuestrasejemplares_totales: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ejemplares_totales'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqMuestrascomerciales: TLargeintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'comerciales'
+      Index = 21
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False

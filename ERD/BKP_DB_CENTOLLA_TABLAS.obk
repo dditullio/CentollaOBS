@@ -1,7 +1,7 @@
 -- ---------------------------------------------
--- Tablas y datos de la base de datos "Centolla"
--- Generado desde la aplicación "CentollaOBS"
--- Fecha y hora de resguardo: 04/06/2015 12:28
+-- Tablas y datos de la base de datos "centolla"
+-- Generado desde la aplicación "Centolla OBS"
+-- Fecha y hora de resguardo: 15/06/2015 00:59
 -- ---------------------------------------------
 
 -- -----------------------------------------------------
@@ -581,7 +581,6 @@ CREATE TABLE `muestras` (
   `idespecie` int(11) NOT NULL,
   `comentarios` varchar(256) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idmuestra`),
-  UNIQUE KEY `idlance_UNIQUE` (`idtipo_muestra`,`idlance`),
   KEY `fk_muestras_lances1_idx` (`idlance`),
   KEY `fk_muestras_especies1_idx` (`idespecie`),
   KEY `fk_muestras_tipos_muestra1_idx` (`idtipo_muestra`),
@@ -713,7 +712,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES ;
 
 
 -- ----------------------------------------------------
--- Fin de la copia de seguridad: 04/06/2015 12:28
+-- Fin de la copia de seguridad: 15/06/2015 00:59
 -- ----------------------------------------------------
 
 

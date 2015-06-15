@@ -180,6 +180,12 @@ end;
 
 procedure TfmEditarDetalleMuestra.dbedPorcentHuevosExit(Sender: TObject);
 begin
+  if (not dmMuestras.zqDetalleMuestrasporcentaje_huevos.IsNull) and ((dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsFloat<0) or (dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsFloat>100)) then
+  begin
+    MessageDlg('EL porcentaje de huevos debe estar comprendido entre 0 y 100', mtError, [mbOK], 0);
+    if dbedPorcentHuevos.CanFocus then
+       dbedPorcentHuevos.SetFocus;
+  end;
   if dmMuestras.zqDetalleMuestras.State in [dsInsert, dsEdit] then
   begin
     if (dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsString<>'') and (round(dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value/5)*5<>dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value) then

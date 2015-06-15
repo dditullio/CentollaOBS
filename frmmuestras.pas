@@ -6,9 +6,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, TAGraph, TADbSource, TASeries, TAStyles,
-  TAMultiSeries, LSControls, rxdbgrid, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, Buttons, ActnList, StdCtrls, DbCtrls, frmlistabase, db, ZDataset,
-  zcontroladorgrilla, datGeneral;
+  TAMultiSeries, LSControls, rxdbgrid, Forms, Controls, Graphics,
+  Dialogs, ExtCtrls, Buttons, ActnList, StdCtrls, DbCtrls, frmlistabase, db,
+  ZDataset, zcontroladorgrilla, datGeneral;
 
 type
 
@@ -26,6 +26,8 @@ type
     chsTallasMachos: TDbChartSource;
     chsTallasHembras: TDbChartSource;
     dbcsLargoPeso: TDbChartSource;
+    dbtTotales: TDBText;
+    dbtComerciales: TDBText;
     dsLargoPeso: TDataSource;
     dbtm_men_90: TDBText;
     dbth_men_90: TDBText;
@@ -44,16 +46,21 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
     lsepEjempTalla: TLSExpandPanel;
     lsepEjempTallaButton: TImage;
     lsepEjempTallaPanel: TLSTopPanel;
     Panel1: TPanel;
     paEjempTalla: TPanel;
+    Panel2: TPanel;
     paTitLP: TPanel;
     zqMarcasTallas: TZQuery;
     zqMuestras: TZQuery;
     zqMuestrascod_tipo_muestra: TStringField;
     zqMuestrascomentarios: TStringField;
+    zqMuestrascomerciales: TLargeintField;
+    zqMuestrasejemplares_totales: TLargeintField;
     zqMuestrasfecha: TDateField;
     zqMuestrashembras_90_109: TLargeintField;
     zqMuestrashembras_mayor_109: TLargeintField;
@@ -108,8 +115,8 @@ begin
     zqTallas.ParamByName('idmuestra').Value:=zqMuestrasidmuestra.Value;
     zqTallas.Open;
 
-    Chart2.Visible:=zqMuestrascod_tipo_muestra.AsString='S';
-    paTitLP.Visible:=zqMuestrascod_tipo_muestra.AsString='S';
+    Chart2.Visible:=zqMuestrascod_tipo_muestra.AsString='L';
+    paTitLP.Visible:=zqMuestrascod_tipo_muestra.AsString='L';
 
     zqLargoPeso.Close;
     zqLargoPeso.ParamByName('idmuestra').Value:=zqMuestrasidmuestra.Value;

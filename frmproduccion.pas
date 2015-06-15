@@ -85,6 +85,7 @@ type
     procedure zqProductosAfterOpen(DataSet: TDataSet);
     procedure zqProductosBeforeOpen(DataSet: TDataSet);
   private
+    procedure EstablecerRangoFechas;
     { private declarations }
   public
     { public declarations }
@@ -117,23 +118,7 @@ end;
 
 procedure TfmProduccion.FormShow(Sender: TObject);
 begin
-  zqFechas.Close;
-  zqFechas.Open;
-  if zqFechasfecha_ini.IsNull then
-  begin
-     if dmGeneral.zqMareaActivafecha_zarpada.IsNull then
-        dtFecha_ini.Date:=NullDate
-     else
-       dtFecha_ini.Date:=dmGeneral.zqMareaActivafecha_zarpada.AsDateTime;
-  end
-  else
-    dtFecha_ini.Date:=zqFechasfecha_ini.AsDateTime;
-
-  if zqFechasfecha_fin.IsNull then
-     dtFecha_fin.Date:=Date
-  else
-    dtFecha_fin.Date:=zqFechasfecha_fin.AsDateTime;
-
+  EstablecerRangoFechas;
   inherited;
 end;
 
@@ -149,6 +134,7 @@ end;
 
 procedure TfmProduccion.zqProdFechaBeforeOpen(DataSet: TDataSet);
 begin
+  EstablecerRangoFechas;
   zqProdFecha.ParamByName('idmarea').Value:=dmGeneral.IdMareaActiva;
   if dtFecha_ini.Date<>NullDate then
     zqProdFecha.ParamByName('fecha_ini').AsDateTime:=dtFecha_ini.Date;
@@ -166,6 +152,7 @@ end;
 
 procedure TfmProduccion.zqProduccionBeforeOpen(DataSet: TDataSet);
 begin
+  EstablecerRangoFechas;
   zqProduccion.ParamByName('idmarea').Value:=dmGeneral.IdMareaActiva;
   if dtFecha_ini.Date<>NullDate then
      zqProduccion.ParamByName('fecha_ini').AsDateTime:=dtFecha_ini.Date;
@@ -197,6 +184,26 @@ end;
 procedure TfmProduccion.zqProductosBeforeOpen(DataSet: TDataSet);
 begin
   zqProductos.ParamByName('idmarea').Value:=dmGeneral.IdMareaActiva;
+end;
+
+procedure TfmProduccion.EstablecerRangoFechas;
+begin
+  zqFechas.Close;
+  zqFechas.Open;
+  if zqFechasfecha_ini.IsNull then
+  begin
+     if dmGeneral.zqMareaActivafecha_zarpada.IsNull then
+        dtFecha_ini.Date:=NullDate
+     else
+       dtFecha_ini.Date:=dmGeneral.zqMareaActivafecha_zarpada.AsDateTime;
+  end
+  else
+    dtFecha_ini.Date:=zqFechasfecha_ini.AsDateTime;
+
+  if zqFechasfecha_fin.IsNull then
+     dtFecha_fin.Date:=Date
+  else
+    dtFecha_fin.Date:=zqFechasfecha_fin.AsDateTime;
 end;
 
 end.

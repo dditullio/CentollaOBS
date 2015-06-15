@@ -409,7 +409,7 @@ end;
 
 procedure TfmMareaAExcel.GenerarDatosPuente(xls: olevariant; Password: WideString);
 const
-  PRIM_COL_ESPECIES=41;
+  PRIM_COL_ESPECIES=44;
 var
   tmp: WideString;
   fila, columna: integer;
@@ -442,74 +442,127 @@ begin
     Fila := 5;//Arranco en la fila 5 porque antes están los títulos
     while not EOF do
     begin
-      xls.Cells[fila, 1] := FieldByName('orden_virada').AsInteger;
-      xls.Cells[fila, 2] := FieldByName('nro_boya').AsInteger;
+      columna:=1;
+      xls.Cells[fila, columna] := FieldByName('orden_virada').AsInteger;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('nro_boya').AsInteger;
+      inc(columna);
       tmp := UTF8Decode(FieldByName('investigacion').AsString);
-      xls.Cells[fila, 3] := tmp;
+      xls.Cells[fila, columna] := tmp;
+      inc(columna);
       if not FieldByName('rumbo').IsNull then
-        xls.Cells[fila, 4] := FieldByName('rumbo').AsInteger;
+        xls.Cells[fila, columna] := FieldByName('rumbo').AsInteger;
+      inc(columna);
       if not FieldByName('cant_trampas').IsNull then
-        xls.Cells[fila, 5] := FieldByName('cant_trampas').AsInteger;
-      if not FieldByName('trampas_pescando').IsNull then
-        xls.Cells[fila, 6] := FieldByName('trampas_pescando').AsInteger;
+        xls.Cells[fila, columna] := FieldByName('cant_trampas').AsInteger;
+      inc(columna);
+      if not FieldByName('trampas_sin_aro').IsNull then
+        xls.Cells[fila, columna] := FieldByName('trampas_sin_aro').AsInteger;
+      inc(columna);
+      if not FieldByName('trampas_con_3_aros').IsNull then
+        xls.Cells[fila, columna] := FieldByName('trampas_con_3_aros').AsInteger;
+      inc(columna);
+      //Calculo la cantidad de trampas de otro tipo
+      xls.Cells[fila, columna] := FieldByName('cant_trampas').AsInteger-
+                        FieldByName('trampas_sin_aro').AsInteger-
+                        FieldByName('trampas_con_3_aros').AsInteger;
+      inc(columna);
       if not FieldByName('trampas_con_fallo').IsNull then
-        xls.Cells[fila, 7] := FieldByName('trampas_con_fallo').AsInteger;
-      xls.Cells[fila, 8] := FieldByName('distancia_entre_trampas').AsInteger;
+        xls.Cells[fila, columna] := FieldByName('trampas_con_fallo').AsInteger;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('distancia_entre_trampas').AsInteger;
+      inc(columna);
       if not FieldByName('carnada').IsNull then
       begin
         tmp := UTF8Decode(FieldByName('carnada').AsString);
-        xls.Cells[fila, 9] := tmp;
+        xls.Cells[fila, columna] := tmp;
       end;
+      inc(columna);
       if not FieldByName('kg_carnada').IsNull then
-        xls.Cells[fila, 10] := FieldByName('kg_carnada').AsFloat;
-      xls.Cells[fila, 11] := FieldByName('fecha_hora_ini_calado').AsDateTime;
-      xls.Cells[fila, 12] := FieldByName('fecha_hora_fin_calado').AsDateTime;
-      xls.Cells[fila, 13] := FieldByName('lat_ini_calado').AsFloat;
-      xls.Cells[fila, 14] := FieldByName('long_ini_calado').AsFloat;
-      xls.Cells[fila, 15] := FieldByName('lat_fin_calado').AsFloat;
-      xls.Cells[fila, 16] := FieldByName('long_fin_calado').AsFloat;
-      xls.Cells[fila, 17] := FieldByName('lat_prom_calado_dec').AsFloat;
-      xls.Cells[fila, 18] := FieldByName('long_prom_calado_dec').AsFloat;
-      xls.Cells[fila, 19] := FieldByName('prof_ini_calado').AsInteger;
-      xls.Cells[fila, 20] := FieldByName('prof_fin_calado').AsInteger;
+        xls.Cells[fila, columna] := FieldByName('kg_carnada').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('fecha_hora_ini_calado').AsDateTime;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('fecha_hora_fin_calado').AsDateTime;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('lat_ini_calado').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('long_ini_calado').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('lat_fin_calado').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('long_fin_calado').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('lat_prom_calado_dec').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('long_prom_calado_dec').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('prof_ini_calado').AsInteger;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('prof_fin_calado').AsInteger;
+      inc(columna);
 
-      xls.Cells[fila, 21] := FieldByName('fecha_hora_ini_virada').AsDateTime;
-      xls.Cells[fila, 22] := FieldByName('fecha_hora_fin_virada').AsDateTime;
-      xls.Cells[fila, 23] := FieldByName('lat_ini_virada').AsFloat;
-      xls.Cells[fila, 24] := FieldByName('long_ini_virada').AsFloat;
-      xls.Cells[fila, 25] := FieldByName('lat_fin_virada').AsFloat;
-      xls.Cells[fila, 26] := FieldByName('long_fin_virada').AsFloat;
-      xls.Cells[fila, 27] := FieldByName('prof_ini_virada').AsInteger;
-      xls.Cells[fila, 28] := FieldByName('prof_fin_virada').AsInteger;
+      xls.Cells[fila, columna] := FieldByName('fecha_hora_ini_virada').AsDateTime;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('fecha_hora_fin_virada').AsDateTime;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('lat_ini_virada').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('long_ini_virada').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('lat_fin_virada').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('long_fin_virada').AsFloat;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('prof_ini_virada').AsInteger;
+      inc(columna);
+      xls.Cells[fila, columna] := FieldByName('prof_fin_virada').AsInteger;
+      inc(columna);
       if not FieldByName('dias_pesca').IsNull then
-        xls.Cells[fila, 29] := FieldByName('dias_pesca').AsFloat;
+        xls.Cells[fila, columna] := FieldByName('dias_pesca').AsFloat;
+      inc(columna);
       if not FieldByName('porcent_trampas_obs').IsNull then
-        xls.Cells[fila, 30] := FieldByName('porcent_trampas_obs').AsFloat;
+        xls.Cells[fila, columna] := FieldByName('porcent_trampas_obs').AsFloat;
+      inc(columna);
       if not FieldByName('centolla_total').IsNull then
-        xls.Cells[fila, 31] := FieldByName('centolla_total').AsInteger;
+        xls.Cells[fila, columna] := FieldByName('centolla_total').AsInteger;
+      inc(columna);
       if not FieldByName('centolla_comercial').IsNull then
-        xls.Cells[fila, 32] := FieldByName('centolla_comercial').AsInteger;
+        xls.Cells[fila, columna] := FieldByName('centolla_comercial').AsInteger;
+      inc(columna);
 
       if not FieldByName('captura_por_trampa').IsNull then
-        xls.Cells[fila, 33] := FieldByName('captura_por_trampa').AsFloat;
+        xls.Cells[fila, columna] := FieldByName('captura_por_trampa').AsFloat;
+      inc(columna);
+      if not FieldByName('captura_por_trampa_sin_aros').IsNull then
+        xls.Cells[fila, columna] := FieldByName('captura_por_trampa_sin_aros').AsFloat;
+      inc(columna);
+      if not FieldByName('captura_por_trampa_3_aros').IsNull then
+        xls.Cells[fila, columna] := FieldByName('captura_por_trampa_3_aros').AsFloat;
+      inc(columna);
+
       if not FieldByName('comerciales_por_trampa').IsNull then
-        xls.Cells[fila, 34] := FieldByName('comerciales_por_trampa').AsFloat;
+        xls.Cells[fila, columna] := FieldByName('comerciales_por_trampa').AsFloat;
+      inc(columna);
 
       if not FieldByName('arania_total').IsNull then
-        xls.Cells[fila, 35] := FieldByName('arania_total').AsInteger;
+        xls.Cells[fila, columna] := FieldByName('arania_total').AsInteger;
+      inc(columna);
       if not FieldByName('canastos_procesados').IsNull then
-        xls.Cells[fila, 36] := FieldByName('canastos_procesados').AsInteger;
+        xls.Cells[fila, columna] := FieldByName('canastos_procesados').AsInteger;
+      inc(columna);
       if (not FieldByName('cluster_por_canasto').IsNull) and (FieldByName('cluster_por_canasto').AsInteger>0) then
-        xls.Cells[fila, 37] := FieldByName('cluster_por_canasto').AsInteger;
-      if not FieldByName('trampas_con_aro').IsNull then
-        xls.Cells[fila, 38] := FieldByName('trampas_con_aro').AsInteger;
+        xls.Cells[fila, columna] := FieldByName('cluster_por_canasto').AsInteger;
+      inc(columna);
       if not FieldByName('muestra').IsNull then
       begin
         tmp := UTF8Decode(FieldByName('muestra').AsString);
-        xls.Cells[fila, 39] := tmp;
+        xls.Cells[fila, columna] := tmp;
       end;
+      inc(columna);
       tmp := UTF8Decode(FieldByName('comentarios').AsString);
-      xls.Cells[fila, 40] := tmp;
+      xls.Cells[fila, columna] := tmp;
+      inc(columna);
 
       // Recorro las especies. Filtro por lance y agrego si es necesario.
       Columna:=PRIM_COL_ESPECIES;
@@ -565,8 +618,11 @@ begin
     begin
       xls.Cells[fila, 2] := FieldByName('orden_virada').AsInteger;
       xls.Cells[fila, 3] := FieldByName('cant_trampas').AsInteger;
-      if not FieldByName('cant_aros').IsNull then
-        xls.Cells[fila, 4] := FieldByName('cant_aros').AsInteger;
+      if not FieldByName('dsc_tipo_trampa').IsNull then
+      begin
+        tmp := UTF8Decode(FieldByName('dsc_tipo_trampa').AsString);
+        xls.Cells[fila, 4] := tmp;
+      end;
       //if not FieldByName('estado_puerta').IsNull then
       //  xls.Cells[fila, 5] := FieldByName('estado_puerta').AsInteger;
       if not FieldByName('estado_trampa').IsNull then

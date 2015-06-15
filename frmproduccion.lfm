@@ -24,13 +24,8 @@ inherited fmProduccion: TfmProduccion
         inherited paBuscador: TPanel
           Width = 580
           ClientWidth = 580
-          inherited laBuscar: TLabel
-            Height = 15
-            Width = 35
-          end
           inherited edBuscar: TEdit
             Left = 270
-            Height = 23
             Width = 275
             TabOrder = 2
           end
@@ -221,7 +216,7 @@ inherited fmProduccion: TfmProduccion
             FooterOptions.Active = True
             FooterOptions.Color = clBtnFace
             FooterOptions.RowCount = 1
-            OptionsRx = [rdgDblClickOptimizeColWidth, rdgFooterRows, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgFooterRows, rdgCaseInsensitiveSort]
             FooterColor = clBtnFace
             FooterRowCount = 1
             DataSource = dsProduccion
@@ -693,7 +688,7 @@ inherited fmProduccion: TfmProduccion
             FooterOptions.Active = True
             FooterOptions.Color = clScrollBar
             FooterOptions.RowCount = 1
-            OptionsRx = [rdgDblClickOptimizeColWidth, rdgFooterRows, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+            OptionsRx = [rdgDblClickOptimizeColWidth, rdgFooterRows, rdgCaseInsensitiveSort]
             FooterColor = clScrollBar
             FooterRowCount = 1
             Align = alClient
@@ -804,6 +799,7 @@ inherited fmProduccion: TfmProduccion
     top = 420
   end
   inherited zcgLista: TZControladorGrilla
+    SeleccionarUltimo = True
     ControlEdicion = fmEditarProduccion.zcePrincipal
     MostrarBotonExportar = True
     ZDataset = zqProduccion
@@ -1401,6 +1397,7 @@ inherited fmProduccion: TfmProduccion
     AltoBotones = 28
     AnchoBotones = 88
     BotonExportar = bbExportar1
+    SeleccionarUltimo = False
     Grilla = dbgListaProd
     MostrarBotonExportar = True
     ZDataset = zqProdFecha

@@ -1,8 +1,8 @@
 DELIMITER $$
 -- ---------------------------------------------
--- Rutinas de la base de datos "Centolla"
--- realizada desde la aplicación "CentollaOBS"
--- Fecha y hora de resguardo: 04/06/2015 12:28
+-- Rutinas de la base de datos "centolla"
+-- realizada desde la aplicación "Centolla OBS"
+-- Fecha y hora de resguardo: 15/06/2015 00:59
 -- ---------------------------------------------
 
 -- -----------------------------------------------------
@@ -503,6 +503,8 @@ CREATE VIEW `v_muestras` AS SELECT 1 AS `idmuestra`,
 1 AS `idespecie`,
 1 AS `nombre_cientifico`,
 1 AS `nombre_vulgar`,
+1 AS `ejemplares_totales`,
+1 AS `comerciales`,
 1 AS `machos_menor_90`,
 1 AS `machos_90_109`,
 1 AS `machos_mayor_109`,
@@ -548,6 +550,7 @@ CREATE VIEW `v_planilla_capturas` AS SELECT 1 AS `idmarea`,
 1 AS `nro_orden`,
 1 AS `cant_trampas`,
 1 AS `cant_aros`,
+1 AS `dsc_tipo_trampa`,
 1 AS `estado_puerta`,
 1 AS `estado_trampa`,
 1 AS `nomb_cient_especie1`,
@@ -579,7 +582,8 @@ CREATE VIEW `v_planilla_datos_puente` AS SELECT 1 AS `idmarea`,
 1 AS `rumbo`,
 1 AS `investigacion`,
 1 AS `cant_trampas`,
-1 AS `trampas_pescando`,
+1 AS `trampas_sin_aro`,
+1 AS `trampas_con_3_aros`,
 1 AS `distancia_entre_trampas`,
 1 AS `carnada`,
 1 AS `kg_carnada`,
@@ -616,6 +620,8 @@ CREATE VIEW `v_planilla_datos_puente` AS SELECT 1 AS `idmarea`,
 1 AS `trampas_con_aro`,
 1 AS `trampas_sin_puerta`,
 1 AS `captura_por_trampa`,
+1 AS `captura_por_trampa_sin_aros`,
+1 AS `captura_por_trampa_3_aros`,
 1 AS `comerciales_por_trampa`,
 1 AS `porcent_trampas_obs`,
 1 AS `muestra`,
@@ -970,6 +976,7 @@ SET character_set_client = utf8 $$
 CREATE VIEW `v_tipos_trampa` AS SELECT 1 AS `idtipo_trampa`,
 1 AS `idformato_trampa`,
 1 AS `codigo`,
+1 AS `dsc_abrev`,
 1 AS `descripcion`,
 1 AS `cant_aros` $$
 SET character_set_client = @saved_cs_client $$
@@ -994,7 +1001,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarmaxid`(nombre_tabla varchar(64), OUT max_id INT(10))
 BEGIN
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1009,7 +1016,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `distancia_millas`(lat_ini decimal(8,
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1024,7 +1031,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_comerciales_lance`(p_idlance 
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1039,7 +1046,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_tot_arania_lance`(p_idlance i
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1054,22 +1061,37 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_tot_centolla_lance`(p_idlance
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
--- Estructura base de Rutina F_CANT_TRAMPAS_PESCANDO_LANCE
+-- Estructura base de Rutina f_cant_trampas_lance
 --
 
 DELIMITER $$
-DROP FUNCTION IF EXISTS F_CANT_TRAMPAS_PESCANDO_LANCE$$
+DROP FUNCTION IF EXISTS f_cant_trampas_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_lance`(p_idlance INT, p_cant_aros INT) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+RETURN NULL;
+END $$
+DELIMITER ;
+
+--
+-- Estructura base de Rutina f_cant_trampas_pescando_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_cant_trampas_pescando_lance$$
 DELIMITER ;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_pescando_lance`(p_idlance INT) RETURNS int(11)
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1080,26 +1102,26 @@ DELIMITER $$
 DROP FUNCTION IF EXISTS f_captura_por_trampa_lance$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_captura_por_trampa_lance`(p_idlance INT) RETURNS decimal(6,2)
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_captura_por_trampa_lance`(p_idlance INT, p_cant_aros INT) RETURNS decimal(6,2)
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
--- Estructura base de Rutina F_CLUSTER_POR_CANASTO_LANCE
+-- Estructura base de Rutina f_cluster_por_canasto_lance
 --
 
 DELIMITER $$
-DROP FUNCTION IF EXISTS F_CLUSTER_POR_CANASTO_LANCE$$
+DROP FUNCTION IF EXISTS f_cluster_por_canasto_lance$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_cluster_por_canasto_lance`(p_idlance int) RETURNS int(11)
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cluster_por_canasto_lance`(p_idlance int, p_calc bool) RETURNS int(11)
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1114,7 +1136,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_comerciales_por_trampa_lance`(p_id
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1129,7 +1151,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_factor_extrapolacion_captura`(p_id
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1144,7 +1166,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_fieldbyindex`(str varchar(1000), i
     NO SQL
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1159,7 +1181,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_porcentaje_trampas_observadas`(p_i
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1174,7 +1196,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_prom_trampas_boya`(p_idmarea int, 
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1189,7 +1211,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_prom_trampas_linea`(p_idlinea int)
     DETERMINISTIC
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1204,7 +1226,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `nuevo_id`(nombre_tabla VARCHAR(64)) 
     READS SQL DATA
 BEGIN
 RETURN NULL;
-END$$
+END $$
 DELIMITER ;
 
 --
@@ -1217,7 +1239,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nuevo_id`(IN p_nombre_tabla VARCHAR(64), OUT p_id INT(11))
 BEGIN
-END$$
+END $$
 DELIMITER ;
 
 
@@ -1612,11 +1634,84 @@ DELIMITER ;
 
 
 --
--- Definición completa de Rutina F_CANT_TRAMPAS_PESCANDO_LANCE
+-- Definición completa de Rutina f_cant_trampas_lance
 --
 
 DELIMITER $$
-DROP FUNCTION IF EXISTS F_CANT_TRAMPAS_PESCANDO_LANCE$$
+DROP FUNCTION IF EXISTS f_cant_trampas_lance$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_lance`(p_idlance INT, p_cant_aros INT) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+
+# Si el parámetro p_cant_aros se pasa en NULL, se consideran todas las trampas
+
+DECLARE l_cant_trampas_tipo INT(11);
+DECLARE l_observadas INT;
+DECLARE l_no_observadas INT;
+DECLARE l_factor DECIMAL(6,3);
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND (dc.idestado_trampa IS NULL
+        OR et.es_no_observado = 0));
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_no_observadas FROM
+    capturas c1
+        JOIN
+    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND et.es_no_observado = 1);
+
+
+IF l_observadas>0 THEN
+	SET l_factor = (l_observadas+l_no_observadas)/l_observadas;
+ELSE
+	SET l_factor = 0;
+END IF;
+
+SELECT 
+    COALESCE(SUM(dc.cant_trampas),0)
+INTO l_cant_trampas_tipo FROM
+    capturas c1
+        JOIN detalle_capturas dc ON (dc.idcaptura = c1.idcaptura)
+		LEFT JOIN tipos_trampa tt ON (tt.idtipo_trampa = dc.idtipo_trampa)
+        LEFT JOIN
+    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+WHERE
+    (c1.idlance = p_idlance
+        AND et.es_no_observado = 0
+        AND (p_cant_aros IS NULL
+			OR tt.cant_aros=p_cant_aros));
+
+
+RETURN ROUND(l_cant_trampas_tipo * l_factor);
+
+
+END$$
+DELIMITER ;
+
+
+--
+-- Definición completa de Rutina f_cant_trampas_pescando_lance
+--
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS f_cant_trampas_pescando_lance$$
 DELIMITER ;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_pescando_lance`(p_idlance INT) RETURNS int(11)
@@ -1654,7 +1749,7 @@ DELIMITER $$
 DROP FUNCTION IF EXISTS f_captura_por_trampa_lance$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_captura_por_trampa_lance`(p_idlance INT) RETURNS decimal(6,2)
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_captura_por_trampa_lance`(p_idlance INT, p_cant_aros INT) RETURNS decimal(6,2)
     DETERMINISTIC
 BEGIN
 
@@ -1668,12 +1763,12 @@ SELECT
     COALESCE(SUM(dc.cant_trampas),0)
 INTO l_cant_correctas FROM
     capturas c1
-        JOIN
-    detalle_capturas dc ON dc.idcaptura = c1.idcaptura
-        LEFT JOIN
-    estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+        JOIN detalle_capturas dc ON dc.idcaptura = c1.idcaptura
+        LEFT JOIN estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
+        LEFT JOIN tipos_trampa tt ON tt.idtipo_trampa = dc.idtipo_trampa
 WHERE
     (c1.idlance = p_idlance
+		AND (p_cant_aros IS NULL OR tt.cant_aros=p_cant_aros)
         AND (dc.idestado_trampa IS NULL
         OR (et.es_no_observado = 0 AND et.es_fallo = 0)));
 
@@ -1683,9 +1778,11 @@ INTO l_tot_especie_1
                         detalle_capturas dc on dc.idcaptura=c.idcaptura
                         LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
                         JOIN especies e on e.idespecie = c.idespecie1
+                        LEFT JOIN tipos_trampa tt ON tt.idtipo_trampa=dc.idtipo_trampa
                     WHERE
 						c.idlance=p_idlance
                             AND e.es_centolla = 1
+                            AND (p_cant_aros IS NULL OR tt.cant_aros=p_cant_aros)
                             AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
                             OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
 
@@ -1695,9 +1792,11 @@ INTO l_tot_especie_2
                         detalle_capturas dc on dc.idcaptura=c.idcaptura
                         LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
                         JOIN especies e on e.idespecie = c.idespecie2
+                        LEFT JOIN tipos_trampa tt ON tt.idtipo_trampa=dc.idtipo_trampa
                     WHERE
 						c.idlance=p_idlance
                             AND e.es_centolla = 1
+                            AND (p_cant_aros IS NULL OR tt.cant_aros=p_cant_aros)
                             AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
                             OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
 
@@ -1707,22 +1806,24 @@ INTO l_tot_especie_3
                         detalle_capturas dc on dc.idcaptura=c.idcaptura
                         LEFT JOIN estados_trampa et ON et.idestado_trampa=dc.idestado_trampa
                         JOIN especies e on e.idespecie = c.idespecie3
+                        LEFT JOIN tipos_trampa tt ON tt.idtipo_trampa=dc.idtipo_trampa
                     WHERE
 						c.idlance=p_idlance
                             AND e.es_centolla = 1
+                            AND (p_cant_aros IS NULL OR tt.cant_aros=p_cant_aros)
                             AND ((EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance) AND (dc.idestado_trampa IS NULL or et.es_muestra=0))
                             OR NOT EXISTS (SELECT 1 FROM muestras m WHERE m.idlance=c.idlance));                            
 
 SELECT COUNT(0)
 INTO l_tot_muestra
-                    FROM muestras m,
-                        detalle_muestras dm,
-                        especies e
+                    FROM muestras m
+                        JOIN detalle_muestras dm ON (dm.idmuestra = m.idmuestra)
+                        JOIN especies e ON (e.idespecie = m.idespecie)
+                        LEFT JOIN tipos_trampa tt ON (tt.idtipo_trampa=m.idtipo_trampa)
                     WHERE
-						m.idlance=p_idlance and
-                        dm.idmuestra = m.idmuestra
-                            AND e.idespecie = m.idespecie
-                            AND e.es_centolla = 1;
+						m.idlance=p_idlance
+                            AND e.es_centolla = 1
+                        AND (p_cant_aros IS NULL OR tt.cant_aros=p_cant_aros);
 IF l_cant_correctas > 0 THEN
 	RETURN (l_tot_especie_1+l_tot_especie_2+l_tot_especie_3+l_tot_muestra) / l_cant_correctas;
 ELSE
@@ -1734,36 +1835,21 @@ DELIMITER ;
 
 
 --
--- Definición completa de Rutina F_CLUSTER_POR_CANASTO_LANCE
+-- Definición completa de Rutina f_cluster_por_canasto_lance
 --
 
 DELIMITER $$
-DROP FUNCTION IF EXISTS F_CLUSTER_POR_CANASTO_LANCE$$
+DROP FUNCTION IF EXISTS f_cluster_por_canasto_lance$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_cluster_por_canasto_lance`(p_idlance int) RETURNS int(11)
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cluster_por_canasto_lance`(p_idlance int, p_calc bool) RETURNS int(11)
     DETERMINISTIC
 BEGIN
 
-#Si en la linea hay trampas no observadas, devuelvo lo que se ingresó manualmente
-#si no, hago el cálculo en base a la captura
-IF EXISTS( SELECT 
-                    1
-                FROM
-                    capturas c join detalle_capturas dc ON dc.idcaptura=c.idcaptura
-                    JOIN estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
-                WHERE
-                    c.idlance=p_idlance
-                        AND et.codigo = 'N') THEN
-	RETURN (SELECT l.cluster_por_canasto
-    FROM lances l
-    WHERE l.idlance=p_idlance);
-ELSE
-	RETURN (SELECT COALESCE(l.cluster_por_canasto,
-                IF (`l`.`canastos_procesados`>0,FLOOR((F_CANT_COMERCIALES_LANCE(`l`.`idlance`) * 2) / `l`.`canastos_procesados`),0))
-    FROM lances l
-    WHERE l.idlance=p_idlance);
-END IF;
+	RETURN (SELECT IF(p_calc=TRUE,COALESCE(l.cluster_por_canasto,
+                IF (`l`.`canastos_procesados`>0,FLOOR((F_CANT_COMERCIALES_LANCE(`l`.`idlance`) * 2) / `l`.`canastos_procesados`),0)),l.cluster_por_canasto)
+	FROM lances l
+	WHERE l.idlance=p_idlance);
 END$$
 DELIMITER ;
 
@@ -2180,7 +2266,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_capturas_resumen` AS select `l`.`idmarea` AS `idmarea`,`c`.`idcaptura` AS `idcaptura`,`c`.`idlance` AS `idlance`,`c`.`idespecie1` AS `idespecie1`,`c`.`idespecie2` AS `idespecie2`,`c`.`idespecie3` AS `idespecie3`,`c`.`comentarios` AS `comentarios`,`l`.`canastos_procesados` AS `canastos_procesados`,`l`.`cluster_por_canasto` AS `cluster_por_canasto`,`F_CLUSTER_POR_CANASTO_LANCE`(`l`.`idlance`) AS `cluster_canasto_calc`,(select count(0) from `detalle_capturas` `dc` where (`dc`.`idcaptura` = `c`.`idcaptura`)) AS `trampas_recup`,`F_CANT_TOT_CENTOLLA_LANCE`(`l`.`idlance`) AS `centolla_total`,`F_CANT_COMERCIALES_LANCE`(`l`.`idlance`) AS `centolla_comercial`,`F_CANT_TOT_ARANIA_LANCE`(`l`.`idlance`) AS `arania_total`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`l`.`idlance`) AS `porcent_trampas_obs`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `tipos_trampa` `tc`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`tc`.`idtipo_trampa` = `dc`.`idtipo_trampa`) and (`tc`.`cant_aros` = 0))) AS `cant_sin_aro`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `tipos_trampa` `tt`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`tt`.`idtipo_trampa` = `dc`.`idtipo_trampa`) and (`tt`.`cant_aros` > 0))) AS `cant_con_aro`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `estados_trampa` `et`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`et`.`idestado_trampa` = `dc`.`idestado_trampa`) and (`et`.`es_fallo` = 1))) AS `trampas_con_fallo`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `estados_puerta` `ep`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`ep`.`idestado_puerta` = `dc`.`idestado_puerta`) and (`ep`.`mal` = 1))) AS `trampas_sin_puerta` from (`capturas` `c` join `lances` `l`) where (`l`.`idlance` = `c`.`idlance`) $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_capturas_resumen` AS select `l`.`idmarea` AS `idmarea`,`c`.`idcaptura` AS `idcaptura`,`c`.`idlance` AS `idlance`,`c`.`idespecie1` AS `idespecie1`,`c`.`idespecie2` AS `idespecie2`,`c`.`idespecie3` AS `idespecie3`,`c`.`comentarios` AS `comentarios`,`l`.`canastos_procesados` AS `canastos_procesados`,`l`.`cluster_por_canasto` AS `cluster_por_canasto`,`F_CLUSTER_POR_CANASTO_LANCE`(`l`.`idlance`,1) AS `cluster_canasto_calc`,(select count(0) from `detalle_capturas` `dc` where (`dc`.`idcaptura` = `c`.`idcaptura`)) AS `trampas_recup`,`F_CANT_TOT_CENTOLLA_LANCE`(`l`.`idlance`) AS `centolla_total`,`F_CANT_COMERCIALES_LANCE`(`l`.`idlance`) AS `centolla_comercial`,`F_CANT_TOT_ARANIA_LANCE`(`l`.`idlance`) AS `arania_total`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`l`.`idlance`) AS `porcent_trampas_obs`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `tipos_trampa` `tc`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`tc`.`idtipo_trampa` = `dc`.`idtipo_trampa`) and (`tc`.`cant_aros` = 0))) AS `cant_sin_aro`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `tipos_trampa` `tt`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`tt`.`idtipo_trampa` = `dc`.`idtipo_trampa`) and (`tt`.`cant_aros` > 0))) AS `cant_con_aro`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `estados_trampa` `et`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`et`.`idestado_trampa` = `dc`.`idestado_trampa`) and (`et`.`es_fallo` = 1))) AS `trampas_con_fallo`,(select sum(`dc`.`cant_trampas`) from (`detalle_capturas` `dc` join `estados_puerta` `ep`) where ((`dc`.`idcaptura` = `c`.`idcaptura`) and (`ep`.`idestado_puerta` = `dc`.`idestado_puerta`) and (`ep`.`mal` = 1))) AS `trampas_sin_puerta` from (`capturas` `c` join `lances` `l`) where (`l`.`idlance` = `c`.`idlance`) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -2427,7 +2513,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lances_simple` AS select `la`.`idlance` AS `idlance`,`la`.`idmarea` AS `idmarea`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,coalesce(cast(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`) as datetime),cast(concat(`la`.`fecha_ini_calado`,' ',`la`.`hora_ini_calado`) as datetime)) AS `fecha_hora_orden`,concat(`ov`.`orden_virada`,' - ',date_format(`la`.`fecha_fin_virada`,'%d/%m/%Y'),' ',date_format(`la`.`hora_fin_virada`,'%H:%i'),if((`la`.`investigacion` = 1),' (invest.)','')) AS `dsc_virada`,`la`.`nro_boya` AS `nro_boya`,`la`.`nro_linea` AS `nro_linea`,`la`.`prospeccion` AS `prospeccion`,`la`.`investigacion` AS `investigacion`,`la`.`idtipo_trampa` AS `idtipo_trampa`,`tt`.`cant_aros` AS `cant_aros`,`la`.`idcarnada` AS `idcarnada`,`la`.`kg_carnada` AS `kg_carnada`,`la`.`rumbo_calado` AS `rumbo_calado`,`la`.`fecha_ini_calado` AS `fecha_ini_calado`,`la`.`hora_ini_calado` AS `hora_ini_calado`,`la`.`profundidad_ini_calado` AS `profundidad_ini_calado`,`la`.`lat_ini_calado` AS `lat_ini_calado`,`la`.`long_ini_calado` AS `long_ini_calado`,`la`.`fecha_fin_calado` AS `fecha_fin_calado`,`la`.`hora_fin_calado` AS `hora_fin_calado`,`la`.`profundidad_fin_calado` AS `profundidad_fin_calado`,`la`.`lat_fin_calado` AS `lat_fin_calado`,`la`.`long_fin_calado` AS `long_fin_calado`,`la`.`cant_trampas_caladas` AS `cant_trampas_caladas`,`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) AS `distancia_calado`,if((`la`.`cant_trampas_caladas` > 0),floor((((`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) * 1852) - 100) / `la`.`cant_trampas_caladas`)),NULL) AS `prom_separacion_trampas`,`la`.`fecha_ini_virada` AS `fecha_ini_virada`,`la`.`hora_ini_virada` AS `hora_ini_virada`,`la`.`profundidad_ini_virada` AS `profundidad_ini_virada`,`la`.`lat_ini_virada` AS `lat_ini_virada`,`la`.`long_ini_virada` AS `long_ini_virada`,`la`.`fecha_fin_virada` AS `fecha_fin_virada`,`la`.`hora_fin_virada` AS `hora_fin_virada`,`la`.`profundidad_fin_virada` AS `profundidad_fin_virada`,`la`.`lat_fin_virada` AS `lat_fin_virada`,`la`.`long_fin_virada` AS `long_fin_virada`,`DISTANCIA_MILLAS`(`la`.`lat_ini_virada`,`la`.`long_ini_virada`,`la`.`lat_fin_virada`,`la`.`long_fin_virada`) AS `distancia_virada`,hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) AS `horas_en_agua`,round((hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) / 24),1) AS `dias_en_agua`,if(exists(select 1 from `capturas` `c` where (`c`.`idlance` = `la`.`idlance`)),(select count(0) from (`capturas` `c` join `detalle_capturas` `dc`) where ((`c`.`idlance` = `la`.`idlance`) and (`dc`.`idcaptura` = `c`.`idcaptura`))),NULL) AS `cant_trampas_recuperadas`,`la`.`canastos_procesados` AS `canastos_procesados`,`F_CLUSTER_POR_CANASTO_LANCE`(`la`.`idlance`) AS `cluster_por_canasto`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`la`.`idlance`) AS `porcent_trampas_obs`,`la`.`cod_estado_mar` AS `cod_estado_mar`,`la`.`nudos_viento` AS `nudos_viento`,`la`.`direccion_viento` AS `direccion_viento`,`la`.`comentarios_calado` AS `comentarios_calado`,`la`.`comentarios_virada` AS `comentarios_virada`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),1,0) AS `calada`,if(((`la`.`fecha_ini_virada` is not null) and (`la`.`fecha_fin_virada` is not null)),1,0) AS `virada` from (((`lances` `la` join `mareas` `m` on((`m`.`idmarea` = `la`.`idmarea`))) left join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `la`.`idtipo_trampa`))) $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lances_simple` AS select `la`.`idlance` AS `idlance`,`la`.`idmarea` AS `idmarea`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,coalesce(cast(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`) as datetime),cast(concat(`la`.`fecha_ini_calado`,' ',`la`.`hora_ini_calado`) as datetime)) AS `fecha_hora_orden`,concat(`ov`.`orden_virada`,' - ',date_format(`la`.`fecha_fin_virada`,'%d/%m/%Y'),' ',date_format(`la`.`hora_fin_virada`,'%H:%i'),if((`la`.`investigacion` = 1),' (invest.)','')) AS `dsc_virada`,`la`.`nro_boya` AS `nro_boya`,`la`.`nro_linea` AS `nro_linea`,`la`.`prospeccion` AS `prospeccion`,`la`.`investigacion` AS `investigacion`,`la`.`idtipo_trampa` AS `idtipo_trampa`,`tt`.`cant_aros` AS `cant_aros`,`la`.`idcarnada` AS `idcarnada`,`la`.`kg_carnada` AS `kg_carnada`,`la`.`rumbo_calado` AS `rumbo_calado`,`la`.`fecha_ini_calado` AS `fecha_ini_calado`,`la`.`hora_ini_calado` AS `hora_ini_calado`,`la`.`profundidad_ini_calado` AS `profundidad_ini_calado`,`la`.`lat_ini_calado` AS `lat_ini_calado`,`la`.`long_ini_calado` AS `long_ini_calado`,`la`.`fecha_fin_calado` AS `fecha_fin_calado`,`la`.`hora_fin_calado` AS `hora_fin_calado`,`la`.`profundidad_fin_calado` AS `profundidad_fin_calado`,`la`.`lat_fin_calado` AS `lat_fin_calado`,`la`.`long_fin_calado` AS `long_fin_calado`,`la`.`cant_trampas_caladas` AS `cant_trampas_caladas`,`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) AS `distancia_calado`,if((`la`.`cant_trampas_caladas` > 0),floor((((`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) * 1852) - 100) / `la`.`cant_trampas_caladas`)),NULL) AS `prom_separacion_trampas`,`la`.`fecha_ini_virada` AS `fecha_ini_virada`,`la`.`hora_ini_virada` AS `hora_ini_virada`,`la`.`profundidad_ini_virada` AS `profundidad_ini_virada`,`la`.`lat_ini_virada` AS `lat_ini_virada`,`la`.`long_ini_virada` AS `long_ini_virada`,`la`.`fecha_fin_virada` AS `fecha_fin_virada`,`la`.`hora_fin_virada` AS `hora_fin_virada`,`la`.`profundidad_fin_virada` AS `profundidad_fin_virada`,`la`.`lat_fin_virada` AS `lat_fin_virada`,`la`.`long_fin_virada` AS `long_fin_virada`,`DISTANCIA_MILLAS`(`la`.`lat_ini_virada`,`la`.`long_ini_virada`,`la`.`lat_fin_virada`,`la`.`long_fin_virada`) AS `distancia_virada`,hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) AS `horas_en_agua`,round((hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) / 24),1) AS `dias_en_agua`,if(exists(select 1 from `capturas` `c` where (`c`.`idlance` = `la`.`idlance`)),(select if((sum(`dc`.`cant_trampas`) > 0),sum(`dc`.`cant_trampas`),NULL) from (`capturas` `c` join `detalle_capturas` `dc`) where ((`c`.`idlance` = `la`.`idlance`) and (`dc`.`idcaptura` = `c`.`idcaptura`))),NULL) AS `cant_trampas_recuperadas`,`la`.`canastos_procesados` AS `canastos_procesados`,`F_CLUSTER_POR_CANASTO_LANCE`(`la`.`idlance`,0) AS `cluster_por_canasto`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`la`.`idlance`) AS `porcent_trampas_obs`,`la`.`cod_estado_mar` AS `cod_estado_mar`,`la`.`nudos_viento` AS `nudos_viento`,`la`.`direccion_viento` AS `direccion_viento`,`la`.`comentarios_calado` AS `comentarios_calado`,`la`.`comentarios_virada` AS `comentarios_virada`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),1,0) AS `calada`,if(((`la`.`fecha_ini_virada` is not null) and (`la`.`fecha_fin_virada` is not null)),1,0) AS `virada` from (((`lances` `la` join `mareas` `m` on((`m`.`idmarea` = `la`.`idmarea`))) left join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `la`.`idtipo_trampa`))) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -2484,7 +2570,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_muestras` AS select `m`.`idmuestra` AS `idmuestra`,`m`.`idmarea` AS `idmarea`,`tm`.`codigo` AS `cod_tipo_muestra`,`tm`.`descripcion` AS `tipo_muestra`,`m`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`l`.`investigacion` AS `investigacion`,`l`.`fecha_ini_virada` AS `fecha`,`l`.`hora_ini_virada` AS `hora`,`m`.`idespecie` AS `idespecie`,concat(`e`.`nombre_cientifico`,' (',`e`.`nombre_vulgar`,')') AS `nombre_cientifico`,concat(`e`.`nombre_vulgar`,' (',`e`.`nombre_cientifico`,')') AS `nombre_vulgar`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` < 90))) AS `machos_menor_90`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` between 90 and 109))) AS `machos_90_109`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` >= 110))) AS `machos_mayor_109`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 2) and (`dm`.`largo` < 90))) AS `hembras_menor_90`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 2) and (`dm`.`largo` between 90 and 109))) AS `hembras_90_109`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 2) and (`dm`.`largo` >= 110))) AS `hembras_mayor_109`,`m`.`comentarios` AS `comentarios` from ((((`muestras` `m` left join `lances` `l` on((`l`.`idlance` = `m`.`idlance`))) left join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) join `tipos_muestra` `tm`) join `especies` `e`) where ((`tm`.`idtipo_muestra` = `m`.`idtipo_muestra`) and (`e`.`idespecie` = `m`.`idespecie`)) $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_muestras` AS select `m`.`idmuestra` AS `idmuestra`,`m`.`idmarea` AS `idmarea`,`tm`.`codigo` AS `cod_tipo_muestra`,`tm`.`descripcion` AS `tipo_muestra`,`m`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`l`.`investigacion` AS `investigacion`,`l`.`fecha_ini_virada` AS `fecha`,`l`.`hora_ini_virada` AS `hora`,`m`.`idespecie` AS `idespecie`,concat(`e`.`nombre_cientifico`,' (',`e`.`nombre_vulgar`,')') AS `nombre_cientifico`,concat(`e`.`nombre_vulgar`,' (',`e`.`nombre_cientifico`,')') AS `nombre_vulgar`,(select count(1) from `detalle_muestras` `dm` where (`dm`.`idmuestra` = `m`.`idmuestra`)) AS `ejemplares_totales`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` >= 110))) AS `comerciales`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` < 90))) AS `machos_menor_90`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` between 90 and 109))) AS `machos_90_109`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 1) and (`dm`.`largo` >= 110))) AS `machos_mayor_109`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 2) and (`dm`.`largo` < 90))) AS `hembras_menor_90`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 2) and (`dm`.`largo` between 90 and 109))) AS `hembras_90_109`,(select count(1) from `detalle_muestras` `dm` where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`dm`.`sexo` = 2) and (`dm`.`largo` >= 110))) AS `hembras_mayor_109`,`m`.`comentarios` AS `comentarios` from ((((`muestras` `m` left join `lances` `l` on((`l`.`idlance` = `m`.`idlance`))) left join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) join `tipos_muestra` `tm`) join `especies` `e`) where ((`tm`.`idtipo_muestra` = `m`.`idtipo_muestra`) and (`e`.`idespecie` = `m`.`idespecie`)) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -2522,7 +2608,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_capturas` AS select `la`.`idmarea` AS `idmarea`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`dc`.`nro_orden` AS `nro_orden`,`dc`.`cant_trampas` AS `cant_trampas`,`tt`.`cant_aros` AS `cant_aros`,`ep`.`codigo` AS `estado_puerta`,`et`.`codigo` AS `estado_trampa`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie1`)) AS `nomb_cient_especie1`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie2`)) AS `nomb_cient_especie2`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie3`)) AS `nomb_cient_especie3`,`dc`.`total_especie1` AS `total_especie1`,`dc`.`comerciales_especie1` AS `comerciales_especie1`,`dc`.`total_especie2` AS `total_especie2`,`dc`.`comerciales_especie2` AS `comerciales_especie2`,`dc`.`total_especie3` AS `total_especie3`,`dc`.`comerciales_especie3` AS `comerciales_especie3` from ((((((`detalle_capturas` `dc` join `capturas` `c` on((`c`.`idcaptura` = `dc`.`idcaptura`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `dc`.`idtipo_trampa`))) left join `estados_puerta` `ep` on((`ep`.`idestado_puerta` = `dc`.`idestado_puerta`))) left join `estados_trampa` `et` on((`et`.`idestado_trampa` = `dc`.`idestado_trampa`))) join `lances` `la` on((`la`.`idlance` = `c`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_capturas` AS select `la`.`idmarea` AS `idmarea`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`dc`.`nro_orden` AS `nro_orden`,`dc`.`cant_trampas` AS `cant_trampas`,`tt`.`cant_aros` AS `cant_aros`,concat(`ft`.`codigo`,' ',convert(`tt`.`cant_aros` using utf8)) AS `dsc_tipo_trampa`,`ep`.`codigo` AS `estado_puerta`,`et`.`codigo` AS `estado_trampa`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie1`)) AS `nomb_cient_especie1`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie2`)) AS `nomb_cient_especie2`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie3`)) AS `nomb_cient_especie3`,`dc`.`total_especie1` AS `total_especie1`,`dc`.`comerciales_especie1` AS `comerciales_especie1`,`dc`.`total_especie2` AS `total_especie2`,`dc`.`comerciales_especie2` AS `comerciales_especie2`,`dc`.`total_especie3` AS `total_especie3`,`dc`.`comerciales_especie3` AS `comerciales_especie3` from (((((((`detalle_capturas` `dc` join `capturas` `c` on((`c`.`idcaptura` = `dc`.`idcaptura`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `dc`.`idtipo_trampa`))) left join `formatos_trampa` `ft` on((`ft`.`idformato_trampa` = `tt`.`idformato_trampa`))) left join `estados_puerta` `ep` on((`ep`.`idestado_puerta` = `dc`.`idestado_puerta`))) left join `estados_trampa` `et` on((`et`.`idestado_trampa` = `dc`.`idestado_trampa`))) join `lances` `la` on((`la`.`idlance` = `c`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -2541,7 +2627,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_datos_puente` AS select `l`.`idmarea` AS `idmarea`,`l`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`l`.`nro_boya` AS `nro_boya`,`l`.`rumbo_calado` AS `rumbo`,if((`l`.`investigacion` = 1),'S','N') AS `investigacion`,if(exists(select 1 from `capturas` `c` where (`c`.`idlance` = `l`.`idlance`)),(select sum(`dc`.`cant_trampas`) from (`capturas` `c` join `detalle_capturas` `dc`) where ((`c`.`idlance` = `l`.`idlance`) and (`dc`.`idcaptura` = `c`.`idcaptura`))),`l`.`cant_trampas_caladas`) AS `cant_trampas`,`F_CANT_TRAMPAS_PESCANDO_LANCE`(`l`.`idlance`) AS `trampas_pescando`,`l`.`distancia_entre_trampas` AS `distancia_entre_trampas`,`ca`.`descripcion` AS `carnada`,`l`.`kg_carnada` AS `kg_carnada`,`l`.`fecha_ini_calado` AS `fecha_ini_calado`,`l`.`hora_ini_calado` AS `hora_ini_calado`,cast(concat(`l`.`fecha_ini_calado`,' ',`l`.`hora_ini_calado`) as datetime) AS `fecha_hora_ini_calado`,cast(concat(`l`.`fecha_fin_calado`,' ',`l`.`hora_fin_calado`) as datetime) AS `fecha_hora_fin_calado`,`l`.`profundidad_ini_calado` AS `prof_ini_calado`,`l`.`profundidad_fin_calado` AS `prof_fin_calado`,round((((-(1) * (floor((`l`.`long_ini_calado` / 100)) + ((((`l`.`long_ini_calado` / 100) - floor((`l`.`long_ini_calado` / 100))) * 100) / 60))) + (-(1) * (floor((`l`.`long_fin_calado` / 100)) + ((((`l`.`long_fin_calado` / 100) - floor((`l`.`long_fin_calado` / 100))) * 100) / 60)))) / 2),4) AS `long_prom_calado_dec`,round((((-(1) * (floor((`l`.`lat_ini_calado` / 100)) + ((((`l`.`lat_ini_calado` / 100) - floor((`l`.`lat_ini_calado` / 100))) * 100) / 60))) + (-(1) * (floor((`l`.`lat_fin_calado` / 100)) + ((((`l`.`lat_fin_calado` / 100) - floor((`l`.`lat_fin_calado` / 100))) * 100) / 60)))) / 2),4) AS `lat_prom_calado_dec`,`l`.`fecha_fin_virada` AS `fecha_fin_virada`,`l`.`hora_fin_virada` AS `hora_fin_virada`,cast(concat(`l`.`fecha_ini_virada`,' ',`l`.`hora_ini_virada`) as datetime) AS `fecha_hora_ini_virada`,cast(concat(`l`.`fecha_fin_virada`,' ',`l`.`hora_fin_virada`) as datetime) AS `fecha_hora_fin_virada`,(`l`.`lat_ini_calado` / 100) AS `lat_ini_calado`,(`l`.`long_ini_calado` / 100) AS `long_ini_calado`,(`l`.`lat_fin_calado` / 100) AS `lat_fin_calado`,(`l`.`long_fin_calado` / 100) AS `long_fin_calado`,(`l`.`lat_ini_virada` / 100) AS `lat_ini_virada`,(`l`.`long_ini_virada` / 100) AS `long_ini_virada`,(`l`.`lat_fin_virada` / 100) AS `lat_fin_virada`,(`l`.`long_fin_virada` / 100) AS `long_fin_virada`,`l`.`profundidad_ini_virada` AS `prof_ini_virada`,`l`.`profundidad_fin_virada` AS `prof_fin_virada`,hour(timediff(coalesce(concat(`l`.`fecha_ini_virada`,' ',`l`.`hora_ini_virada`),`m`.`fecha_arribo`,now()),concat(`l`.`fecha_fin_calado`,' ',`l`.`hora_fin_calado`))) AS `horas_pesca`,round((hour(timediff(coalesce(concat(`l`.`fecha_ini_virada`,' ',`l`.`hora_ini_virada`),`m`.`fecha_arribo`,now()),concat(`l`.`fecha_fin_calado`,' ',`l`.`hora_fin_calado`))) / 24),1) AS `dias_pesca`,`c`.`centolla_total` AS `centolla_total`,`c`.`centolla_comercial` AS `centolla_comercial`,`c`.`arania_total` AS `arania_total`,`l`.`canastos_procesados` AS `canastos_procesados`,coalesce(`l`.`cluster_por_canasto`,if(((`l`.`canastos_procesados` is not null) and (`l`.`canastos_procesados` > 0)),floor(((`centolla`.`f_cant_comerciales_lance`(`l`.`idlance`) * 2) / `l`.`canastos_procesados`)),NULL)) AS `cluster_por_canasto`,`c`.`trampas_con_fallo` AS `trampas_con_fallo`,`c`.`cant_con_aro` AS `trampas_con_aro`,`c`.`trampas_sin_puerta` AS `trampas_sin_puerta`,`F_CAPTURA_POR_TRAMPA_LANCE`(`l`.`idlance`) AS `captura_por_trampa`,`F_COMERCIALES_POR_TRAMPA_LANCE`(`l`.`idlance`) AS `comerciales_por_trampa`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`l`.`idlance`) AS `porcent_trampas_obs`,if(exists(select 1 from `muestras` `mu` where (`mu`.`idlance` = `l`.`idlance`)),'S','N') AS `muestra`,concat_ws(' | ',if((trim(`l`.`comentarios_calado`) = ''),NULL,`l`.`comentarios_calado`),if((trim(`l`.`comentarios_virada`) = ''),NULL,`l`.`comentarios_virada`)) AS `comentarios`,`ee`.`idenvio_email` AS `idenvio_email`,`ee`.`fecha` AS `fecha_envio`,`ee`.`fecha_ini_produccion` AS `fecha_ini_produccion`,`ee`.`fecha_fin_produccion` AS `fecha_fin_produccion` from ((((((`lances` `l` join `mareas` `m` on((`m`.`idmarea` = `l`.`idmarea`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) left join `v_capturas_resumen` `c` on((`c`.`idlance` = `l`.`idlance`))) left join `carnadas` `ca` on((`ca`.`idcarnada` = `l`.`idcarnada`))) left join `detalle_envios_email` `dem` on((`dem`.`idlance` = `l`.`idlance`))) left join `envios_email` `ee` on((`ee`.`idenvio_email` = `dem`.`idenvio_email`))) where ((`l`.`fecha_ini_virada` is not null) and (`l`.`fecha_fin_virada` is not null)) $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_datos_puente` AS select `l`.`idmarea` AS `idmarea`,`l`.`idlance` AS `idlance`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`l`.`nro_boya` AS `nro_boya`,`l`.`rumbo_calado` AS `rumbo`,if((`l`.`investigacion` = 1),'S','N') AS `investigacion`,if(exists(select 1 from `capturas` `c` where (`c`.`idlance` = `l`.`idlance`)),(select sum(`dc`.`cant_trampas`) from (`capturas` `c` join `detalle_capturas` `dc`) where ((`c`.`idlance` = `l`.`idlance`) and (`dc`.`idcaptura` = `c`.`idcaptura`))),`l`.`cant_trampas_caladas`) AS `cant_trampas`,`F_CANT_TRAMPAS_LANCE`(`l`.`idlance`,0) AS `trampas_sin_aro`,`F_CANT_TRAMPAS_LANCE`(`l`.`idlance`,3) AS `trampas_con_3_aros`,`l`.`distancia_entre_trampas` AS `distancia_entre_trampas`,`ca`.`descripcion` AS `carnada`,`l`.`kg_carnada` AS `kg_carnada`,`l`.`fecha_ini_calado` AS `fecha_ini_calado`,`l`.`hora_ini_calado` AS `hora_ini_calado`,cast(concat(`l`.`fecha_ini_calado`,' ',`l`.`hora_ini_calado`) as datetime) AS `fecha_hora_ini_calado`,cast(concat(`l`.`fecha_fin_calado`,' ',`l`.`hora_fin_calado`) as datetime) AS `fecha_hora_fin_calado`,`l`.`profundidad_ini_calado` AS `prof_ini_calado`,`l`.`profundidad_fin_calado` AS `prof_fin_calado`,round((((-(1) * (floor((`l`.`long_ini_calado` / 100)) + ((((`l`.`long_ini_calado` / 100) - floor((`l`.`long_ini_calado` / 100))) * 100) / 60))) + (-(1) * (floor((`l`.`long_fin_calado` / 100)) + ((((`l`.`long_fin_calado` / 100) - floor((`l`.`long_fin_calado` / 100))) * 100) / 60)))) / 2),4) AS `long_prom_calado_dec`,round((((-(1) * (floor((`l`.`lat_ini_calado` / 100)) + ((((`l`.`lat_ini_calado` / 100) - floor((`l`.`lat_ini_calado` / 100))) * 100) / 60))) + (-(1) * (floor((`l`.`lat_fin_calado` / 100)) + ((((`l`.`lat_fin_calado` / 100) - floor((`l`.`lat_fin_calado` / 100))) * 100) / 60)))) / 2),4) AS `lat_prom_calado_dec`,`l`.`fecha_fin_virada` AS `fecha_fin_virada`,`l`.`hora_fin_virada` AS `hora_fin_virada`,cast(concat(`l`.`fecha_ini_virada`,' ',`l`.`hora_ini_virada`) as datetime) AS `fecha_hora_ini_virada`,cast(concat(`l`.`fecha_fin_virada`,' ',`l`.`hora_fin_virada`) as datetime) AS `fecha_hora_fin_virada`,(`l`.`lat_ini_calado` / 100) AS `lat_ini_calado`,(`l`.`long_ini_calado` / 100) AS `long_ini_calado`,(`l`.`lat_fin_calado` / 100) AS `lat_fin_calado`,(`l`.`long_fin_calado` / 100) AS `long_fin_calado`,(`l`.`lat_ini_virada` / 100) AS `lat_ini_virada`,(`l`.`long_ini_virada` / 100) AS `long_ini_virada`,(`l`.`lat_fin_virada` / 100) AS `lat_fin_virada`,(`l`.`long_fin_virada` / 100) AS `long_fin_virada`,`l`.`profundidad_ini_virada` AS `prof_ini_virada`,`l`.`profundidad_fin_virada` AS `prof_fin_virada`,hour(timediff(coalesce(concat(`l`.`fecha_ini_virada`,' ',`l`.`hora_ini_virada`),`m`.`fecha_arribo`,now()),concat(`l`.`fecha_fin_calado`,' ',`l`.`hora_fin_calado`))) AS `horas_pesca`,round((hour(timediff(coalesce(concat(`l`.`fecha_ini_virada`,' ',`l`.`hora_ini_virada`),`m`.`fecha_arribo`,now()),concat(`l`.`fecha_fin_calado`,' ',`l`.`hora_fin_calado`))) / 24),1) AS `dias_pesca`,`c`.`centolla_total` AS `centolla_total`,`c`.`centolla_comercial` AS `centolla_comercial`,`c`.`arania_total` AS `arania_total`,`l`.`canastos_procesados` AS `canastos_procesados`,`f_cluster_por_canasto_lance`(`l`.`idlance`,0) AS `cluster_por_canasto`,`c`.`trampas_con_fallo` AS `trampas_con_fallo`,`c`.`cant_con_aro` AS `trampas_con_aro`,`c`.`trampas_sin_puerta` AS `trampas_sin_puerta`,`F_CAPTURA_POR_TRAMPA_LANCE`(`l`.`idlance`,NULL) AS `captura_por_trampa`,`F_CAPTURA_POR_TRAMPA_LANCE`(`l`.`idlance`,0) AS `captura_por_trampa_sin_aros`,`F_CAPTURA_POR_TRAMPA_LANCE`(`l`.`idlance`,3) AS `captura_por_trampa_3_aros`,`F_COMERCIALES_POR_TRAMPA_LANCE`(`l`.`idlance`) AS `comerciales_por_trampa`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`l`.`idlance`) AS `porcent_trampas_obs`,if(exists(select 1 from `muestras` `mu` where (`mu`.`idlance` = `l`.`idlance`)),'S','N') AS `muestra`,concat_ws(' | ',if((trim(`l`.`comentarios_calado`) = ''),NULL,`l`.`comentarios_calado`),if((trim(`l`.`comentarios_virada`) = ''),NULL,`l`.`comentarios_virada`)) AS `comentarios`,`ee`.`idenvio_email` AS `idenvio_email`,`ee`.`fecha` AS `fecha_envio`,`ee`.`fecha_ini_produccion` AS `fecha_ini_produccion`,`ee`.`fecha_fin_produccion` AS `fecha_fin_produccion` from ((((((`lances` `l` join `mareas` `m` on((`m`.`idmarea` = `l`.`idmarea`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) left join `v_capturas_resumen` `c` on((`c`.`idlance` = `l`.`idlance`))) left join `carnadas` `ca` on((`ca`.`idcarnada` = `l`.`idcarnada`))) left join `detalle_envios_email` `dem` on((`dem`.`idlance` = `l`.`idlance`))) left join `envios_email` `ee` on((`ee`.`idenvio_email` = `dem`.`idenvio_email`))) where ((`l`.`fecha_ini_virada` is not null) and (`l`.`fecha_fin_virada` is not null)) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -2788,11 +2874,19 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_tipos_trampa` AS select `tt`.`idtipo_trampa` AS `idtipo_trampa`,`tt`.`idformato_trampa` AS `idformato_trampa`,`tt`.`codigo` AS `codigo`,concat(`ft`.`descripcion`,if(isnull(`tt`.`cant_aros`),' con cantidad variable de aros',concat(if((`tt`.`cant_aros` = 0),' sin',concat(' con ',`tt`.`cant_aros`)),if((`tt`.`cant_aros` = 1),' aro',' aros')))) AS `descripcion`,`tt`.`cant_aros` AS `cant_aros` from (`tipos_trampa` `tt` join `formatos_trampa` `ft` on((`ft`.`idformato_trampa` = `tt`.`idformato_trampa`))) $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_tipos_trampa` AS select `tt`.`idtipo_trampa` AS `idtipo_trampa`,`tt`.`idformato_trampa` AS `idformato_trampa`,`tt`.`codigo` AS `codigo`,concat(`ft`.`codigo`,if(isnull(`tt`.`cant_aros`),'',concat(' ',`tt`.`cant_aros`))) AS `dsc_abrev`,concat(`ft`.`descripcion`,if(isnull(`tt`.`cant_aros`),' con cantidad variable de aros',concat(if((`tt`.`cant_aros` = 0),' sin',concat(' con ',`tt`.`cant_aros`)),if((`tt`.`cant_aros` = 1),' aro',' aros')))) AS `descripcion`,`tt`.`cant_aros` AS `cant_aros` from (`tipos_trampa` `tt` join `formatos_trampa` `ft` on((`ft`.`idformato_trampa` = `tt`.`idformato_trampa`))) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
 DELIMITER ;
+
+
+
+
+-- -------- --
+-- Triggers --
+-- -------- --
+
 
 
 
@@ -2811,7 +2905,7 @@ DELIMITER ;
 
 
 -- ----------------------------------------------------
--- Fin de la copia de seguridad: 04/06/2015 12:28
+-- Fin de la copia de seguridad: 15/06/2015 00:59
 -- ----------------------------------------------------
 
 

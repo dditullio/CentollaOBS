@@ -489,7 +489,7 @@ inherited fmEditarMuestras: TfmEditarMuestras
           end>
         FooterOptions.Color = clBtnFace
         FooterOptions.RowCount = 1
-        OptionsRx = [rdgDblClickOptimizeColWidth, rdgAllowQuickFilter, rdgAllowSortForm, rdgAllowToolMenu, rdgCaseInsensitiveSort]
+        OptionsRx = [rdgDblClickOptimizeColWidth, rdgCaseInsensitiveSort]
         FooterColor = clBtnFace
         FooterRowCount = 1
         Align = alTop
@@ -648,6 +648,7 @@ inherited fmEditarMuestras: TfmEditarMuestras
     BotonAgregar = bbAgregar
     BotonEditar = bbEditar
     BotonEliminar = bbEliminar
+    SeleccionarUltimo = False
     ControlEdicion = fmEditarDetalleMuestra.zcePrincipal
     Grilla = dbgLista
     MostrarBotonExportar = False

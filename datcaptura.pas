@@ -18,6 +18,7 @@ type
     dsEspecies3: TDataSource;
     LongintField1: TLongintField;
     LongintField2: TLongintField;
+    zqDetCapturadsc_abrev: TStringField;
     zqCapturacant_aros: TLongintField;
     zqDetCapturaEsNoObservado: TSmallintField;
     StringField4: TStringField;
@@ -194,6 +195,7 @@ type
     zqTiposTrampacodigo: TStringField;
     zqTiposTrampacod_desc: TStringField;
     zqTiposTrampadescripcion: TStringField;
+    zqTiposTrampadsc_abrev: TStringField;
     zqTiposTrampaidtipo_trampa: TLongintField;
     zqLances: TZQuery;
     zqByCatch: TZQuery;

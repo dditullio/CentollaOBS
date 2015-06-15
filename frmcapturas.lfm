@@ -25,13 +25,8 @@ inherited fmCapturas: TfmCapturas
         inherited paBuscador: TPanel
           Width = 457
           ClientWidth = 457
-          inherited laBuscar: TLabel
-            Height = 15
-            Width = 35
-          end
           inherited edBuscar: TEdit
             Left = 120
-            Height = 23
             Width = 302
           end
           inherited bbBuscar: TBitBtn
@@ -43,6 +38,7 @@ inherited fmCapturas: TfmCapturas
             Top = 19
             Width = 105
             ShowCheckBox = True
+            Checked = False
             CenturyFrom = 1941
             MaxDate = 2958465
             MinDate = -53780
@@ -438,9 +434,11 @@ inherited fmCapturas: TfmCapturas
     end
   end
   inherited zcgLista: TZControladorGrilla
+    SeleccionarUltimo = True
     ControlEdicion = fmEditarCaptura.zcePrincipal
     MostrarBotonExportar = True
     ZDataset = zqCapturas
+    left = 50
   end
   object zqCapturas: TZQuery[4]
     Connection = dmGeneral.zcDB
