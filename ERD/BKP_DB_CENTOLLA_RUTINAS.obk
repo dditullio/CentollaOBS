@@ -2,7 +2,7 @@ DELIMITER $$
 -- ---------------------------------------------
 -- Rutinas de la base de datos "centolla"
 -- realizada desde la aplicación "Centolla OBS"
--- Fecha y hora de resguardo: 15/06/2015 00:59
+-- Fecha y hora de resguardo: 17/06/2015 12:38
 -- ---------------------------------------------
 
 -- -----------------------------------------------------
@@ -710,6 +710,7 @@ CREATE VIEW `v_planilla_muestras` AS SELECT 1 AS `idmarea`,
 1 AS `nro_ejemplar`,
 1 AS `cod_tipo_trampa`,
 1 AS `cant_aros`,
+1 AS `dsc_tipo_trampa`,
 1 AS `largo`,
 1 AS `sexo`,
 1 AS `estado_caparazon`,
@@ -1072,7 +1073,7 @@ DELIMITER $$
 DROP FUNCTION IF EXISTS f_cant_trampas_lance$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_lance`(p_idlance INT, p_cant_aros INT) RETURNS int(11)
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_lance`(p_idlance INT, p_cant_aros INT) RETURNS decimal(6,2)
     DETERMINISTIC
 BEGIN
 RETURN NULL;
@@ -1080,11 +1081,11 @@ END $$
 DELIMITER ;
 
 --
--- Estructura base de Rutina f_cant_trampas_pescando_lance
+-- Estructura base de Rutina F_CANT_TRAMPAS_PESCANDO_LANCE
 --
 
 DELIMITER $$
-DROP FUNCTION IF EXISTS f_cant_trampas_pescando_lance$$
+DROP FUNCTION IF EXISTS F_CANT_TRAMPAS_PESCANDO_LANCE$$
 DELIMITER ;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_pescando_lance`(p_idlance INT) RETURNS int(11)
@@ -1641,7 +1642,7 @@ DELIMITER $$
 DROP FUNCTION IF EXISTS f_cant_trampas_lance$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_lance`(p_idlance INT, p_cant_aros INT) RETURNS int(11)
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_lance`(p_idlance INT, p_cant_aros INT) RETURNS decimal(6,2)
     DETERMINISTIC
 BEGIN
 
@@ -1699,7 +1700,7 @@ WHERE
 			OR tt.cant_aros=p_cant_aros));
 
 
-RETURN ROUND(l_cant_trampas_tipo * l_factor);
+RETURN l_cant_trampas_tipo * l_factor;
 
 
 END$$
@@ -1707,11 +1708,11 @@ DELIMITER ;
 
 
 --
--- Definición completa de Rutina f_cant_trampas_pescando_lance
+-- Definición completa de Rutina F_CANT_TRAMPAS_PESCANDO_LANCE
 --
 
 DELIMITER $$
-DROP FUNCTION IF EXISTS f_cant_trampas_pescando_lance$$
+DROP FUNCTION IF EXISTS F_CANT_TRAMPAS_PESCANDO_LANCE$$
 DELIMITER ;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_trampas_pescando_lance`(p_idlance INT) RETURNS int(11)
@@ -2684,7 +2685,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_muestras` AS select `l`.`idmarea` AS `idmarea`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`dm`.`nro_ejemplar` AS `nro_ejemplar`,`tt`.`codigo` AS `cod_tipo_trampa`,`tt`.`cant_aros` AS `cant_aros`,`dm`.`largo` AS `largo`,`dm`.`sexo` AS `sexo`,`cc`.`codigo` AS `estado_caparazon`,`ch`.`codigo` AS `codigo_huevos`,`dm`.`porcentaje_huevos` AS `porcentaje_huevos` from (((((((`muestras` `m` left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `m`.`idtipo_trampa`))) join `detalle_muestras` `dm`) join `tipos_muestra` `tm` on((`tm`.`idtipo_muestra` = `m`.`idtipo_muestra`))) join `lances` `l` on((`l`.`idlance` = `m`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) left join `codigos_huevos` `ch` on((`ch`.`idcodigo_huevos` = `dm`.`idcodigo_huevos`))) join `codigos_caparazon` `cc` on((`cc`.`idcodigo_caparazon` = `dm`.`idcodigo_caparazon`))) where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`tm`.`es_submuestra` = 0) and (`tm`.`es_relac_morf` = 0)) $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_muestras` AS select `l`.`idmarea` AS `idmarea`,`l`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`dm`.`nro_ejemplar` AS `nro_ejemplar`,`tt`.`codigo` AS `cod_tipo_trampa`,`tt`.`cant_aros` AS `cant_aros`,concat(`ft`.`codigo`,' ',convert(`tt`.`cant_aros` using utf8)) AS `dsc_tipo_trampa`,`dm`.`largo` AS `largo`,`dm`.`sexo` AS `sexo`,`cc`.`codigo` AS `estado_caparazon`,`ch`.`codigo` AS `codigo_huevos`,`dm`.`porcentaje_huevos` AS `porcentaje_huevos` from ((((((((`muestras` `m` left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `m`.`idtipo_trampa`))) left join `formatos_trampa` `ft` on((`ft`.`idformato_trampa` = `tt`.`idformato_trampa`))) join `detalle_muestras` `dm` on((`dm`.`idmuestra` = `m`.`idmuestra`))) join `tipos_muestra` `tm` on((`tm`.`idtipo_muestra` = `m`.`idtipo_muestra`))) join `lances` `l` on((`l`.`idlance` = `m`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `l`.`idlance`))) left join `codigos_huevos` `ch` on((`ch`.`idcodigo_huevos` = `dm`.`idcodigo_huevos`))) join `codigos_caparazon` `cc` on((`cc`.`idcodigo_caparazon` = `dm`.`idcodigo_caparazon`))) where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`tm`.`es_submuestra` = 0) and (`tm`.`es_relac_morf` = 0)) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -2905,7 +2906,7 @@ DELIMITER ;
 
 
 -- ----------------------------------------------------
--- Fin de la copia de seguridad: 15/06/2015 00:59
+-- Fin de la copia de seguridad: 17/06/2015 12:38
 -- ----------------------------------------------------
 
 

@@ -187,6 +187,7 @@
         <ComponentName Value="fmEditarMarea"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmEditarMarea"/>
       </Unit7>
       <Unit8>
         <Filename Value="datcaptura.pas"/>

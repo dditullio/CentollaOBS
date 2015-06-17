@@ -310,7 +310,8 @@ begin
           GenerarSubmuestras(xls, PWD);
           GenerarProduccion(xls, PWD);
           GenerarFC(xls, PWD);
-          GenerarMarcas(xls, PWD);
+          //Por ahora la funcionalidad de registrar marcas está desactivada
+          //GenerarMarcas(xls, PWD);
           xls.ActiveWorkBook.Sheets('Datos de puente').Activate;
           xls.ActiveWorkBook.Save;
           if MessageDlg('La planilla ha sido guardada en la carpeta indicada. ¿Desea abrir esta carpeta?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
@@ -409,10 +410,12 @@ end;
 
 procedure TfmMareaAExcel.GenerarDatosPuente(xls: olevariant; Password: WideString);
 const
+  COLOR_RESALTADO=17; //Color celeste, para la propiadad Interior.ColorIndex de las celdas
+  SIN_COLOR=-4142;    //Sin color, para la propiadad Interior.ColorIndex de las celdas
   PRIM_COL_ESPECIES=44;
 var
   tmp: WideString;
-  fila, columna: integer;
+  fila, columna, i: integer;
   filtro: string;
 begin
   xls.ActiveWorkBook.Sheets('Datos de puente').Activate;
@@ -442,6 +445,13 @@ begin
     Fila := 5;//Arranco en la fila 5 porque antes están los títulos
     while not EOF do
     begin
+      //Si es línea de investigación, resalto la línea con un color
+      if FieldByName('investigacion').AsString = 'S' then
+      begin
+        for i := 1 to PRIM_COL_ESPECIES-1 do
+            xls.Cells[fila, i].Interior.ColorIndex:=COLOR_RESALTADO;
+      end;
+
       columna:=1;
       xls.Cells[fila, columna] := FieldByName('orden_virada').AsInteger;
       inc(columna);
@@ -585,8 +595,8 @@ begin
       Inc(fila);
     end;
   end;
-  Application.ProcessMessages;
   imPuente.Visible:=True;
+  Application.ProcessMessages;
 
   //Protejo la hoja para que el usuario no modifique los datos
   xls.ActiveWorkBook.ActiveSheet.Protect(Password);
@@ -654,8 +664,8 @@ begin
     end;
   end;
   pbCapturas.Position:=pbCapturas.Max;
-  Application.ProcessMessages;
   imCapturas.Visible:=True;
+  Application.ProcessMessages;
 
   //Protejo la hoja para que el usuario no modifique los datos
   xls.ActiveWorkBook.ActiveSheet.Protect(Password);
@@ -691,8 +701,8 @@ begin
       Inc(fila);
     end;
   end;
-  Application.ProcessMessages;
   imAcomp.Visible:=True;
+  Application.ProcessMessages;
 
   //Protejo la hoja para que el usuario no modifique los datos
   xls.ActiveWorkBook.ActiveSheet.Protect(Password);
@@ -702,6 +712,7 @@ procedure TfmMareaAExcel.GenerarMuestras(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   fila, columna, tmp_count: integer;
+
 begin
   xls.ActiveWorkBook.Sheets('Muestras').Activate;
   with zqMuestras do
@@ -717,7 +728,11 @@ begin
     begin
 
       xls.Cells[fila, 2] := FieldByName('orden_virada').AsInteger;
-      xls.Cells[fila, 3] := FieldByName('cod_tipo_trampa').AsInteger;
+      if not FieldByName('dsc_tipo_trampa').IsNull then
+      begin
+        tmp := UTF8Decode(FieldByName('dsc_tipo_trampa').AsString);
+        xls.Cells[fila, 3] := tmp;
+      end;
       xls.Cells[fila, 4] := FieldByName('nro_ejemplar').AsInteger;
       xls.Cells[fila, 5] := FieldByName('largo').AsInteger;
       xls.Cells[fila, 6] := FieldByName('sexo').AsInteger;
@@ -739,8 +754,8 @@ begin
     end;
   end;
   pbMuestras.Position := pbMuestras.Max;
-  Application.ProcessMessages;
   imMuestras.Visible:=True;
+  Application.ProcessMessages;
 
   //Protejo la hoja para que el usuario no modifique los datos
   xls.ActiveWorkBook.ActiveSheet.Protect(Password);
@@ -803,8 +818,8 @@ begin
       end;
     end;
   end;
-  Application.ProcessMessages;
   imSubmuestras.Visible:=True;
+  Application.ProcessMessages;
 
   //Protejo la hoja para que el usuario no modifique los datos
   xls.ActiveWorkBook.ActiveSheet.Protect(Password);
@@ -851,8 +866,8 @@ begin
       Inc(fila);
     end;
   end;
-  Application.ProcessMessages;
   imProduccion.Visible:=True;
+  Application.ProcessMessages;
 
   //Protejo la hoja para que el usuario no modifique los datos
   xls.ActiveWorkBook.ActiveSheet.Protect(Password);
@@ -928,8 +943,8 @@ begin
       FilaFC := FilaFC+39;
     end;
   end;
-  Application.ProcessMessages;
   imFactor.Visible:=True;
+  Application.ProcessMessages;
 
   //Protejo la hoja para que el usuario no modifique los datos
   xls.ActiveWorkBook.ActiveSheet.Protect(Password);
@@ -1004,8 +1019,8 @@ begin
       Inc(fila);
     end;
   end;
-  Application.ProcessMessages;
   imMarcado.Visible:=True;
+  Application.ProcessMessages;
 
   //Protejo la hoja para que el usuario no modifique los datos
   xls.ActiveWorkBook.ActiveSheet.Protect(Password);

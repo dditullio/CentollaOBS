@@ -40,9 +40,9 @@ inherited fmEditarMarea: TfmEditarMarea
       Height = 393
       Top = 1
       Width = 409
-      ActivePage = tsDatosGenerales
+      ActivePage = tsResumen
       Align = alClient
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       OnChange = pcGeneralChange
       object tsDatosGenerales: TTabSheet
@@ -439,7 +439,7 @@ inherited fmEditarMarea: TfmEditarMarea
               Left = 165
               Height = 15
               Top = 10
-              Width = 50
+              Width = 49
               DataField = 'dias_navegados'
               DataSource = dsDatosGen
               Font.Style = [fsBold]
@@ -450,7 +450,7 @@ inherited fmEditarMarea: TfmEditarMarea
               Left = 165
               Height = 15
               Top = 32
-              Width = 50
+              Width = 49
               DataField = 'dias_pesca'
               DataSource = dsDatosGen
               Font.Style = [fsBold]
@@ -461,7 +461,7 @@ inherited fmEditarMarea: TfmEditarMarea
               Left = 165
               Height = 15
               Top = 55
-              Width = 50
+              Width = 49
               DataField = 'duracion_marea'
               DataSource = dsDatosGen
               Font.Style = [fsBold]
@@ -717,8 +717,8 @@ inherited fmEditarMarea: TfmEditarMarea
         end
         object paCalculando: TPanel
           Left = 0
-          Height = 351
-          Top = 9
+          Height = 356
+          Top = 5
           Width = 400
           BevelOuter = bvNone
           Caption = 'Calculando...'
@@ -1191,6 +1191,7 @@ inherited fmEditarMarea: TfmEditarMarea
     AltoBotones = 28
     AnchoBotones = 88
     BotonExportar = bbExportar
+    SeleccionarUltimo = False
     Grilla = rxdbgDiario
     MostrarBotonExportar = True
     ZDataset = zqResumen

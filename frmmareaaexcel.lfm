@@ -1,11 +1,11 @@
 object fmMareaAExcel: TfmMareaAExcel
   Left = 450
-  Height = 331
+  Height = 296
   Top = 211
   Width = 406
   BorderStyle = bsSingle
   Caption = 'Informe en MS-Excel'
-  ClientHeight = 331
+  ClientHeight = 296
   ClientWidth = 406
   OnShow = FormShow
   Position = poScreenCenter
@@ -25,18 +25,18 @@ object fmMareaAExcel: TfmMareaAExcel
     WordWrap = True
   end
   object Label4: TLabel
-    Left = 10
+    Left = 12
     Height = 15
-    Top = 280
+    Top = 245
     Width = 104
     Caption = 'Destino del archivo:'
     ParentColor = False
   end
   object dedCarpetaPlanilla: TDirectoryEdit
-    Left = 10
+    Left = 12
     Height = 23
-    Top = 297
-    Width = 305
+    Top = 262
+    Width = 300
     OnAcceptDirectory = dedCarpetaPlanillaAcceptDirectory
     ShowHidden = False
     ButtonWidth = 23
@@ -47,9 +47,9 @@ object fmMareaAExcel: TfmMareaAExcel
     OnExit = dedCarpetaPlanillaExit
   end
   object bbGuardar: TBitBtn
-    Left = 315
+    Left = 312
     Height = 26
-    Top = 297
+    Top = 262
     Width = 84
     Action = acGenerarPlanilla
     Glyph.Data = {
@@ -92,7 +92,7 @@ object fmMareaAExcel: TfmMareaAExcel
   end
   object GroupBox1: TGroupBox
     Left = 12
-    Height = 210
+    Height = 175
     Top = 65
     Width = 384
     Caption = 'Datos procesados'
@@ -101,7 +101,7 @@ object fmMareaAExcel: TfmMareaAExcel
     ChildSizing.VerticalSpacing = 5
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 3
-    ClientHeight = 192
+    ClientHeight = 157
     ClientWidth = 380
     TabOrder = 2
     object Label2: TLabel
@@ -529,6 +529,7 @@ object fmMareaAExcel: TfmMareaAExcel
       Constraints.MaxWidth = 160
       Constraints.MinWidth = 150
       ParentColor = False
+      Visible = False
     end
     object pbMarcado: TProgressBar
       Left = 155
@@ -538,6 +539,7 @@ object fmMareaAExcel: TfmMareaAExcel
       Constraints.MaxHeight = 16
       Constraints.MinWidth = 200
       TabOrder = 5
+      Visible = False
     end
     object paMarcado: TPanel
       Left = 360
@@ -550,6 +552,7 @@ object fmMareaAExcel: TfmMareaAExcel
       Constraints.MaxHeight = 16
       Constraints.MaxWidth = 16
       TabOrder = 11
+      Visible = False
       object imMarcado: TImage
         Left = 0
         Height = 16
@@ -581,8 +584,8 @@ object fmMareaAExcel: TfmMareaAExcel
     end
   end
   object ActionList1: TActionList
-    left = 10
-    top = 265
+    left = 15
+    top = 10
     object acGenerarPlanilla: TAction
       Caption = 'Guardar'
       OnExecute = acGenerarPlanillaExecute
@@ -604,8 +607,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 65
-    top = 265
+    left = 70
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown
@@ -629,8 +632,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 205
-    top = 265
+    left = 210
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown
@@ -654,8 +657,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 100
-    top = 265
+    left = 105
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown
@@ -679,8 +682,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 135
-    top = 265
+    left = 140
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown
@@ -710,8 +713,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'sexo'
         ParamType = ptUnknown
       end>
-    left = 240
-    top = 265
+    left = 245
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown
@@ -740,8 +743,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 275
-    top = 265
+    left = 280
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown
@@ -765,8 +768,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idlance'
         ParamType = ptUnknown
       end>
-    left = 335
-    top = 250
+    left = 340
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown
@@ -790,8 +793,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 305
-    top = 250
+    left = 310
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown
@@ -815,8 +818,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 365
-    top = 250
+    left = 370
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown
@@ -840,8 +843,8 @@ object fmMareaAExcel: TfmMareaAExcel
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 170
-    top = 265
+    left = 175
+    top = 10
     ParamData = <    
       item
         DataType = ftUnknown

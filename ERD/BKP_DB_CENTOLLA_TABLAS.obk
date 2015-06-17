@@ -1,7 +1,7 @@
 -- ---------------------------------------------
 -- Tablas y datos de la base de datos "centolla"
 -- Generado desde la aplicación "Centolla OBS"
--- Fecha y hora de resguardo: 15/06/2015 00:59
+-- Fecha y hora de resguardo: 17/06/2015 12:38
 -- ---------------------------------------------
 
 -- -----------------------------------------------------
@@ -712,7 +712,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES ;
 
 
 -- ----------------------------------------------------
--- Fin de la copia de seguridad: 15/06/2015 00:59
+-- Fin de la copia de seguridad: 17/06/2015 12:38
 -- ----------------------------------------------------
 
 

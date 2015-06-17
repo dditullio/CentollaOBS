@@ -10,7 +10,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="37"/>
-        <CursorPos Y="55"/>
+        <CursorPos X="3" Y="55"/>
         <UsageCount Value="200"/>
       </Unit0>
       <Unit1>
@@ -57,7 +57,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmlistabase"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="19"/>
         <CursorPos X="9" Y="25"/>
         <UsageCount Value="200"/>
@@ -71,7 +71,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmmareas"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <TopLine Value="4"/>
         <CursorPos X="22" Y="9"/>
         <UsageCount Value="200"/>
@@ -93,10 +93,13 @@
         <ComponentName Value="fmEditarMarea"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <UnitName Value="frmEditarMarea"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="186"/>
         <CursorPos X="33" Y="192"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="datcaptura.pas"/>
@@ -105,7 +108,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="datcaptura"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="330"/>
         <CursorPos Y="335"/>
         <UsageCount Value="200"/>
@@ -129,7 +132,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmlances"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <TopLine Value="179"/>
         <CursorPos Y="179"/>
         <UsageCount Value="200"/>
@@ -180,8 +183,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmdatosbase"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <CursorPos X="2" Y="10"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -227,7 +229,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmcapturas"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="83"/>
         <CursorPos X="3" Y="88"/>
         <UsageCount Value="200"/>
@@ -241,7 +243,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmeditarmuestras"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="89"/>
         <CursorPos Y="89"/>
         <UsageCount Value="200"/>
@@ -255,7 +257,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmeditarcapturas"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="116"/>
         <CursorPos X="37" Y="119"/>
         <UsageCount Value="200"/>
@@ -291,7 +293,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmmuestras"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <TopLine Value="9"/>
         <CursorPos X="8" Y="18"/>
         <UsageCount Value="205"/>
@@ -316,7 +318,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmeditardetallemuestra"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="178"/>
         <CursorPos X="28" Y="186"/>
         <UsageCount Value="202"/>
@@ -399,7 +401,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmmarcado"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <TopLine Value="46"/>
         <CursorPos X="9" Y="55"/>
         <UsageCount Value="200"/>
@@ -424,10 +426,15 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmmareaaexcel"/>
-        <EditorIndex Value="11"/>
-        <TopLine Value="610"/>
-        <CursorPos Y="625"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="12"/>
+        <TopLine Value="286"/>
+        <CursorPos X="8" Y="299"/>
         <UsageCount Value="204"/>
+        <Bookmarks Count="2">
+          <Item0 Y="712" ID="1"/>
+          <Item1 X="2" Y="449" ID="2"/>
+        </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit35>
@@ -448,14 +455,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmEditarEnviosEmail"/>
-        <EditorIndex Value="9"/>
-        <TopLine Value="629"/>
-        <CursorPos X="80" Y="641"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="644"/>
+        <CursorPos X="61" Y="649"/>
         <UsageCount Value="202"/>
-        <Bookmarks Count="2">
-          <Item0 X="33" Y="460" ID="1"/>
-          <Item1 X="29" Y="638" ID="2"/>
-        </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit37>
@@ -468,7 +471,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos X="64" Y="15"/>
-        <UsageCount Value="178"/>
+        <UsageCount Value="180"/>
       </Unit38>
       <Unit39>
         <Filename Value="frmbackup.pas"/>
@@ -479,7 +482,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="249"/>
         <CursorPos X="29" Y="253"/>
-        <UsageCount Value="86"/>
+        <UsageCount Value="88"/>
         <Bookmarks Count="1">
           <Item0 X="50" Y="305" ID="2"/>
         </Bookmarks>
@@ -866,7 +869,52 @@
         <UsageCount Value="8"/>
       </Unit90>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory Count="11" HistoryIndex="10">
+      <Position1>
+        <Filename Value="frmeditarenviosemail.pas"/>
+        <Caret Line="650" Column="57" TopLine="645"/>
+      </Position1>
+      <Position2>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="446" Column="2" TopLine="436"/>
+      </Position2>
+      <Position3>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="706" TopLine="698"/>
+      </Position3>
+      <Position4>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="417" Column="19" TopLine="407"/>
+      </Position4>
+      <Position5>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="736" Column="27" TopLine="718"/>
+      </Position5>
+      <Position6>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="140" Column="15" TopLine="125"/>
+      </Position6>
+      <Position7>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="141" Column="28" TopLine="125"/>
+      </Position7>
+      <Position8>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="307" Column="65" TopLine="297"/>
+      </Position8>
+      <Position9>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="39" Column="14" TopLine="71"/>
+      </Position9>
+      <Position10>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="161" Column="19" TopLine="145"/>
+      </Position10>
+      <Position11>
+        <Filename Value="frmmareaaexcel.pas"/>
+        <Caret Line="175" Column="25" TopLine="160"/>
+      </Position11>
+    </JumpHistory>
   </ProjectSession>
   <Debugging>
     <BreakPoints Count="16">

@@ -596,7 +596,7 @@ begin
 
     with zqExpLances do
     begin
-      //Para armar el encabezado, recotto todos los campos "Visibles" y utilizo el "DisplayLabel"
+      //Para armar el encabezado, recorro todos los campos "Visibles" y utilizo el "DisplayLabel"
       fila:=5;
       columna :=1;
       for i:=0 to Fields.Count-1 do
