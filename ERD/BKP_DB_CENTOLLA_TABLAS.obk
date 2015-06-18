@@ -1,17 +1,8 @@
 -- ---------------------------------------------
 -- Tablas y datos de la base de datos "centolla"
 -- Generado desde la aplicación "Centolla OBS"
--- Fecha y hora de resguardo: 17/06/2015 12:38
+-- Fecha y hora de resguardo: 18/06/2015 18:26
 -- ---------------------------------------------
-
--- -----------------------------------------------------
--- Esquema centolla
--- -----------------------------------------------------
-
-CREATE SCHEMA IF NOT EXISTS `centolla` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;
-
-USE `centolla` ;
-
 
 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT ;
 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS ;
@@ -712,7 +703,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES ;
 
 
 -- ----------------------------------------------------
--- Fin de la copia de seguridad: 17/06/2015 12:38
+-- Fin de la copia de seguridad: 18/06/2015 18:26
 -- ----------------------------------------------------
 
 

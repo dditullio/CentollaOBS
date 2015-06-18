@@ -65,6 +65,20 @@ type
     zqRutinas: TZQuery;
     zqDefRutina: TZQuery;
     zqTriggers: TZQuery;
+    ZQuery1cant_trampas: TLongintField;
+    ZQuery1comerc_especie1: TLongintField;
+    ZQuery1comerc_especie2: TLongintField;
+    ZQuery1comerc_especie3: TLongintField;
+    ZQuery1especie1: TStringField;
+    ZQuery1especie2: TStringField;
+    ZQuery1especie3: TStringField;
+    ZQuery1estado_trampa: TStringField;
+    ZQuery1id: TLongintField;
+    ZQuery1lance_id: TLongintField;
+    ZQuery1tipo_trampa: TStringField;
+    ZQuery1tot_especie1: TLongintField;
+    ZQuery1tot_especie2: TLongintField;
+    ZQuery1tot_especie3: TLongintField;
     procedure acBackupExecute(Sender: TObject);
     procedure acRestaurarExecute(Sender: TObject);
     procedure ckDatosChange(Sender: TObject);
@@ -88,9 +102,10 @@ type
     Procedure HabilitarAcciones;
     procedure ExportarDB_SQL(archivo_tablas, archivo_datos, archivo_rutinas: string);
     procedure ExportarDB_TXT(carpeta: string);
+    procedure ExportarDB_Global(archivo_datos: string);
     function SentenciaCreateTable(tabla:string):string;
     function SentenciaCreateView(vista:string):string;
-    function SentenciaInsert(tabla:string):string;
+    function SentenciaInsert(tabla:string; PrefijoTabla: string=''):string;
     function FormatField(f: TField):string;
     function CrearEstructuraVista(vista:string):string;
     procedure CrearTablasYDatos(var str_sql_tablas, str_sql_datos: TStringList; crear_estructura:Boolean=True;incluir_datos:Boolean=True);
@@ -102,6 +117,7 @@ type
     procedure CrearVistasReales(var str_sql: TStringList);
     procedure CrearEncabezadoRutinas(var str_sql: TStringList);
     procedure CrearPieRutinas(var str_sql: TStringList);
+    procedure CrearDatosDBGlobal(var str_sql: TStringList);
   public
     { public declarations }
   end;
@@ -119,7 +135,7 @@ const
 
 
      SET_VAR_ENCABEZADO=
-                '-- -----------------------------------------------------'+NEWLINE+
+{                '-- -----------------------------------------------------'+NEWLINE+
                 '-- Esquema <ESQUEMA>'+NEWLINE+
                 '-- -----------------------------------------------------'+NEWLINE+
                 ''+NEWLINE+
@@ -128,7 +144,7 @@ const
                 'USE `<ESQUEMA>` ;'+NEWLINE+
                 ''+NEWLINE+
                 ''+NEWLINE+
-                'SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT ;'+NEWLINE+
+}                'SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT ;'+NEWLINE+
                  'SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS ;'+NEWLINE+
                  'SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION ;'+NEWLINE+
                  'SET NAMES utf8 ;'+NEWLINE+
@@ -232,7 +248,7 @@ const
 
 var
   fmBackup: TfmBackup;
-  sl_tablas, sl_datos, sl_rutinas: TStringList;
+  sl_tablas, sl_datos, sl_rutinas, sl_expglob: TStringList;
 
 implementation
 
@@ -251,7 +267,7 @@ procedure TfmBackup.acBackupExecute(Sender: TObject);
 var
   temp_dir: string;
   str_fecha: string;
-  nombre_base, archivo_backup_tablas, archivo_backup_datos, archivo_backup_rutinas, archivo_zip, archivo_txt, tabla: string;
+  nombre_base, archivo_backup_tablas, archivo_backup_datos, archivo_backup_rutinas, archivo_zip, archivo_txt, tabla, archivo_expglob: string;
 begin
 
     temp_dir:=GetTempDir;
@@ -264,11 +280,20 @@ begin
     archivo_backup_tablas:=nombre_base+CADENA_TABLAS+EXTENSION_ARCH_BACKUP;
     archivo_backup_datos:=nombre_base+CADENA_DATOS+EXTENSION_ARCH_BACKUP;
     archivo_backup_rutinas:=nombre_base+CADENA_RUTINAS+EXTENSION_ARCH_BACKUP;
+    //Armo el nombre del archivo destino con año y número de marea
+    archivo_expglob := temp_dir + DirectorySeparator
+      + dmGeneral.zqMareaActivamarea_buque.AsString + '.expg';
 
     paProceso.Visible:=True;
 
     //Generar archivos SQL
     ExportarDB_SQL(archivo_backup_tablas, archivo_backup_datos, archivo_backup_rutinas);
+
+    //Generar archivos para importar en DB global
+    if ckDatos.Checked then
+    begin
+         ExportarDB_Global(archivo_expglob);
+    end;
 
     if ckCopiaTXT.Checked then
     begin
@@ -293,6 +318,8 @@ begin
          azBackup.AddFiles(archivo_backup_datos,0);
       if FileExistsUTF8(archivo_backup_rutinas) then
          azBackup.AddFiles(archivo_backup_rutinas,0);
+      if FileExistsUTF8(archivo_expglob) then
+         azBackup.AddFiles(archivo_expglob,0);
 
       //Borro los archivos porque ya no se necesitan
       if FileExistsUTF8(archivo_backup_tablas) then
@@ -301,6 +328,8 @@ begin
          DeleteFileUTF8(archivo_backup_datos);
       if FileExistsUTF8(archivo_backup_rutinas) then
          DeleteFileUTF8(archivo_backup_rutinas);
+      if FileExistsUTF8(archivo_expglob) then
+         DeleteFileUTF8(archivo_expglob);
 
       if ckCopiaTXT.Checked then
       begin
@@ -424,14 +453,14 @@ end;
 procedure TfmBackup.FormCreate(Sender: TObject);
 begin
   inherited;
-  sl_rutinas:=TStringList.Create;
-  sl_rutinas:=TStringList.Create;
 end;
 
 procedure TfmBackup.FormDestroy(Sender: TObject);
 begin
    sl_tablas.Free;
+   sl_datos.Free;
    sl_rutinas.Free;
+   sl_expglob.Free;
 end;
 
 procedure TfmBackup.FormShow(Sender: TObject);
@@ -442,8 +471,10 @@ begin
      sl_tablas:=TStringList.Create;
   if not Assigned(sl_datos) then
      sl_datos:=TStringList.Create;
-    if not Assigned(sl_rutinas) then
-       sl_rutinas:=TStringList.Create;
+  if not Assigned(sl_rutinas) then
+     sl_rutinas:=TStringList.Create;
+  if not Assigned(sl_expglob) then
+     sl_expglob:=TStringList.Create;
 
     LSLoadConfig(['destino_backup'],[destino],[@destino]);
   if destino='' then
@@ -792,6 +823,34 @@ begin
    end;
 end;
 
+procedure TfmBackup.ExportarDB_Global(archivo_datos: string);
+var
+   str_sql_datos: TStringList;
+begin
+
+    //Genera un archivo str_sql_datos con los datos necesarios
+    //para ser importados en la base de datos global
+
+    //Se utiliza un StringList para almacenar el código del script
+    str_sql_datos:=TStringList.Create;
+
+    //Se arma un encabezado con las variables de inicio del script
+    CrearEncabezadoTablas(str_sql_datos);
+
+    CrearDatosDBGlobal(str_sql_datos);
+
+    //Se agrega el seteo de variables al final
+    CrearPieTablas(str_sql_datos);
+
+    if (archivo_datos <> '') and (str_sql_datos.Count>0) then
+    begin
+     str_sql_datos.SaveToFile(archivo_datos);
+    end;
+
+    str_sql_datos.Free;
+
+end;
+
 function TfmBackup.SentenciaCreateTable(tabla: string): string;
 var
   sentencia:String;
@@ -816,7 +875,8 @@ begin
   result := sentencia;
 end;
 
-function TfmBackup.SentenciaInsert(tabla: string): string;
+function TfmBackup.SentenciaInsert(tabla: string; PrefijoTabla: string
+    ): string;
 var
    sentencia: string;
    insert_values_reg:string;
@@ -896,7 +956,7 @@ begin
             //Si alcanzo los <max_reg_paquete> registros, armo un paquete y vuelvo a empezar
             if nro_reg_paquete>=max_reg_paquete then
             begin
-              paquete_insert:=StringReplace(INSERT_MULTI_TEMPLATE, '<TABLA>', tabla, [rfReplaceAll, rfIgnoreCase]);
+              paquete_insert:=StringReplace(INSERT_MULTI_TEMPLATE, '<TABLA>', PrefijoTabla+tabla, [rfReplaceAll, rfIgnoreCase]);
               paquete_insert:=StringReplace(paquete_insert, '<CAMPOS>', campos, [rfReplaceAll, rfIgnoreCase]);
               paquete_insert:=StringReplace(paquete_insert, '<INSERT_VALUES>', insert_values_gral, [rfReplaceAll, rfIgnoreCase]);
               sentencia:=sentencia+paquete_insert;
@@ -909,7 +969,7 @@ begin
           //Si quedan registros en el paquete, los agrego a la sentencia
           if insert_values_gral<>'' then
           begin
-            paquete_insert:=StringReplace(INSERT_MULTI_TEMPLATE, '<TABLA>', tabla, [rfReplaceAll, rfIgnoreCase]);
+            paquete_insert:=StringReplace(INSERT_MULTI_TEMPLATE, '<TABLA>', PrefijoTabla+tabla, [rfReplaceAll, rfIgnoreCase]);
             paquete_insert:=StringReplace(paquete_insert, '<CAMPOS>', campos, [rfReplaceAll, rfIgnoreCase]);
             paquete_insert:=StringReplace(paquete_insert, '<INSERT_VALUES>', insert_values_gral, [rfReplaceAll, rfIgnoreCase]);
             sentencia:=sentencia+paquete_insert;
@@ -1301,6 +1361,37 @@ begin
    str_sql.Add('-- ----------------------------------------------------');
    str_sql.Add('-- Fin de la copia de seguridad: '+FormatDateTime('dd/mm/yyyy hh:mm', Now));
    str_sql.Add('-- ----------------------------------------------------');
+   str_sql.Add(NEWLINE);
+end;
+
+procedure TfmBackup.CrearDatosDBGlobal(var str_sql: TStringList);
+const
+      PREFIJO_VISTAS='v_expg_';
+var
+   vista: string;
+begin
+   //Obtengo las tablas de la base de datos
+   zqTablasYVistas.Close;
+   zqTablasYVistas.ParamByName('tipo').Value:='VIEW';
+   zqTablasYVistas.Open;
+
+
+   //Para cada vista, creo la estructura y armo el insert con los datos
+   with zqTablasYVistas do
+   begin
+     First;
+     while not EOF do
+     begin
+       vista:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
+//       if LeftStr(LowerCase(vista),7)=PREFIJO_VISTAS then
+       if vista='v_expg_capturas' then
+       begin
+            str_sql.Add(SentenciaInsert(vista, 'tmp_'));
+       end;
+       Application.ProcessMessages;
+       Next;
+     end;
+   end;
    str_sql.Add(NEWLINE);
 end;
 

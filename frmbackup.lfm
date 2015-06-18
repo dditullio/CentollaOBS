@@ -1,7 +1,7 @@
 object fmBackup: TfmBackup
-  Left = 267
+  Left = 433
   Height = 476
-  Top = 146
+  Top = 148
   Width = 416
   BorderStyle = bsDialog
   Caption = 'Copia de seguridad'
@@ -500,13 +500,13 @@ object fmBackup: TfmBackup
       ''
     )
     Params = <>
-    left = 160
+    left = 200
     top = 15
   end
   object zqGetCreate: TZQuery
     Connection = dmGeneral.zcDB
     Params = <>
-    left = 195
+    left = 235
     top = 15
   end
   object zqDatosTabla: TZQuery
@@ -515,7 +515,7 @@ object fmBackup: TfmBackup
       ''
     )
     Params = <>
-    left = 245
+    left = 265
     top = 15
   end
   object zqRutinas: TZQuery
@@ -535,7 +535,7 @@ object fmBackup: TfmBackup
         Name = 'db'
         ParamType = ptUnknown
       end>
-    left = 280
+    left = 300
     top = 15
     ParamData = <    
       item
@@ -581,7 +581,7 @@ object fmBackup: TfmBackup
   object zqDefRutina: TZQuery
     Connection = dmGeneral.zcDB
     Params = <>
-    left = 315
+    left = 335
     top = 15
   end
   object odRestaurar: TOpenDialog
@@ -637,7 +637,7 @@ object fmBackup: TfmBackup
       'SHOW TRIGGERS'
     )
     Params = <>
-    left = 120
+    left = 160
     top = 15
   end
   object dblRestaurar: TSQLDBLibraryLoader
