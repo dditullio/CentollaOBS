@@ -164,7 +164,6 @@
         <ComponentName Value="fmListaBase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmlistabase"/>
       </Unit4>
       <Unit5>
         <Filename Value="frmmareas.pas"/>
@@ -172,7 +171,6 @@
         <ComponentName Value="fmMareas"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmmareas"/>
       </Unit5>
       <Unit6>
         <Filename Value="frmzedicionbase.pas"/>
@@ -187,7 +185,6 @@
         <ComponentName Value="fmEditarMarea"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmEditarMarea"/>
       </Unit7>
       <Unit8>
         <Filename Value="datcaptura.pas"/>
@@ -195,7 +192,6 @@
         <ComponentName Value="dmCapturas"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="datcaptura"/>
       </Unit8>
       <Unit9>
         <Filename Value="datbase.pas"/>
@@ -210,7 +206,6 @@
         <ComponentName Value="fmLances"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmlances"/>
       </Unit10>
       <Unit11>
         <Filename Value="funciones.pas"/>
@@ -243,7 +238,6 @@
         <ComponentName Value="fmDatosBase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmdatosbase"/>
       </Unit15>
       <Unit16>
         <Filename Value="frmeditarlineas.pas"/>
@@ -272,7 +266,6 @@
         <ComponentName Value="fmCapturas"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmcapturas"/>
       </Unit19>
       <Unit20>
         <Filename Value="frmeditarmuestras.pas"/>
@@ -280,7 +273,6 @@
         <ComponentName Value="fmEditarMuestras"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmeditarmuestras"/>
       </Unit20>
       <Unit21>
         <Filename Value="frmeditarcapturas.pas"/>
@@ -288,7 +280,6 @@
         <ComponentName Value="fmEditarCaptura"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmeditarcapturas"/>
       </Unit21>
       <Unit22>
         <Filename Value="frmeditardetallecaptura.pas"/>
@@ -310,7 +301,6 @@
         <ComponentName Value="fmMuestras"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmmuestras"/>
       </Unit24>
       <Unit25>
         <Filename Value="datmuestras.pas"/>
@@ -325,7 +315,6 @@
         <ComponentName Value="fmEditarDetalleMuestra"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmeditardetallemuestra"/>
       </Unit26>
       <Unit27>
         <Filename Value="frmproduccion.pas"/>
@@ -333,7 +322,6 @@
         <ComponentName Value="fmProduccion"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmProduccion"/>
       </Unit27>
       <Unit28>
         <Filename Value="frmeditarproduccion.pas"/>
@@ -376,7 +364,6 @@
         <ComponentName Value="fmMarcado"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmmarcado"/>
       </Unit33>
       <Unit34>
         <Filename Value="frmeditarmarcado.pas"/>
@@ -406,7 +393,6 @@
         <ComponentName Value="FmEditarEnviosEmail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmEditarEnviosEmail"/>
       </Unit37>
       <Unit38>
         <Filename Value="frmeditartipostrampa.pas"/>

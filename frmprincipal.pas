@@ -168,7 +168,7 @@ procedure TfmPrincipal.FormShow(Sender: TObject);
 begin
   HideSplashScreen;
   HabilitarMenu;
-  Caption:='Centolla OBS - v'+APP_VERSION;
+  Caption:=ApplicationName+' - v'+APP_VERSION;
 end;
 
 procedure TfmPrincipal.tmHabilitarMenuTimer(Sender: TObject);

@@ -132,6 +132,7 @@ const
     EXTENSION_ARCH_BACKUP='.obk';
     INSERT_SIMPLE=0;
     INSERT_MULTIPLE=1;
+    GEN_DATOS_GLOB=True;
 
 
      SET_VAR_ENCABEZADO=
@@ -290,7 +291,7 @@ begin
     ExportarDB_SQL(archivo_backup_tablas, archivo_backup_datos, archivo_backup_rutinas);
 
     //Generar archivos para importar en DB global
-    if ckDatos.Checked then
+    if (GEN_DATOS_GLOB=True) and (ckDatos.Checked) then
     begin
          ExportarDB_Global(archivo_expglob);
     end;
@@ -494,6 +495,7 @@ var
   i:Integer;
   temp_dir: string;
   script_tablas, script_datos, script_rutinas:string;
+  version_script, msg_version:string;
 begin
   odRestaurar.InitialDir:=dedCarpetaArchivo.Directory;
   if odRestaurar.Execute then
@@ -519,28 +521,50 @@ begin
 
     if FileExistsUTF8(script_tablas) or FileExistsUTF8(script_datos) or FileExistsUTF8(script_rutinas) then
     begin
-      if FileExistsUTF8(script_tablas) then
-            sl_tablas.LoadFromFile(script_tablas);
-      if FileExistsUTF8(script_datos) then
-            sl_datos.LoadFromFile(script_datos);
-      if FileExistsUTF8(script_rutinas) then
-           sl_rutinas.LoadFromFile(script_rutinas);
-
       //Se oculta el memo para acelerar la carga del texto
       meSQL.Visible:=False;
-      meSQL.Text:=sl_tablas.Text;
+
+      if FileExistsUTF8(script_tablas) then
+      begin
+        sl_tablas.LoadFromFile(script_tablas);
+        meSQL.Text:=sl_tablas.Text;
+      end;
+      if FileExistsUTF8(script_datos) then
+      begin
+        sl_datos.LoadFromFile(script_datos);
+        if meSQL.Lines.Count=0 then
+          meSQL.Text:=sl_datos.Text;
+      end;
+      if FileExistsUTF8(script_rutinas) then
+      begin
+        sl_rutinas.LoadFromFile(script_rutinas);
+        if meSQL.Lines.Count=0 then
+          meSQL.Text:=sl_rutinas.Text;
+      end;
+
       meSQL.SelStart:=0;
       meSQL.Visible:=True;
 
+      //Intento obtener el número de version de la aplicación
+      if (sl_tablas.Count>5) and(LeftStr(sl_tablas[3],10)='-- Version') then
+      begin
+        version_script:=Copy(sl_tablas[3],12,5);
+      end else
+      if (sl_datos.Count>5) and(LeftStr(sl_datos[3],10)='-- Version') then
+      begin
+        version_script:=Copy(sl_datos[3],12,5);
+      end else
+      begin
+        version_script:='';
+      end;
+
       //Leo sólo uno de los archivos para verificar
-      if ((sl_tablas.Count>0) and((sl_tablas[0] <> '-- ---------------------------------------------')
+      if ((sl_tablas.Count>5) and((sl_tablas[0] <> '-- ---------------------------------------------')
          or (sl_tablas[1] <> '-- Tablas y datos de la base de datos "'+dmGeneral.zcDB.Database+'"')
-         or (sl_tablas[2] <> '-- Generado desde la aplicación "'+ApplicationName+'"')
-         or (sl_tablas[4] <> '-- ---------------------------------------------'))) or
-      ((sl_datos.Count>0) and((sl_tablas[0] <> '-- ---------------------------------------------')
+         or (sl_tablas[2] <> '-- Generado desde la aplicación "'+ApplicationName+'"'))) or
+      ((sl_datos.Count>5) and((sl_datos[0] <> '-- ---------------------------------------------')
          or (sl_datos[1] <> '-- Tablas y datos de la base de datos "'+dmGeneral.zcDB.Database+'"')
-         or (sl_datos[2] <> '-- Generado desde la aplicación "'+ApplicationName+'"')
-         or (sl_datos[4] <> '-- ---------------------------------------------'))) then
+         or (sl_datos[2] <> '-- Generado desde la aplicación "'+ApplicationName+'"'))) then
       begin
         if MessageDlg('Advertencia','El archivo seleccionado no parece ser una copia de seguridad generada por esta aplicación. Pueden generarse daños en los datos, perderse toda la información registrada, o inutilizar totalmente esta aplicación. ¿Está seguro de que desea utilizar este archivo?', mtWarning, [mbYes, mbNo],0, mbNo) = mrNo then
         begin
@@ -552,6 +576,25 @@ begin
           HabilitarAcciones;
         end;
       end;
+
+      if version_script<>APP_VERSION then
+      begin
+        if version_script<>'' then
+           msg_version:=NEWLINE+NEWLINE+'Versión de la aplicación: '+APP_VERSION+NEWLINE+'Versión de la copia de seguridad: '+version_script
+        else
+             msg_version:='';
+        if MessageDlg('Advertencia','El archivo de copia de seguridad seleccionado fue generado con una versión diferente de la aplicación. Es posible que falle la restauracion, que los datos se restauren incompletos, o que la aplicación no funcione correctamente. ¿Está seguro de que desea utilizar este archivo?'+msg_version, mtWarning, [mbYes, mbNo],0, mbNo) = mrNo then
+        begin
+          meSQL.Clear;
+          edArchivoSQL.Text:='';
+          sl_tablas.Clear;
+          sl_datos.Clear;
+          sl_rutinas.Clear;
+          HabilitarAcciones;
+        end;
+      end;
+
+
       if FileExistsUTF8(script_tablas) then
          DeleteFileUTF8(script_tablas);
       if FileExistsUTF8(script_datos) then
@@ -569,7 +612,9 @@ begin
       HabilitarAcciones;
     end;
     ckRestaurarEstructura.Enabled:=(sl_tablas.Count>0) or (sl_rutinas.Count>0);
+    ckRestaurarEstructura.Checked:=ckRestaurarEstructura.Enabled;
     ckRestaurarDatos.Enabled:=(sl_datos.Count>0);
+    ckRestaurarDatos.Checked:=ckRestaurarDatos.Enabled;
   end;
 end;
 
@@ -585,6 +630,9 @@ begin
    meSQL.Visible:=False;
    oldCursor:=paMensajeEspera.Cursor;
    paMensajeEspera.Cursor:=crHourGlass;
+   edArchivoSQL.Text:='';
+   ckRestaurarEstructura.Enabled:=False;
+   ckRestaurarDatos.Enabled:=False;
    Application.ProcessMessages;
    restOK:=False;
    if (proc_tablas or proc_datos or proc_rutinas) then
@@ -655,6 +703,9 @@ begin
        paMensajeEspera.Cursor:=oldCursor;
        HabilitarAcciones;
    end;
+   edArchivoSQL.Text:='';
+   ckRestaurarEstructura.Enabled:=False;
+   ckRestaurarDatos.Enabled:=False;
    Result:=restOK;
 end;
 
@@ -1113,6 +1164,7 @@ begin
     str_sql.Add('-- ---------------------------------------------');
     str_sql.Add('-- Tablas y datos de la base de datos "'+dmGeneral.zcDB.Database+'"');
     str_sql.Add('-- Generado desde la aplicación "'+ApplicationName+'"');
+    str_sql.Add('-- Version '+APP_VERSION);
     str_sql.Add('-- Fecha y hora de resguardo: '+FormatDateTime('dd/mm/yyyy hh:mm', Now));
     str_sql.Add('-- ---------------------------------------------');
     str_sql.Add('');
@@ -1383,8 +1435,7 @@ begin
      while not EOF do
      begin
        vista:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
-//       if LeftStr(LowerCase(vista),7)=PREFIJO_VISTAS then
-       if vista='v_expg_capturas' then
+       if LeftStr(LowerCase(vista),7)=PREFIJO_VISTAS then
        begin
             str_sql.Add(SentenciaInsert(vista, 'tmp_'));
        end;
