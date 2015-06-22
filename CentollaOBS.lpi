@@ -315,6 +315,7 @@
         <ComponentName Value="fmEditarDetalleMuestra"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmeditardetallemuestra"/>
       </Unit26>
       <Unit27>
         <Filename Value="frmproduccion.pas"/>

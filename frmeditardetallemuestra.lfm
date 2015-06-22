@@ -97,12 +97,12 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           TabOrder = 2
           OnExit = dbedLargoCapExit
         end
-        object Label11: TLabel
+        object laLargoCap: TLabel
           Left = 85
           Height = 15
           Top = 60
-          Width = 60
-          Caption = 'Largo. Cap.'
+          Width = 57
+          Caption = 'Largo Cap.'
           ParentColor = False
         end
         object Label10: TLabel
@@ -125,7 +125,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           TabOrder = 0
           TabStop = False
         end
-        object Label2: TLabel
+        object laSexo: TLabel
           Left = 10
           Height = 15
           Top = 60
@@ -186,6 +186,29 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           TabOrder = 1
           OnChange = dbedSexoChange
           OnExit = dbedSexoExit
+        end
+        object Arrow1: TArrow
+          Tag = 2
+          Left = 145
+          Height = 10
+          Hint = 'Intercambiar el orden de los campos de "Sexo" y "Largo Cap."'
+          Top = 105
+          Width = 10
+          Constraints.MinHeight = 8
+          Constraints.MinWidth = 8
+          OnClick = ArrowSexoCapClick
+        end
+        object Arrow2: TArrow
+          Tag = 1
+          Left = 10
+          Height = 10
+          Hint = 'Intercambiar el orden de los campos de "Sexo" y "Largo Cap."'
+          Top = 105
+          Width = 10
+          ArrowType = atRight
+          Constraints.MinHeight = 8
+          Constraints.MinWidth = 8
+          OnClick = ArrowSexoCapClick
         end
       end
       object tsRelacMorf: TTabSheet

@@ -6,14 +6,17 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, DividerBevel, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls, DbCtrls, Buttons, ComCtrls, frmzedicionbase, ZDataset,
-  SQLQueryGroup, zcontroladoredicion, zdatasetgroup, db, datmuestras;
+  ExtCtrls, StdCtrls, DbCtrls, Buttons, ComCtrls, Arrow, frmzedicionbase,
+  ZDataset, SQLQueryGroup, zcontroladoredicion, zdatasetgroup, db, datmuestras,
+  LSConfig;
 
 type
 
   { TfmEditarDetalleMuestra }
 
   TfmEditarDetalleMuestra = class(TZEdicionBase)
+      Arrow1: TArrow;
+      Arrow2: TArrow;
     dbedNroEjemplar: TDBEdit;
     dbedLargoCap: TDBEdit;
     dbedSexo: TDBEdit;
@@ -37,10 +40,10 @@ type
     gbDerecha1: TGroupBox;
     Label1: TLabel;
     Label10: TLabel;
-    Label11: TLabel;
+    laLargoCap: TLabel;
     Label12: TLabel;
     Label13: TLabel;
-    Label2: TLabel;
+    laSexo: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
@@ -55,6 +58,7 @@ type
     Panel6: TPanel;
     tsRelacMorf: TTabSheet;
     tsGeneral: TTabSheet;
+    procedure ArrowSexoCapClick(Sender: TObject);
     procedure dbedLargoCapExit(Sender: TObject);
     procedure dbedPorcentHuevosExit(Sender: TObject);
     procedure dbedSexoChange(Sender: TObject);
@@ -178,6 +182,39 @@ begin
   end;
 end;
 
+procedure TfmEditarDetalleMuestra.ArrowSexoCapClick(Sender: TObject);
+var
+  left_sexo, left_largo_cap: integer;
+  tab_order_sexo, tab_order_largo_cap: integer;
+  invertir_pos: Boolean;
+begin
+    left_sexo:=laSexo.Left;
+    left_largo_cap:=laLargoCap.Left;
+    tab_order_sexo:=dbedSexo.TabOrder;
+    tab_order_largo_cap:=dbedLargoCap.TabOrder;
+
+    //Intercambio las posiciones
+    laSexo.Left:=left_largo_cap;
+    dbedSexo.Left:=left_largo_cap;
+    laLargoCap.Left:=left_sexo;
+    dbedLargoCap.Left:=left_sexo;
+
+    //Intercambio también el TabOrder
+    dbedSexo.TabOrder:=tab_order_largo_cap;
+    dbedLargoCap.TabOrder:=tab_order_sexo;
+
+    //Veo si las posiciones están invertidas y lo guardo en la configuración para
+    //poder usar la misma configutación la próxima vez
+    invertir_pos:=(laSexo.Left>laLargoCap.Left);
+    LSSaveConfig(['invertir_campos_sexo_largo'],[invertir_pos]);
+
+    //Pongo el control inicial en el primerosegún el TabOrder
+    if dbedSexo.TabOrder<dbedLargoCap.TabOrder then
+       zcePrincipal.ControlInicial:=dbedSexo
+    else
+      zcePrincipal.ControlInicial:=dbedLargoCap;
+end;
+
 procedure TfmEditarDetalleMuestra.dbedPorcentHuevosExit(Sender: TObject);
 begin
   if (not dmMuestras.zqDetalleMuestrasporcentaje_huevos.IsNull) and ((dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsFloat<0) or (dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsFloat>100)) then
@@ -216,8 +253,41 @@ begin
 end;
 
 procedure TfmEditarDetalleMuestra.FormShow(Sender: TObject);
+var
+  left_sexo, left_largo_cap: integer;
+  tab_order_sexo, tab_order_largo_cap: integer;
+  invertir_pos: string;
 begin
   pcPrincipal.ActivePage:=tsGeneral;
+
+  LSLoadConfig(['invertir_campos_sexo_largo'],[invertir_pos],[@invertir_pos]);
+
+  //Tomo las posiciones actuales
+  left_sexo:=laSexo.Left;
+  left_largo_cap:=laLargoCap.Left;
+  tab_order_sexo:=dbedSexo.TabOrder;
+  tab_order_largo_cap:=dbedLargoCap.TabOrder;
+
+  //Si está configurado invertir, y aún no están invertidos, lo hago
+  if (invertir_pos='True') and (left_largo_cap>left_sexo) then
+  begin
+
+    //Intercambio las posiciones
+    laSexo.Left:=left_largo_cap;
+    dbedSexo.Left:=left_largo_cap;
+    laLargoCap.Left:=left_sexo;
+    dbedLargoCap.Left:=left_sexo;
+
+    //Intercambio también el TabOrder
+    dbedSexo.TabOrder:=tab_order_largo_cap;
+    dbedLargoCap.TabOrder:=tab_order_sexo;
+
+  end;
+  //Pongo el control inicial en el primerosegún el TabOrder
+  if dbedSexo.TabOrder<dbedLargoCap.TabOrder then
+     zcePrincipal.ControlInicial:=dbedSexo
+  else
+    zcePrincipal.ControlInicial:=dbedLargoCap;
 end;
 
 procedure TfmEditarDetalleMuestra.pcPrincipalChange(Sender: TObject);
