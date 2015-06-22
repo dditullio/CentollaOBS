@@ -33,6 +33,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="datGeneral"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="74"/>
         <CursorPos X="45" Y="81"/>
@@ -433,7 +434,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmbackup"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <UsageCount Value="93"/>
         <Bookmarks Count="5">
