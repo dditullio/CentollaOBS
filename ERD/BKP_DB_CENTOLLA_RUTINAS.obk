@@ -2,7 +2,7 @@ DELIMITER $$
 -- ---------------------------------------------
 -- Rutinas de la base de datos "centolla"
 -- realizada desde la aplicación "Centolla OBS"
--- Fecha y hora de resguardo: 24/06/2015 00:22
+-- Fecha y hora de resguardo: 24/06/2015 12:35
 -- ---------------------------------------------
 
 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT $$
@@ -398,8 +398,8 @@ DROP VIEW IF EXISTS `v_expg_muestras` $$
 SET @saved_cs_client     = @@character_set_client $$
 SET character_set_client = utf8 $$
 CREATE VIEW `v_expg_muestras` AS SELECT 1 AS `idmuestra_original`,
-1 AS `idlance_original`,
 1 AS `idmarea_original`,
+1 AS `idlance_original`,
 1 AS `tipo_muestra`,
 1 AS `tipo_trampa`,
 1 AS `especie`,
@@ -741,6 +741,7 @@ CREATE VIEW `v_planilla_capturas` AS SELECT 1 AS `idcaptura`,
 1 AS `dsc_tipo_trampa`,
 1 AS `estado_puerta`,
 1 AS `estado_trampa`,
+1 AS `dsc_estado_trampa`,
 1 AS `nomb_cient_especie1`,
 1 AS `nomb_cient_especie2`,
 1 AS `nomb_cient_especie3`,
@@ -1890,7 +1891,7 @@ INTO l_cant_trampas_tipo FROM
     estados_trampa et ON et.idestado_trampa = dc.idestado_trampa
 WHERE
     (c1.idlance = p_idlance
-        AND et.es_no_observado = 0
+        AND COALESCE(et.es_no_observado, 0) = 0
         AND (p_cant_aros IS NULL
 			OR tt.cant_aros=p_cant_aros));
 
@@ -2652,7 +2653,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_expg_capturas` AS select `vc`.`idcaptura` AS `idcaptura_original`,`vc`.`iddetalle_captura` AS `iddetalle_captura_original`,`vc`.`idmarea` AS `idmarea_original`,`vc`.`idlance` AS `idlance_original`,`vc`.`cant_trampas` AS `cant_trampas`,`vc`.`dsc_tipo_trampa` AS `tipo_trampa`,`vc`.`estado_trampa` AS `estado_trampa`,`vc`.`nomb_cient_especie1` AS `especie1`,`vc`.`total_especie1` AS `tot_especie1`,`vc`.`comerciales_especie1` AS `comerc_especie1`,`vc`.`nomb_cient_especie2` AS `especie2`,`vc`.`total_especie2` AS `tot_especie2`,`vc`.`comerciales_especie2` AS `comerc_especie2`,`vc`.`nomb_cient_especie3` AS `especie3`,`vc`.`total_especie3` AS `tot_especie3`,`vc`.`comerciales_especie3` AS `comerc_especie3` from `v_planilla_capturas` `vc` $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_expg_capturas` AS select `vc`.`idcaptura` AS `idcaptura_original`,`vc`.`iddetalle_captura` AS `iddetalle_captura_original`,`vc`.`idmarea` AS `idmarea_original`,`vc`.`idlance` AS `idlance_original`,`vc`.`cant_trampas` AS `cant_trampas`,`vc`.`dsc_tipo_trampa` AS `tipo_trampa`,`vc`.`dsc_estado_trampa` AS `estado_trampa`,`vc`.`nomb_cient_especie1` AS `especie1`,`vc`.`total_especie1` AS `tot_especie1`,`vc`.`comerciales_especie1` AS `comerc_especie1`,`vc`.`nomb_cient_especie2` AS `especie2`,`vc`.`total_especie2` AS `tot_especie2`,`vc`.`comerciales_especie2` AS `comerc_especie2`,`vc`.`nomb_cient_especie3` AS `especie3`,`vc`.`total_especie3` AS `tot_especie3`,`vc`.`comerciales_especie3` AS `comerc_especie3` from `v_planilla_capturas` `vc` $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -2728,7 +2729,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_expg_muestras` AS select `vm`.`iddetalle_muestra` AS `idmuestra_original`,`vm`.`idlance` AS `idlance_original`,`vm`.`idmarea` AS `idmarea_original`,`vm`.`cod_tipo_muestra` AS `tipo_muestra`,`vm`.`dsc_tipo_trampa` AS `tipo_trampa`,`vm`.`especie` AS `especie`,`vm`.`nro_ejemplar` AS `nro_ejemplar`,`vm`.`largo` AS `largo`,`vm`.`sexo` AS `sexo`,`vm`.`estado_caparazon` AS `codigo_caparazon`,`vm`.`codigo_huevos` AS `codigo_huevos`,`vm`.`porcentaje_huevos` AS `porcentaje_huevos`,`vm`.`peso` AS `peso` from `v_planilla_muestras` `vm` $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_expg_muestras` AS select `dm`.`iddetalle_muestra` AS `idmuestra_original`,`m`.`idmarea` AS `idmarea_original`,`l`.`idlance` AS `idlance_original`,`tm`.`descripcion` AS `tipo_muestra`,cast(concat(`ft`.`codigo`,' ',convert(`tt`.`cant_aros` using utf8)) as char(10) charset utf8) AS `tipo_trampa`,`e`.`nombre_cientifico` AS `especie`,`dm`.`nro_ejemplar` AS `nro_ejemplar`,`dm`.`largo` AS `largo`,`dm`.`sexo` AS `sexo`,`cc`.`codigo` AS `codigo_caparazon`,`ch`.`codigo` AS `codigo_huevos`,`dm`.`porcentaje_huevos` AS `porcentaje_huevos`,cast((`dm`.`peso` / 1000) as decimal(9,3)) AS `peso` from ((((((((`muestras` `m` left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `m`.`idtipo_trampa`))) left join `formatos_trampa` `ft` on((`ft`.`idformato_trampa` = `tt`.`idformato_trampa`))) join `detalle_muestras` `dm` on((`dm`.`idmuestra` = `m`.`idmuestra`))) join `tipos_muestra` `tm` on((`tm`.`idtipo_muestra` = `m`.`idtipo_muestra`))) left join `lances` `l` on((`l`.`idlance` = `m`.`idlance`))) left join `codigos_huevos` `ch` on((`ch`.`idcodigo_huevos` = `dm`.`idcodigo_huevos`))) join `codigos_caparazon` `cc` on((`cc`.`idcodigo_caparazon` = `dm`.`idcodigo_caparazon`))) join `especies` `e` on((`e`.`idespecie` = `m`.`idespecie`))) where ((`dm`.`idmuestra` = `m`.`idmuestra`) and (`tm`.`es_relac_morf` = 0)) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -2937,7 +2938,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_capturas` AS select `dc`.`idcaptura` AS `idcaptura`,`dc`.`iddetalle_captura` AS `iddetalle_captura`,`la`.`idmarea` AS `idmarea`,`la`.`idlance` AS `idlance`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`dc`.`nro_orden` AS `nro_orden`,`dc`.`cant_trampas` AS `cant_trampas`,`tt`.`cant_aros` AS `cant_aros`,cast(concat(`ft`.`codigo`,' ',convert(`tt`.`cant_aros` using utf8)) as char(10) charset utf8) AS `dsc_tipo_trampa`,`ep`.`codigo` AS `estado_puerta`,`et`.`codigo` AS `estado_trampa`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie1`)) AS `nomb_cient_especie1`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie2`)) AS `nomb_cient_especie2`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie3`)) AS `nomb_cient_especie3`,`dc`.`total_especie1` AS `total_especie1`,`dc`.`comerciales_especie1` AS `comerciales_especie1`,`dc`.`total_especie2` AS `total_especie2`,`dc`.`comerciales_especie2` AS `comerciales_especie2`,`dc`.`total_especie3` AS `total_especie3`,`dc`.`comerciales_especie3` AS `comerciales_especie3` from (((((((`detalle_capturas` `dc` join `capturas` `c` on((`c`.`idcaptura` = `dc`.`idcaptura`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `dc`.`idtipo_trampa`))) left join `formatos_trampa` `ft` on((`ft`.`idformato_trampa` = `tt`.`idformato_trampa`))) left join `estados_puerta` `ep` on((`ep`.`idestado_puerta` = `dc`.`idestado_puerta`))) left join `estados_trampa` `et` on((`et`.`idestado_trampa` = `dc`.`idestado_trampa`))) join `lances` `la` on((`la`.`idlance` = `c`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_planilla_capturas` AS select `dc`.`idcaptura` AS `idcaptura`,`dc`.`iddetalle_captura` AS `iddetalle_captura`,`la`.`idmarea` AS `idmarea`,`la`.`idlance` AS `idlance`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,`dc`.`nro_orden` AS `nro_orden`,`dc`.`cant_trampas` AS `cant_trampas`,`tt`.`cant_aros` AS `cant_aros`,cast(concat(`ft`.`codigo`,' ',convert(`tt`.`cant_aros` using utf8)) as char(10) charset utf8) AS `dsc_tipo_trampa`,`ep`.`codigo` AS `estado_puerta`,coalesce(`et`.`codigo`,(select `et1`.`codigo` from `estados_trampa` `et1` where (`et1`.`predeterminado` = 1))) AS `estado_trampa`,coalesce(`et`.`descripcion`,(select `et1`.`descripcion` from `estados_trampa` `et1` where (`et1`.`predeterminado` = 1))) AS `dsc_estado_trampa`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie1`)) AS `nomb_cient_especie1`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie2`)) AS `nomb_cient_especie2`,(select `e`.`nombre_cientifico` from `especies` `e` where (`e`.`idespecie` = `c`.`idespecie3`)) AS `nomb_cient_especie3`,`dc`.`total_especie1` AS `total_especie1`,`dc`.`comerciales_especie1` AS `comerciales_especie1`,`dc`.`total_especie2` AS `total_especie2`,`dc`.`comerciales_especie2` AS `comerciales_especie2`,`dc`.`total_especie3` AS `total_especie3`,`dc`.`comerciales_especie3` AS `comerciales_especie3` from (((((((`detalle_capturas` `dc` join `capturas` `c` on((`c`.`idcaptura` = `dc`.`idcaptura`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `dc`.`idtipo_trampa`))) left join `formatos_trampa` `ft` on((`ft`.`idformato_trampa` = `tt`.`idformato_trampa`))) left join `estados_puerta` `ep` on((`ep`.`idestado_puerta` = `dc`.`idestado_puerta`))) left join `estados_trampa` `et` on((`et`.`idestado_trampa` = `dc`.`idestado_trampa`))) join `lances` `la` on((`la`.`idlance` = `c`.`idlance`))) join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -3234,7 +3235,7 @@ DELIMITER ;
 
 
 -- ----------------------------------------------------
--- Fin de la copia de seguridad: 24/06/2015 00:22
+-- Fin de la copia de seguridad: 24/06/2015 12:35
 -- ----------------------------------------------------
 
 

@@ -158,6 +158,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         object dbedPeso: TDBEdit
           Left = 245
           Height = 23
+          Hint = 'Peso del ejemplar en gramos'
           Top = 140
           Width = 70
           DataField = 'peso'
@@ -254,6 +255,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p1dm: TDBEdit
             Left = 6
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 28
             Width = 72
             DataField = 'pata_1_d_mero'
@@ -265,6 +267,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p2dm: TDBEdit
             Left = 80
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 28
             Width = 72
             DataField = 'pata_2_d_mero'
@@ -276,6 +279,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p3dm: TDBEdit
             Left = 150
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 28
             Width = 72
             DataField = 'pata_3_d_mero'
@@ -287,6 +291,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p1de: TDBEdit
             Left = 6
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 56
             Width = 72
             DataField = 'pata_1_d_entera'
@@ -298,6 +303,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p2de: TDBEdit
             Left = 78
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 56
             Width = 72
             DataField = 'pata_2_d_entera'
@@ -309,6 +315,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p3de: TDBEdit
             Left = 150
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 56
             Width = 72
             DataField = 'pata_3_d_entera'
@@ -397,6 +404,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p1im: TDBEdit
             Left = 6
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 28
             Width = 72
             DataField = 'pata_1_i_mero'
@@ -408,6 +416,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p2im: TDBEdit
             Left = 78
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 28
             Width = 72
             DataField = 'pata_2_i_mero'
@@ -419,6 +428,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p3im: TDBEdit
             Left = 150
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 28
             Width = 72
             DataField = 'pata_3_i_mero'
@@ -430,6 +440,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p1ie: TDBEdit
             Left = 6
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 56
             Width = 72
             DataField = 'pata_1_i_entera'
@@ -441,6 +452,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p2ie: TDBEdit
             Left = 78
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 56
             Width = 72
             DataField = 'pata_2_i_entera'
@@ -452,6 +464,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           object dbed_p3ie: TDBEdit
             Left = 150
             Height = 23
+            Hint = 'Medida en milímetros'
             Top = 56
             Width = 72
             DataField = 'pata_3_i_entera'

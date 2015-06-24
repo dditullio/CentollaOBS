@@ -2,7 +2,7 @@
 -- Tablas y datos de la base de datos "centolla"
 -- Generado desde la aplicación "Centolla OBS"
 -- Version 1.0.2
--- Fecha y hora de resguardo: 24/06/2015 00:22
+-- Fecha y hora de resguardo: 24/06/2015 12:35
 -- ---------------------------------------------
 
 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT ;
@@ -704,7 +704,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES ;
 
 
 -- ----------------------------------------------------
--- Fin de la copia de seguridad: 24/06/2015 00:22
+-- Fin de la copia de seguridad: 24/06/2015 12:35
 -- ----------------------------------------------------
 
 

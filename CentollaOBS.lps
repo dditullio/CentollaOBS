@@ -87,10 +87,13 @@
         <ComponentName Value="fmEditarMarea"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="186"/>
+        <UnitName Value="frmEditarMarea"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="189"/>
         <CursorPos X="33" Y="192"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="datcaptura.pas"/>
@@ -288,6 +291,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmeditardetallemuestra"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="273"/>
         <CursorPos Y="291"/>
@@ -435,7 +439,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmbackup"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <TopLine Value="1078"/>
         <CursorPos X="38" Y="1081"/>
@@ -728,7 +731,7 @@
       <Unit76>
         <Filename Value="C:\codetyphon\fpcsrc\packages\fcl-db\src\base\db.pas"/>
         <UnitName Value="db"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="899"/>
         <CursorPos X="19" Y="910"/>
         <UsageCount Value="10"/>
@@ -786,7 +789,7 @@
       </Unit83>
       <Unit84>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\objpas\sysutils\sysstrh.inc"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="96"/>
         <CursorPos X="10" Y="101"/>
         <UsageCount Value="11"/>
