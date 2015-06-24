@@ -40,9 +40,9 @@ inherited fmEditarMarea: TfmEditarMarea
       Height = 393
       Top = 1
       Width = 409
-      ActivePage = tsResumen
+      ActivePage = tsDatosGenerales
       Align = alClient
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       OnChange = pcGeneralChange
       object tsDatosGenerales: TTabSheet
@@ -89,6 +89,7 @@ inherited fmEditarMarea: TfmEditarMarea
             object dbedMareaBuque: TDBEdit
               Left = 62
               Height = 23
+              Hint = 'Ejemplo: TAL-01-14-15'#13#10#13#10'TAL: Código de barco'#13#10#13#10#9'TAL: Talisman'#13#10#9'DUK: Dukat'#13#10#9'TG1: Tango I'#13#10#9'TG2: Tango II'#13#10#13#10'01: N° de marea del barco en la temporada'#13#10#13#10'14: Año de inicio de la temporada'#13#10#13#10'15: Año de finalización de la temporada'
               Top = 24
               Width = 202
               CustomEditMask = True
