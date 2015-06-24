@@ -573,6 +573,7 @@ begin
           sl_tablas.Clear;
           sl_datos.Clear;
           sl_rutinas.Clear;
+          sl_expglob.Clear;
           HabilitarAcciones;
         end;
       end;
@@ -590,6 +591,7 @@ begin
           sl_tablas.Clear;
           sl_datos.Clear;
           sl_rutinas.Clear;
+          sl_expglob.Clear;
           HabilitarAcciones;
         end;
       end;
@@ -609,6 +611,7 @@ begin
       sl_tablas.Clear;
       sl_datos.Clear;
       sl_rutinas.Clear;
+      sl_expglob.Clear;
       HabilitarAcciones;
     end;
     ckRestaurarEstructura.Enabled:=(sl_tablas.Count>0) or (sl_rutinas.Count>0);
@@ -704,8 +707,17 @@ begin
        HabilitarAcciones;
    end;
    edArchivoSQL.Text:='';
+   meSQL.Lines.Clear;
+   sl_tablas.Clear;
+   sl_datos.Clear;
+   sl_rutinas.Clear;
+   sl_expglob.Clear;
+
+   ckRestaurarEstructura.Checked:=False;
    ckRestaurarEstructura.Enabled:=False;
+   ckRestaurarDatos.Checked:=False;
    ckRestaurarDatos.Enabled:=False;
+
    Result:=restOK;
 end;
 
@@ -1069,6 +1081,10 @@ begin
      if f is TBooleanField then
      begin
        valor:=IntToStr(f.AsInteger);
+     end else
+     if f is TMemoField then
+     begin
+       valor:=AnsiQuotedStr(f.AsString,'''');
      end else
      if f is TStringField then
      begin
