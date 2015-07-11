@@ -52,3 +52,4 @@ lib
 Test
 ExpDB*
 SQL dlls
+*.lps

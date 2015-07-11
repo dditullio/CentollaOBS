@@ -185,7 +185,6 @@
         <ComponentName Value="fmEditarMarea"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmEditarMarea"/>
       </Unit7>
       <Unit8>
         <Filename Value="datcaptura.pas"/>
@@ -316,7 +315,6 @@
         <ComponentName Value="fmEditarDetalleMuestra"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmeditardetallemuestra"/>
       </Unit26>
       <Unit27>
         <Filename Value="frmproduccion.pas"/>
@@ -324,6 +322,7 @@
         <ComponentName Value="fmProduccion"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmProduccion"/>
       </Unit27>
       <Unit28>
         <Filename Value="frmeditarproduccion.pas"/>
@@ -380,7 +379,6 @@
         <ComponentName Value="fmMareaAExcel"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmmareaaexcel"/>
       </Unit35>
       <Unit36>
         <Filename Value="frmenviosemail.pas"/>

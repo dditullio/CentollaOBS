@@ -129,6 +129,7 @@ end;
 
 procedure TfmProduccion.zqProdFechaAfterOpen(DataSet: TDataSet);
 begin
+  zqProdFecha.Last;
   zcgResumen.HabilitarAcciones;
 end;
 

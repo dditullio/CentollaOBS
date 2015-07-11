@@ -1397,7 +1397,7 @@ inherited fmProduccion: TfmProduccion
     AltoBotones = 28
     AnchoBotones = 88
     BotonExportar = bbExportar1
-    SeleccionarUltimo = False
+    SeleccionarUltimo = True
     Grilla = dbgListaProd
     MostrarBotonExportar = True
     ZDataset = zqProdFecha
