@@ -20,8 +20,7 @@ type
     azBackup: TAbZipper;
     acBackup: TAction;
     alBackup: TActionList;
-    bbGuardar: TBitBtn;
-    bbRestaurar: TBitBtn;
+    bbEjecutar: TBitBtn;
     ckIncluirAplicacion: TCheckBox;
     ckRestaurarEstructura: TCheckBox;
     ckRestaurarDatos: TCheckBox;
@@ -34,6 +33,7 @@ type
     gbDestino1: TGroupBox;
     GroupBox1: TGroupBox;
     gbOpcRestauracion: TGroupBox;
+    ilBackup: TImageList;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -42,9 +42,8 @@ type
     meSQL: TMemo;
     odRestaurar: TOpenDialog;
     paEncabezado: TPanel;
-    Panel1: TPanel;
     paMensajeEspera: TPanel;
-    Panel2: TPanel;
+    Panel1: TPanel;
     pcBackup: TPageControl;
     paProceso: TPanel;
     prBackup: TProcessUTF8;
@@ -65,20 +64,6 @@ type
     zqRutinas: TZQuery;
     zqDefRutina: TZQuery;
     zqTriggers: TZQuery;
-    ZQuery1cant_trampas: TLongintField;
-    ZQuery1comerc_especie1: TLongintField;
-    ZQuery1comerc_especie2: TLongintField;
-    ZQuery1comerc_especie3: TLongintField;
-    ZQuery1especie1: TStringField;
-    ZQuery1especie2: TStringField;
-    ZQuery1especie3: TStringField;
-    ZQuery1estado_trampa: TStringField;
-    ZQuery1id: TLongintField;
-    ZQuery1lance_id: TLongintField;
-    ZQuery1tipo_trampa: TStringField;
-    ZQuery1tot_especie1: TLongintField;
-    ZQuery1tot_especie2: TLongintField;
-    ZQuery1tot_especie3: TLongintField;
     procedure acBackupExecute(Sender: TObject);
     procedure acRestaurarExecute(Sender: TObject);
     procedure ckDatosChange(Sender: TObject);
@@ -94,6 +79,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure pcBackupChange(Sender: TObject);
     procedure sbCargarArchivoClick(Sender: TObject);
     function EjecutarRestauracion(proc_tablas, proc_datos, proc_rutinas:Boolean): Boolean;
     procedure zqRutinasBeforeOpen(DataSet: TDataSet);
@@ -488,6 +474,14 @@ begin
   pcBackup.ActivePage:=tsBackup;
   odRestaurar.Filter:='Archivos de copia de seguridad|'+PREFIJO_BKP+'*.zip';
   HabilitarAcciones;
+end;
+
+procedure TfmBackup.pcBackupChange(Sender: TObject);
+begin
+  if pcBackup.ActivePage=tsBackup then
+     bbEjecutar.Action:=acBackup
+  else
+     bbEjecutar.Action:=acRestaurar;
 end;
 
 procedure TfmBackup.sbCargarArchivoClick(Sender: TObject);
@@ -1228,12 +1222,8 @@ begin
      while not EOF do
      begin
        vista:=zqTablasYVistas.FieldByName('Tables_in_'+dmGeneral.zcDB.Database).AsString;
-       //Las funciones GIS no son del todo compatibles, así que las salteo
-       if (LowerCase(LeftStr(vista, 5))<>'v_gis') and (LowerCase(LeftStr(vista, 6))<>'v_geom') then
-       begin
-         str_sql.Add(CrearEstructuraVista(vista));
-         Application.ProcessMessages;
-       end;
+       str_sql.Add(CrearEstructuraVista(vista));
+       Application.ProcessMessages;
        Next;
      end;
    end;
