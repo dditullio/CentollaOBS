@@ -210,6 +210,7 @@
       <Unit11>
         <Filename Value="funciones.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="funciones"/>
       </Unit11>
       <Unit12>
         <Filename Value="frmSplashScreenForm.pas"/>
@@ -224,6 +225,7 @@
         <ComponentName Value="fmEditarLances"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmeditarlances"/>
       </Unit13>
       <Unit14>
         <Filename Value="frmlineas.pas"/>

@@ -224,25 +224,28 @@ inherited fmEditarLances: TfmEditarLances
           object Label4: TLabel
             Left = 12
             Height = 15
-            Top = 4
+            Hint = 'Rumbo de calado calculado a partir de las posiciones de inicio y fin de lance'
+            Top = 6
             Width = 192
-            Caption = ' '
-            ParentColor = False
-          end
-          object Label30: TLabel
-            Left = 216
-            Height = 15
-            Top = 4
-            Width = 96
-            Alignment = taCenter
+            Caption = 'Rumbo:'
             Font.Style = [fsBold]
             ParentColor = False
             ParentFont = False
           end
+          object dbtRumbo: TDBText
+            Left = 216
+            Height = 15
+            Top = 6
+            Width = 96
+            Alignment = taCenter
+            DataField = 'RumboCaladoCalc'
+            DataSource = dsPrincipal
+            ParentColor = False
+          end
           object laDistancia: TLabel
             Left = 12
             Height = 15
-            Top = 23
+            Top = 27
             Width = 192
             Caption = 'Distancia recorrida en millas:'
             Font.Style = [fsBold]
@@ -252,7 +255,7 @@ inherited fmEditarLances: TfmEditarLances
           object dbtDistCalado: TDBText
             Left = 216
             Height = 15
-            Top = 23
+            Top = 27
             Width = 96
             Alignment = taCenter
             DataField = 'DistCalado'
@@ -262,7 +265,7 @@ inherited fmEditarLances: TfmEditarLances
           object laVelocidad: TLabel
             Left = 12
             Height = 15
-            Top = 42
+            Top = 48
             Width = 192
             Caption = 'Velocidad promedio:'
             Font.Style = [fsBold]
@@ -272,7 +275,7 @@ inherited fmEditarLances: TfmEditarLances
           object dbtVelocCalado: TDBText
             Left = 216
             Height = 15
-            Top = 42
+            Top = 48
             Width = 96
             Alignment = taCenter
             DataField = 'VelocCalado'
@@ -282,7 +285,7 @@ inherited fmEditarLances: TfmEditarLances
           object laTiempo: TLabel
             Left = 12
             Height = 15
-            Top = 61
+            Top = 69
             Width = 192
             Caption = 'Duración del recorrido:'
             Font.Style = [fsBold]
@@ -292,7 +295,7 @@ inherited fmEditarLances: TfmEditarLances
           object dbtTiempoCalado: TDBText
             Left = 216
             Height = 15
-            Top = 61
+            Top = 69
             Width = 96
             Alignment = taCenter
             DataField = 'TiempoCalado'
@@ -302,7 +305,7 @@ inherited fmEditarLances: TfmEditarLances
           object laDistTrampas: TLabel
             Left = 12
             Height = 15
-            Top = 80
+            Top = 90
             Width = 192
             Caption = 'Distancia promedio entre trampas:'
             Font.Style = [fsBold]
@@ -312,7 +315,7 @@ inherited fmEditarLances: TfmEditarLances
           object dbtDistTrampas: TDBText
             Left = 216
             Height = 15
-            Top = 80
+            Top = 90
             Width = 96
             Alignment = taCenter
             DataField = 'dist_trampas_prom_calado'
@@ -321,11 +324,12 @@ inherited fmEditarLances: TfmEditarLances
           end
           object Label34: TLabel
             Left = 12
-            Height = 15
-            Top = 99
+            Height = 1
+            Top = 111
             Width = 192
-            Caption = ' '
+            Font.Style = [fsBold]
             ParentColor = False
+            ParentFont = False
           end
         end
         object gbFinCalado: TGroupBox
@@ -470,7 +474,7 @@ inherited fmEditarLances: TfmEditarLances
       end
       object tsVirada: TTabSheet
         Caption = '&Virada'
-        ClientHeight = 289
+        ClientHeight = 287
         ClientWidth = 722
         object gbDatosInicio2: TGroupBox
           Left = 0
@@ -815,7 +819,7 @@ inherited fmEditarLances: TfmEditarLances
         object gbInformacion1: TGroupBox
           Left = 384
           Height = 132
-          Top = 148
+          Top = 152
           Width = 328
           Caption = 'Verificación de datos'
           ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
@@ -830,18 +834,17 @@ inherited fmEditarLances: TfmEditarLances
             Height = 15
             Top = 4
             Width = 192
-            Caption = ' '
+            Font.Style = [fsBold]
             ParentColor = False
+            ParentFont = False
           end
-          object Label36: TLabel
+          object Label38: TLabel
             Left = 220
             Height = 15
             Top = 4
             Width = 92
-            Alignment = taCenter
-            Font.Style = [fsBold]
+            Caption = ' '
             ParentColor = False
-            ParentFont = False
           end
           object laDistancia1: TLabel
             Left = 14
@@ -1176,7 +1179,7 @@ inherited fmEditarLances: TfmEditarLances
       'FROM lances'
       'WHERE idlance=:Id'
     )
-    left = 70
+    left = 72
     top = 400
     object zqPrincipalidlance: TLongintField[0]
       DisplayWidth = 10
@@ -1808,6 +1811,19 @@ inherited fmEditarLances: TfmEditarLances
       ReadOnly = False
       Required = False
     end
+    object zqPrincipalRumboCaladoCalc: TFloatField[53]
+      DisplayWidth = 10
+      FieldKind = fkCalculated
+      FieldName = 'RumboCaladoCalc'
+      Index = 53
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '000°'
+      MaxValue = 0
+      MinValue = 0
+    end
   end
   inherited zcePrincipal: TZControladorEdicion
     AltaContinua = True
@@ -1917,8 +1933,8 @@ inherited fmEditarLances: TfmEditarLances
         Name = 'nro_lance'
         ParamType = ptUnknown
       end>
-    left = 390
-    top = 400
+    left = 376
+    top = 408
     ParamData = <    
       item
         DataType = ftUnknown

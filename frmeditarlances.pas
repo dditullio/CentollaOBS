@@ -52,6 +52,7 @@ type
     dbmComentarios1: TDBMemo;
     dbtDistCalado: TDBText;
     dbtDistTrampas: TDBText;
+    dbtRumbo: TDBText;
     dbtDistTrampas2: TDBText;
     dbtDistVirada: TDBText;
     dbtTiempoCalado: TDBText;
@@ -96,6 +97,7 @@ type
     Label35: TLabel;
     Label36: TLabel;
     Label37: TLabel;
+    Label38: TLabel;
     Label4: TLabel;
     Label40: TLabel;
     Label41: TLabel;
@@ -176,6 +178,7 @@ type
     zqPrincipalinvestigacion: TSmallintField;
     zqPrincipalnro_boya: TLongintField;
     zqPrincipalnro_linea: TLongintField;
+    zqPrincipalRumboCaladoCalc: TFloatField;
     zqPrincipalTiempoCalado: TFloatField;
     zqPrincipalTiempoVirada: TFloatField;
     paFechaHora: TPanel;
@@ -436,6 +439,7 @@ end;
 procedure TfmEditarLances.zqPrincipalCalcFields(DataSet: TDataSet);
 var
   distancia_segun_trampas: double;
+  dif_rumbo:double;
 begin
   zqPrincipalEncabezado.Value:='Lance '+zqPrincipalnro_lance.AsString+': Boya '+zqPrincipalnro_boya.AsString;
 
@@ -446,6 +450,24 @@ begin
   if (zqPrincipallat_ini_calado.AsFloat>0) and (zqPrincipallong_ini_calado.AsFloat>0)
      and (zqPrincipallat_fin_calado.AsFloat>0) and (zqPrincipallong_fin_calado.AsFloat>0) then
   begin
+     //Calculo el rumbo de calado
+     zqPrincipalRumboCaladoCalc.AsFloat:=Rumbo(zqPrincipallat_ini_calado.Value, zqPrincipallong_ini_calado.Value,
+      zqPrincipallat_fin_calado.Value, zqPrincipallong_fin_calado.Value);
+     //Calculo diferencia > 15°
+     dif_rumbo:=abs(zqPrincipalRumboCaladoCalc.Value-zqPrincipalrumbo_calado.Value);
+     //Me aseguro de que la diferencia no sea mayor a 180°
+     if dif_rumbo>180 then
+        dif_rumbo:=360-dif_rumbo;
+
+     if dif_rumbo > 15 then
+     begin
+       dbtRumbo.Font.Color := clRed;
+     end
+     else
+     begin
+          dbtRumbo.Font.Color := clDefault;
+     end;
+
      zqPrincipalDistCalado.AsFloat:=DistanciaEnMillas(zqPrincipallat_ini_calado.Value, zqPrincipallong_ini_calado.Value,
       zqPrincipallat_fin_calado.Value, zqPrincipallong_fin_calado.Value);
      //Calculo la distancia entre trampas. Lo convierto a metros
