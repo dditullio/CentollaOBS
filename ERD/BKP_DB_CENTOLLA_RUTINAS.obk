@@ -2,7 +2,7 @@ DELIMITER $$
 -- ---------------------------------------------
 -- Rutinas de la base de datos "centolla"
 -- realizada desde la aplicación "Centolla OBS"
--- Fecha y hora de resguardo: 24/06/2015 12:35
+-- Fecha y hora de resguardo: 28/07/2015 15:21
 -- ---------------------------------------------
 
 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT $$
@@ -481,6 +481,27 @@ SET character_set_client = @saved_cs_client $$
 DELIMITER ;
 
 --
+-- Estructura temporaria para vista `v_gis_lances`
+--
+
+DELIMITER $$
+DROP TABLE IF EXISTS `v_gis_lances` $$
+DROP VIEW IF EXISTS `v_gis_lances` $$
+SET @saved_cs_client     = @@character_set_client $$
+SET character_set_client = utf8 $$
+CREATE VIEW `v_gis_lances` AS SELECT 1 AS `geom`,
+1 AS `marea`,
+1 AS `descripcion`,
+1 AS `nro_lance`,
+1 AS `prospeccion`,
+1 AS `investigacion`,
+1 AS `fecha_hora`,
+1 AS `operacion`,
+1 AS `canastos_procesados` $$
+SET character_set_client = @saved_cs_client $$
+DELIMITER ;
+
+--
 -- Estructura temporaria para vista `v_informe_lances`
 --
 
@@ -569,6 +590,12 @@ CREATE VIEW `v_lances_simple` AS SELECT 1 AS `idlance`,
 1 AS `lat_fin_calado`,
 1 AS `long_fin_calado`,
 1 AS `cant_trampas_caladas`,
+1 AS `long_ini_gis`,
+1 AS `lat_ini_gis`,
+1 AS `long_fin_gis`,
+1 AS `lat_fin_gis`,
+1 AS `etiqueta_inicio`,
+1 AS `etiqueta_fin`,
 1 AS `distancia_calado`,
 1 AS `prom_separacion_trampas`,
 1 AS `fecha_ini_virada`,
@@ -2843,7 +2870,7 @@ SET @saved_col_connection     = @@collation_connection $$
 SET character_set_client      = utf8 $$
 SET character_set_results     = utf8 $$
 SET collation_connection      = utf8_general_ci $$
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lances_simple` AS select `la`.`idlance` AS `idlance`,`la`.`idmarea` AS `idmarea`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,coalesce(cast(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`) as datetime),cast(concat(`la`.`fecha_ini_calado`,' ',`la`.`hora_ini_calado`) as datetime)) AS `fecha_hora_orden`,concat(`ov`.`orden_virada`,' - ',date_format(`la`.`fecha_fin_virada`,'%d/%m/%Y'),' ',date_format(`la`.`hora_fin_virada`,'%H:%i'),if((`la`.`investigacion` = 1),' (invest.)','')) AS `dsc_virada`,`la`.`nro_boya` AS `nro_boya`,`la`.`nro_linea` AS `nro_linea`,`la`.`prospeccion` AS `prospeccion`,`la`.`investigacion` AS `investigacion`,`la`.`idtipo_trampa` AS `idtipo_trampa`,`tt`.`cant_aros` AS `cant_aros`,`la`.`idcarnada` AS `idcarnada`,`la`.`kg_carnada` AS `kg_carnada`,`la`.`rumbo_calado` AS `rumbo_calado`,`la`.`fecha_ini_calado` AS `fecha_ini_calado`,`la`.`hora_ini_calado` AS `hora_ini_calado`,`la`.`profundidad_ini_calado` AS `profundidad_ini_calado`,`la`.`lat_ini_calado` AS `lat_ini_calado`,`la`.`long_ini_calado` AS `long_ini_calado`,`la`.`fecha_fin_calado` AS `fecha_fin_calado`,`la`.`hora_fin_calado` AS `hora_fin_calado`,`la`.`profundidad_fin_calado` AS `profundidad_fin_calado`,`la`.`lat_fin_calado` AS `lat_fin_calado`,`la`.`long_fin_calado` AS `long_fin_calado`,`la`.`cant_trampas_caladas` AS `cant_trampas_caladas`,`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) AS `distancia_calado`,if((`la`.`cant_trampas_caladas` > 0),floor((((`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) * 1852) - 100) / `la`.`cant_trampas_caladas`)),NULL) AS `prom_separacion_trampas`,`la`.`fecha_ini_virada` AS `fecha_ini_virada`,`la`.`hora_ini_virada` AS `hora_ini_virada`,`la`.`profundidad_ini_virada` AS `profundidad_ini_virada`,`la`.`lat_ini_virada` AS `lat_ini_virada`,`la`.`long_ini_virada` AS `long_ini_virada`,`la`.`fecha_fin_virada` AS `fecha_fin_virada`,`la`.`hora_fin_virada` AS `hora_fin_virada`,`la`.`profundidad_fin_virada` AS `profundidad_fin_virada`,`la`.`lat_fin_virada` AS `lat_fin_virada`,`la`.`long_fin_virada` AS `long_fin_virada`,`DISTANCIA_MILLAS`(`la`.`lat_ini_virada`,`la`.`long_ini_virada`,`la`.`lat_fin_virada`,`la`.`long_fin_virada`) AS `distancia_virada`,hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) AS `horas_en_agua`,round((hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) / 24),1) AS `dias_en_agua`,if(exists(select 1 from `capturas` `c` where (`c`.`idlance` = `la`.`idlance`)),(select if((sum(`dc`.`cant_trampas`) > 0),sum(`dc`.`cant_trampas`),NULL) from (`capturas` `c` join `detalle_capturas` `dc`) where ((`c`.`idlance` = `la`.`idlance`) and (`dc`.`idcaptura` = `c`.`idcaptura`))),NULL) AS `cant_trampas_recuperadas`,`la`.`canastos_procesados` AS `canastos_procesados`,`F_CLUSTER_POR_CANASTO_LANCE`(`la`.`idlance`,0) AS `cluster_por_canasto`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`la`.`idlance`) AS `porcent_trampas_obs`,`la`.`cod_estado_mar` AS `cod_estado_mar`,`la`.`nudos_viento` AS `nudos_viento`,`la`.`direccion_viento` AS `direccion_viento`,`la`.`comentarios_calado` AS `comentarios_calado`,`la`.`comentarios_virada` AS `comentarios_virada`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),1,0) AS `calada`,if(((`la`.`fecha_ini_virada` is not null) and (`la`.`fecha_fin_virada` is not null)),1,0) AS `virada` from (((`lances` `la` join `mareas` `m` on((`m`.`idmarea` = `la`.`idmarea`))) left join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `la`.`idtipo_trampa`))) $$
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lances_simple` AS select `la`.`idlance` AS `idlance`,`la`.`idmarea` AS `idmarea`,`la`.`nro_lance` AS `nro_lance`,`ov`.`orden_virada` AS `orden_virada`,coalesce(cast(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`) as datetime),cast(concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`) as datetime)) AS `fecha_hora_orden`,concat(`ov`.`orden_virada`,' - ',date_format(`la`.`fecha_ini_virada`,'%d/%m/%Y'),' ',date_format(`la`.`hora_ini_virada`,'%H:%i'),if((`la`.`investigacion` = 1),' (invest.)','')) AS `dsc_virada`,`la`.`nro_boya` AS `nro_boya`,`la`.`nro_linea` AS `nro_linea`,`la`.`prospeccion` AS `prospeccion`,`la`.`investigacion` AS `investigacion`,`la`.`idtipo_trampa` AS `idtipo_trampa`,`tt`.`cant_aros` AS `cant_aros`,`la`.`idcarnada` AS `idcarnada`,`la`.`kg_carnada` AS `kg_carnada`,`la`.`rumbo_calado` AS `rumbo_calado`,`la`.`fecha_ini_calado` AS `fecha_ini_calado`,`la`.`hora_ini_calado` AS `hora_ini_calado`,`la`.`profundidad_ini_calado` AS `profundidad_ini_calado`,`la`.`lat_ini_calado` AS `lat_ini_calado`,`la`.`long_ini_calado` AS `long_ini_calado`,`la`.`fecha_fin_calado` AS `fecha_fin_calado`,`la`.`hora_fin_calado` AS `hora_fin_calado`,`la`.`profundidad_fin_calado` AS `profundidad_fin_calado`,`la`.`lat_fin_calado` AS `lat_fin_calado`,`la`.`long_fin_calado` AS `long_fin_calado`,`la`.`cant_trampas_caladas` AS `cant_trampas_caladas`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),(-(1) * (floor((`la`.`long_ini_calado` / 100)) + ((((`la`.`long_ini_calado` / 100) - floor((`la`.`long_ini_calado` / 100))) * 100) / 60))),(-(1) * (floor((`la`.`long_ini_virada` / 100)) + ((((`la`.`long_ini_virada` / 100) - floor((`la`.`long_ini_virada` / 100))) * 100) / 60)))) AS `long_ini_gis`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),(-(1) * (floor((`la`.`lat_ini_calado` / 100)) + ((((`la`.`lat_ini_calado` / 100) - floor((`la`.`lat_ini_calado` / 100))) * 100) / 60))),(-(1) * (floor((`la`.`lat_ini_virada` / 100)) + ((((`la`.`lat_ini_virada` / 100) - floor((`la`.`lat_ini_virada` / 100))) * 100) / 60)))) AS `lat_ini_gis`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),(-(1) * (floor((`la`.`long_fin_calado` / 100)) + ((((`la`.`long_fin_calado` / 100) - floor((`la`.`long_fin_calado` / 100))) * 100) / 60))),(-(1) * (floor((`la`.`long_fin_virada` / 100)) + ((((`la`.`long_fin_virada` / 100) - floor((`la`.`long_fin_virada` / 100))) * 100) / 60)))) AS `long_fin_gis`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),(-(1) * (floor((`la`.`lat_fin_calado` / 100)) + ((((`la`.`lat_fin_calado` / 100) - floor((`la`.`lat_fin_calado` / 100))) * 100) / 60))),(-(1) * (floor((`la`.`lat_fin_virada` / 100)) + ((((`la`.`lat_fin_virada` / 100) - floor((`la`.`lat_fin_virada` / 100))) * 100) / 60)))) AS `lat_fin_gis`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),concat('Inicio calado: ',lpad(dayofmonth(`la`.`fecha_ini_calado`),2,0),'/',lpad(month(`la`.`fecha_ini_calado`),2,0),' ',lpad(hour(`la`.`hora_ini_calado`),2,0),':',lpad(minute(`la`.`hora_ini_calado`),2,0)),concat('Inicio virada: ',lpad(dayofmonth(`la`.`fecha_ini_virada`),2,0),'/',lpad(month(`la`.`fecha_ini_virada`),2,0),' ',lpad(hour(`la`.`hora_ini_virada`),2,0),':',lpad(minute(`la`.`hora_ini_virada`),2,0))) AS `etiqueta_inicio`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),concat('Fin calado: ',lpad(dayofmonth(`la`.`fecha_fin_calado`),2,0),'/',lpad(month(`la`.`fecha_fin_calado`),2,0),' ',lpad(hour(`la`.`hora_fin_calado`),2,0),':',lpad(minute(`la`.`hora_fin_calado`),2,0)),concat('Fin virada: ',lpad(dayofmonth(`la`.`fecha_fin_virada`),2,0),'/',lpad(month(`la`.`fecha_fin_virada`),2,0),' ',lpad(hour(`la`.`hora_fin_virada`),2,0),':',lpad(minute(`la`.`hora_fin_virada`),2,0))) AS `etiqueta_fin`,`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) AS `distancia_calado`,if((`la`.`cant_trampas_caladas` > 0),floor((((`DISTANCIA_MILLAS`(`la`.`lat_ini_calado`,`la`.`long_ini_calado`,`la`.`lat_fin_calado`,`la`.`long_fin_calado`) * 1852) - 100) / `la`.`cant_trampas_caladas`)),NULL) AS `prom_separacion_trampas`,`la`.`fecha_ini_virada` AS `fecha_ini_virada`,`la`.`hora_ini_virada` AS `hora_ini_virada`,`la`.`profundidad_ini_virada` AS `profundidad_ini_virada`,`la`.`lat_ini_virada` AS `lat_ini_virada`,`la`.`long_ini_virada` AS `long_ini_virada`,`la`.`fecha_fin_virada` AS `fecha_fin_virada`,`la`.`hora_fin_virada` AS `hora_fin_virada`,`la`.`profundidad_fin_virada` AS `profundidad_fin_virada`,`la`.`lat_fin_virada` AS `lat_fin_virada`,`la`.`long_fin_virada` AS `long_fin_virada`,`DISTANCIA_MILLAS`(`la`.`lat_ini_virada`,`la`.`long_ini_virada`,`la`.`lat_fin_virada`,`la`.`long_fin_virada`) AS `distancia_virada`,hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) AS `horas_en_agua`,round((hour(timediff(coalesce(concat(`la`.`fecha_ini_virada`,' ',`la`.`hora_ini_virada`),cast(`m`.`fecha_arribo` as datetime),now()),concat(`la`.`fecha_fin_calado`,' ',`la`.`hora_fin_calado`))) / 24),1) AS `dias_en_agua`,if(exists(select 1 from `capturas` `c` where (`c`.`idlance` = `la`.`idlance`)),(select if((sum(`dc`.`cant_trampas`) > 0),sum(`dc`.`cant_trampas`),NULL) from (`capturas` `c` join `detalle_capturas` `dc`) where ((`c`.`idlance` = `la`.`idlance`) and (`dc`.`idcaptura` = `c`.`idcaptura`))),NULL) AS `cant_trampas_recuperadas`,`la`.`canastos_procesados` AS `canastos_procesados`,`F_CLUSTER_POR_CANASTO_LANCE`(`la`.`idlance`,0) AS `cluster_por_canasto`,`F_PORCENTAJE_TRAMPAS_OBSERVADAS`(`la`.`idlance`) AS `porcent_trampas_obs`,`la`.`cod_estado_mar` AS `cod_estado_mar`,`la`.`nudos_viento` AS `nudos_viento`,`la`.`direccion_viento` AS `direccion_viento`,`la`.`comentarios_calado` AS `comentarios_calado`,`la`.`comentarios_virada` AS `comentarios_virada`,if((isnull(`la`.`fecha_ini_virada`) and isnull(`la`.`fecha_fin_virada`)),1,0) AS `calada`,if(((`la`.`fecha_ini_virada` is not null) and (`la`.`fecha_fin_virada` is not null)),1,0) AS `virada` from (((`lances` `la` join `mareas` `m` on((`m`.`idmarea` = `la`.`idmarea`))) left join `v_lances_orden_virada` `ov` on((`ov`.`idlance` = `la`.`idlance`))) left join `tipos_trampa` `tt` on((`tt`.`idtipo_trampa` = `la`.`idtipo_trampa`))) $$
 SET character_set_client      = @saved_cs_client $$
 SET character_set_results     = @saved_cs_results $$
 SET collation_connection      = @saved_col_connection $$
@@ -3235,7 +3262,7 @@ DELIMITER ;
 
 
 -- ----------------------------------------------------
--- Fin de la copia de seguridad: 24/06/2015 12:35
+-- Fin de la copia de seguridad: 28/07/2015 15:21
 -- ----------------------------------------------------
 
 

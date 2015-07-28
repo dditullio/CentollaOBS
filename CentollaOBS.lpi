@@ -206,6 +206,7 @@
         <ComponentName Value="fmLances"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmlances"/>
       </Unit10>
       <Unit11>
         <Filename Value="funciones.pas"/>
@@ -381,7 +382,6 @@
         <ComponentName Value="fmMareaAExcel"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmmareaaexcel"/>
       </Unit35>
       <Unit36>
         <Filename Value="frmenviosemail.pas"/>

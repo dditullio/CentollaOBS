@@ -5,10 +5,12 @@ unit frmlances;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, DateTimePicker, rxdbgrid, Forms, Controls,
-  Graphics, Dialogs, ExtCtrls, Buttons, ActnList, StdCtrls, DBGrids,
+  Classes, SysUtils, FileUtil, DateTimePicker, TAGraph, TASeries, TAFuncSeries,
+  TAChartListbox, TASources, TATools, TADataTools, rxdbgrid, Forms, Controls,
+  Graphics, Dialogs, ExtCtrls, Buttons, ActnList, StdCtrls, DBGrids, ComCtrls,
   frmlistabase, db, ZDataset, zcontroladorgrilla, datGeneral, frmeditarlances,
-  dateutils, funciones;
+  dateutils, funciones, math, TAChartAxisUtils, TANavigation, types, LSConfig,
+  TACustomSeries, LCLIntf, TAChartUtils;
 
 const
   COLOR_CALADA_NORMAL=$00D7F3FD;
@@ -20,10 +22,63 @@ type
   { TfmLances }
 
   TfmLances = class(TfmListaBase)
+    acGuardarImagen: TAction;
+    acInfo: TAction;
+    acMedir: TAction;
+    acMover: TAction;
+    acEtiquetarLances: TAction;
+    acZoomIn: TAction;
+    acZoomLances: TAction;
+    acZoomOut: TAction;
+    acZoomRect: TAction;
+    alMapa: TActionList;
     cbCaladas: TCheckBox;
     cbViradas: TCheckBox;
+    clbReferencias: TChartListbox;
+    ChartToolset1: TChartToolset;
+    ChartToolset1DataPointCrosshairTool1: TDataPointCrosshairTool;
+    chtLances: TChart;
+    chtLancesSerieLancesViradas: TLineSeries;
+    chtLancesSerieLancesCaladosInvest: TLineSeries;
+    chtLancesSerieLancesCalados: TLineSeries;
+    chtLancesMapaBaseSerie: TBSplineSeries;
+    chtLancesOtrasZonasSerie: TLineSeries;
+    chtLancesSerieLancesVirados: TLineSeries;
+    chtLancesLimiteProvincia: TLineSeries;
+    ckMapaLances: TCheckBox;
+    ctDistancia: TDataPointDistanceTool;
+    ctInformacion: TDataPointHintTool;
+    ctMover: TPanDragTool;
+    ctPanDrag: TPanDragTool;
+    ctZoomDrag: TZoomDragTool;
+    ctZoomIn: TZoomClickTool;
+    ctZoomOut: TZoomClickTool;
+    ctZoomWheel: TZoomMouseWheelTool;
     dsLances: TDataSource;
     dtFecha: TDateTimePicker;
+    ilToolbar: TImageList;
+    lcsEtiquetasUM: TListChartSource;
+    lcsLancesCaladosInvest: TListChartSource;
+    lcsLancesVirados: TListChartSource;
+    lcsLancesCalados: TListChartSource;
+    lcsLancesViradosInvest: TListChartSource;
+    lcsMapaBase: TListChartSource;
+    lcsOtrasZonas: TListChartSource;
+    lcsLimiteProvincia: TListChartSource;
+    Panel2: TPanel;
+    sdGuardarImagen: TSaveDialog;
+    splDetalles: TSplitter;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton10: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
+    ToolButton9: TToolButton;
     zqLances: TZQuery;
     zqLancescalada: TLongintField;
     zqLancescanastos_procesados: TLongintField;
@@ -36,6 +91,8 @@ type
     zqLancesdias_en_agua: TFloatField;
     zqLancesdireccion_viento: TLongintField;
     zqLancesDistancia: TFloatField;
+    zqLancesetiqueta_fin: TStringField;
+    zqLancesetiqueta_inicio: TStringField;
     zqLancesfecha_fin_calado: TDateField;
     zqLancesfecha_fin_virada: TDateField;
     zqLancesfecha_ini_calado: TDateField;
@@ -53,14 +110,18 @@ type
     zqLancesLatFin: TFloatField;
     zqLancesLatIni: TFloatField;
     zqLanceslat_fin_calado: TFloatField;
+    zqLanceslat_fin_gis: TFloatField;
     zqLanceslat_fin_virada: TFloatField;
     zqLanceslat_ini_calado: TFloatField;
+    zqLanceslat_ini_gis: TFloatField;
     zqLanceslat_ini_virada: TFloatField;
     zqLancesLongFin: TFloatField;
     zqLancesLongIni: TFloatField;
     zqLanceslong_fin_calado: TFloatField;
+    zqLanceslong_fin_gis: TFloatField;
     zqLanceslong_fin_virada: TFloatField;
     zqLanceslong_ini_calado: TFloatField;
+    zqLanceslong_ini_gis: TFloatField;
     zqLanceslong_ini_virada: TFloatField;
     zqLancesnro_boya: TLongintField;
     zqLancesnro_lance: TLongintField;
@@ -75,28 +136,47 @@ type
     zqLancesrumbo_calado: TLongintField;
     zqLancesVelocidadNecesaria: TFloatField;
     zqLancesvirada: TLongintField;
+    zqOtrosMapas: TZQuery;
+    procedure acEtiquetarLancesExecute(Sender: TObject);
+    procedure acGuardarImagenExecute(Sender: TObject);
+    procedure acHabilitarHerramienta(Sender: TObject);
+    procedure acZoomLancesExecute(Sender: TObject);
     procedure cbCaladasChange(Sender: TObject);
     procedure cbViradasChange(Sender: TObject);
+    procedure chtLancesAxisList0MarkToText(var AText: String; AMark: Double);
+    procedure chtLancesAxisList1MarkToText(var AText: String; AMark: Double);
+    procedure ckMapaLancesChange(Sender: TObject);
+    procedure ctDistanciaGetDistanceText(ASender: TDataPointDistanceTool;
+      var AText: String);
     procedure dbgListaGetCellProps(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor);
     procedure dtFechaChange(Sender: TObject);
     procedure dtFechaCheckBoxChange(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure paGrillaResize(Sender: TObject);
+    procedure zqLancesAfterOpen(DataSet: TDataSet);
     procedure zqLancesBeforeOpen(DataSet: TDataSet);
     procedure zqLancesCalcFields(DataSet: TDataSet);
   private
     { private declarations }
+    procedure CargarMapa(mapa: string; var lcs: TListChartSource;clearSource: boolean=True;campoEtiqueta:string='');
+    procedure InicializarMapas;
+    procedure CargarMapaLances;
+    procedure ZoomALances;
   public
     { public declarations }
   end;
 
 var
   fmLances: TfmLances;
+  FMapasCargados: Boolean=False;
 
 implementation
 
 {$R *.lfm}
+{$R cursores.res}
 
 { TfmLances }
 
@@ -140,6 +220,134 @@ begin
   }
 end;
 
+procedure TfmLances.CargarMapa(mapa: string; var lcs: TListChartSource;
+  clearSource: boolean; campoEtiqueta: string);
+var
+  Texto: string;
+begin
+  //Mapa de Argentina
+  zqOtrosMapas.Close;
+  zqOtrosMapas.ParamByName('mapa').AsString:=mapa;
+  zqOtrosMapas.Open;
+  if clearSource then
+     lcs.Clear
+  else
+      lcs.Add(NaN,NaN);
+  with zqOtrosMapas do
+  begin
+    First;
+    while not EOF do
+    begin
+      if campoEtiqueta<>'' then
+         Texto:=FieldByName(campoEtiqueta).AsString;
+      if (FieldByName('Longitud').AsFloat<>0) and (FieldByName('Latitud').AsFloat<>0) then
+         lcs.Add(FieldByName('Longitud').AsFloat,FieldByName('Latitud').AsFloat,Texto)
+      else
+          lcs.Add(NaN,NaN);
+      Next;
+    end;
+  end;
+end;
+
+procedure TfmLances.InicializarMapas;
+begin
+  //Si el mapa no está cargado, lo cargo
+  if not FMapasCargados then
+  begin
+    CargarMapa('ARGENTINA', lcsMapaBase);
+    CargarMapa('URUGUAY', lcsMapaBase, False);
+    CargarMapa('LIMITE PROVINCIAL', lcsLimiteProvincia);
+    CargarMapa('VEDA MERLUZA', lcsOtrasZonas);
+    CargarMapa('VEDA MERLUZA NEGRA', lcsOtrasZonas, False);
+    CargarMapa('ZONA COMUN', lcsOtrasZonas, False);
+    CargarMapaLances;
+    FMapasCargados:=True;
+  end;
+end;
+
+procedure TfmLances.CargarMapaLances;
+var
+  bm: TBookMark;
+  str_invest: string;
+begin
+  lcsLancesVirados.Clear;
+  lcsLancesCalados.Clear;
+  lcsLancesViradosInvest.Clear;
+  lcsLancesCaladosInvest.Clear;
+  chtLances.Refresh;
+  if (zqLances.RecordCount > 0) and (ckMapaLances.Checked) then
+  begin
+    with zqLances do
+    begin
+      DisableControls;
+      bm:=GetBookmark;
+      First;
+      while not EOF do
+      begin
+        if (not FieldByName('long_ini_gis').IsNull)
+           and (not FieldByName('lat_ini_gis').IsNull)
+           and (not FieldByName('long_fin_gis').IsNull)
+           and (not FieldByName('lat_fin_gis').IsNull) then
+        begin
+
+          if FieldByName('investigacion').AsBoolean then
+          begin
+            str_invest:='Línea de INIDEP'+LineEnding;
+          end else
+          begin
+               str_invest:='';
+          end;
+          if FieldByName('calada').AsBoolean then
+          begin
+            lcsLancesCalados.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+            lcsLancesCalados.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+            lcsLancesCalados.Add(NaN,NaN);
+            //Si es línea de investigación, también la agrego a la otra serie
+            if FieldByName('investigacion').AsBoolean then
+            begin
+              lcsLancesCaladosInvest.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+              lcsLancesCaladosInvest.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+              lcsLancesCaladosInvest.Add(NaN,NaN);
+            end;
+          end;
+          if FieldByName('virada').AsBoolean then
+          begin
+            lcsLancesVirados.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+            lcsLancesVirados.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+            lcsLancesVirados.Add(NaN,NaN);
+            //Si es línea de investigación, también la agrego a la otra serie
+            if FieldByName('investigacion').AsBoolean then
+            begin
+              lcsLancesViradosInvest.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+              lcsLancesViradosInvest.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+              lcsLancesViradosInvest.Add(NaN,NaN);
+            end;
+          end;
+        end;
+        Next;
+      end;
+      if BookmarkValid(bm) then
+         GotoBookmark(bm);
+      EnableControls;
+    end;
+    ZoomALances;
+  end;
+end;
+
+procedure TfmLances.ZoomALances;
+var
+  NewExtent: TDoubleRect;
+begin
+  if (lcsLancesCalados.Count>0) or (lcsLancesVirados.Count>0) then
+  begin
+    NewExtent.a.X:=Min(chtLancesSerieLancesCalados.Extent.a.X, chtLancesSerieLancesVirados.Extent.a.X);
+    NewExtent.a.Y:=Min(chtLancesSerieLancesCalados.Extent.a.Y, chtLancesSerieLancesVirados.Extent.a.Y);
+    NewExtent.b.X:=Max(chtLancesSerieLancesCalados.Extent.b.X, chtLancesSerieLancesVirados.Extent.b.X);
+    NewExtent.b.Y:=Max(chtLancesSerieLancesCalados.Extent.b.Y, chtLancesSerieLancesVirados.Extent.b.Y);
+     chtLances.LogicalExtent:=NewExtent;
+  end;
+end;
+
 procedure TfmLances.dtFechaChange(Sender: TObject);
 begin
   zcgLista.Buscar;
@@ -170,11 +378,102 @@ begin
   zcgLista.Buscar;
 end;
 
+procedure TfmLances.acGuardarImagenExecute(Sender: TObject);
+begin
+  if sdGuardarImagen.Execute then
+  begin
+    if (not FileExistsUTF8(sdGuardarImagen.FileName)) or (MessageDlg('El archivo '+sdGuardarImagen.FileName+' ya existe. ¿Desea reemplazarlo?', mtConfirmation, [mbYes, mbNo],0) = mrYes) then
+    begin
+      chtLances.SaveToFile(TJPEGImage, sdGuardarImagen.FileName);
+      OpenDocument(sdGuardarImagen.FileName);
+    end;
+  end;
+end;
+
+procedure TfmLances.acEtiquetarLancesExecute(Sender: TObject);
+begin
+  //Se quita esta funcionalidad porque la pantalla queda muy sobrecargada
+  //chtLancesSerieLancesCalados.Marks.Visible:=tbEtiquetarLances.Down;
+  //chtLancesSerieLancesVirados.Marks.Visible:=tbEtiquetarLances.Down;
+end;
+
+procedure TfmLances.acHabilitarHerramienta(Sender: TObject);
+begin
+  if (Sender is TAction) then
+  begin
+    ctInformacion.Enabled:= ((Sender as TAction).Tag=1);
+    ctMover.Enabled:= ((Sender as TAction).Tag=2);
+    ctZoomIn.Enabled:= ((Sender as TAction).Tag=3);
+    ctZoomOut.Enabled:= ((Sender as TAction).Tag=4);
+    ctZoomDrag.Enabled:= ((Sender as TAction).Tag=5);
+    ctDistancia.Enabled:= ((Sender as TAction).Tag=6);
+  end;
+  //Pongo el cursor correspondiente
+  case (Sender as TAction).Tag of
+  2: chtLances.Cursor:=1;
+  3: chtLances.Cursor:=2;
+  4: chtLances.Cursor:=3;
+  5: chtLances.Cursor:=4;
+  6: chtLances.Cursor:=5;
+  else
+    chtLances.Cursor:=crDefault;
+  end;
+end;
+
+procedure TfmLances.acZoomLancesExecute(Sender: TObject);
+begin
+     ZoomALances;
+end;
+
 procedure TfmLances.cbViradasChange(Sender: TObject);
 begin
   if (not cbViradas.Checked) and (not cbCaladas.Checked) then
      cbCaladas.Checked:=TRUE;
   zcgLista.Buscar;
+end;
+
+procedure TfmLances.chtLancesAxisList0MarkToText(var AText: String;
+  AMark: Double);
+begin
+  Atext:=FormatFloat('#°00.00´', GradoDecimalAGradoMinuto(AMark));
+end;
+
+procedure TfmLances.chtLancesAxisList1MarkToText(var AText: String;
+  AMark: Double);
+begin
+  Atext:=FormatFloat('#°00.00´', GradoDecimalAGradoMinuto(AMark));
+end;
+
+procedure TfmLances.ckMapaLancesChange(Sender: TObject);
+begin
+  if ckMapaLances.Checked then
+  begin
+    paDetalles.Visible:=True;
+    splDetalles.Visible:=True;
+  end else
+  begin
+    splDetalles.Visible:=False;
+    paDetalles.Visible:=False;
+  end;
+  ckMapaLances.Checked;
+  LSSaveConfig(['ver_mapa_lances'], [ckMapaLances.Checked]);
+  if ckMapaLances.Checked then
+  begin
+    InicializarMapas;
+  end;
+end;
+
+procedure TfmLances.ctDistanciaGetDistanceText(ASender: TDataPointDistanceTool;
+  var AText: String);
+begin
+  with ASender do
+  begin
+    Atext:=Format('Distancia: %f mn', [DistanciaEnMillas(GradoDecimalAGradoMinuto(PointStart.GraphPos.Y), GradoDecimalAGradoMinuto(PointStart.GraphPos.X), GradoDecimalAGradoMinuto(PointEnd.GraphPos.Y), GradoDecimalAGradoMinuto(PointEnd.GraphPos.X))])
+                              +LineEnding+'Rumbo: '+FormatFloat('000°', Rumbo(Abs(GradoDecimalAGradoMinuto(PointStart.GraphPos.Y)),
+                                                                        Abs(GradoDecimalAGradoMinuto(PointStart.GraphPos.X)),
+                                                                        Abs(GradoDecimalAGradoMinuto(PointEnd.GraphPos.Y)),
+                                                                        Abs(GradoDecimalAGradoMinuto(PointEnd.GraphPos.X))));
+  end;
 end;
 
 procedure TfmLances.dtFechaCheckBoxChange(Sender: TObject);
@@ -186,7 +485,46 @@ begin
   zcgLista.Buscar;
 end;
 
+procedure TfmLances.FormCreate(Sender: TObject);
+var
+  Cur: TCursorImage;
+begin
+  Cur := TCursorImage.Create;
+  Cur.LoadFromResourceName(HInstance, 'VPRHANDOPEN');
+  Screen.Cursors[1] := Cur.ReleaseHandle;
+  Cur.LoadFromResourceName(HInstance, 'ZOOM_IN');
+  Screen.Cursors[2] := Cur.ReleaseHandle;
+  Cur.LoadFromResourceName(HInstance, 'ZOOM_OUT');
+  Screen.Cursors[3] := Cur.ReleaseHandle;
+  Cur.LoadFromResourceName(HInstance, 'MAGNIFY_REGION');
+  Screen.Cursors[4] := Cur.ReleaseHandle;
+  Cur.LoadFromResourceName(HInstance, 'CR_CROSS');
+  Screen.Cursors[5] := Cur.ReleaseHandle;
+  Cur.LoadFromResourceName(HInstance, 'VPRHANDCLOSED');
+  Screen.Cursors[6] := Cur.ReleaseHandle;
+  Cur.Free;
+
+  chtLances.Cursor:=1;
+  ctMover.ActiveCursor:=6;
+end;
+
 procedure TfmLances.FormResize(Sender: TObject);
+begin
+end;
+
+procedure TfmLances.FormShow(Sender: TObject);
+var
+  str_conf: string;
+begin
+  dtFecha.Date:=NullDate;
+  chtLances.Title.Text.Text:=PChar('Marea: '+dmGeneral.DscMareaActiva);
+  FMapasCargados:=False;
+  LSLoadConfig(['ver_mapa_lances'], [str_conf], [@str_conf]);
+  ckMapaLances.Checked:=(str_conf='True');
+  inherited;
+end;
+
+procedure TfmLances.paGrillaResize(Sender: TObject);
 var
   ancho_min_grilla1: integer=1150;
   ancho_min_grilla2: integer=800;
@@ -204,10 +542,15 @@ begin
 //  dbgLista.ColumnByFieldName('canastos_procesados').Visible:=dbgLista.Width >=ancho_min_grilla;
 end;
 
-procedure TfmLances.FormShow(Sender: TObject);
+procedure TfmLances.zqLancesAfterOpen(DataSet: TDataSet);
 begin
-  dtFecha.Date:=NullDate;
-  inherited;
+  if ckMapaLances.Checked then
+  begin
+    if not FMapasCargados then
+       InicializarMapas
+    else
+       CargarMapaLances;
+  end;
 end;
 
 end.
