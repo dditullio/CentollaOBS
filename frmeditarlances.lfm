@@ -46,8 +46,8 @@ inherited fmEditarLances: TfmEditarLances
       Options = [nboKeyboardTabSwitch]
       object tsCalado: TTabSheet
         Caption = 'Calado'
-        ClientHeight = 287
-        ClientWidth = 722
+        ClientHeight = 574
+        ClientWidth = 1444
         object gbInicioCalado: TGroupBox
           Left = 0
           Height = 132
@@ -474,8 +474,8 @@ inherited fmEditarLances: TfmEditarLances
       end
       object tsVirada: TTabSheet
         Caption = '&Virada'
-        ClientHeight = 287
-        ClientWidth = 722
+        ClientHeight = 574
+        ClientWidth = 1444
         object gbDatosInicio2: TGroupBox
           Left = 0
           Height = 132
@@ -1064,7 +1064,7 @@ inherited fmEditarLances: TfmEditarLances
       object dbedRumbo: TDBEdit
         Left = 430
         Height = 23
-        Hint = 'Rumbo de arrastre en grados'
+        Hint = 'Rumbo de calado en grados'
         Top = 25
         Width = 42
         DataField = 'rumbo_calado'
@@ -1096,7 +1096,7 @@ inherited fmEditarLances: TfmEditarLances
       object dbedBoya: TDBEdit
         Left = 62
         Height = 23
-        Hint = 'Número de boya. Sólo se muestran líneas no caladas. Si no la encuentra aquí, verifique si falra registrar la virada de dicha línea'
+        Hint = 'Número de boya o identificación de la línea'
         Top = 25
         Width = 48
         DataField = 'nro_boya'
@@ -1133,8 +1133,8 @@ inherited fmEditarLances: TfmEditarLances
         Width = 45
         BevelOuter = bvNone
         BorderStyle = bsSingle
-        ClientHeight = 19
-        ClientWidth = 41
+        ClientHeight = 23
+        ClientWidth = 45
         TabOrder = 9
         object dbedNroLance: TDBText
           Left = 0

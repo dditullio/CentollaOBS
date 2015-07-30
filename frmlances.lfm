@@ -470,6 +470,7 @@ inherited fmLances: TfmLances
             FooterRowCount = 1
             DataSource = dsLances
             ParentFont = False
+            OnCellClick = dbgListaCellClick
           end
           inherited bbExportar: TBitBtn
             Top = 348
@@ -503,18 +504,18 @@ inherited fmLances: TfmLances
         Visible = True
         object Panel2: TPanel[0]
           Left = 0
-          Height = 304
+          Height = 393
           Top = 30
           Width = 330
           Align = alClient
           BevelInner = bvLowered
           Caption = 'Panel2'
-          ClientHeight = 304
+          ClientHeight = 393
           ClientWidth = 330
           TabOrder = 0
           object chtLances: TChart
             Left = 2
-            Height = 300
+            Height = 367
             Top = 2
             Width = 326
             AxisList = <            
@@ -557,37 +558,42 @@ inherited fmLances: TfmLances
               'TAChart'
             )
             Toolset = ChartToolset1
+            OnExtentChanged = chtLancesExtentChanged
             Align = alClient
             ParentColor = False
+            object chtLancesLanceSeleccionadoSerie: TLineSeries
+              Legend.Format = 'Lance seleccionado'
+              Marks.Visible = False
+              Marks.Format = '%2:s'
+              Marks.Style = smsLabel
+              ZPosition = 9
+              LinePen.Color = clBlue
+              LinePen.Width = 2
+              Pointer.HorizSize = 3
+              Pointer.Style = psCircle
+              Pointer.VertSize = 3
+              ShowPoints = True
+              Source = lcsLanceSeleccionado
+            end
+            object chtLancesSerieLancesViradasInvest: TLineSeries
+              Legend.Format = 'Líneas INIDEP viradas'
+              Marks.Visible = False
+              Marks.Format = '%2:s'
+              Marks.Style = smsLabel
+              ZPosition = 8
+              LinePen.Color = clGreen
+              LinePen.Width = 4
+              Source = lcsLancesViradosInvest
+            end
             object chtLancesSerieLancesCaladosInvest: TLineSeries
               Legend.Format = 'Líneas INIDEP caladas'
               Marks.Visible = False
               Marks.Format = '%2:s'
               Marks.Style = smsLabel
+              ZPosition = 7
               LinePen.Color = clRed
               LinePen.Width = 4
               Source = lcsLancesCaladosInvest
-            end
-            object chtLancesSerieLancesViradas: TLineSeries
-              Legend.Format = 'Líneas INIDEP viradas'
-              Marks.Visible = False
-              Marks.Format = '%2:s'
-              Marks.Style = smsLabel
-              LinePen.Color = clGreen
-              LinePen.Width = 4
-              Source = lcsLancesViradosInvest
-            end
-            object chtLancesSerieLancesCalados: TLineSeries
-              Legend.Format = 'Lances calados'
-              Marks.Shape = clsRoundRect
-              Marks.Visible = False
-              Marks.CalloutAngle = 200
-              Marks.Format = '%2:s'
-              Marks.Style = smsLabel
-              LinePen.Color = clRed
-              LinePen.Width = 2
-              MarkPositions = lmpInside
-              Source = lcsLancesCalados
             end
             object chtLancesSerieLancesVirados: TLineSeries
               Legend.Format = 'Lances virados'
@@ -599,6 +605,7 @@ inherited fmLances: TfmLances
               Marks.Format = '%2:s'
               Marks.LinkPen.Color = clBlack
               Marks.Style = smsLabel
+              ZPosition = 6
               LinePen.Color = clGreen
               LinePen.Width = 2
               MarkPositions = lmpInside
@@ -607,24 +614,115 @@ inherited fmLances: TfmLances
               Pointer.VertSize = 2
               Source = lcsLancesVirados
             end
+            object chtLancesSerieLancesCalados: TLineSeries
+              Legend.Format = 'Lances calados'
+              Marks.Shape = clsRoundRect
+              Marks.Visible = False
+              Marks.CalloutAngle = 200
+              Marks.Format = '%2:s'
+              Marks.Style = smsLabel
+              ZPosition = 5
+              LinePen.Color = clRed
+              LinePen.Width = 2
+              MarkPositions = lmpInside
+              Source = lcsLancesCalados
+            end
             object chtLancesLimiteProvincia: TLineSeries
               Legend.Format = 'Límite Prov./Nac.'
               Legend.Visible = False
               Marks.Distance = 0
+              ZPosition = 4
               LinePen.Color = clRed
               Source = lcsLimiteProvincia
             end
+            object chtLancesZEESerie: TLineSeries
+              Legend.Format = 'ZEE (200 millas)'
+              ZPosition = 3
+              LinePen.Color = clRed
+              Source = lcsZEE
+            end
             object chtLancesOtrasZonasSerie: TLineSeries
               Legend.Format = 'Veda y Z. Común'
+              ZPosition = 2
               LinePen.Color = clOlive
               Source = lcsOtrasZonas
             end
             object chtLancesMapaBaseSerie: TBSplineSeries
               Legend.Format = 'Mapa base'
+              ZPosition = 1
               Source = lcsMapaBase
               Pen.Color = clGray
               Pen.Width = 2
               Pointer.Visible = False
+            end
+          end
+          object LSExpandPanel1: TLSExpandPanel
+            Left = 2
+            Height = 22
+            Top = 369
+            Width = 326
+            Align = alBottom
+            Caption = 'LSExpandPanel1'
+            ClientHeight = 22
+            ClientWidth = 326
+            CollapsePic.Data = {
+              1754506F727461626C654E6574776F726B47726170686963AA00000089504E47
+              0D0A1A0A0000000D494844520000000B0000000B0806000000A9AC7726000000
+              017352474200AECE1CE900000006624B474400FF00FF00FFA0BDA79300000009
+              7048597300000B1300000B1301009A9C180000000774494D4507DB0C07002429
+              5F50EA3E0000002A4944415418D363646060F8CF40022056F17F26524CA59D62
+              1622DCCF884B31E3C0B89924C58CA4C4200079100514DB1FDF77000000004945
+              4E44AE426082
+            }
+            Expand = False
+            ExpandPic.Data = {
+              1754506F727461626C654E6574776F726B47726170686963B000000089504E47
+              0D0A1A0A0000000D494844520000000B0000000B0806000000A9AC7726000000
+              017352474200AECE1CE900000006624B474400FF00FF00FFA0BDA79300000009
+              7048597300000B1300000B1301009A9C180000000774494D4507DB0C07002224
+              77BB3105000000304944415418D363646060F8CF40022056F17F26524C6522C5
+              36924C66C163228CCD48C8CAFF34F32023C51E64242506010DD80A0B08A699B4
+              0000000049454E44AE426082
+            }
+            GradientStart = clBtnFace
+            GradientStop = clBtnFace
+            TabOrder = 1
+            TopPanel.Left = 1
+            TopPanel.Height = 20
+            TopPanel.Top = 1
+            TopPanel.Width = 324
+            TopPanel.BevelOuter = bvNone
+            TopPanel.BorderStyle = bsSingle
+            TopPanel.Caption = 'Activar o desactivar elementos del mapa'
+            TopPanel.Font.Color = clTeal
+            TopPanel.Font.Style = [fsBold]
+            TopPanel.GradientStart = clBtnFace
+            TopPanel.GradientStop = clBtnFace
+            TopPanel.ParentFont = False
+            TopPanel.TabOrder = 0
+            OldTopPanelHeight = 207
+            object clbReferencias: TChartListbox
+              Left = 1
+              Height = 0
+              Top = 21
+              Width = 324
+              Chart = chtLances
+              OnCheckboxClick = clbReferenciasCheckboxClick
+              Align = alClient
+              Constraints.MinWidth = 294
+              ItemHeight = 0
+              TabOrder = 1
+            end
+            object ckOcultarMapaBase: TCheckBox
+              Left = 1
+              Height = 19
+              Top = 21
+              Width = 324
+              Align = alTop
+              Caption = 'Ocultar automáticamente el mapa base al acercar la vista'
+              Checked = True
+              State = cbChecked
+              TabOrder = 2
             end
           end
         end
@@ -646,42 +744,42 @@ inherited fmLances: TfmLances
           ShowHint = True
           TabOrder = 1
           object ToolButton1: TToolButton
-            Left = 29
+            Left = 31
             Top = 2
             Action = acMover
             Grouped = True
             Style = tbsCheck
           end
           object ToolButton2: TToolButton
-            Left = 57
+            Left = 59
             Top = 2
             Action = acZoomIn
             Grouped = True
             Style = tbsCheck
           end
           object ToolButton3: TToolButton
-            Left = 85
+            Left = 87
             Top = 2
             Action = acZoomOut
             Grouped = True
             Style = tbsCheck
           end
           object ToolButton4: TToolButton
-            Left = 113
+            Left = 115
             Top = 2
             Action = acZoomRect
             Grouped = True
             Style = tbsCheck
           end
           object ToolButton5: TToolButton
-            Left = 141
+            Left = 143
             Top = 2
             Action = acMedir
             Grouped = True
             Style = tbsCheck
           end
           object ToolButton6: TToolButton
-            Left = 1
+            Left = 3
             Top = 2
             Action = acInfo
             Down = True
@@ -689,43 +787,35 @@ inherited fmLances: TfmLances
             Style = tbsCheck
           end
           object ToolButton7: TToolButton
-            Left = 169
+            Left = 171
             Top = 2
             Width = 5
             Caption = 'ToolButton7'
             Style = tbsDivider
           end
           object ToolButton8: TToolButton
-            Left = 174
+            Left = 176
             Top = 2
             Action = acZoomLances
           end
           object ToolButton9: TToolButton
-            Left = 207
+            Left = 237
             Hint = 'Guardar el mapa como un archivo de imagen (JPG)'
             Top = 2
             Action = acGuardarImagen
           end
           object ToolButton10: TToolButton
-            Left = 202
+            Left = 232
             Top = 2
             Width = 5
             Caption = 'ToolButton10'
             Style = tbsDivider
           end
-        end
-        object clbReferencias: TChartListbox[2]
-          Left = 0
-          Height = 89
-          Top = 334
-          Width = 330
-          Chart = chtLances
-          Align = alBottom
-          Columns = 2
-          Constraints.MinHeight = 80
-          Constraints.MinWidth = 330
-          ItemHeight = 0
-          TabOrder = 2
+          object ToolButton11: TToolButton
+            Left = 204
+            Top = 2
+            Action = acZoomLanceSeleccionado
+          end
         end
       end
       object splDetalles: TSplitter[2]
@@ -1511,8 +1601,8 @@ inherited fmLances: TfmLances
     object ctZoomDrag: TZoomDragTool
       Enabled = False
       Shift = [ssLeft]
-      AnimationInterval = 25
-      AnimationSteps = 3
+      AnimationInterval = 10
+      AnimationSteps = 5
       DrawingMode = tdmNormal
     end
     object ctMover: TPanDragTool
@@ -1560,15 +1650,15 @@ inherited fmLances: TfmLances
     object ctZoomIn: TZoomClickTool
       Enabled = False
       Shift = [ssLeft]
-      AnimationInterval = 25
-      AnimationSteps = 3
-      ZoomFactor = 1.5
+      AnimationInterval = 10
+      AnimationSteps = 5
+      ZoomFactor = 2
     end
     object ctZoomOut: TZoomClickTool
       Enabled = False
       Shift = [ssLeft]
-      AnimationInterval = 25
-      AnimationSteps = 3
+      AnimationInterval = 10
+      AnimationSteps = 5
       ZoomFactor = 0.5
     end
     object ctPanDrag: TPanDragTool
@@ -1622,25 +1712,31 @@ inherited fmLances: TfmLances
       Tag = 6
       Caption = 'acMedir'
       Hint = 'Medir la distancia en millas entre dos puntos'
-      ImageIndex = 8
+      ImageIndex = 9
       OnExecute = acHabilitarHerramienta
     end
     object acZoomLances: TAction
       Caption = 'acZoomLances'
-      Hint = 'Acercar el mapa hacia los lances seleccionados'
+      Hint = 'Acercar el mapa hacia los lances mostrados en la lista'
       ImageIndex = 5
       OnExecute = acZoomLancesExecute
     end
     object acGuardarImagen: TAction
       Caption = 'acGuardarImagen'
-      ImageIndex = 11
+      ImageIndex = 12
       OnExecute = acGuardarImagenExecute
     end
     object acEtiquetarLances: TAction
       Caption = 'acEtiquetarLances'
       Hint = 'Muestra rótulos identificatorios en el inicio y fin de cada lance'
-      ImageIndex = 7
+      ImageIndex = 8
       OnExecute = acEtiquetarLancesExecute
+    end
+    object acZoomLanceSeleccionado: TAction
+      Caption = 'acZoomLanceSeleccionado'
+      Hint = 'Acercar el mapa hacia el lance seleccionado'
+      ImageIndex = 7
+      OnExecute = acZoomLanceSeleccionadoExecute
     end
   end
   object ilToolbar: TImageList[14]
@@ -1649,7 +1745,7 @@ inherited fmLances: TfmLances
     left = 252
     top = 28
     Bitmap = {
-      4C69110000001800000018000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      4C69120000001800000018000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00999999239C9C9CB49A9A9ADF9797977D9999
@@ -2153,7 +2249,79 @@ inherited fmLances: TfmLances
       82FFB4A082FFB4A082FF6E5A3CFFFFFFFF005151513C4E5759DD5151513CFFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00725E3FB96E5A3CFF6E5A3CFF6E5A3CFF6E5A
-      3CFF6E5A3CFF6E5A3CFF705C3FE8FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      3CFF6E5A3CFF6E5A3CFF705C3FE8000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000005858
+      58FF595959FF525252FF595959FF585858FF0000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000575757FF7B7B7BFFBBBB
+      BAFFE2E2E1FFECECEBFFD0D0CFFFA5A5A5FF7B7B7BFF575757FF000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000005A5A5AFFB9B9B9FFF4F4F3FF0000
+      000000000000000000000000000000000000E6E6E6FFB9B9B9FF5A5A5AFF0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000005A5A5AFFDADADAFF00000000000000000000
+      0000000000000000000000000000000000000000000000000000DADADAFF5A5A
+      5AFF000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000575757FFB9B9B9FF0000000000000000000000000000
+      0000000000000000FFFF0000FFFF0000FFFF000000000000000000000000B9B9
+      B9FF575757FF0000000000000000000000000000000000000000000000000000
+      000000000000000000007B7B7BFFE6E6E6FF0000000000000000000000000000
+      0000000000000000FFFF0000FFFF0000FFFF000000000000000000000000E6E6
+      E6FF7B7B7BFF0000000000000000000000000000000000000000000000000000
+      000000000000585858FFA5A5A5FF000000000000000000000000000000000000
+      0000000000000000FFFF0000FFFF0000FFFF0000000000000000000000000000
+      0000A5A5A5FF585858FF00000000000000000000000000000000000000000000
+      000000000000595959FFC3C3C3FF000000000000000000000000000000000000
+      00000000000000000000FF0000FF000000000000000000000000000000000000
+      0000C3C3C3FF595959FF00000000000000000000000000000000000000000000
+      000000000000525252FFDADADAFF000000000000000000000000000000000000
+      00000000000000000000FF0000FF000000000000000000000000000000000000
+      0000DADADAFF525252FF00000000000000000000000000000000000000000000
+      000000000000595959FFC3C3C3FF000000000000000000000000000000000000
+      000000000000FF0000FF00000000000000000000000000000000000000000000
+      0000C3C3C3FF595959FF00000000000000000000000000000000000000000000
+      000000000000585858FFA5A5A5FF000000000000000000000000000000000000
+      000000000000FF0000FF00000000000000000000000000000000000000000000
+      0000A5A5A5FF585858FF00000000000000000000000000000000000000000000
+      000000000000000000007B7B7BFFE6E6E6FF0000000000000000000000000000
+      0000FF0000FF000000000000000000000000000000000000000000000000E6E6
+      E6FF7B7B7BFF0000000000000000000000000000000000000000000000000000
+      00000000000000000000555555FFA3A3A3FF0000000000000000000000000000
+      0000FF0000FF000000000000000000000000000000000000000000000000B9B9
+      B9FF575757FF0000000000000000000000000000000000000000000000000000
+      000000000000000000004C4C4CFF4C4C4CFFB3B3B3FF0000000000000000FF00
+      00FF000000000000000000000000000000000000000000000000DADADAFF5A5A
+      5AFF000000000000000000000000000000000000000000000000000000000000
+      0000000000004C4C4CFF131313FF131313FF4C4C4CFFA3A3A3FFE6E6E6FFFF00
+      00FF00000000000000000000000000000000E6E6E6FFB9B9B9FF5A5A5AFF0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00005A5F61FF4B5052FF131313FF131313FF4C4C4CFF555555FF7B7B7BFFA5A5
+      A5FFC3C3C3FFDADADAFFC3C3C3FFA5A5A5FF7B7B7BFF575757FF000000000000
+      000000000000000000000000000000000000000000000000000000000000646B
+      6DFF92D3E7FF44B4D8FF4B5052FF4C4C4CFF0000000000000000FF0000FF5858
+      58FF595959FF525252FF595959FF585858FF0000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000646B6DFF92D3
+      E7FF48D2FEFF38AFD6FF4F5557FF0000000000000000FF0000FF000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000646B6DFF92D3E7FF48D2
+      FEFF38AFD6FF4F5659FF000000000000000000000000FF0000FF000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000005A6063FF92D3E7FF48D2FEFF38AF
+      D6FF4F5659FF00000000000000000000000000FF00FF00FF00FF00FF00FF0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000004E5759FF3E96B2FF3CCFFFFF38AFD6FF4F56
+      59FF0000000000000000000000000000000000FF00FF00FF00FF00FF00FF0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000004F5659FF3E96B2FF4F5659FF0000
+      00000000000000000000000000000000000000FF00FF00FF00FF00FF00FF0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000004E5759FF000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -2909,5 +3077,13 @@ inherited fmLances: TfmLances
   object lcsLancesCaladosInvest: TListChartSource[18]
     left = 392
     top = 56
+  end
+  object lcsZEE: TListChartSource[19]
+    left = 496
+    top = 55
+  end
+  object lcsLanceSeleccionado: TListChartSource[20]
+    left = 592
+    top = 28
   end
 end

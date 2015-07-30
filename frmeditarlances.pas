@@ -450,24 +450,6 @@ begin
   if (zqPrincipallat_ini_calado.AsFloat>0) and (zqPrincipallong_ini_calado.AsFloat>0)
      and (zqPrincipallat_fin_calado.AsFloat>0) and (zqPrincipallong_fin_calado.AsFloat>0) then
   begin
-     //Calculo el rumbo de calado
-     zqPrincipalRumboCaladoCalc.AsFloat:=Rumbo(zqPrincipallat_ini_calado.Value, zqPrincipallong_ini_calado.Value,
-      zqPrincipallat_fin_calado.Value, zqPrincipallong_fin_calado.Value);
-     //Calculo diferencia > 15°
-     dif_rumbo:=abs(zqPrincipalRumboCaladoCalc.Value-zqPrincipalrumbo_calado.Value);
-     //Me aseguro de que la diferencia no sea mayor a 180°
-     if dif_rumbo>180 then
-        dif_rumbo:=360-dif_rumbo;
-
-     if dif_rumbo > 15 then
-     begin
-       dbtRumbo.Font.Color := clRed;
-     end
-     else
-     begin
-          dbtRumbo.Font.Color := clDefault;
-     end;
-
      zqPrincipalDistCalado.AsFloat:=DistanciaEnMillas(zqPrincipallat_ini_calado.Value, zqPrincipallong_ini_calado.Value,
       zqPrincipallat_fin_calado.Value, zqPrincipallong_fin_calado.Value);
      //Calculo la distancia entre trampas. Lo convierto a metros
@@ -546,6 +528,31 @@ begin
      else
        dbtDistVirada.Font.Color := clDefault;
   end;
+
+  //Calculo el rumbo de calado
+  //Tengo en cuenta que si la distancia es 0, el cálculo de rumbo da error
+  if (zqPrincipallat_ini_calado.AsFloat>0) and (zqPrincipallong_ini_calado.AsFloat>0)
+     and (zqPrincipallat_fin_calado.AsFloat>0) and (zqPrincipallong_fin_calado.AsFloat>0)
+     and (not zqPrincipalDistCalado.IsNull ) and (zqPrincipalDistCalado.Value>0) then
+  begin
+     zqPrincipalRumboCaladoCalc.AsFloat:=Rumbo(zqPrincipallat_ini_calado.Value, zqPrincipallong_ini_calado.Value,
+      zqPrincipallat_fin_calado.Value, zqPrincipallong_fin_calado.Value);
+     //Calculo diferencia > 15°
+     dif_rumbo:=abs(zqPrincipalRumboCaladoCalc.Value-zqPrincipalrumbo_calado.Value);
+     //Me aseguro de que la diferencia no sea mayor a 180°
+     if dif_rumbo>180 then
+        dif_rumbo:=360-dif_rumbo;
+
+     if dif_rumbo > 15 then
+     begin
+       dbtRumbo.Font.Color := clRed;
+     end
+     else
+     begin
+          dbtRumbo.Font.Color := clDefault;
+     end;
+  end;
+
 
   //Calculo tiempos
   if (not zqPrincipalfecha_ini_calado.IsNull) and (not zqPrincipalfecha_fin_calado.IsNull)

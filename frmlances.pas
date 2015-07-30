@@ -10,7 +10,7 @@ uses
   Graphics, Dialogs, ExtCtrls, Buttons, ActnList, StdCtrls, DBGrids, ComCtrls,
   frmlistabase, db, ZDataset, zcontroladorgrilla, datGeneral, frmeditarlances,
   dateutils, funciones, math, TAChartAxisUtils, TANavigation, types, LSConfig,
-  TACustomSeries, LCLIntf, TAChartUtils;
+  LSControls, TACustomSeries, LCLIntf, TAChartUtils;
 
 const
   COLOR_CALADA_NORMAL=$00D7F3FD;
@@ -27,6 +27,7 @@ type
     acMedir: TAction;
     acMover: TAction;
     acEtiquetarLances: TAction;
+    acZoomLanceSeleccionado: TAction;
     acZoomIn: TAction;
     acZoomLances: TAction;
     acZoomOut: TAction;
@@ -34,11 +35,12 @@ type
     alMapa: TActionList;
     cbCaladas: TCheckBox;
     cbViradas: TCheckBox;
-    clbReferencias: TChartListbox;
+    chtLancesLanceSeleccionadoSerie: TLineSeries;
+    chtLancesZEESerie: TLineSeries;
     ChartToolset1: TChartToolset;
     ChartToolset1DataPointCrosshairTool1: TDataPointCrosshairTool;
     chtLances: TChart;
-    chtLancesSerieLancesViradas: TLineSeries;
+    chtLancesSerieLancesViradasInvest: TLineSeries;
     chtLancesSerieLancesCaladosInvest: TLineSeries;
     chtLancesSerieLancesCalados: TLineSeries;
     chtLancesMapaBaseSerie: TBSplineSeries;
@@ -46,6 +48,8 @@ type
     chtLancesSerieLancesVirados: TLineSeries;
     chtLancesLimiteProvincia: TLineSeries;
     ckMapaLances: TCheckBox;
+    ckOcultarMapaBase: TCheckBox;
+    clbReferencias: TChartListbox;
     ctDistancia: TDataPointDistanceTool;
     ctInformacion: TDataPointHintTool;
     ctMover: TPanDragTool;
@@ -59,18 +63,22 @@ type
     ilToolbar: TImageList;
     lcsEtiquetasUM: TListChartSource;
     lcsLancesCaladosInvest: TListChartSource;
+    lcsLanceSeleccionado: TListChartSource;
     lcsLancesVirados: TListChartSource;
     lcsLancesCalados: TListChartSource;
     lcsLancesViradosInvest: TListChartSource;
+    lcsZEE: TListChartSource;
     lcsMapaBase: TListChartSource;
     lcsOtrasZonas: TListChartSource;
     lcsLimiteProvincia: TListChartSource;
+    LSExpandPanel1: TLSExpandPanel;
     Panel2: TPanel;
     sdGuardarImagen: TSaveDialog;
     splDetalles: TSplitter;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton10: TToolButton;
+    ToolButton11: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -140,14 +148,18 @@ type
     procedure acEtiquetarLancesExecute(Sender: TObject);
     procedure acGuardarImagenExecute(Sender: TObject);
     procedure acHabilitarHerramienta(Sender: TObject);
+    procedure acZoomLanceSeleccionadoExecute(Sender: TObject);
     procedure acZoomLancesExecute(Sender: TObject);
     procedure cbCaladasChange(Sender: TObject);
     procedure cbViradasChange(Sender: TObject);
     procedure chtLancesAxisList0MarkToText(var AText: String; AMark: Double);
     procedure chtLancesAxisList1MarkToText(var AText: String; AMark: Double);
+    procedure chtLancesExtentChanged(ASender: TChart);
     procedure ckMapaLancesChange(Sender: TObject);
+    procedure clbReferenciasCheckboxClick(ASender: TObject; AIndex: Integer);
     procedure ctDistanciaGetDistanceText(ASender: TDataPointDistanceTool;
       var AText: String);
+    procedure dbgListaCellClick(Column: TColumn);
     procedure dbgListaGetCellProps(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor);
     procedure dtFechaChange(Sender: TObject);
@@ -257,6 +269,7 @@ begin
     CargarMapa('ARGENTINA', lcsMapaBase);
     CargarMapa('URUGUAY', lcsMapaBase, False);
     CargarMapa('LIMITE PROVINCIAL', lcsLimiteProvincia);
+    CargarMapa('ZONA ECONOMICA EXCLUSIVA', lcsZEE);
     CargarMapa('VEDA MERLUZA', lcsOtrasZonas);
     CargarMapa('VEDA MERLUZA NEGRA', lcsOtrasZonas, False);
     CargarMapa('ZONA COMUN', lcsOtrasZonas, False);
@@ -274,6 +287,7 @@ begin
   lcsLancesCalados.Clear;
   lcsLancesViradosInvest.Clear;
   lcsLancesCaladosInvest.Clear;
+  lcsLanceSeleccionado.Clear;
   chtLances.Refresh;
   if (zqLances.RecordCount > 0) and (ckMapaLances.Checked) then
   begin
@@ -420,6 +434,20 @@ begin
   end;
 end;
 
+procedure TfmLances.acZoomLanceSeleccionadoExecute(Sender: TObject);
+var
+  NewExtent: TDoubleRect;
+begin
+  if lcsLanceSeleccionado.Count>0 then
+  begin
+    NewExtent.a.X:=lcsLanceSeleccionado.Extent.a.X-max(0.001,abs((lcsLanceSeleccionado.Extent.a.X-lcsLanceSeleccionado.Extent.b.X)));
+    NewExtent.a.Y:=lcsLanceSeleccionado.Extent.a.Y-max(0.001,abs((lcsLanceSeleccionado.Extent.a.Y-lcsLanceSeleccionado.Extent.b.Y)));
+    NewExtent.b.X:=lcsLanceSeleccionado.Extent.b.X+max(0.001,abs((lcsLanceSeleccionado.Extent.a.X-lcsLanceSeleccionado.Extent.b.X)));
+    NewExtent.b.Y:=lcsLanceSeleccionado.Extent.b.Y+max(0.001,abs((lcsLanceSeleccionado.Extent.a.Y-lcsLanceSeleccionado.Extent.b.Y)));
+    chtLances.LogicalExtent:=NewExtent;
+  end;
+end;
+
 procedure TfmLances.acZoomLancesExecute(Sender: TObject);
 begin
      ZoomALances;
@@ -444,6 +472,22 @@ begin
   Atext:=FormatFloat('#°00.00´', GradoDecimalAGradoMinuto(AMark));
 end;
 
+procedure TfmLances.chtLancesExtentChanged(ASender: TChart);
+var
+  ext_y: double;
+begin
+  //Si se aumenta el zoom como para mostrar menos de 1/2 grado en vertical,
+  //deshabilito el mapa base (si está marcada esta opción)
+  if ckOcultarMapaBase.Checked then
+  begin
+    ext_y:=ABS(chtLances.LogicalExtent.a.Y-chtLances.LogicalExtent.b.Y);
+       if (ext_y<0.5) and (chtLancesMapaBaseSerie.Active) then
+          chtLancesMapaBaseSerie.Active:=False
+       else if (ext_y>=0.5) and (not chtLancesMapaBaseSerie.Active) then
+          chtLancesMapaBaseSerie.Active:=True;
+  end;
+end;
+
 procedure TfmLances.ckMapaLancesChange(Sender: TObject);
 begin
   if ckMapaLances.Checked then
@@ -463,6 +507,12 @@ begin
   end;
 end;
 
+procedure TfmLances.clbReferenciasCheckboxClick(ASender: TObject;
+  AIndex: Integer);
+begin
+  clbReferencias.Series[AIndex].Active:=clbReferencias.Checked[AIndex];
+end;
+
 procedure TfmLances.ctDistanciaGetDistanceText(ASender: TDataPointDistanceTool;
   var AText: String);
 begin
@@ -474,6 +524,40 @@ begin
                                                                         Abs(GradoDecimalAGradoMinuto(PointEnd.GraphPos.Y)),
                                                                         Abs(GradoDecimalAGradoMinuto(PointEnd.GraphPos.X))));
   end;
+end;
+
+procedure TfmLances.dbgListaCellClick(Column: TColumn);
+var
+  str_invest: string;
+begin
+  lcsLanceSeleccionado.Clear;
+  with zqLances do
+  begin
+    if (not FieldByName('long_ini_gis').IsNull)
+       and (not FieldByName('lat_ini_gis').IsNull)
+       and (not FieldByName('long_fin_gis').IsNull)
+       and (not FieldByName('lat_fin_gis').IsNull) then
+    begin
+      if FieldByName('investigacion').AsBoolean then
+      begin
+        str_invest:='Línea de INIDEP'+LineEnding;
+      end else
+      begin
+           str_invest:='';
+      end;
+      if FieldByName('virada').AsBoolean then
+      begin
+        lcsLanceSeleccionado.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+        lcsLanceSeleccionado.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+      end else
+      begin
+        lcsLanceSeleccionado.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+        lcsLanceSeleccionado.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+      end;
+      lcsLanceSeleccionado.Add(NaN,NaN);
+    end;
+  end;
+
 end;
 
 procedure TfmLances.dtFechaCheckBoxChange(Sender: TObject);

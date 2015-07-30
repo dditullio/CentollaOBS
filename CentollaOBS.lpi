@@ -211,7 +211,6 @@
       <Unit11>
         <Filename Value="funciones.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="funciones"/>
       </Unit11>
       <Unit12>
         <Filename Value="frmSplashScreenForm.pas"/>
@@ -325,7 +324,6 @@
         <ComponentName Value="fmProduccion"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmProduccion"/>
       </Unit27>
       <Unit28>
         <Filename Value="frmeditarproduccion.pas"/>
@@ -410,7 +408,6 @@
         <ComponentName Value="fmBackup"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmbackup"/>
       </Unit39>
     </Units>
   </ProjectOptions>
