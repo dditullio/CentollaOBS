@@ -583,13 +583,6 @@ object fmBackup: TfmBackup
     left = 100
     top = 330
   end
-  object conRestaurar: TMySQL55Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    left = 30
-    top = 330
-  end
   object zqTriggers: TZQuery
     Connection = dmGeneral.zcDB
     SQL.Strings = (
@@ -601,7 +594,7 @@ object fmBackup: TfmBackup
   end
   object dblRestaurar: TSQLDBLibraryLoader
     Enabled = False
-    ConnectionType = 'MySQL 5.5'
+    ConnectionType = 'MySQL 5.6'
     LibraryName = 'libmysql.dll'
     left = 210
     top = 330
@@ -735,5 +728,13 @@ object fmBackup: TfmBackup
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000
     }
+  end
+  object conRestaurar: TMySQL56Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = trRestaurar
+    left = 30
+    top = 330
   end
 end

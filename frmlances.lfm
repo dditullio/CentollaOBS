@@ -7,7 +7,6 @@ inherited fmLances: TfmLances
   ClientHeight = 451
   ClientWidth = 1042
   OnCreate = FormCreate
-  OnResize = FormResize
   OnShow = FormShow
   inherited paBase: TPanel
     Height = 451
@@ -513,9 +512,104 @@ inherited fmLances: TfmLances
           ClientHeight = 393
           ClientWidth = 330
           TabOrder = 0
+          OnMouseLeave = Panel2MouseLeave
+          object LSExpandPanel1: TLSExpandPanel
+            Left = 2
+            Height = 22
+            Top = 369
+            Width = 326
+            Align = alBottom
+            Caption = 'LSExpandPanel1'
+            ClientHeight = 22
+            ClientWidth = 326
+            CollapsePic.Data = {
+              1754506F727461626C654E6574776F726B47726170686963AA00000089504E47
+              0D0A1A0A0000000D494844520000000B0000000B0806000000A9AC7726000000
+              017352474200AECE1CE900000006624B474400FF00FF00FFA0BDA79300000009
+              7048597300000B1300000B1301009A9C180000000774494D4507DB0C07002429
+              5F50EA3E0000002A4944415418D363646060F8CF40022056F17F26524CA59D62
+              1622DCCF884B31E3C0B89924C58CA4C4200079100514DB1FDF77000000004945
+              4E44AE426082
+            }
+            Expand = False
+            ExpandPic.Data = {
+              1754506F727461626C654E6574776F726B47726170686963B000000089504E47
+              0D0A1A0A0000000D494844520000000B0000000B0806000000A9AC7726000000
+              017352474200AECE1CE900000006624B474400FF00FF00FFA0BDA79300000009
+              7048597300000B1300000B1301009A9C180000000774494D4507DB0C07002224
+              77BB3105000000304944415418D363646060F8CF40022056F17F26524C6522C5
+              36924C66C163228CCD48C8CAFF34F32023C51E64242506010DD80A0B08A699B4
+              0000000049454E44AE426082
+            }
+            GradientStart = clBtnFace
+            GradientStop = clBtnFace
+            TabOrder = 1
+            TopPanel.Left = 1
+            TopPanel.Height = 20
+            TopPanel.Top = 1
+            TopPanel.Width = 324
+            TopPanel.BevelOuter = bvNone
+            TopPanel.BorderStyle = bsSingle
+            TopPanel.Caption = 'Activar o desactivar elementos del mapa'
+            TopPanel.Font.Color = clTeal
+            TopPanel.Font.Style = [fsBold]
+            TopPanel.GradientStart = clBtnFace
+            TopPanel.GradientStop = clBtnFace
+            TopPanel.ParentFont = False
+            TopPanel.TabOrder = 0
+            OldTopPanelHeight = 223
+            object clbReferencias: TChartListbox
+              Left = 1
+              Height = 0
+              Top = 21
+              Width = 324
+              Chart = chtLances
+              OnAddSeries = clbReferenciasAddSeries
+              OnCheckboxClick = clbReferenciasCheckboxClick
+              Align = alClient
+              Constraints.MinWidth = 294
+              ItemHeight = 0
+              TabOrder = 1
+            end
+            object ckOcultarMapaBase: TCheckBox
+              Left = 1
+              Height = 19
+              Top = 21
+              Width = 324
+              Align = alTop
+              Caption = 'Ocultar automáticamente el mapa base al acercar la vista'
+              Checked = True
+              State = cbChecked
+              TabOrder = 2
+            end
+            object ckMostrarEtiquetasLances: TCheckBox
+              Left = 1
+              Height = 19
+              Top = 21
+              Width = 324
+              Align = alTop
+              Caption = 'Mostrar etiquetas de lances al acercar la vista'
+              Checked = True
+              OnChange = ckMostrarEtiquetasLancesChange
+              State = cbChecked
+              TabOrder = 3
+            end
+          end
+          object sbInfoMapa: TStatusBar
+            Left = 2
+            Height = 23
+            Top = 346
+            Width = 326
+            Panels = <            
+              item
+                Alignment = taCenter
+                Width = 50
+              end>
+            SimplePanel = False
+          end
           object chtLances: TChart
             Left = 2
-            Height = 367
+            Height = 344
             Top = 2
             Width = 326
             AxisList = <            
@@ -561,14 +655,30 @@ inherited fmLances: TfmLances
             OnExtentChanged = chtLancesExtentChanged
             Align = alClient
             ParentColor = False
+            object chtLancesEtiquetaLances: TLineSeries
+              Legend.Format = 'Identificación lances'
+              Active = False
+              Marks.Distance = 0
+              Marks.LabelFont.Height = -11
+              Marks.Shape = clsUserDefined
+              Marks.Format = '%2:s'
+              Marks.Style = smsLabel
+              ZPosition = 10
+              LineType = ltNone
+              Source = lcsEtiquetasLances
+            end
             object chtLancesLanceSeleccionadoSerie: TLineSeries
               Legend.Format = 'Lance seleccionado'
+              Marks.LabelFont.Height = -11
+              Marks.LabelFont.Orientation = 2700
+              Marks.Shape = clsUserDefined
               Marks.Visible = False
               Marks.Format = '%2:s'
               Marks.Style = smsLabel
               ZPosition = 9
               LinePen.Color = clBlue
               LinePen.Width = 2
+              MarkPositions = lmpNegative
               Pointer.HorizSize = 3
               Pointer.Style = psCircle
               Pointer.VertSize = 3
@@ -654,75 +764,6 @@ inherited fmLances: TfmLances
               Pen.Color = clGray
               Pen.Width = 2
               Pointer.Visible = False
-            end
-          end
-          object LSExpandPanel1: TLSExpandPanel
-            Left = 2
-            Height = 22
-            Top = 369
-            Width = 326
-            Align = alBottom
-            Caption = 'LSExpandPanel1'
-            ClientHeight = 22
-            ClientWidth = 326
-            CollapsePic.Data = {
-              1754506F727461626C654E6574776F726B47726170686963AA00000089504E47
-              0D0A1A0A0000000D494844520000000B0000000B0806000000A9AC7726000000
-              017352474200AECE1CE900000006624B474400FF00FF00FFA0BDA79300000009
-              7048597300000B1300000B1301009A9C180000000774494D4507DB0C07002429
-              5F50EA3E0000002A4944415418D363646060F8CF40022056F17F26524CA59D62
-              1622DCCF884B31E3C0B89924C58CA4C4200079100514DB1FDF77000000004945
-              4E44AE426082
-            }
-            Expand = False
-            ExpandPic.Data = {
-              1754506F727461626C654E6574776F726B47726170686963B000000089504E47
-              0D0A1A0A0000000D494844520000000B0000000B0806000000A9AC7726000000
-              017352474200AECE1CE900000006624B474400FF00FF00FFA0BDA79300000009
-              7048597300000B1300000B1301009A9C180000000774494D4507DB0C07002224
-              77BB3105000000304944415418D363646060F8CF40022056F17F26524C6522C5
-              36924C66C163228CCD48C8CAFF34F32023C51E64242506010DD80A0B08A699B4
-              0000000049454E44AE426082
-            }
-            GradientStart = clBtnFace
-            GradientStop = clBtnFace
-            TabOrder = 1
-            TopPanel.Left = 1
-            TopPanel.Height = 20
-            TopPanel.Top = 1
-            TopPanel.Width = 324
-            TopPanel.BevelOuter = bvNone
-            TopPanel.BorderStyle = bsSingle
-            TopPanel.Caption = 'Activar o desactivar elementos del mapa'
-            TopPanel.Font.Color = clTeal
-            TopPanel.Font.Style = [fsBold]
-            TopPanel.GradientStart = clBtnFace
-            TopPanel.GradientStop = clBtnFace
-            TopPanel.ParentFont = False
-            TopPanel.TabOrder = 0
-            OldTopPanelHeight = 207
-            object clbReferencias: TChartListbox
-              Left = 1
-              Height = 0
-              Top = 21
-              Width = 324
-              Chart = chtLances
-              OnCheckboxClick = clbReferenciasCheckboxClick
-              Align = alClient
-              Constraints.MinWidth = 294
-              ItemHeight = 0
-              TabOrder = 1
-            end
-            object ckOcultarMapaBase: TCheckBox
-              Left = 1
-              Height = 19
-              Top = 21
-              Width = 324
-              Align = alTop
-              Caption = 'Ocultar automáticamente el mapa base al acercar la vista'
-              Checked = True
-              State = cbChecked
-              TabOrder = 2
             end
           end
         end
@@ -899,7 +940,7 @@ inherited fmLances: TfmLances
         Name = '__FILTRO__'
         ParamType = ptUnknown
       end>
-    left = 150
+    left = 152
     top = 240
     ParamData = <    
       item
@@ -967,11 +1008,21 @@ inherited fmLances: TfmLances
       ReadOnly = False
       Required = False
     end
+    object zqLancesfecha_hora_orden: TDateTimeField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_hora_orden'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
     object zqLancesnro_boya: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'nro_boya'
-      Index = 4
+      Index = 5
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = True
@@ -981,7 +1032,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'nro_linea'
-      Index = 5
+      Index = 6
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = True
@@ -991,7 +1042,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'prospeccion'
-      Index = 6
+      Index = 7
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1001,7 +1052,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'investigacion'
-      Index = 7
+      Index = 8
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = True
@@ -1011,7 +1062,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'idlinea'
-      Index = 8
+      Index = 9
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1021,7 +1072,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'idcarnada'
-      Index = 9
+      Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1031,7 +1082,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'kg_carnada'
-      Index = 10
+      Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1044,7 +1095,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'rumbo_calado'
-      Index = 11
+      Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1055,7 +1106,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_ini_calado'
-      Index = 12
+      Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1066,7 +1117,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'hora_ini_calado'
-      Index = 13
+      Index = 14
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1077,7 +1128,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'profundidad_ini_calado'
-      Index = 14
+      Index = 15
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1087,7 +1138,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_ini_calado'
-      Index = 15
+      Index = 16
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1101,7 +1152,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_ini_calado'
-      Index = 16
+      Index = 17
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1115,7 +1166,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_fin_calado'
-      Index = 17
+      Index = 18
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1126,7 +1177,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'hora_fin_calado'
-      Index = 18
+      Index = 19
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1137,7 +1188,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'profundidad_fin_calado'
-      Index = 19
+      Index = 20
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1147,7 +1198,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_fin_calado'
-      Index = 20
+      Index = 21
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1161,7 +1212,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_fin_calado'
-      Index = 21
+      Index = 22
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1175,7 +1226,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'cant_trampas_caladas'
-      Index = 22
+      Index = 23
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1185,7 +1236,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_ini_virada'
-      Index = 23
+      Index = 24
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1196,7 +1247,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'hora_ini_virada'
-      Index = 24
+      Index = 25
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1207,7 +1258,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'profundidad_ini_virada'
-      Index = 25
+      Index = 26
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1217,7 +1268,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_ini_virada'
-      Index = 26
+      Index = 27
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1231,7 +1282,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_ini_virada'
-      Index = 27
+      Index = 28
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1245,7 +1296,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_fin_virada'
-      Index = 28
+      Index = 29
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1256,7 +1307,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'hora_fin_virada'
-      Index = 29
+      Index = 30
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1267,7 +1318,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'profundidad_fin_virada'
-      Index = 30
+      Index = 31
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1277,7 +1328,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_fin_virada'
-      Index = 31
+      Index = 32
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1291,7 +1342,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_fin_virada'
-      Index = 32
+      Index = 33
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1305,7 +1356,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'cant_trampas_recuperadas'
-      Index = 33
+      Index = 34
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1315,7 +1366,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'canastos_procesados'
-      Index = 34
+      Index = 35
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1325,7 +1376,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'cluster_por_canasto'
-      Index = 35
+      Index = 36
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1335,7 +1386,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'cod_estado_mar'
-      Index = 36
+      Index = 37
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1345,7 +1396,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'nudos_viento'
-      Index = 37
+      Index = 38
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1355,7 +1406,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'direccion_viento'
-      Index = 38
+      Index = 39
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1365,7 +1416,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 1024
       FieldKind = fkData
       FieldName = 'comentarios_calado'
-      Index = 39
+      Index = 40
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1376,7 +1427,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 1024
       FieldKind = fkData
       FieldName = 'comentarios_virada'
-      Index = 40
+      Index = 41
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1387,7 +1438,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'dias_en_agua'
-      Index = 41
+      Index = 42
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1400,7 +1451,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkCalculated
       FieldName = 'Distancia'
-      Index = 42
+      Index = 43
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1412,7 +1463,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkCalculated
       FieldName = 'VelocidadNecesaria'
-      Index = 43
+      Index = 44
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1424,7 +1475,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkCalculated
       FieldName = 'LatIni'
-      Index = 44
+      Index = 45
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1436,7 +1487,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkCalculated
       FieldName = 'LongIni'
-      Index = 45
+      Index = 46
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1448,7 +1499,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkCalculated
       FieldName = 'LatFin'
-      Index = 46
+      Index = 47
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1460,7 +1511,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkCalculated
       FieldName = 'LongFin'
-      Index = 47
+      Index = 48
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1472,7 +1523,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'calada'
-      Index = 48
+      Index = 49
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1482,7 +1533,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'virada'
-      Index = 49
+      Index = 50
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1492,7 +1543,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_ini_gis'
-      Index = 50
+      Index = 51
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1505,7 +1556,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_ini_gis'
-      Index = 51
+      Index = 52
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1518,7 +1569,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'long_fin_gis'
-      Index = 52
+      Index = 53
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1531,7 +1582,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_fin_gis'
-      Index = 53
+      Index = 54
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1544,7 +1595,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 104
       FieldKind = fkData
       FieldName = 'etiqueta_inicio'
-      Index = 54
+      Index = 55
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1555,7 +1606,7 @@ inherited fmLances: TfmLances
       DisplayWidth = 92
       FieldKind = fkData
       FieldName = 'etiqueta_fin'
-      Index = 55
+      Index = 56
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1663,6 +1714,9 @@ inherited fmLances: TfmLances
     end
     object ctPanDrag: TPanDragTool
       Shift = [ssRight]
+    end
+    object ctInfoCoordenadas: TUserDefinedTool
+      OnAfterMouseMove = ctInfoCoordenadasAfterMouseMove
     end
   end
   object lcsLancesVirados: TListChartSource[12]
@@ -3085,5 +3139,9 @@ inherited fmLances: TfmLances
   object lcsLanceSeleccionado: TListChartSource[20]
     left = 592
     top = 28
+  end
+  object lcsEtiquetasLances: TListChartSource[21]
+    left = 432
+    top = 56
   end
 end

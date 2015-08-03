@@ -225,7 +225,6 @@
         <ComponentName Value="fmEditarLances"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmeditarlances"/>
       </Unit13>
       <Unit14>
         <Filename Value="frmlineas.pas"/>

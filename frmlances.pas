@@ -10,7 +10,7 @@ uses
   Graphics, Dialogs, ExtCtrls, Buttons, ActnList, StdCtrls, DBGrids, ComCtrls,
   frmlistabase, db, ZDataset, zcontroladorgrilla, datGeneral, frmeditarlances,
   dateutils, funciones, math, TAChartAxisUtils, TANavigation, types, LSConfig,
-  LSControls, TACustomSeries, LCLIntf, TAChartUtils;
+  LSControls, TACustomSeries, LCLIntf, TAChartUtils, TALegend;
 
 const
   COLOR_CALADA_NORMAL=$00D7F3FD;
@@ -35,11 +35,23 @@ type
     alMapa: TActionList;
     cbCaladas: TCheckBox;
     cbViradas: TCheckBox;
+    chtLances: TChart;
+    chtLancesLanceSeleccionadoSerie1: TLineSeries;
+    chtLancesLimiteProvincia1: TLineSeries;
+    chtLancesEtiquetaLances: TLineSeries;
+    chtLancesMapaBaseSerie1: TBSplineSeries;
+    chtLancesOtrasZonasSerie1: TLineSeries;
+    chtLancesSerieLancesCalados1: TLineSeries;
+    chtLancesSerieLancesCaladosInvest1: TLineSeries;
+    chtLancesSerieLancesViradasInvest1: TLineSeries;
+    chtLancesSerieLancesVirados1: TLineSeries;
+    chtLancesZEESerie1: TLineSeries;
+    ckMostrarEtiquetasLances: TCheckBox;
+    ctInfoCoordenadas: TUserDefinedTool;
     chtLancesLanceSeleccionadoSerie: TLineSeries;
     chtLancesZEESerie: TLineSeries;
     ChartToolset1: TChartToolset;
     ChartToolset1DataPointCrosshairTool1: TDataPointCrosshairTool;
-    chtLances: TChart;
     chtLancesSerieLancesViradasInvest: TLineSeries;
     chtLancesSerieLancesCaladosInvest: TLineSeries;
     chtLancesSerieLancesCalados: TLineSeries;
@@ -63,6 +75,7 @@ type
     ilToolbar: TImageList;
     lcsEtiquetasUM: TListChartSource;
     lcsLancesCaladosInvest: TListChartSource;
+    lcsEtiquetasLances: TListChartSource;
     lcsLanceSeleccionado: TListChartSource;
     lcsLancesVirados: TListChartSource;
     lcsLancesCalados: TListChartSource;
@@ -72,7 +85,9 @@ type
     lcsOtrasZonas: TListChartSource;
     lcsLimiteProvincia: TListChartSource;
     LSExpandPanel1: TLSExpandPanel;
+    paBaseMapa: TPanel;
     Panel2: TPanel;
+    sbInfoMapa: TStatusBar;
     sdGuardarImagen: TSaveDialog;
     splDetalles: TSplitter;
     ToolBar1: TToolBar;
@@ -103,6 +118,7 @@ type
     zqLancesetiqueta_inicio: TStringField;
     zqLancesfecha_fin_calado: TDateField;
     zqLancesfecha_fin_virada: TDateField;
+    zqLancesfecha_hora_orden: TDateTimeField;
     zqLancesfecha_ini_calado: TDateField;
     zqLancesfecha_ini_virada: TDateField;
     zqLanceshora_fin_calado: TTimeField;
@@ -156,18 +172,24 @@ type
     procedure chtLancesAxisList1MarkToText(var AText: String; AMark: Double);
     procedure chtLancesExtentChanged(ASender: TChart);
     procedure ckMapaLancesChange(Sender: TObject);
+    procedure ckMostrarEtiquetasLancesChange(Sender: TObject);
+    procedure clbReferenciasAddSeries(ASender: TChartListbox;
+      ASeries: TCustomChartSeries; AItems: TChartLegendItems; var ASkip: Boolean
+      );
     procedure clbReferenciasCheckboxClick(ASender: TObject; AIndex: Integer);
     procedure ctDistanciaGetDistanceText(ASender: TDataPointDistanceTool;
       var AText: String);
+    procedure ctInfoCoordenadasAfterMouseMove(ATool: TChartTool; APoint: TPoint
+      );
     procedure dbgListaCellClick(Column: TColumn);
     procedure dbgListaGetCellProps(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor);
     procedure dtFechaChange(Sender: TObject);
     procedure dtFechaCheckBoxChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure paGrillaResize(Sender: TObject);
+    procedure Panel2MouseLeave(Sender: TObject);
     procedure zqLancesAfterOpen(DataSet: TDataSet);
     procedure zqLancesBeforeOpen(DataSet: TDataSet);
     procedure zqLancesCalcFields(DataSet: TDataSet);
@@ -282,12 +304,14 @@ procedure TfmLances.CargarMapaLances;
 var
   bm: TBookMark;
   str_invest: string;
+  prom_lat, prom_long: double;
 begin
   lcsLancesVirados.Clear;
   lcsLancesCalados.Clear;
   lcsLancesViradosInvest.Clear;
   lcsLancesCaladosInvest.Clear;
   lcsLanceSeleccionado.Clear;
+  lcsEtiquetasLances.Clear;
   chtLances.Refresh;
   if (zqLances.RecordCount > 0) and (ckMapaLances.Checked) then
   begin
@@ -337,6 +361,14 @@ begin
               lcsLancesViradosInvest.Add(NaN,NaN);
             end;
           end;
+          //Calculo el punto medio del lance para colocar la etiqueta
+          prom_long:=(FieldByName('long_ini_gis').AsFloat+FieldByName('long_fin_gis').AsFloat)/2;
+          prom_lat:=(FieldByName('lat_ini_gis').AsFloat+FieldByName('lat_fin_gis').AsFloat)/2;
+          if FieldByName('virada').AsBoolean then
+             lcsEtiquetasLances.Add(prom_long,prom_lat,'L'+FieldByName('orden_virada').AsString+'-'+FormatDateTime('dd/mm hh:mm',FieldByName('fecha_hora_orden').AsDateTime))
+          else
+             lcsEtiquetasLances.Add(prom_long,prom_lat,FormatDateTime('dd/mm hh:mm',FieldByName('fecha_hora_orden').AsDateTime));
+          lcsEtiquetasLances.Add(NaN,NaN);
         end;
         Next;
       end;
@@ -478,13 +510,22 @@ var
 begin
   //Si se aumenta el zoom como para mostrar menos de 1/2 grado en vertical,
   //deshabilito el mapa base (si está marcada esta opción)
+  ext_y:=ABS(chtLances.LogicalExtent.a.Y-chtLances.LogicalExtent.b.Y);
   if ckOcultarMapaBase.Checked then
   begin
-    ext_y:=ABS(chtLances.LogicalExtent.a.Y-chtLances.LogicalExtent.b.Y);
        if (ext_y<0.5) and (chtLancesMapaBaseSerie.Active) then
           chtLancesMapaBaseSerie.Active:=False
        else if (ext_y>=0.5) and (not chtLancesMapaBaseSerie.Active) then
           chtLancesMapaBaseSerie.Active:=True;
+  end;
+  //Muestro las etiquetas de los lances cuando el zoom se aumenta como para
+  //mostrar menos de 1/8 de grado en vertical
+  if ckMostrarEtiquetasLances.Checked then
+  begin
+     if (ext_y<1/8) and (not chtLancesEtiquetaLances.Active) then
+        chtLancesEtiquetaLances.Active:=True
+     else if (ext_y>=1/8) and (chtLancesEtiquetaLances.Active) then
+        chtLancesEtiquetaLances.Active:=False;
   end;
 end;
 
@@ -507,6 +548,21 @@ begin
   end;
 end;
 
+procedure TfmLances.ckMostrarEtiquetasLancesChange(Sender: TObject);
+begin
+  if not ckMostrarEtiquetasLances.Checked then
+     chtLancesEtiquetaLances.Active:=False
+  else
+    chtLancesExtentChanged(chtLances);
+end;
+
+procedure TfmLances.clbReferenciasAddSeries(ASender: TChartListbox;
+  ASeries: TCustomChartSeries; AItems: TChartLegendItems; var ASkip: Boolean);
+begin
+  if ASeries=chtLancesEtiquetaLances then
+     ASkip:=True;
+end;
+
 procedure TfmLances.clbReferenciasCheckboxClick(ASender: TObject;
   AIndex: Integer);
 begin
@@ -524,6 +580,13 @@ begin
                                                                         Abs(GradoDecimalAGradoMinuto(PointEnd.GraphPos.Y)),
                                                                         Abs(GradoDecimalAGradoMinuto(PointEnd.GraphPos.X))));
   end;
+end;
+
+procedure TfmLances.ctInfoCoordenadasAfterMouseMove(ATool: TChartTool;
+  APoint: TPoint);
+begin
+  sbInfoMapa.Panels[0].Text:='Latitud: '+FormatFloat('00° 00.00´ S', Abs(GradoDecimalAGradoMinuto(chtLances.ImageToGraph(APoint).Y)))+
+                         ' - Longitud: '+FormatFloat('00° 00.00´ O', Abs(GradoDecimalAGradoMinuto(chtLances.ImageToGraph(APoint).X)));
 end;
 
 procedure TfmLances.dbgListaCellClick(Column: TColumn);
@@ -592,10 +655,6 @@ begin
   ctMover.ActiveCursor:=6;
 end;
 
-procedure TfmLances.FormResize(Sender: TObject);
-begin
-end;
-
 procedure TfmLances.FormShow(Sender: TObject);
 var
   str_conf: string;
@@ -624,6 +683,11 @@ begin
   dbgLista.ColumnByFieldName('profundidad_fin_virada').Visible:=dbgLista.Width >=ancho_min_grilla2;
   dbgLista.ColumnByFieldName('cant_trampas_recuperadas').Visible:=dbgLista.Width >=ancho_min_grilla2;
 //  dbgLista.ColumnByFieldName('canastos_procesados').Visible:=dbgLista.Width >=ancho_min_grilla;
+end;
+
+procedure TfmLances.Panel2MouseLeave(Sender: TObject);
+begin
+  sbInfoMapa.Panels[0].Text:='';
 end;
 
 procedure TfmLances.zqLancesAfterOpen(DataSet: TDataSet);
