@@ -632,6 +632,7 @@ inherited fmLances: TfmLances
                 Title.Caption = 'Longitud'
                 OnMarkToText = chtLancesAxisList1MarkToText
               end>
+            BackColor = clInactiveBorder
             Extent.UseXMax = True
             Extent.UseXMin = True
             Extent.UseYMax = True
@@ -642,11 +643,13 @@ inherited fmLances: TfmLances
             Extent.YMin = -50
             Foot.Brush.Color = clBtnFace
             Foot.Font.Color = clBlue
+            Foot.Font.Height = -9
             Legend.Font.Height = -9
             Proportional = True
             ReticuleMode = rmCross
             Title.Brush.Color = clBtnFace
             Title.Font.Color = clBlue
+            Title.Font.Height = -11
             Title.Margin = 0
             Title.Text.Strings = (
               'TAChart'
@@ -1656,6 +1659,12 @@ inherited fmLances: TfmLances
       AnimationSteps = 5
       DrawingMode = tdmNormal
     end
+    object ctZoomDrag2: TZoomDragTool
+      Shift = [ssCtrl, ssLeft]
+      AnimationInterval = 10
+      AnimationSteps = 5
+      DrawingMode = tdmNormal
+    end
     object ctMover: TPanDragTool
       Enabled = False
       Shift = [ssLeft]
@@ -1678,14 +1687,24 @@ inherited fmLances: TfmLances
       PointerEnd.Brush.Style = bsClear
       PointerEnd.Pen.Color = clBlue
       PointerEnd.Pen.Width = 2
-      PointerEnd.Style = psRightTriangle
-      PointerEnd.VertSize = 5
       PointerStart.Brush.Style = bsClear
-      PointerStart.HorizSize = 6
       PointerStart.Pen.Color = clBlue
       PointerStart.Pen.Width = 2
-      PointerStart.Style = psLeftTriangle
-      PointerStart.VertSize = 5
+      OnGetDistanceText = ctDistanciaGetDistanceText
+    end
+    object ctDistancia2: TDataPointDistanceTool
+      Shift = [ssShift, ssLeft]
+      DrawingMode = tdmNormal
+      LinePen.Color = clBlue
+      LinePen.Width = 2
+      DataPointModeEnd = dpmSnap
+      DataPointModeStart = dpmSnap
+      Marks.Format = '%0:.9g'
+      Options = [dpdoFlipLabel]
+      PointerEnd.Pen.Color = clBlue
+      PointerEnd.Pen.Width = 2
+      PointerStart.Pen.Color = clBlue
+      PointerStart.Pen.Width = 2
       OnGetDistanceText = ctDistanciaGetDistanceText
     end
     object ctInformacion: TDataPointHintTool

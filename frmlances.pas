@@ -35,6 +35,8 @@ type
     alMapa: TActionList;
     cbCaladas: TCheckBox;
     cbViradas: TCheckBox;
+    ctDistancia2: TDataPointDistanceTool;
+    ctZoomDrag2: TZoomDragTool;
     chtLances: TChart;
     chtLancesLanceSeleccionadoSerie1: TLineSeries;
     chtLancesLimiteProvincia1: TLineSeries;
@@ -430,7 +432,11 @@ begin
   begin
     if (not FileExistsUTF8(sdGuardarImagen.FileName)) or (MessageDlg('El archivo '+sdGuardarImagen.FileName+' ya existe. ¿Desea reemplazarlo?', mtConfirmation, [mbYes, mbNo],0) = mrYes) then
     begin
+      chtLances.Title.Visible:=True;
+      chtLances.Foot.Visible:=True;
       chtLances.SaveToFile(TJPEGImage, sdGuardarImagen.FileName);
+      chtLances.Title.Visible:=False;
+      chtLances.Foot.Visible:=False;
       OpenDocument(sdGuardarImagen.FileName);
     end;
   end;
@@ -661,6 +667,7 @@ var
 begin
   dtFecha.Date:=NullDate;
   chtLances.Title.Text.Text:=PChar('Marea: '+dmGeneral.DscMareaActiva);
+  chtLances.Foot.Text.Text:=PChar('Mapa generado por: '+ApplicationName+' v'+APP_VERSION);
   FMapasCargados:=False;
   LSLoadConfig(['ver_mapa_lances'], [str_conf], [@str_conf]);
   ckMapaLances.Checked:=(str_conf='True');
