@@ -51,6 +51,7 @@ type
     zqPrincipalrotos: TSmallintField;
     zqPrincipaltalla_max: TLongintField;
     zqPrincipaltalla_min: TLongintField;
+    procedure dbedCodigoExit(Sender: TObject);
     procedure zqPrincipalCalcFields(DataSet: TDataSet);
     procedure zqPrincipalNewRecord(DataSet: TDataSet);
     procedure zqPrincipalporcent_carne_maxValidate(Sender: TField);
@@ -103,6 +104,16 @@ end;
 procedure TfmEditarProductos.zqPrincipalCalcFields(DataSet: TDataSet);
 begin
   zqPrincipalEncabezado.Value:='Categoría '+zqPrincipalcodigo.AsString;
+end;
+
+procedure TfmEditarProductos.dbedCodigoExit(Sender: TObject);
+begin
+  if Trim(dbedCodigo.Text)='' then
+  begin
+     MessageDlg('Debe ingresar el código que identifica al producto', mtError, [mbOK], 0);
+     if dbedCodigo.CanFocus then
+        dbedCodigo.SetFocus;
+  end;
 end;
 
 end.

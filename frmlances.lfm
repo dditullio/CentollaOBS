@@ -23,6 +23,7 @@ inherited fmLances: TfmLances
         Width = 702
         ClientHeight = 433
         ClientWidth = 702
+        Constraints.MinWidth = 470
         inherited paBuscador: TPanel
           Width = 702
           ClientWidth = 702
@@ -475,7 +476,7 @@ inherited fmLances: TfmLances
             Top = 348
           end
           object ckMapaLances: TCheckBox[5]
-            Left = 104
+            Left = 95
             Height = 19
             Top = 357
             Width = 94
@@ -498,7 +499,7 @@ inherited fmLances: TfmLances
         BorderSpacing.Bottom = 5
         ClientHeight = 423
         ClientWidth = 330
-        Constraints.MaxWidth = 720
+        Constraints.MaxWidth = 700
         Constraints.MinWidth = 330
         Visible = True
         object Panel2: TPanel[0]

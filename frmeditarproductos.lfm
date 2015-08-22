@@ -49,6 +49,7 @@ inherited fmEditarProductos: TfmEditarProductos
       EditMask = '>cccccccccc;1; '
       MaxLength = 10
       TabOrder = 0
+      OnExit = dbedCodigoExit
     end
     object dbedDescripcion: TDBEdit[2]
       Left = 155
@@ -189,7 +190,7 @@ inherited fmEditarProductos: TfmEditarProductos
       object dbedPesoMax: TDBEdit
         Left = 96
         Height = 23
-        Top = 32
+        Top = 30
         Width = 80
         DataField = 'peso_max'
         DataSource = dsPrincipal
@@ -218,7 +219,7 @@ inherited fmEditarProductos: TfmEditarProductos
       object dbedCarneMin: TDBEdit
         Left = 8
         Height = 23
-        Top = 32
+        Top = 30
         Width = 80
         DataField = 'porcent_carne_min'
         DataSource = dsPrincipal
@@ -237,7 +238,7 @@ inherited fmEditarProductos: TfmEditarProductos
       object dbedCarneMax: TDBEdit
         Left = 96
         Height = 23
-        Top = 32
+        Top = 30
         Width = 80
         DataField = 'porcent_carne_max'
         DataSource = dsPrincipal

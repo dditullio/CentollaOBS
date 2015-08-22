@@ -441,7 +441,7 @@ var
   distancia_segun_trampas: double;
   dif_rumbo:double;
 begin
-  zqPrincipalEncabezado.Value:='Lance '+zqPrincipalnro_lance.AsString+': Boya '+zqPrincipalnro_boya.AsString;
+  zqPrincipalEncabezado.Value:='Id. Línea '+zqPrincipalnro_boya.AsString;
 
   //Calculo distancias
   laDistancia.Hint:='';
@@ -629,45 +629,6 @@ end;
 
 procedure TfmEditarLances.zqPrincipalnro_boyaValidate(Sender: TField);
 begin
-  zqDatosLineas.Close;
-  zqDatosLineas.ParamByName('nro_boya').Value:=zqPrincipalnro_boya.Value;
-  zqDatosLineas.Open;
-  if zqDatosLineas.RecordCount>0 then
-  begin
-     if zqDatosLineascalada2.AsInteger=1 then
-     begin
-        MessageDlg('La boya indicada ya está calada. Por favor verifique el dato ingresado', mtError, [mbOK], 0);
-        if dbedBoya.CanFocus then
-           dbedBoya.SetFocus;
-     end else
-     begin
-       if (zqPrincipalnro_linea.IsNull) and (not zqDatosLineasnro_linea.IsNull) then
-       begin
-          zqPrincipalnro_linea.Value:=zqDatosLineasnro_linea.Value;
-       end;
-       if (zqPrincipalcant_trampas_caladas.IsNull) and (zqDatosLineascant_trampas.AsInteger>0) then
-       begin
-         zqPrincipalcant_trampas_caladas.Value:=zqDatosLineascant_trampas.Value;
-       end;
-       if (zqPrincipaldistancia_entre_trampas.IsNull)  and (not zqDatosLineasdistancia_entre_trampas.IsNull)then
-       begin
-          zqPrincipaldistancia_entre_trampas.Value:=zqDatosLineasdistancia_entre_trampas.Value;
-       end;
-       if (zqPrincipalidtipo_trampa.IsNull) and (not zqDatosLineasidtipo_trampa.IsNull) then
-       begin
-          zqPrincipalidtipo_trampa.Value:=zqDatosLineasidtipo_trampa.Value;
-       end;
-
-       zqPrincipalinvestigacion.Value:=zqDatosLineasinvestigacion.Value;
-     end;
-  end else if zqPrincipalnro_boya.AsString<>'' then
-  begin
-    if MessageDlg('La boya indicada no corresponde a una línea registrada anteriormente. ¿Éste dato es correcto?', mtWarning, [mbYes,mbNo], 0)= mrNo then
-    begin
-         if dbedBoya.CanFocus then
-            dbedBoya.SetFocus;
-    end;
-  end;
 end;
 
 procedure TfmEditarLances.zqPrincipalprofundidad_fin_caladoValidate(
@@ -768,6 +729,50 @@ begin
      MessageDlg('Debe ingresar el número de boya. No se permite indicar un número de boya correspondiente a una línea registrada como calada.', mtError, [mbOK], 0);
      if dbedBoya.CanFocus then
         dbedBoya.SetFocus;
+  end else
+  begin
+       zqDatosLineas.Close;
+       zqDatosLineas.ParamByName('nro_boya').Value:=zqPrincipalnro_boya.Value;
+       zqDatosLineas.Open;
+       if zqDatosLineas.RecordCount>0 then
+       begin
+          if zqDatosLineascalada2.AsInteger=1 then
+          begin
+             MessageDlg('La línea '+zqPrincipalnro_boya.AsString+' ya está calada. Por favor verifique el dato ingresado', mtError, [mbOK], 0);
+             if dbedBoya.CanFocus then
+                dbedBoya.SetFocus;
+          end else
+          begin
+               if (zqPrincipal.State in [dsInsert, dsEdit]) then
+               begin
+                  if (zqPrincipalnro_linea.IsNull) and (not zqDatosLineasnro_linea.IsNull) then
+                  begin
+                     zqPrincipalnro_linea.Value:=zqDatosLineasnro_linea.Value;
+                  end;
+                  if (zqPrincipalcant_trampas_caladas.IsNull) and (zqDatosLineascant_trampas.AsInteger>0) then
+                  begin
+                    zqPrincipalcant_trampas_caladas.Value:=zqDatosLineascant_trampas.Value;
+                  end;
+                  if (zqPrincipaldistancia_entre_trampas.IsNull)  and (not zqDatosLineasdistancia_entre_trampas.IsNull)then
+                  begin
+                     zqPrincipaldistancia_entre_trampas.Value:=zqDatosLineasdistancia_entre_trampas.Value;
+                  end;
+                  if (zqPrincipalidtipo_trampa.IsNull) and (not zqDatosLineasidtipo_trampa.IsNull) then
+                  begin
+                     zqPrincipalidtipo_trampa.Value:=zqDatosLineasidtipo_trampa.Value;
+                  end;
+
+                  zqPrincipalinvestigacion.Value:=zqDatosLineasinvestigacion.Value;
+               end;
+          end;
+       end else if zqPrincipalnro_boya.AsString<>'' then
+       begin
+         if MessageDlg('La línea indicada ('+zqPrincipalnro_boya.AsString+') no ha sido registrada anteriormente. ¿Éste dato es correcto?', mtWarning, [mbYes,mbNo], 0)= mrNo then
+         begin
+              if dbedBoya.CanFocus then
+                 dbedBoya.SetFocus;
+         end;
+       end;
   end;
 end;
 

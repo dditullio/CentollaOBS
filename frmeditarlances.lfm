@@ -46,8 +46,8 @@ inherited fmEditarLances: TfmEditarLances
       Options = [nboKeyboardTabSwitch]
       object tsCalado: TTabSheet
         Caption = 'Calado'
-        ClientHeight = 574
-        ClientWidth = 1444
+        ClientHeight = 287
+        ClientWidth = 722
         object gbInicioCalado: TGroupBox
           Left = 0
           Height = 132
@@ -964,7 +964,7 @@ inherited fmEditarLances: TfmEditarLances
         ParentColor = False
       end
       object Label19: TLabel
-        Left = 115
+        Left = 230
         Height = 15
         Top = 5
         Width = 44
@@ -972,7 +972,7 @@ inherited fmEditarLances: TfmEditarLances
         ParentColor = False
       end
       object dblkCarnada: TDBLookupComboBox
-        Left = 115
+        Left = 230
         Height = 23
         Top = 25
         Width = 170
@@ -981,10 +981,10 @@ inherited fmEditarLances: TfmEditarLances
         DataSource = dsPrincipal
         ListFieldIndex = 0
         LookupCache = False
-        TabOrder = 1
+        TabOrder = 3
       end
       object Label20: TLabel
-        Left = 360
+        Left = 160
         Height = 15
         Top = 5
         Width = 62
@@ -992,7 +992,7 @@ inherited fmEditarLances: TfmEditarLances
         ParentColor = False
       end
       object dbedDistTpas: TDBEdit
-        Left = 360
+        Left = 160
         Height = 23
         Hint = 'Distancia entre trampas'
         Top = 25
@@ -1002,7 +1002,7 @@ inherited fmEditarLances: TfmEditarLances
         CharCase = ecNormal
         Enabled = False
         MaxLength = 0
-        TabOrder = 3
+        TabOrder = 2
       end
       object DBCheckBox1: TDBCheckBox
         Left = 10
@@ -1033,7 +1033,7 @@ inherited fmEditarLances: TfmEditarLances
         ValueUnchecked = '0'
       end
       object dbedKgCarnada: TDBEdit
-        Left = 287
+        Left = 405
         Height = 23
         Hint = 'Kg. de carnada en cada trampa'
         Top = 25
@@ -1043,10 +1043,10 @@ inherited fmEditarLances: TfmEditarLances
         CharCase = ecNormal
         Enabled = False
         MaxLength = 0
-        TabOrder = 2
+        TabOrder = 4
       end
       object Label29: TLabel
-        Left = 287
+        Left = 405
         Height = 15
         Top = 5
         Width = 64
@@ -1054,7 +1054,7 @@ inherited fmEditarLances: TfmEditarLances
         ParentColor = False
       end
       object Label6: TLabel
-        Left = 430
+        Left = 115
         Height = 15
         Top = 5
         Width = 39
@@ -1062,7 +1062,7 @@ inherited fmEditarLances: TfmEditarLances
         ParentColor = False
       end
       object dbedRumbo: TDBEdit
-        Left = 430
+        Left = 115
         Height = 23
         Hint = 'Rumbo de calado en grados'
         Top = 25
@@ -1071,13 +1071,13 @@ inherited fmEditarLances: TfmEditarLances
         DataSource = dsPrincipal
         CharCase = ecNormal
         MaxLength = 0
-        TabOrder = 4
+        TabOrder = 1
       end
       object Label26: TLabel
         Left = 475
         Height = 15
         Top = 5
-        Width = 72
+        Width = 71
         Caption = 'Tpas. Caladas'
         ParentColor = False
       end
@@ -1107,7 +1107,7 @@ inherited fmEditarLances: TfmEditarLances
         OnExit = dbedBoyaExit
       end
       object Label35: TLabel
-        Left = 555
+        Left = 551
         Height = 15
         Top = 5
         Width = 86
@@ -1115,10 +1115,10 @@ inherited fmEditarLances: TfmEditarLances
         ParentColor = False
       end
       object dblkTipoTrampas: TDBLookupComboBox
-        Left = 556
+        Left = 552
         Height = 23
         Top = 25
-        Width = 165
+        Width = 167
         AutoComplete = True
         DataField = 'cod_desc'
         DataSource = dsPrincipal
@@ -1133,8 +1133,8 @@ inherited fmEditarLances: TfmEditarLances
         Width = 45
         BevelOuter = bvNone
         BorderStyle = bsSingle
-        ClientHeight = 23
-        ClientWidth = 45
+        ClientHeight = 19
+        ClientWidth = 41
         TabOrder = 9
         object dbedNroLance: TDBText
           Left = 0
