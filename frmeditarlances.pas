@@ -441,7 +441,8 @@ var
   distancia_segun_trampas: double;
   dif_rumbo:double;
 begin
-  zqPrincipalEncabezado.Value:='Id. Línea '+zqPrincipalnro_boya.AsString;
+  if zqPrincipalnro_boya.AsString <> '' then
+     zqPrincipalEncabezado.Value:='Id. Línea (boya): '+zqPrincipalnro_boya.AsString;
 
   //Calculo distancias
   laDistancia.Hint:='';

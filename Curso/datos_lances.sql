@@ -43,7 +43,7 @@ select
     CONCAT(FLOOR(lat_fin_virada),'° ',
     MID(lat_fin_virada,4,2),',',
     MID(lat_fin_virada,6,2),'´') as lat_fin_virada,
-    CONCAT(FLOOR(lat_fin_virada),'° ',
+    CONCAT(FLOOR(long_fin_virada),'° ',
     MID(long_fin_virada,4,2),',',
     MID(long_fin_virada,6,2),'´') as long_fin_virada,
     comentarios
