@@ -110,7 +110,7 @@ type
     zqPrincipalliberado: TSmallintField;
     zqPrincipallongitud: TFloatField;
     zqPrincipalpeso: TFloatField;
-    zqPrincipalporcentaje_huevos: TLongintField;
+    zqPrincipalporcentaje_huevos: TFloatField;
     zqPrincipalprocesado: TSmallintField;
     zqPrincipalprofundidad: TLongintField;
     zqPrincipalremarcado: TSmallintField;

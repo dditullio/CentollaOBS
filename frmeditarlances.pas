@@ -115,7 +115,7 @@ type
     laVelocidad1: TLabel;
     Panel2: TPanel;
     StringField1: TStringField;
-    StringField2: TStringField;
+    zqPrincipalcod_desc: TStringField;
     zqDatosLineas: TZQuery;
     zqDatosLineascalada: TLongintField;
     zqDatosLineascalada2: TLargeintField;
@@ -265,7 +265,6 @@ type
     procedure zqPrincipalBeforeOpen(DataSet: TDataSet);
     procedure zqPrincipalCalcFields(DataSet: TDataSet);
     procedure zqPrincipalNewRecord(DataSet: TDataSet);
-    procedure zqPrincipalnro_boyaValidate(Sender: TField);
     procedure zqPrincipalprofundidad_fin_caladoValidate(Sender: TField);
     procedure zqPrincipalprofundidad_fin_viradaValidate(Sender: TField);
     procedure zqPrincipalprofundidad_ini_caladoValidate(Sender: TField);
@@ -626,10 +625,6 @@ begin
     if zqAntLancekg_carnada.AsFloat>0 then
        zqPrincipalkg_carnada.Value := zqAntLancekg_carnada.Value;
   end;
-end;
-
-procedure TfmEditarLances.zqPrincipalnro_boyaValidate(Sender: TField);
-begin
 end;
 
 procedure TfmEditarLances.zqPrincipalprofundidad_fin_caladoValidate(

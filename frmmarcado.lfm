@@ -389,21 +389,11 @@ inherited fmMarcado: TfmMarcado
       ReadOnly = False
       Required = False
     end
-    object zqMarcasporcentaje_huevos: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'porcentaje_huevos'
-      Index = 18
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
     object zqMarcaspeso: TFloatField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'peso'
-      Index = 19
+      Index = 18
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -416,7 +406,7 @@ inherited fmMarcado: TfmMarcado
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'vivo'
-      Index = 20
+      Index = 19
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -426,7 +416,7 @@ inherited fmMarcado: TfmMarcado
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'remarcado'
-      Index = 21
+      Index = 20
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -436,7 +426,7 @@ inherited fmMarcado: TfmMarcado
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'liberado'
-      Index = 22
+      Index = 21
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -446,12 +436,25 @@ inherited fmMarcado: TfmMarcado
       DisplayWidth = 1024
       FieldKind = fkData
       FieldName = 'comentarios'
-      Index = 23
+      Index = 22
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
       Size = 1024
+    end
+    object zqMarcasporcentaje_huevos: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcentaje_huevos'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '0.0 %'
+      MaxValue = 0
+      MinValue = 0
     end
   end
   object dsMarcas: TDataSource[5]

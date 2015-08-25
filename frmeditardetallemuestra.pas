@@ -217,17 +217,37 @@ end;
 
 procedure TfmEditarDetalleMuestra.dbedPorcentHuevosExit(Sender: TObject);
 begin
-  if (not dmMuestras.zqDetalleMuestrasporcentaje_huevos.IsNull) and ((dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsFloat<0) or (dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsFloat>100)) then
+  if (not dmMuestras.zqDetalleMuestrasporcentaje_huevos.IsNull) and ((dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsFloat<0) or (dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsFloat>110)) then
   begin
-    MessageDlg('EL porcentaje de huevos debe estar comprendido entre 0 y 100', mtError, [mbOK], 0);
+    MessageDlg('EL porcentaje de huevos debe estar comprendido entre 0 y 110', mtError, [mbOK], 0);
     if dbedPorcentHuevos.CanFocus then
        dbedPorcentHuevos.SetFocus;
   end;
   if dmMuestras.zqDetalleMuestras.State in [dsInsert, dsEdit] then
   begin
-    if (dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsString<>'') and (round(dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value/5)*5<>dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value) then
+    //if (dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsString<>'') and (round(dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value/5)*5<>dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value) then
+    //begin
+    //  dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value:=round(dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value/5)*5;
+    //end;
+    //Se valida que el % de huevos sea uno de los siguientes: 0, 12.5, 25, 50, 75, 100, 110
+    //110% corresponde a huevos rebalsando del caparazón
+    if (dmMuestras.zqDetalleMuestrasporcentaje_huevos.AsString<>'') then
     begin
-      dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value:=round(dmMuestras.zqDetalleMuestrasporcentaje_huevos.Value/5)*5;
+      with dmMuestras.zqDetalleMuestrasporcentaje_huevos do
+      begin
+        if (Value>0) and (Value<18.75) then
+           Value:=12.5;
+        if (Value>=18.75) and (Value<37.5) then
+           Value:=25;
+        if (Value>=37.5) and (Value<62.5) then
+           Value:=50;
+        if (Value>=62.5) and (Value<87.5) then
+           Value:=75;
+        if (Value>=87.5) and (Value<100) then
+           Value:=100;
+        if (Value>100) and (Value<110) then
+           Value:=110;
+      end;
     end;
   end;
 end;

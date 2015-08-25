@@ -375,21 +375,11 @@ inherited dmMuestras: TdmMuestras
       ReadOnly = False
       Required = False
     end
-    object zqDetalleMuestrasporcentaje_huevos: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'porcentaje_huevos'
-      Index = 7
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
     object zqDetalleMuestraspeso: TFloatField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'peso'
-      Index = 8
+      Index = 7
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -404,7 +394,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_1_d_mero'
-      Index = 9
+      Index = 8
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -414,7 +404,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_1_d_entera'
-      Index = 10
+      Index = 9
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -424,7 +414,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_2_d_mero'
-      Index = 11
+      Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -434,7 +424,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_2_d_entera'
-      Index = 12
+      Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -444,7 +434,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_3_d_mero'
-      Index = 13
+      Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -454,7 +444,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_3_d_entera'
-      Index = 14
+      Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -464,7 +454,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_1_i_mero'
-      Index = 15
+      Index = 14
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -474,7 +464,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_1_i_entera'
-      Index = 16
+      Index = 15
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -484,7 +474,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_2_i_mero'
-      Index = 17
+      Index = 16
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -494,7 +484,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_2_i_entera'
-      Index = 18
+      Index = 17
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -504,7 +494,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_3_i_mero'
-      Index = 19
+      Index = 18
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -514,7 +504,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'pata_3_i_entera'
-      Index = 20
+      Index = 19
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -525,7 +515,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'cod_desc'
-      Index = 21
+      Index = 20
       KeyFields = 'idcodigo_caparazon'
       LookupCache = False
       LookupDataSet = zqCodigosCaparazon
@@ -540,7 +530,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'cod_desc1'
-      Index = 22
+      Index = 21
       KeyFields = 'idcodigo_huevos'
       LookupCache = False
       LookupDataSet = zqCodigosHuevos
@@ -554,7 +544,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'codigo'
-      Index = 23
+      Index = 22
       KeyFields = 'idcodigo_caparazon'
       LookupCache = False
       LookupDataSet = zqCodigosCaparazon
@@ -568,7 +558,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'codigo1'
-      Index = 24
+      Index = 23
       KeyFields = 'idcodigo_huevos'
       LookupCache = False
       LookupDataSet = zqCodigosHuevos
@@ -582,7 +572,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkCalculated
       FieldName = 'PesoKg'
-      Index = 25
+      Index = 24
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -594,7 +584,7 @@ inherited dmMuestras: TdmMuestras
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'tiene_huevos'
-      Index = 26
+      Index = 25
       KeyFields = 'idcodigo_huevos'
       LookupCache = False
       LookupDataSet = zqCodigosHuevos
@@ -603,6 +593,18 @@ inherited dmMuestras: TdmMuestras
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+    end
+    object zqDetalleMuestrasporcentaje_huevos: TFloatField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcentaje_huevos'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
     end
   end
   object dsDetalleMuestras: TDataSource[3]

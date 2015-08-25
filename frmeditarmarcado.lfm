@@ -14,13 +14,14 @@ inherited fmEditarMarcado: TfmEditarMarcado
       Left = 284
     end
     inherited DividerBevel1: TDividerBevel
-      Left = 267
+      Left = 269
+      Width = 15
     end
     inherited paEncabezado: TPanel
-      Width = 266
-      ClientWidth = 266
+      Width = 268
+      ClientWidth = 268
       inherited dbtEncabezado: TDBText
-        Width = 426
+        Width = 428
         DataField = 'Encabezado'
         DataSource = dsPrincipal
       end
@@ -42,18 +43,18 @@ inherited fmEditarMarcado: TfmEditarMarcado
       TabOrder = 0
       object Label1: TLabel
         Left = 4
-        Height = 17
+        Height = 15
         Top = 0
-        Width = 33
+        Width = 31
         Caption = 'Fecha'
         ParentColor = False
       end
       object dbdtFecha: TDBDateTimePicker
         Left = 4
-        Height = 25
+        Height = 23
         Hint = 'Fecha de inicio del lance'
         Top = 19
-        Width = 91
+        Width = 83
         DataField = 'fecha'
         DataSource = dsPrincipal
         ReadOnly = False
@@ -75,15 +76,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
       end
       object Label2: TLabel
         Left = 104
-        Height = 17
+        Height = 15
         Top = 0
-        Width = 29
+        Width = 26
         Caption = 'Hora'
         ParentColor = False
       end
       object dbedHora: TDtDBTimeEdit
         Left = 104
-        Height = 25
+        Height = 23
         Hint = 'Hora de inicio del lance'
         Top = 19
         Width = 51
@@ -98,15 +99,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object Label7: TLabel[1]
       Left = 11
-      Height = 17
+      Height = 15
       Top = 115
-      Width = 44
+      Width = 39
       Caption = 'Especie'
       ParentColor = False
     end
     object dblkEspecieVulgar: TDBLookupComboBox[2]
       Left = 10
-      Height = 25
+      Height = 23
       Top = 134
       Width = 377
       AutoComplete = True
@@ -119,15 +120,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object Label3: TLabel[3]
       Left = 172
-      Height = 17
+      Height = 15
       Top = 7
-      Width = 39
+      Width = 36
       Caption = 'Evento'
       ParentColor = False
     end
     object dblkEvento: TDBLookupComboBox[4]
       Left = 172
-      Height = 25
+      Height = 23
       Top = 27
       Width = 215
       AutoComplete = True
@@ -139,15 +140,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object Label4: TLabel[5]
       Left = 10
-      Height = 17
+      Height = 15
       Top = 170
-      Width = 102
+      Width = 91
       Caption = 'Código de marca'
       ParentColor = False
     end
     object dbedCodMarca: TDBEdit[6]
       Left = 10
-      Height = 25
+      Height = 23
       Hint = 'Hora de inicio del lance'
       Top = 190
       Width = 106
@@ -159,7 +160,7 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object dbedCodMarcaOrig: TDBEdit[7]
       Left = 122
-      Height = 25
+      Height = 23
       Hint = 'Hora de inicio del lance'
       Top = 190
       Width = 158
@@ -171,15 +172,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object Label5: TLabel[8]
       Left = 122
-      Height = 17
+      Height = 15
       Top = 170
-      Width = 150
+      Width = 134
       Caption = 'Código de marca original'
       ParentColor = False
     end
     object dbedProfundidad: TDBEdit[9]
       Left = 169
-      Height = 25
+      Height = 23
       Hint = 'Profundidad en metros'
       Top = 79
       Width = 58
@@ -191,25 +192,25 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object Label17: TLabel[10]
       Left = 92
-      Height = 17
+      Height = 15
       Top = 59
-      Width = 51
+      Width = 48
       Caption = 'Longitud'
       ParentColor = False
     end
     object Label16: TLabel[11]
       Left = 11
-      Height = 17
+      Height = 15
       Top = 59
-      Width = 39
+      Width = 37
       Caption = 'Latitud'
       ParentColor = False
     end
     object Label25: TLabel[12]
       Left = 169
-      Height = 17
+      Height = 15
       Top = 59
-      Width = 27
+      Width = 25
       Caption = 'Prof.'
       ParentColor = False
     end
@@ -224,15 +225,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
       TabOrder = 10
       object Label11: TLabel
         Left = 10
-        Height = 17
+        Height = 15
         Top = 5
-        Width = 67
+        Width = 60
         Caption = 'Largo. Cap.'
         ParentColor = False
       end
       object dbedLargoCap: TDBEdit
         Left = 10
-        Height = 25
+        Height = 23
         Top = 25
         Width = 70
         DataField = 'largo'
@@ -243,15 +244,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
       end
       object Label6: TLabel
         Left = 85
-        Height = 17
+        Height = 15
         Top = 5
-        Width = 28
+        Width = 24
         Caption = 'Sexo'
         ParentColor = False
       end
       object dbedSexo: TDBEdit
         Left = 85
-        Height = 25
+        Height = 23
         Top = 25
         Width = 70
         DataField = 'sexo'
@@ -263,15 +264,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
       end
       object Label8: TLabel
         Left = 160
-        Height = 17
+        Height = 15
         Top = 5
-        Width = 70
+        Width = 62
         Caption = 'Estado Cap.'
         ParentColor = False
       end
       object dblkEstadoCap: TDBLookupComboBox
         Left = 160
-        Height = 25
+        Height = 23
         Top = 25
         Width = 210
         AutoComplete = True
@@ -283,15 +284,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
       end
       object Label9: TLabel
         Left = 10
-        Height = 17
+        Height = 15
         Top = 65
-        Width = 43
+        Width = 40
         Caption = 'Huevos'
         ParentColor = False
       end
       object dblkHuevos: TDBLookupComboBox
         Left = 10
-        Height = 25
+        Height = 23
         Top = 85
         Width = 123
         AutoComplete = True
@@ -303,15 +304,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
       end
       object Label12: TLabel
         Left = 140
-        Height = 17
+        Height = 15
         Top = 65
-        Width = 58
+        Width = 53
         Caption = '% Huevos'
         ParentColor = False
       end
       object dbedPorcentHuevos: TDBEdit
         Left = 140
-        Height = 25
+        Height = 23
         Top = 85
         Width = 70
         DataField = 'porcentaje_huevos'
@@ -322,15 +323,15 @@ inherited fmEditarMarcado: TfmEditarMarcado
       end
       object Label13: TLabel
         Left = 215
-        Height = 17
+        Height = 15
         Top = 65
-        Width = 28
+        Width = 25
         Caption = 'Peso'
         ParentColor = False
       end
       object dbedPeso: TDBEdit
         Left = 215
-        Height = 25
+        Height = 23
         Top = 85
         Width = 70
         DataField = 'peso'
@@ -390,9 +391,9 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object Label10: TLabel[15]
       Left = 10
-      Height = 17
+      Height = 15
       Top = 375
-      Width = 74
+      Width = 68
       Caption = 'Comentarios'
       ParentColor = False
     end
@@ -431,7 +432,7 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object dblkEspecieCientifico: TDBLookupComboBox[18]
       Left = 10
-      Height = 25
+      Height = 23
       Top = 134
       Width = 377
       AutoComplete = True
@@ -443,7 +444,7 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object dbedLatitud: TDtDBCoordEdit[19]
       Left = 10
-      Height = 25
+      Height = 23
       Top = 79
       Width = 72
       CustomEditMask = True
@@ -457,7 +458,7 @@ inherited fmEditarMarcado: TfmEditarMarcado
     end
     object dbedLongitud: TDtDBCoordEdit[20]
       Left = 90
-      Height = 25
+      Height = 23
       Top = 79
       Width = 72
       CustomEditMask = True
@@ -663,21 +664,11 @@ inherited fmEditarMarcado: TfmEditarMarcado
       ReadOnly = False
       Required = False
     end
-    object zqPrincipalporcentaje_huevos: TLongintField[15]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'porcentaje_huevos'
-      Index = 15
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqPrincipalpeso: TFloatField[16]
+    object zqPrincipalpeso: TFloatField[15]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'peso'
-      Index = 16
+      Index = 15
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -686,62 +677,62 @@ inherited fmEditarMarcado: TfmEditarMarcado
       MinValue = 0
       Precision = 11
     end
-    object zqPrincipalvivo: TSmallintField[17]
+    object zqPrincipalvivo: TSmallintField[16]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'vivo'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalremarcado: TSmallintField[17]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'remarcado'
       Index = 17
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
     end
-    object zqPrincipalremarcado: TSmallintField[18]
+    object zqPrincipalliberado: TSmallintField[18]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'remarcado'
+      FieldName = 'liberado'
       Index = 18
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
     end
-    object zqPrincipalliberado: TSmallintField[19]
+    object zqPrincipalprocesado: TSmallintField[19]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'liberado'
+      FieldName = 'procesado'
       Index = 19
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
     end
-    object zqPrincipalprocesado: TSmallintField[20]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'procesado'
-      Index = 20
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object zqPrincipalcomentarios: TStringField[21]
+    object zqPrincipalcomentarios: TStringField[20]
       DisplayWidth = 1024
       FieldKind = fkData
       FieldName = 'comentarios'
-      Index = 21
+      Index = 20
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
       Size = 1024
     end
-    object zqPrincipalevento: TStringField[22]
+    object zqPrincipalevento: TStringField[21]
       DisplayWidth = 180
       FieldKind = fkLookup
       FieldName = 'nombre'
-      Index = 22
+      Index = 21
       KeyFields = 'idevento_marca'
       LookupCache = False
       LookupDataSet = zqEventos
@@ -752,11 +743,11 @@ inherited fmEditarMarcado: TfmEditarMarcado
       Required = False
       Size = 180
     end
-    object StringField2: TStringField[23]
+    object StringField2: TStringField[22]
       DisplayWidth = 372
       FieldKind = fkLookup
       FieldName = 'nombre_vulgar'
-      Index = 23
+      Index = 22
       KeyFields = 'idespecie'
       LookupCache = False
       LookupDataSet = zqEspeciesVulg
@@ -767,11 +758,11 @@ inherited fmEditarMarcado: TfmEditarMarcado
       Required = False
       Size = 372
     end
-    object StringField3: TStringField[24]
+    object StringField3: TStringField[23]
       DisplayWidth = 372
       FieldKind = fkLookup
       FieldName = 'nombre_cientifico'
-      Index = 24
+      Index = 23
       KeyFields = 'idespecie'
       LookupCache = False
       LookupDataSet = zqEspeciesCient
@@ -782,11 +773,11 @@ inherited fmEditarMarcado: TfmEditarMarcado
       Required = False
       Size = 372
     end
-    object BytesField1: TBytesField[25]
+    object BytesField1: TBytesField[24]
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'cod_desc'
-      Index = 25
+      Index = 24
       KeyFields = 'idcodigo_caparazon'
       LookupCache = False
       LookupDataSet = zqCodigosCaparazon
@@ -796,11 +787,11 @@ inherited fmEditarMarcado: TfmEditarMarcado
       ReadOnly = False
       Required = False
     end
-    object BytesField2: TBytesField[26]
+    object BytesField2: TBytesField[25]
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'cod_desc1'
-      Index = 26
+      Index = 25
       KeyFields = 'idcodigo_huevos'
       LookupCache = False
       LookupDataSet = zqCodigosHuevos
@@ -810,22 +801,22 @@ inherited fmEditarMarcado: TfmEditarMarcado
       ReadOnly = False
       Required = False
     end
-    object zqPrincipalEncabezado: TStringField[27]
+    object zqPrincipalEncabezado: TStringField[26]
       DisplayWidth = 100
       FieldKind = fkCalculated
       FieldName = 'Encabezado'
-      Index = 27
+      Index = 26
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
       Size = 100
     end
-    object zqPrincipales_marcado: TSmallintField[28]
+    object zqPrincipales_marcado: TSmallintField[27]
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'es_marcado'
-      Index = 28
+      Index = 27
       KeyFields = 'idevento_marca'
       LookupCache = False
       LookupDataSet = zqEventos
@@ -835,11 +826,11 @@ inherited fmEditarMarcado: TfmEditarMarcado
       ReadOnly = False
       Required = False
     end
-    object zqPrincipales_recaptura: TSmallintField[29]
+    object zqPrincipales_recaptura: TSmallintField[28]
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'es_recaptura'
-      Index = 29
+      Index = 28
       KeyFields = 'idevento_marca'
       LookupCache = False
       LookupDataSet = zqEventos
@@ -848,6 +839,18 @@ inherited fmEditarMarcado: TfmEditarMarcado
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+    end
+    object zqPrincipalporcentaje_huevos: TFloatField[29]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'porcentaje_huevos'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
     end
   end
   inherited zcePrincipal: TZControladorEdicion

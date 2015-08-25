@@ -740,7 +740,7 @@ begin
       if not FieldByName('codigo_huevos').IsNull then
         xls.Cells[fila, 8] := FieldByName('codigo_huevos').AsInteger;
       if not FieldByName('porcentaje_huevos').IsNull then
-        xls.Cells[fila, 9] := FieldByName('porcentaje_huevos').AsInteger;
+        xls.Cells[fila, 9] := FieldByName('porcentaje_huevos').AsFloat;
 
       inc(tmp_count);
       if (tmp_count=50) then
@@ -809,7 +809,7 @@ begin
           if not FieldByName('codigo_huevos').IsNull then
             xls.Cells[fila, columna+4] := FieldByName('codigo_huevos').AsInteger;
           if not FieldByName('porcentaje_huevos').IsNull then
-            xls.Cells[fila, columna+5] := FieldByName('porcentaje_huevos').AsInteger;
+            xls.Cells[fila, columna+5] := FieldByName('porcentaje_huevos').AsFloat;
         end;
         pbSubmuestras.Position := registros;
         Application.ProcessMessages;
@@ -992,7 +992,7 @@ begin
       if not FieldByName('codigo_huevos').IsNull then
         xls.Cells[fila, 14] := FieldByName('codigo_huevos').AsInteger;
       if not FieldByName('porcentaje_huevos').IsNull then
-        xls.Cells[fila, 15] := FieldByName('porcentaje_huevos').AsInteger;
+        xls.Cells[fila, 15] := FieldByName('porcentaje_huevos').AsFloat;
       if not FieldByName('vivo').IsNull then
       begin
         tmp := UTF8Decode(FieldByName('vivo').AsString);

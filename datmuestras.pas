@@ -14,6 +14,7 @@ type
 
   TdmMuestras = class(TDmBase)
     BytesField1: TBytesField;
+    zqDetalleMuestrasporcentaje_huevos: TFloatField;
     zqLancesidtipo_trampa: TLongintField;
     zqMuestrastipo_trampa_lance: TLongintField;
     StringField3: TStringField;
@@ -87,7 +88,6 @@ type
     zqDetalleMuestraspata_3_i_entera: TLongintField;
     zqDetalleMuestraspata_3_i_mero: TLongintField;
     zqDetalleMuestraspeso: TFloatField;
-    zqDetalleMuestrasporcentaje_huevos: TLongintField;
     zqDetalleMuestrassexo: TLongintField;
     zqEspecies: TZQuery;
     zqEspecies1: TZQuery;

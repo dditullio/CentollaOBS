@@ -35,7 +35,7 @@ type
     zqMarcasnombre_cientifico: TStringField;
     zqMarcasnombre_vulgar: TStringField;
     zqMarcaspeso: TFloatField;
-    zqMarcasporcentaje_huevos: TLongintField;
+    zqMarcasporcentaje_huevos: TFloatField;
     zqMarcasprofundidad: TLongintField;
     zqMarcasremarcado: TSmallintField;
     zqMarcassexo: TLongintField;

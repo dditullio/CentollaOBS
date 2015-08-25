@@ -1745,7 +1745,6 @@ inherited fmEditarLances: TfmEditarLances
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
-      OnValidate = zqPrincipalnro_boyaValidate
     end
     object zqPrincipalnro_linea: TLongintField[48]
       DisplayWidth = 10
@@ -1782,7 +1781,7 @@ inherited fmEditarLances: TfmEditarLances
       Required = False
       Size = 180
     end
-    object StringField2: TStringField[51]
+    object zqPrincipalcod_desc: TStringField[51]
       DisplayWidth = 1136
       FieldKind = fkLookup
       FieldName = 'cod_desc'
