@@ -18,6 +18,7 @@ type
   TfmEditarMarea = class(TZEdicionBase)
     bbExportar: TBitBtn;
     dbedPesoCanasto: TDBEdit;
+    dbmComentarios: TDBMemo;
     DBText1: TDBText;
     DBText2: TDBText;
     DBText3: TDBText;
@@ -64,6 +65,7 @@ type
     rxdbgDiario: TRxDBGrid;
     dbgeExportar: TRxDBGridExportSpreadSheet;
     sdExportar: TSaveDialog;
+    tsComentarios: TTabSheet;
     tsResumen: TTabSheet;
     tsDatosGenerales: TTabSheet;
     zcgDiario: TZControladorGrilla;
@@ -71,6 +73,7 @@ type
     zqDatosGendias_pesca: TLargeintField;
     zqDatosGenduracion_marea: TLargeintField;
     zqDatosGenidmarea: TLongintField;
+    zqPrincipalcomentarios: TStringField;
     zqPrincipalNombreBuque: TStringField;
     zqBuques: TZQuery;
     zqBuquesidbuque: TLongintField;
@@ -178,6 +181,10 @@ begin
     if rxdbgDiario.CanFocus then
       rxdbgDiario.SetFocus;
     zcgDiario.HabilitarAcciones;
+  end else if pcGeneral.ActivePage=tsComentarios then
+  begin
+    if dbmComentarios.CanFocus then
+    dbmComentarios.SetFocus;
   end;
 end;
 

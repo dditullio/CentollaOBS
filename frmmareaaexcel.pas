@@ -412,7 +412,8 @@ procedure TfmMareaAExcel.GenerarDatosPuente(xls: olevariant; Password: WideStrin
 const
   COLOR_RESALTADO=17; //Color celeste, para la propiadad Interior.ColorIndex de las celdas
   SIN_COLOR=-4142;    //Sin color, para la propiadad Interior.ColorIndex de las celdas
-  PRIM_COL_ESPECIES=44;
+  COL_COMENTARIOS=44;
+  PRIM_COL_ESPECIES=45;
 var
   tmp: WideString;
   fila, columna, i: integer;
@@ -479,6 +480,9 @@ begin
       inc(columna);
       if not FieldByName('trampas_con_fallo').IsNull then
         xls.Cells[fila, columna] := FieldByName('trampas_con_fallo').AsInteger;
+      inc(columna);
+      if not FieldByName('cant_trampas').IsNull then
+        xls.Cells[fila, columna] := FieldByName('cant_trampas').AsInteger-FieldByName('trampas_con_fallo').AsInteger;
       inc(columna);
       xls.Cells[fila, columna] := FieldByName('distancia_entre_trampas').AsInteger;
       inc(columna);
@@ -595,6 +599,18 @@ begin
       Inc(fila);
     end;
   end;
+
+  //Agrego comentarios finales
+  if dmGeneral.zqMareaActivacomentarios.AsString<>'' then
+  begin
+     Inc(fila);
+     tmp := UTF8Decode('Comentarios finales:');
+     xls.Cells[fila, COL_COMENTARIOS] := tmp;
+     Inc(fila);
+     tmp := UTF8Decode(dmGeneral.zqMareaActivacomentarios.AsString);
+     xls.Cells[fila, COL_COMENTARIOS] := tmp;
+  end;
+
   imPuente.Visible:=True;
   Application.ProcessMessages;
 

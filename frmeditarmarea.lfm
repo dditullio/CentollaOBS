@@ -40,9 +40,9 @@ inherited fmEditarMarea: TfmEditarMarea
       Height = 393
       Top = 1
       Width = 409
-      ActivePage = tsDatosGenerales
+      ActivePage = tsComentarios
       Align = alClient
-      TabIndex = 0
+      TabIndex = 2
       TabOrder = 0
       OnChange = pcGeneralChange
       object tsDatosGenerales: TTabSheet
@@ -97,7 +97,7 @@ inherited fmEditarMarea: TfmEditarMarea
               DataSource = dsPrincipal
               CharCase = ecNormal
               EditMask = '>CCC-00-00-00;1; '
-              MaxLength = 12
+              MaxLength = 0
               TabOrder = 1
             end
             object dbedMareaInidep: TDBEdit
@@ -728,6 +728,20 @@ inherited fmEditarMarea: TfmEditarMarea
           TabOrder = 1
         end
       end
+      object tsComentarios: TTabSheet
+        Caption = 'Comentarios relevantes'
+        ClientHeight = 365
+        ClientWidth = 401
+        object dbmComentarios: TDBMemo
+          Left = 5
+          Height = 350
+          Top = 10
+          Width = 390
+          DataField = 'comentarios'
+          DataSource = dsPrincipal
+          TabOrder = 0
+        end
+      end
     end
   end
   inherited paControles: TPanel
@@ -766,7 +780,8 @@ inherited fmEditarMarea: TfmEditarMarea
       '  mareas.fecha_arribo,'
       '  mareas.fecha_finalizacion,'
       '  mareas.peso_caja_producto,'
-      '  mareas.peso_canasto'
+      '  mareas.peso_canasto,'
+      '  mareas.comentarios'
       'From'
       '  mareas'
       'WHERE idmarea=:Id'
@@ -950,6 +965,17 @@ inherited fmEditarMarea: TfmEditarMarea
       MaxValue = 0
       MinValue = 0
       Precision = 11
+    end
+    object zqPrincipalcomentarios: TStringField[16]
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
     end
   end
   inherited zcePrincipal: TZControladorEdicion

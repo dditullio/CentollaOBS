@@ -29,6 +29,7 @@ type
     zqMareaActivaanio_marea: TLongintField;
     zqMareaActivabuque: TStringField;
     zqMareaActivacapitan: TStringField;
+    zqMareaActivacomentarios: TStringField;
     zqMareaActivafactor_conversion: TLongintField;
     zqMareaActivafecha_arribo: TDateField;
     zqMareaActivafecha_zarpada: TDateField;
@@ -82,7 +83,7 @@ type
   end;
 
 const
-  APP_VERSION='1.0.3';
+  APP_VERSION='1.0.4';
 
 var
   dmGeneral: TdmGeneral;
