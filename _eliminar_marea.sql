@@ -1,4 +1,4 @@
-set @idmarea=11;
+set @idmarea=9;
 delete from capturas
 where idcaptura < 10000000 and idlance in (select idlance
 from lances where idmarea=@idmarea);

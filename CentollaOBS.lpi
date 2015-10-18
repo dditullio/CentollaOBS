@@ -171,6 +171,7 @@
         <ComponentName Value="fmMareas"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmmareas"/>
       </Unit5>
       <Unit6>
         <Filename Value="frmzedicionbase.pas"/>
@@ -207,7 +208,6 @@
         <ComponentName Value="fmLances"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmlances"/>
       </Unit10>
       <Unit11>
         <Filename Value="funciones.pas"/>
@@ -226,7 +226,6 @@
         <ComponentName Value="fmEditarLances"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmeditarlances"/>
       </Unit13>
       <Unit14>
         <Filename Value="frmlineas.pas"/>
@@ -241,6 +240,7 @@
         <ComponentName Value="fmDatosBase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmdatosbase"/>
       </Unit15>
       <Unit16>
         <Filename Value="frmeditarlineas.pas"/>
@@ -255,7 +255,6 @@
         <ComponentName Value="fmEditarProductos"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmeditarproductos"/>
       </Unit17>
       <Unit18>
         <Filename Value="frmeditarcarnada.pas"/>
@@ -277,7 +276,6 @@
         <ComponentName Value="fmEditarMuestras"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmeditarmuestras"/>
       </Unit20>
       <Unit21>
         <Filename Value="frmeditarcapturas.pas"/>
@@ -313,7 +311,6 @@
         <ComponentName Value="dmMuestras"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="datmuestras"/>
       </Unit25>
       <Unit26>
         <Filename Value="frmeditardetallemuestra.pas"/>
@@ -377,7 +374,6 @@
         <ComponentName Value="fmEditarMarcado"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmeditarmarcado"/>
       </Unit34>
       <Unit35>
         <Filename Value="frmmareaaexcel.pas"/>
@@ -385,7 +381,6 @@
         <ComponentName Value="fmMareaAExcel"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmmareaaexcel"/>
       </Unit35>
       <Unit36>
         <Filename Value="frmenviosemail.pas"/>

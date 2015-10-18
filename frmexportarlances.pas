@@ -279,7 +279,7 @@ begin
         DecimalSeparator:=',';
         s:=TStringList.Create;
         //Creo el encabezado
-        s.Add(Trim('Marea: '+dmGeneral.zqMareaActivaMarea.AsString));
+        s.Add(Trim('Marea: '+dmGeneral.zqMareaActivaMareaStr.AsString));
         s.Add(Trim('Observador: '+dmGeneral.zqMareaActivaobservador.AsString));
         s.Add('');
         s.Add('Lance;Linea investigacion;Actividad;Trampas;Rotas o abiertas;Sin puerta o anulada;Fecha/hora;Lat. calado inicial;Long. calado inicial;Lat. calado final;Long. calado final;Lat. virado inicial;Long. virado inicial;Lat. virado final;Long. virado final;Captura total;Captura comercial;Jaulas Prod;Comentarios Calado;Comentarios Virada');

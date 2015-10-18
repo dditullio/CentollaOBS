@@ -30,6 +30,7 @@ object dmGeneral: TdmGeneral
   object zqMareas: TZQuery
     Connection = zcDB
     AfterScroll = zqMareasAfterScroll
+    OnCalcFields = zqMareasCalcFields
     CachedUpdates = True
     AfterApplyUpdates = zqMareasAfterApplyUpdates
     SQL.Strings = (
@@ -41,7 +42,7 @@ object dmGeneral: TdmGeneral
     )
     Params = <>
     left = 90
-    top = 16
+    top = 20
     object zqMareasidmarea: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -246,8 +247,8 @@ object dmGeneral: TdmGeneral
       ReadOnly = False
       Required = False
     end
-    object zqMareasMarea: TStringField
-      DisplayWidth = 100
+    object zqMareasMarea: TBytesField
+      DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'Marea'
       Index = 20
@@ -255,12 +256,24 @@ object dmGeneral: TdmGeneral
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 100
+      Size = 420
+    end
+    object zqMareasMareaStr: TStringField
+      DisplayWidth = 150
+      FieldKind = fkCalculated
+      FieldName = 'MareaStr'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 150
     end
   end
   object zqMareaActiva: TZQuery
     Connection = zcDB
     BeforeOpen = zqMareaActivaBeforeOpen
+    OnCalcFields = zqMareaActivaCalcFields
     SQL.Strings = (
       'SELECT idmarea, buque, marea_buque, anio_marea, nro_marea_inidep, Marea, capitan, observador, puerto_registro, factor_conversion, fecha_zarpada, fecha_arribo, peso_caja_producto, comentarios'
       'FROM v_mareas'
@@ -272,7 +285,7 @@ object dmGeneral: TdmGeneral
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 88
+    left = 90
     top = 72
     ParamData = <    
       item
@@ -410,27 +423,38 @@ object dmGeneral: TdmGeneral
       MinValue = 0
       Precision = 11
     end
-    object zqMareaActivaMarea: TStringField
-      DisplayWidth = 100
+    object zqMareaActivacomentarios: TStringField
+      DisplayWidth = 1024
       FieldKind = fkData
-      FieldName = 'Marea'
+      FieldName = 'comentarios'
       Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 100
+      Size = 1024
     end
-    object zqMareaActivacomentarios: TStringField
-      DisplayWidth = 1024
-      FieldKind = fkData
-      FieldName = 'comentarios'
+    object zqMareaActivaMareaStr: TStringField
+      DisplayWidth = 150
+      FieldKind = fkCalculated
+      FieldName = 'MareaStr'
       Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 1024
+      Size = 150
+    end
+    object zqMareaActivaMarea: TBytesField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'Marea'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 420
     end
   end
   object dsMareaActiva: TDataSource

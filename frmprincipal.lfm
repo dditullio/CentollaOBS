@@ -5953,7 +5953,7 @@ object fmPrincipal: TfmPrincipal
             Height = 21
             Top = 15
             Width = 122
-            DataField = 'Marea'
+            DataField = 'MareaStr'
             DataSource = dmGeneral.dsMareaActiva
             Font.Color = clHotLight
             Font.Height = -16

@@ -417,7 +417,7 @@ begin
         s:=TStringList.Create;
         //Creo el encabezado
         s.Add(Trim('Informe Nº '+zqPrincipalnro_envio.AsString+' del '+zqPrincipalfecha.AsString));
-        s.Add(Trim('Marea: '+dmGeneral.zqMareaActivaMarea.AsString));
+        s.Add(Trim('Marea: '+dmGeneral.zqMareaActivaMareaStr.AsString));
         s.Add(Trim('Observador: '+dmGeneral.zqMareaActivaobservador.AsString));
         s.Add('');
 
@@ -657,7 +657,7 @@ begin
         //Creo el encabezado. Lo hago al final para que no afecte el "Autofit" de las primeras columnas
         tmp := UTF8Decode(Trim('Informe Nº '+zqPrincipalnro_envio.AsString+' del '+zqPrincipalfecha.AsString));
         xls.Cells[1, 1] := tmp;
-        tmp := UTF8Decode(Trim(dmGeneral.zqMareaActivaMarea.AsString));
+        tmp := UTF8Decode(Trim(dmGeneral.zqMareaActivaMareaStr.AsString));
         xls.Cells[2, 2] := tmp;
         tmp := UTF8Decode(Trim(dmGeneral.zqMareaActivaobservador.AsString));
         xls.Cells[3, 2] := tmp;

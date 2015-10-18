@@ -64,7 +64,7 @@ inherited fmMareas: TfmMareas
                 Title.Caption = 'Marea'
                 Title.Orientation = toHorizontal
                 Width = 172
-                FieldName = 'Marea'
+                FieldName = 'MareaStr'
                 EditButtons = <>
                 Filter.DropDownRows = 0
                 Filter.ValueList.Strings = (                )
@@ -107,7 +107,10 @@ inherited fmMareas: TfmMareas
               end>
             DataSource = dmGeneral.dsMareas
           end
-          object bbEstablecerActiva: TBitBtn[4]
+          inherited bbExportar: TBitBtn
+            TabOrder = 5
+          end
+          object bbEstablecerActiva: TBitBtn[5]
             AnchorSideRight.Control = bbEliminar
             Left = 0
             Height = 28
@@ -190,15 +193,15 @@ inherited fmMareas: TfmMareas
         ClientHeight = 357
         object Label1: TLabel[0]
           Left = 3
-          Height = 17
+          Height = 15
           Top = 50
-          Width = 47
+          Width = 44
           Caption = 'Capitán:'
           ParentColor = False
         end
         object dbedCapitan: TDBEdit[1]
           Left = 3
-          Height = 25
+          Height = 23
           Top = 68
           Width = 144
           DataField = 'capitan'
@@ -211,15 +214,15 @@ inherited fmMareas: TfmMareas
         end
         object Label2: TLabel[2]
           Left = 3
-          Height = 17
+          Height = 15
           Top = 98
-          Width = 39
+          Width = 37
           Caption = 'Oficial:'
           ParentColor = False
         end
         object dbedOficial: TDBEdit[3]
           Left = 3
-          Height = 25
+          Height = 23
           Top = 116
           Width = 144
           DataField = 'oficial'
@@ -232,15 +235,15 @@ inherited fmMareas: TfmMareas
         end
         object Label3: TLabel[4]
           Left = 3
-          Height = 17
+          Height = 15
           Top = 0
-          Width = 39
+          Width = 37
           Caption = 'Buque:'
           ParentColor = False
         end
         object dbedBuque: TDBEdit[5]
           Left = 3
-          Height = 25
+          Height = 23
           Top = 18
           Width = 144
           DataField = 'Buque'

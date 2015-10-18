@@ -481,7 +481,7 @@ begin
       archivo_destino:=UTF8Decode(archivo_destino);
       xls.Workbooks.Open(archivo_destino);
       //Pongo los datos de la marea
-      tmp := UTF8Decode(dmGeneral.zqMareaActivaMarea.AsString);
+      tmp := UTF8Decode(dmGeneral.zqMareaActivaMareaStr.AsString);
       xls.Cells[1, 3] := tmp;
       tmp := UTF8Decode(dmGeneral.zqMareaActivacapitan.AsString);
       xls.Cells[2, 3] := tmp;
@@ -597,7 +597,7 @@ begin
       archivo_destino:=UTF8Decode(archivo_destino);
       xls.Workbooks.Open(archivo_destino);
       //Pongo los datos de la marea
-      tmp := UTF8Decode(dmGeneral.zqMareaActivaMarea.AsString);
+      tmp := UTF8Decode(dmGeneral.zqMareaActivaMareaStr.AsString);
       xls.Cells[1, 2] := tmp;
       with zqRindes do
       begin
@@ -669,7 +669,7 @@ begin
       archivo_destino:=UTF8Decode(archivo_destino);
       xls.Workbooks.Open(archivo_destino);
       //Pongo los datos de la marea
-      tmp := UTF8Decode(dmGeneral.zqMareaActivaMarea.AsString);
+      tmp := UTF8Decode(dmGeneral.zqMareaActivaMareaStr.AsString);
       xls.Cells[1, 2] := tmp;
       with zqCoccion do
       begin
@@ -743,7 +743,7 @@ begin
       //Abro el archivo para guardar los datos
       xls.Workbooks.Open(archivo_destino);
       //Pongo los datos de la marea
-      tmp := UTF8Decode(dmGeneral.zqMareaActivaMarea.AsString);
+      tmp := UTF8Decode(dmGeneral.zqMareaActivaMareaStr.AsString);
       xls.Cells[1, 2] := tmp;
       tmp := UTF8Decode(dmGeneral.zqMareaActivacapitan.AsString);
       xls.Cells[2, 2] := tmp;
@@ -867,7 +867,7 @@ begin
       //Abro el archivo para guardar los datos
       xls.Workbooks.Open(archivo_destino);
       //Pongo los datos de la marea
-      tmp := UTF8Decode(dmGeneral.zqMareaActivaMarea.AsString);
+      tmp := UTF8Decode(dmGeneral.zqMareaActivaMareaStr.AsString);
       xls.Cells[1, 3] := tmp;
       with zqDanio do
       begin
@@ -1012,7 +1012,7 @@ begin
           //Pego formatos
           xls.Range(rango).PasteSpecial(-4122);
           //Pongo los datos de la marea
-          tmp := UTF8Decode(dmGeneral.zqMareaActivaMarea.AsString);
+          tmp := UTF8Decode(dmGeneral.zqMareaActivaMareaStr.AsString);
           xls.Cells[fila+1, 2] := tmp;
           //Completo los datos
           xls.Cells[fila+2, 3] := FieldByName('fecha').AsDateTime;
@@ -1163,7 +1163,7 @@ begin
           //Pego formatos
           xls.Range(rango).PasteSpecial(-4122);
           //Pongo los datos de la marea
-          tmp := UTF8Decode(dmGeneral.zqMareaActivaMarea.AsString);
+          tmp := UTF8Decode(dmGeneral.zqMareaActivaMareaStr.AsString);
           xls.Cells[fila, 5] := tmp;
           //Completo los datos
           xls.Cells[fila+2, 2] := FieldByName('fecha').AsDateTime;
