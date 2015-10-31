@@ -7,11 +7,11 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  sysutils, Forms, lazcontrols, datetimectrls, pl_zeosdbo, pl_rx,
-  tachartlazaruspkg, pl_fortesreport, memdslaz, pl_luicontrols, pl_abbrevia,
+  sysutils, Forms, lz_datetimectrls, pl_zeosdbo, pl_rx,
+  pl_luicontrols, pl_abbrevia,
   pl_exsystem, frmPrincipal, datGeneral, frmbase, frmlistabase, frmmareas,
   frmzedicionbase, DefaultTranslator, frmEditarMarea, datBase, frmlances,
-  funciones, lr_pdfexport, frmSplashScreenForm, frmeditarlances, frmlineas,
+  funciones, lr_pdfexp_reg, frmSplashScreenForm, frmeditarlances, frmlineas,
   frmdatosbase, frmeditarlineas, frmeditarproductos, frmeditarcarnada,
   frmcapturas, datcaptura, frmeditarmuestras, frmeditarcapturas,
   frmeditardetallecaptura, frmeditarbycatch, frmmuestras, datmuestras,
@@ -25,8 +25,8 @@ uses
 begin
   Application.Title:='Centolla OBS';
   RequireDerivedFormResource := True;
-  DecimalSeparator:='.';
-  ThousandSeparator:=',';
+  DefaultFormatSettings.DecimalSeparator:='.';
+  DefaultFormatSettings.ThousandSeparator:=',';
   Application.Initialize;
   ShowSplashScreen;
   SetSplashScreenStatus( 'Iniciando...' );

@@ -17,9 +17,10 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MajorVersionNr Value="1"/>
+      <RevisionNr Value="6"/>
       <Language Value="040A"/>
       <Attributes pvaPreRelease="True"/>
-      <StringTable CompanyName="INIDEP" FileDescription="Aplicación para el registro de datos de muestreo a bordo de buques destinados a Centolla " LegalCopyright="Copyright © 2014 - Daniel Di Tullio - danieldt2000@hotmail.com" OriginalFilename="CentollaOBS.exe" ProductName="Centolla OBS" ProductVersion="0.5"/>
+      <StringTable CompanyName="INIDEP" FileDescription="Aplicación para el registro de datos de muestreo a bordo de buques destinados a Centolla " LegalCopyright="Copyright © 2015 - Daniel Di Tullio - danieldt2000@hotmail.com" OriginalFilename="CentollaOBS.exe" ProductName="Centolla OBS" ProductVersion="1.0.6"/>
     </VersionInfo>
     <CustomData Count="3">
       <Item0 Name="DataDict/Active" Value="1"/>
@@ -37,7 +38,6 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\Componentes\daniel"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
             <SrcPath Value="C:\codetyphon\fpcsrc\rtl\objpas\;C:\codetyphon\fpcsrc\packages\fcl-base\src\"/>
           </SearchPaths>
@@ -64,7 +64,7 @@
     </RunParams>
     <RequiredPackages Count="22">
       <Item1>
-        <PackageName Value="LazUtils"/>
+        <PackageName Value="bs_Utils"/>
       </Item1>
       <Item2>
         <PackageName Value="pl_exsystem"/>
@@ -76,16 +76,16 @@
         <PackageName Value="pl_luicontrols"/>
       </Item4>
       <Item5>
-        <PackageName Value="MemDSLaz"/>
+        <PackageName Value="lz_memds"/>
       </Item5>
       <Item6>
-        <PackageName Value="lr_imgexport"/>
+        <PackageName Value="lz_reportimgexport"/>
       </Item6>
       <Item7>
-        <PackageName Value="lr_pdfexport"/>
+        <PackageName Value="lz_reportpdfexport"/>
       </Item7>
       <Item8>
-        <PackageName Value="lazreport"/>
+        <PackageName Value="lz_report"/>
       </Item8>
       <Item9>
         <PackageName Value="pl_fortesreport"/>
@@ -97,7 +97,7 @@
         <PackageName Value="pl_fzcontrols"/>
       </Item11>
       <Item12>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="lz_tachart"/>
       </Item12>
       <Item13>
         <PackageName Value="pl_rx"/>
@@ -106,7 +106,7 @@
         <PackageName Value="pl_zeosdbo"/>
       </Item14>
       <Item15>
-        <PackageName Value="pl_lazsolutions"/>
+        <PackageName Value="pl_solutions"/>
       </Item15>
       <Item16>
         <PackageName Value="FCL"/>
@@ -115,16 +115,16 @@
         <PackageName Value="mis_componentes"/>
       </Item17>
       <Item18>
-        <PackageName Value="DateTimeCtrls"/>
+        <PackageName Value="lz_datetimectrls"/>
       </Item18>
       <Item19>
-        <PackageName Value="IDEIntf"/>
+        <PackageName Value="bs_IDEIntf"/>
       </Item19>
       <Item20>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="bs_Controls"/>
       </Item20>
       <Item21>
-        <PackageName Value="SQLDBLaz"/>
+        <PackageName Value="lz_sqldb"/>
       </Item21>
       <Item22>
         <PackageName Value="LCL"/>
@@ -171,7 +171,6 @@
         <ComponentName Value="fmMareas"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmmareas"/>
       </Unit5>
       <Unit6>
         <Filename Value="frmzedicionbase.pas"/>
@@ -186,7 +185,6 @@
         <ComponentName Value="fmEditarMarea"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmEditarMarea"/>
       </Unit7>
       <Unit8>
         <Filename Value="datcaptura.pas"/>
@@ -240,7 +238,6 @@
         <ComponentName Value="fmDatosBase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmdatosbase"/>
       </Unit15>
       <Unit16>
         <Filename Value="frmeditarlineas.pas"/>
@@ -409,7 +406,6 @@
         <ComponentName Value="fmBackup"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmbackup"/>
       </Unit39>
     </Units>
   </ProjectOptions>

@@ -5,7 +5,7 @@ unit frmbackup;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, UTF8Process, AbZipper, AbBrowse, Forms, Controls,
+  Classes, SysUtils, LazFileUtils, UTF8Process, AbZipper, AbBrowse, Forms, Controls,
   Graphics, Dialogs, StdCtrls, EditBtn, Buttons, ActnList, ComCtrls, LSConfig,
   datGeneral, db, sqldb, sqldblib, mysql56conn, ZSqlMetadata,
   ZDataset, ExSystemUtils, process, LCLIntf, ExtCtrls, AbArcTyp, AbUnzper, math;
@@ -108,6 +108,8 @@ type
     { public declarations }
   end;
 
+  function CheckScriptText(var Script: TStringList): String;
+
 const
     NEWLINE=#13#10;
     PREFIJO_BKP='BKP_DB_CENTOLLA_';
@@ -153,9 +155,9 @@ const
                  'SET SQL_NOTES=@OLD_SQL_NOTES ;'+NEWLINE;
 
       CREATE_TABLE_TEMPLATE=
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  '-- Estructura de la tabla `<TABLA>`'+NEWLINE+
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  ''+NEWLINE+
                  'DROP TABLE IF EXISTS `<TABLA>`;'+NEWLINE+
                  'SET @saved_cs_client     = @@character_set_client ;'+NEWLINE+
@@ -167,9 +169,9 @@ const
       //varias veces no da error de registros duplicados, sino que se reemplazan
       //los existentes y se agregan los nuevos
       INSERT_SINGLE_TEMPLATE=
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  '-- Volcado de datos de la tabla `<TABLA>`'+NEWLINE+
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  ''+NEWLINE+
                  'LOCK TABLES `<TABLA>` WRITE;'+NEWLINE+
                  'ALTER TABLE `<TABLA>` DISABLE KEYS ;'+NEWLINE+
@@ -181,9 +183,9 @@ const
                  'REPLACE INTO `<TABLA>` (<CAMPOS>) VALUES <INSERT_VALUES>;'+NEWLINE;
 
       INSERT_MULTI_TEMPLATE=
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  '-- Volcado de datos de la tabla `<TABLA>`'+NEWLINE+
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  ''+NEWLINE+
                  'LOCK TABLES `<TABLA>` WRITE;'+NEWLINE+
                  'ALTER TABLE `<TABLA>` DISABLE KEYS ;'+NEWLINE+
@@ -194,9 +196,9 @@ const
       //Por compatibilidad con la ejecución del script en Lazarus, se utiliza el
       //mismo delimitador que en las funciones y stored procedures
       CREATE_VIEW_STRUCTURE_TEMPLATE=
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  '-- Estructura temporaria para vista `<VISTA>`'+NEWLINE+
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  ''+NEWLINE+
                  'DELIMITER $$'+NEWLINE+
                  'DROP TABLE IF EXISTS `<VISTA>` $$'+NEWLINE+
@@ -208,9 +210,9 @@ const
                  'DELIMITER ;'+NEWLINE;
 
       CREATE_VIEW_TEMPLATE=
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  '-- Estructura final para la vista `<VISTA>`'+NEWLINE+
-                 '--'+NEWLINE+
+                 '-- -'+NEWLINE+
                  ''+NEWLINE+
                  'DELIMITER $$'+NEWLINE+
                  'DROP VIEW IF EXISTS `<VISTA>` $$'+NEWLINE+
@@ -238,6 +240,24 @@ var
   sl_tablas, sl_datos, sl_rutinas, sl_expglob: TStringList;
 
 implementation
+
+function CheckScriptText(var Script: TStringList): String;
+var
+  i: integer;
+begin
+  for i:=0 to Script.Count-1 do
+  begin
+    //Reemplazo los comentarios. En las versiones nuevas de ZeosDB,
+    //El comentario '--' da error
+    if Script[i]='--' then
+       Script[i]:='-- -';
+
+    //Esto se hace por un problema de compatibilidad con el componente de script
+    Script[i]:=StringReplace(Script[i], 'DELIMITER $$', '', [rfReplaceAll, rfIgnoreCase]);
+    Script[i]:=StringReplace(Script[i], 'DELIMITER ;', '', [rfReplaceAll, rfIgnoreCase]);
+  end;
+  Result:=Script.Text;
+end;
 
 {$R *.lfm}
 
@@ -454,6 +474,7 @@ procedure TfmBackup.FormShow(Sender: TObject);
 var
   destino:String;
 begin
+  destino :='';
   if not Assigned(sl_tablas) then
      sl_tablas:=TStringList.Create;
   if not Assigned(sl_datos) then
@@ -654,30 +675,32 @@ begin
          if proc_tablas then
          begin
              scRestaurar.Terminator:=';';
-             scRestaurar.Script.Text:=sl_tablas.Text;
+             scRestaurar.Script.Text:=CheckScriptText(sl_tablas);
              scRestaurar.ExecuteScript;
          end;
 
          if proc_datos then
          begin
              scRestaurar.Terminator:=';';
-             scRestaurar.Script.Text:=sl_datos.Text;
+             scRestaurar.Script.Text:=CheckScriptText(sl_datos);
              scRestaurar.ExecuteScript;
          end;
 
-         //Por un problema de compatibilidad con el componente de script,
-         //debe eliminarse el "DELIMITER" y configurarlo directamente
-         //en el componente
 
          if proc_rutinas then
          begin
-             for i:=0 to sl_rutinas.Count-1 do
+           { //Esto se pasa a la función CheckScriptText
+           for i:=0 to sl_rutinas.Count-1 do
              begin
                sl_rutinas[i]:=StringReplace(sl_rutinas[i], 'DELIMITER $$', '', [rfReplaceAll, rfIgnoreCase]);
                sl_rutinas[i]:=StringReplace(sl_rutinas[i], 'DELIMITER ;', '', [rfReplaceAll, rfIgnoreCase]);
              end;
+           }
+           //Por un problema de compatibilidad con el componente de script,
+           //debe eliminarse el "DELIMITER" y configurarlo directamente
+           //en el componente
              scRestaurar.Terminator:='$$';
-             scRestaurar.Script.Text:=sl_rutinas.Text;
+             scRestaurar.Script.Text:=CheckScriptText(sl_rutinas);
              scRestaurar.ExecuteScript;
          end;
 
@@ -1277,9 +1300,9 @@ begin
 
 
      str_sql.Add('');
-     str_sql.Add('--');
+     str_sql.Add('-- -');
      str_sql.Add('-- Estructura base de Rutina '+zqRutinasroutine_name.AsString);
-     str_sql.Add('--');
+     str_sql.Add('-- -');
      str_sql.Add('');
      str_sql.Add(drop_rutina);
      str_sql.Add('DELIMITER $$'+NEWLINE+def_rutina+NEWLINE+'DELIMITER ;');
@@ -1317,9 +1340,9 @@ begin
      def_rutina:=StringReplace(def_rutina, zqRutinasroutine_name.AsString, LowerCase(zqRutinasroutine_name.AsString), [rfReplaceAll, rfIgnoreCase]);;
 
      str_sql.Add(NEWLINE);
-     str_sql.Add('--');
+     str_sql.Add('-- -');
      str_sql.Add('-- Definición completa de Rutina '+zqRutinasroutine_name.AsString);
-     str_sql.Add('--');
+     str_sql.Add('-- -');
      str_sql.Add('');
      str_sql.Add(drop_rutina);
      str_sql.Add('DELIMITER $$'+NEWLINE+def_rutina+NEWLINE+'DELIMITER ;');
