@@ -9,7 +9,7 @@ object fmMareaAExcel: TfmMareaAExcel
   ClientWidth = 406
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object Label1: TLabel
     Left = 65
     Height = 50
@@ -101,7 +101,7 @@ object fmMareaAExcel: TfmMareaAExcel
     ChildSizing.VerticalSpacing = 5
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 3
-    ClientHeight = 157
+    ClientHeight = 155
     ClientWidth = 380
     TabOrder = 2
     object Label2: TLabel

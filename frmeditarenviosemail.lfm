@@ -36,7 +36,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       Top = 320
       Width = 395
       Caption = 'Producción'
-      ClientHeight = 77
+      ClientHeight = 75
       ClientWidth = 391
       TabOrder = 2
       object Label2: TLabel
@@ -115,7 +115,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 27
+        ClientHeight = 25
         ClientWidth = 172
         Columns = 2
         ItemIndex = 0
@@ -137,12 +137,12 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       end
     end
     object gbDestino: TGroupBox[1]
-      Left = 15
+      Left = 16
       Height = 55
       Top = 420
       Width = 395
       Caption = 'Destino del archivo'
-      ClientHeight = 37
+      ClientHeight = 35
       ClientWidth = 391
       TabOrder = 3
       object dedCarpetaArchivo: TDirectoryEdit
@@ -210,7 +210,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       Top = 60
       Width = 395
       Caption = 'Lances'
-      ClientHeight = 232
+      ClientHeight = 230
       ClientWidth = 391
       TabOrder = 4
       object dbgLances: TRxDBGrid
@@ -219,6 +219,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
         Hint = 'Seleccione en la primera columna los registros que desea incluir en el archivo exportado'
         Top = 5
         Width = 381
+        AfterQuickSearch = dbgLancesAfterQuickSearch
         TitleButtons = False
         AutoSort = True
         Columns = <        
@@ -226,8 +227,8 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
             ButtonStyle = cbsCheckboxColumn
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Sel.'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Sel.'
             Width = 30
             FieldName = 'seleccionado'
             EditButtons = <>
@@ -241,8 +242,8 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
             ReadOnly = True
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Env.'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Env.'
             Width = 30
             FieldName = 'enviado'
             EditButtons = <>
@@ -256,10 +257,10 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
             ReadOnly = True
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Lance'
             Title.Orientation = toHorizontal
-            Width = 50
-            FieldName = 'nro_lance'
+            Title.Caption = 'Registro'
+            Width = 55
+            FieldName = 'orden_virada'
             EditButtons = <>
             Filter.DropDownRows = 0
             Filter.EmptyValue = '(Todos)'
@@ -270,9 +271,9 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
             Alignment = taCenter
             ReadOnly = True
             Title.Alignment = taCenter
-            Title.Caption = 'Calado'
             Title.Orientation = toHorizontal
-            Width = 119
+            Title.Caption = 'Calado'
+            Width = 116
             FieldName = 'fecha_hora_calado'
             EditButtons = <>
             Filter.DropDownRows = 0
@@ -283,9 +284,9 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
           item
             ReadOnly = True
             Title.Alignment = taCenter
-            Title.Caption = 'Virado'
             Title.Orientation = toHorizontal
-            Width = 119
+            Title.Caption = 'Virado'
+            Width = 117
             FieldName = 'fecha_hora_virado'
             EditButtons = <>
             Filter.DropDownRows = 0
@@ -366,7 +367,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       object bbAgregar: TBitBtn
         Left = 180
         Height = 28
-        Top = 200
+        Top = 198
         Width = 206
         Action = acAgregarLances
         Anchors = [akRight, akBottom]
@@ -1214,6 +1215,15 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       ReadOnly = True
       Required = False
     end
+    object zqLancesorden_virada: TLargeintField
+      FieldKind = fkData
+      FieldName = 'orden_virada'
+      Index = 46
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   object ActionList1: TActionList[12]
     left = 25
@@ -1244,7 +1254,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
         Name = 'idenvio_email'
         ParamType = ptUnknown
       end>
-    left = 95
+    left = 96
     top = 235
     ParamData = <    
       item
@@ -1567,22 +1577,18 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       MinValue = 0
       Precision = 22
     end
-    object zqExpLancesprofundidad_ini_calado: TLongintField
-      DisplayLabel = 'Prof.Ini.Calado'
-      DisplayWidth = 10
+    object zqExpLancesprof_ini_calado: TLongintField
       FieldKind = fkData
-      FieldName = 'profundidad_ini_calado'
+      FieldName = 'prof_ini_calado'
       Index = 25
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object zqExpLancesprofundidad_fin_calado: TLongintField
-      DisplayLabel = 'Porf.Fin.Calado'
-      DisplayWidth = 10
+    object zqExpLancesprof_fin_calado: TLongintField
       FieldKind = fkData
-      FieldName = 'profundidad_fin_calado'
+      FieldName = 'prof_fin_calado'
       Index = 26
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -2404,7 +2410,7 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       '1 as enviado, dem.*'
       'FROM v_detalle_envios_email dem'
       'WHERE dem.idenvio_email=:idenvio_email'
-      'order by fecha_virado'
+      'order by orden_virada, fecha_virado'
     )
     Params = <    
       item
@@ -2480,18 +2486,13 @@ inherited FmEditarEnviosEmail: TFmEditarEnviosEmail
       ReadOnly = False
       Required = True
     end
-    object LongintField1: TLongintField
-      DisplayWidth = 10
-      FieldKind = fkLookup
-      FieldName = 'nro_lance'
+    object zqDetalleEnviosorden_virada: TLargeintField
+      FieldKind = fkData
+      FieldName = 'orden_virada'
       Index = 6
-      KeyFields = 'idlance'
       LookupCache = False
-      LookupDataSet = zqLances
-      LookupKeyFields = 'idlance'
-      LookupResultField = 'nro_lance'
       ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
+      ReadOnly = True
       Required = False
     end
     object DateTimeField1: TDateTimeField

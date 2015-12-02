@@ -925,8 +925,15 @@ begin
         First;
         FilaRM:=filaFC-23;
         //Pongo el encabezado
-        xls.Cells[filaRM-4, 4] := FieldByName('orden_virada').AsInteger;
-        xls.Cells[filaRM-4, 6] := FieldByName('fecha').AsDateTime;
+        if not FieldByName('orden_virada').IsNull then
+           xls.Cells[filaRM-4, 4] := FieldByName('orden_virada').AsInteger
+        else
+           xls.Cells[filaRM-4, 4] := zqFC.FieldByName('orden_virada').AsInteger;
+        //La fecha la tomo del los FC si no se indicó en RM
+        if not FieldByName('fecha').IsNull then
+           xls.Cells[filaRM-4, 6] := FieldByName('fecha').AsDateTime
+        else
+           xls.Cells[filaRM-4, 6] := zqFC.FieldByName('fecha').AsDateTime;
         tmp := UTF8Decode(FieldByName('especie').AsString);
         xls.Cells[filaRM-4, 8]:=tmp;
         while (not EOF) and (RecNo<=10) do

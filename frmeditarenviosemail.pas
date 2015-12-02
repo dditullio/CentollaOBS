@@ -47,7 +47,6 @@ type
     Label3: TLabel;
     Label4: TLabel;
     laProceso: TLabel;
-    LongintField1: TLongintField;
     paProceso: TPanel;
     pbProceso: TProgressBar;
     rgFormato: TRadioGroup;
@@ -56,6 +55,7 @@ type
     zqDetalleEnviosidenvio_email: TLongintField;
     zqDetalleEnviosidlance: TLongintField;
     zqDetalleEnviosidmarea: TLongintField;
+    zqDetalleEnviosorden_virada: TLargeintField;
     zqDetalleEnviosseleccionado: TLargeintField;
     zqExpLances: TZQuery;
     zqExpLancesarania_total: TLongintField;
@@ -105,9 +105,9 @@ type
     zqExpLancesorden_virada: TLargeintField;
     zqExpLancesotras_trampas: TLongintField;
     zqExpLancesporcent_trampas_obs: TFloatField;
-    zqExpLancesprofundidad_fin_calado: TLongintField;
-    zqExpLancesprofundidad_ini_calado: TLongintField;
+    zqExpLancesprof_fin_calado: TLongintField;
     zqExpLancesprof_fin_virada: TLongintField;
+    zqExpLancesprof_ini_calado: TLongintField;
     zqExpLancesprof_ini_virada: TLongintField;
     zqExpLancesrumbo: TLongintField;
     zqExpLancestrampas_con_3_aros: TFloatField;
@@ -153,6 +153,7 @@ type
     zqLancesnro_lance: TLongintField;
     zqLancesnro_linea: TLongintField;
     zqLancesnudos_viento: TLongintField;
+    zqLancesorden_virada: TLargeintField;
     zqLancesPendientesfecha_fin_virada: TDateField;
     zqLancesPendientesidlance: TLongintField;
     zqLancesprofundidad_fin_calado: TLongintField;
@@ -210,6 +211,8 @@ type
     zuDetalleEnvios: TZUpdateSQL;
     procedure acAgregarLancesExecute(Sender: TObject);
     procedure acExportarLancesExecute(Sender: TObject);
+    procedure dbgLancesAfterQuickSearch(Sender: TObject; Field: TField;
+      var AValue: string);
     procedure ExportarTXT;
     procedure ExportarExcel(xls:olevariant);
     procedure dedCarpetaArchivoAcceptDirectory(Sender: TObject;
@@ -397,6 +400,12 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TFmEditarEnviosEmail.dbgLancesAfterQuickSearch(Sender: TObject;
+  Field: TField; var AValue: string);
+begin
+
 end;
 
 procedure TFmEditarEnviosEmail.ExportarTXT;

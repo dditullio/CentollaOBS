@@ -392,6 +392,7 @@
         <ComponentName Value="FmEditarEnviosEmail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmEditarEnviosEmail"/>
       </Unit37>
       <Unit38>
         <Filename Value="frmeditartipostrampa.pas"/>
