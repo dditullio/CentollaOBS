@@ -17,10 +17,9 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MajorVersionNr Value="1"/>
-      <RevisionNr Value="6"/>
+      <RevisionNr Value="9"/>
       <Language Value="040A"/>
-      <Attributes pvaPreRelease="True"/>
-      <StringTable CompanyName="INIDEP" FileDescription="Aplicación para el registro de datos de muestreo a bordo de buques destinados a Centolla " LegalCopyright="Copyright © 2015 - Daniel Di Tullio - danieldt2000@hotmail.com" OriginalFilename="CentollaOBS.exe" ProductName="Centolla OBS" ProductVersion="1.0.6"/>
+      <StringTable CompanyName="INIDEP" FileDescription="Aplicación para el registro de datos de muestreo a bordo de buques destinados a Centolla " LegalCopyright="Copyright © 2016 - Daniel Di Tullio - danieldt2000@hotmail.com" OriginalFilename="CentollaOBS.exe" ProductName="Centolla OBS" ProductVersion="1.0.9"/>
     </VersionInfo>
     <CustomData Count="3">
       <Item0 Name="DataDict/Active" Value="1"/>

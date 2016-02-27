@@ -45,9 +45,9 @@ object fmBackup: TfmBackup
     Height = 327
     Top = 65
     Width = 416
-    ActivePage = tsRestaurar
+    ActivePage = tsBackup
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     OnChange = pcBackupChange
     object tsBackup: TTabSheet

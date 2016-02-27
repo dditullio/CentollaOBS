@@ -87,7 +87,7 @@ type
   end;
 
 const
-  APP_VERSION='1.0.7';
+  APP_VERSION='1.0.9';
 
 var
   dmGeneral: TdmGeneral;
@@ -134,7 +134,7 @@ begin
   else
   begin
     MessageDlg(
-      'No se ha seleccionado una marea para registrar los datos. Por favor seleccione una marea existente y establézcala como aciva, o cree una nueva marea.', mtWarning, [mbClose], 0);
+      'No se ha seleccionado una marea para registrar los datos. Por favor seleccione una marea existente y establézcala como activa, o cree una nueva marea.', mtWarning, [mbClose], 0);
     if (zqMareas.RecordCount>0) then
        acEstablecerActiva.Enabled := True
     else

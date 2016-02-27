@@ -54,7 +54,7 @@ inherited fmEditarLances: TfmEditarLances
           Top = 8
           Width = 376
           Caption = 'Inicio del lance'
-          ClientHeight = 114
+          ClientHeight = 112
           ClientWidth = 372
           TabOrder = 0
           OnExit = gbInicioCaladoExit
@@ -194,7 +194,7 @@ inherited fmEditarLances: TfmEditarLances
           Top = 8
           Width = 328
           Caption = 'Comentarios'
-          ClientHeight = 114
+          ClientHeight = 112
           ClientWidth = 324
           TabOrder = 2
           object dbmComentarios: TDBMemo
@@ -218,7 +218,7 @@ inherited fmEditarLances: TfmEditarLances
           ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 114
+          ClientHeight = 112
           ClientWidth = 324
           TabOrder = 3
           object Label4: TLabel
@@ -338,7 +338,7 @@ inherited fmEditarLances: TfmEditarLances
           Top = 148
           Width = 376
           Caption = 'Finalización del lance'
-          ClientHeight = 114
+          ClientHeight = 112
           ClientWidth = 372
           TabOrder = 1
           object Label21: TLabel
@@ -474,15 +474,15 @@ inherited fmEditarLances: TfmEditarLances
       end
       object tsVirada: TTabSheet
         Caption = '&Virada'
-        ClientHeight = 574
-        ClientWidth = 1444
+        ClientHeight = 287
+        ClientWidth = 722
         object gbDatosInicio2: TGroupBox
           Left = 0
           Height = 132
           Top = 8
           Width = 376
           Caption = 'Inicio del lance'
-          ClientHeight = 114
+          ClientHeight = 112
           ClientWidth = 372
           TabOrder = 0
           OnExit = gbDatosInicio2Exit
@@ -623,7 +623,7 @@ inherited fmEditarLances: TfmEditarLances
           Top = 148
           Width = 376
           Caption = 'Finalización del lance'
-          ClientHeight = 114
+          ClientHeight = 112
           ClientWidth = 372
           TabOrder = 1
           object Label31: TLabel
@@ -802,7 +802,7 @@ inherited fmEditarLances: TfmEditarLances
           Top = 8
           Width = 328
           Caption = 'Comentarios'
-          ClientHeight = 114
+          ClientHeight = 112
           ClientWidth = 324
           TabOrder = 2
           object dbmComentarios1: TDBMemo
@@ -826,7 +826,7 @@ inherited fmEditarLances: TfmEditarLances
           ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 114
+          ClientHeight = 112
           ClientWidth = 324
           TabOrder = 3
           object Label5: TLabel
@@ -929,7 +929,7 @@ inherited fmEditarLances: TfmEditarLances
           object Label37: TLabel
             Left = 14
             Height = 15
-            Top = 99
+            Top = 97
             Width = 192
             Caption = ' '
             ParentColor = False

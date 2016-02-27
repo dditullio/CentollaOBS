@@ -348,7 +348,7 @@ object fmMareaAExcel: TfmMareaAExcel
       Height = 16
       Top = 94
       Width = 150
-      Caption = 'Submuestras'
+      Caption = 'Relación largo-peso'
       Constraints.MaxWidth = 160
       Constraints.MinWidth = 150
       ParentColor = False
@@ -700,7 +700,7 @@ object fmMareaAExcel: TfmMareaAExcel
       'FROM v_planilla_submuestras'
       'WHERE idmarea=:idmarea'
       'and (:sexo=0 OR sexo=:sexo)'
-      'ORDER BY nro_lance, sexo, largo, nro_ejemplar'
+      'ORDER BY sexo, largo, nro_ejemplar'
     )
     Params = <    
       item
