@@ -121,6 +121,7 @@ object fmBackup: TfmBackup
           OnChange = ckEstructuraChange
           State = cbChecked
           TabOrder = 1
+          Visible = False
         end
         object ckDatos: TCheckBox
           Left = 20
@@ -132,6 +133,7 @@ object fmBackup: TfmBackup
           OnChange = ckDatosChange
           State = cbChecked
           TabOrder = 0
+          Visible = False
         end
         object ckIncluirAplicacion: TCheckBox
           Left = 20
@@ -261,6 +263,7 @@ object fmBackup: TfmBackup
         ClientHeight = 20
         ClientWidth = 404
         TabOrder = 2
+        Visible = False
         object ckRestaurarEstructura: TCheckBox
           Left = 10
           Height = 19
