@@ -1,10 +1,10 @@
 inherited fmEditarLances: TfmEditarLances
   Left = 290
-  Height = 461
-  Top = 131
+  Height = 462
+  Top = 130
   Width = 732
   Caption = 'Lances'
-  ClientHeight = 461
+  ClientHeight = 462
   ClientWidth = 732
   OnShow = FormShow
   inherited paEncabezadoBase: TPanel
@@ -28,13 +28,13 @@ inherited fmEditarLances: TfmEditarLances
     end
   end
   inherited paPrincipal: TPanel
-    Height = 391
+    Height = 392
     Width = 732
-    ClientHeight = 391
+    ClientHeight = 392
     ClientWidth = 732
     object pcLances: TPageControl[0]
       Left = 1
-      Height = 315
+      Height = 316
       Top = 75
       Width = 730
       TabStop = False
@@ -46,7 +46,7 @@ inherited fmEditarLances: TfmEditarLances
       Options = [nboKeyboardTabSwitch]
       object tsCalado: TTabSheet
         Caption = 'Calado'
-        ClientHeight = 287
+        ClientHeight = 288
         ClientWidth = 722
         object gbInicioCalado: TGroupBox
           Left = 0
@@ -981,6 +981,7 @@ inherited fmEditarLances: TfmEditarLances
         DataSource = dsPrincipal
         ListFieldIndex = 0
         LookupCache = False
+        OnExit = dblkCarnadaExit
         TabOrder = 3
       end
       object Label20: TLabel
@@ -1023,8 +1024,8 @@ inherited fmEditarLances: TfmEditarLances
         Height = 23
         Hint = '¿Es una línea de investigación?'
         Top = 50
-        Width = 90
-        Caption = 'Investigación'
+        Width = 189
+        Caption = 'Investigación (Línea de INIDEP)'
         DataField = 'investigacion'
         DataSource = dsPrincipal
         Enabled = False
@@ -1124,6 +1125,7 @@ inherited fmEditarLances: TfmEditarLances
         DataSource = dsPrincipal
         ListFieldIndex = 0
         LookupCache = False
+        OnExit = dblkTipoTrampasExit
         TabOrder = 6
       end
       object Panel2: TPanel
@@ -1152,7 +1154,7 @@ inherited fmEditarLances: TfmEditarLances
     end
   end
   inherited paControles: TPanel
-    Top = 425
+    Top = 426
     Width = 732
     ClientWidth = 732
     inherited bbCancelar: TBitBtn

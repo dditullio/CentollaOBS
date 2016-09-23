@@ -60,6 +60,10 @@ type
     zqAntCapturanro_boya: TLongintField;
     zqAntCapturanro_lance: TLongintField;
     zqAntCapturanro_linea: TLongintField;
+    procedure dblkEspecie2CientExit(Sender: TObject);
+    procedure dblkEspecie2VulgarExit(Sender: TObject);
+    procedure dblkEspecie3CientExit(Sender: TObject);
+    procedure dblkEspecie3VulgarExit(Sender: TObject);
     procedure dblkLanceExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -123,6 +127,50 @@ procedure TfmEditarCaptura.dblkLanceExit(Sender: TObject);
 begin
   dmCapturas.zqCaptura.DisableControls;
   dmCapturas.zqCaptura.EnableControls;
+end;
+
+procedure TfmEditarCaptura.dblkEspecie2VulgarExit(Sender: TObject);
+begin
+  if (dblkEspecie2Vulgar.Text='') and ((zcePrincipal.Accion=ED_AGREGAR) or (zcePrincipal.Accion=ED_MODIFICAR)) then
+  begin
+     if not (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+          dmCapturas.dsCaptura.Edit;
+     if (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+        dmCapturas.zqCapturaidespecie2.Clear;
+  end;
+end;
+
+procedure TfmEditarCaptura.dblkEspecie2CientExit(Sender: TObject);
+begin
+  if (dblkEspecie2Cient.Text='') and ((zcePrincipal.Accion=ED_AGREGAR) or (zcePrincipal.Accion=ED_MODIFICAR)) then
+  begin
+     if not (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+          dmCapturas.dsCaptura.Edit;
+     if (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+        dmCapturas.zqCapturaidespecie2.Clear;
+  end;
+end;
+
+procedure TfmEditarCaptura.dblkEspecie3CientExit(Sender: TObject);
+begin
+  if (dblkEspecie3Cient.Text='') and ((zcePrincipal.Accion=ED_AGREGAR) or (zcePrincipal.Accion=ED_MODIFICAR)) then
+  begin
+     if not (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+          dmCapturas.dsCaptura.Edit;
+     if (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+        dmCapturas.zqCapturaidespecie3.Clear;
+  end;
+end;
+
+procedure TfmEditarCaptura.dblkEspecie3VulgarExit(Sender: TObject);
+begin
+  if (dblkEspecie3Vulgar.Text='') and ((zcePrincipal.Accion=ED_AGREGAR) or (zcePrincipal.Accion=ED_MODIFICAR)) then
+  begin
+     if not (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+          dmCapturas.dsCaptura.Edit;
+     if (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+        dmCapturas.zqCapturaidespecie3.Clear;
+  end;
 end;
 
 procedure TfmEditarCaptura.FormCreate(Sender: TObject);

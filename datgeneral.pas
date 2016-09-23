@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, sqldb, DB, mysql50conn, mysql55conn, FileUtil, ZConnection,
-  ZDataset, ZSqlMonitor, Forms, ActnList, LSConfig, Dialogs, Controls,
-  frmSplashScreenForm;
+  ZDataset, ZSqlMonitor, ZStoredProcedure, Forms, ActnList, LSConfig, Dialogs,
+  Controls, IniPropStorage, frmSplashScreenForm;
 
 type
 
@@ -18,6 +18,7 @@ type
     acEstablecerActiva: TAction;
     dsMareaActiva: TDataSource;
     dsMareas: TDatasource;
+    ipsConfig: TIniPropStorage;
     qMareasanio_marea: TLongintField;
     qMareascapitan: TStringField;
     qMareasidbuque: TLongintField;
@@ -29,14 +30,17 @@ type
     zqMareaActivaanio_marea: TLongintField;
     zqMareaActivabuque: TStringField;
     zqMareaActivacapitan: TStringField;
+    zqMareaActivacod_buque: TLongintField;
     zqMareaActivacomentarios: TStringField;
     zqMareaActivafactor_conversion: TLongintField;
     zqMareaActivafecha_arribo: TDateField;
+    zqMareaActivafecha_inicio_temporada: TDateField;
     zqMareaActivafecha_zarpada: TDateField;
     zqMareaActivaidmarea: TLongintField;
     zqMareaActivaMarea: TBytesField;
     zqMareaActivaMareaStr: TStringField;
     zqMareaActivamarea_buque: TStringField;
+    zqMareaActivanro_marea_buque: TLongintField;
     zqMareaActivanro_marea_inidep: TLongintField;
     zqMareaActivaobservador: TStringField;
     zqMareaActivapeso_caja_producto: TFloatField;
@@ -52,25 +56,29 @@ type
     zqMareascant_muestras_rinde: TLargeintField;
     zqMareascant_muestras_talla: TLargeintField;
     zqMareascapitan: TStringField;
+    zqMareascod_buque: TLongintField;
     zqMareasdias_pesca: TLargeintField;
     zqMareasfecha_arribo: TDateField;
     zqMareasfecha_finalizacion: TDateField;
     zqMareasfecha_inicio: TDateField;
+    zqMareasfecha_inicio_temporada: TDateField;
     zqMareasfecha_zarpada: TDateField;
     zqMareasidbuque: TLongintField;
     zqMareasidmarea: TLongintField;
     zqMareasMarea: TBytesField;
     zqMareasMareaStr: TStringField;
     zqMareasmarea_buque: TStringField;
+    zqMareasnro_marea_buque: TLongintField;
     zqMareasnro_marea_inidep: TLongintField;
+    zqMareasobservador: TStringField;
     zqMareasoficial: TStringField;
     zqMareaActiva: TZQuery;
     sqlmLog: TZSQLMonitor;
+    zspActualizarParametricas: TZStoredProc;
     procedure acEstablecerActivaExecute(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure zqMareaActivaBeforeOpen(DataSet: TDataSet);
     procedure zqMareaActivaCalcFields(DataSet: TDataSet);
-    procedure zqMareasAfterApplyUpdates(Sender: TObject);
     procedure zqMareasAfterScroll(DataSet: TDataSet);
     procedure zqMareasCalcFields(DataSet: TDataSet);
   private
@@ -84,10 +92,17 @@ type
     property DscMareaActiva: string read GetDscMareaActiva;
     property FactorCalculoCaptura: double read GetFactorConversion;
     procedure ConectarBaseDeDatos;
+    procedure GuardarBooleanConfig(const Clave: String; Valor: Boolean; const Seccion: String='');
+    procedure GuardarIntegerConfig(const Clave: String; Valor: LongInt; const Seccion: String='');
+    procedure GuardarStringConfig(const Clave: String; Valor: String; const Seccion: String='');
+    function LeerBooleanConfig(const Clave: String; ValorPredeterminado: Boolean; const Seccion: String=''): Boolean;
+    function LeerIntegerConfig(const Clave: String; ValorPredeterminado: LongInt; const Seccion: String=''): LongInt;
+    function LeerStringConfig(const Clave: String; ValorPredeterminado: String; const Seccion: String=''): String;
+    procedure AccionesPostRestauracion;
   end;
 
 const
-  APP_VERSION='1.0.9';
+  APP_VERSION='1.0.11';
 
 var
   dmGeneral: TdmGeneral;
@@ -103,10 +118,16 @@ var
   tmp_MareaActiva: integer;
 begin
   ConectarBaseDeDatos;
+
+  //Actualizo los datos de buques por si se importó un backup desactualizado
+  SetSplashScreenStatus('Verificando datos precargados...');
+  zspActualizarParametricas.ExecProc;
+
   SetSplashScreenStatus('Estableciendo marea activa...');
 
   zqMareas.Close;
   zqMareas.Open;
+
   LSLoadConfig(['idMareaActiva'], [tmp_MareaActiva], [@tmp_MareaActiva]);
   if tmp_MareaActiva > 0 then
   begin
@@ -153,10 +174,6 @@ procedure TdmGeneral.zqMareaActivaCalcFields(DataSet: TDataSet);
 begin
   if not zqMareaActivaMarea.IsNull then
      zqMareaActivaMareaStr.AsString:=zqMareaActivaMarea.AsString;
-end;
-
-procedure TdmGeneral.zqMareasAfterApplyUpdates(Sender: TObject);
-begin
 end;
 
 procedure TdmGeneral.zqMareasAfterScroll(DataSet: TDataSet);
@@ -288,6 +305,135 @@ begin
     Application.MainForm.Close;
     {$ENDIF}
   end;
+end;
+
+procedure TdmGeneral.GuardarBooleanConfig(const Clave: String; Valor: Boolean;
+  const Seccion: String);
+var
+  OldSection: string;
+begin
+  if Trim(Clave)='' then
+  begin
+    MessageDlg(
+      'No se indicó la identificación (clave) del valor a guardar', mtError, [mbClose], 0);
+  end else
+  begin
+    OldSection:=ipsConfig.IniSection;
+    if Trim(Seccion)<>'' then
+       ipsConfig.IniSection:=Seccion;
+    ipsConfig.WriteBoolean(Clave, Valor);
+    ipsConfig.IniSection:=OldSection;
+  end;
+end;
+
+procedure TdmGeneral.GuardarIntegerConfig(const Clave: String; Valor: LongInt;
+  const Seccion: String);
+var
+  OldSection: string;
+begin
+  if Trim(Clave)='' then
+  begin
+    MessageDlg(
+      'No se indicó la identificación (clave) del valor a guardar', mtError, [mbClose], 0);
+  end else
+  begin
+    OldSection:=ipsConfig.IniSection;
+    if Trim(Seccion)<>'' then
+       ipsConfig.IniSection:=Seccion;
+    ipsConfig.WriteInteger(Clave, Valor);
+    ipsConfig.IniSection:=OldSection;
+  end;
+end;
+
+procedure TdmGeneral.GuardarStringConfig(const Clave: String; Valor: String;
+  const Seccion: String);
+var
+  OldSection: string;
+begin
+  if Trim(Clave)='' then
+  begin
+    MessageDlg(
+      'No se indicó la identificación (clave) del valor a guardar', mtError, [mbClose], 0);
+  end else
+  begin
+    OldSection:=ipsConfig.IniSection;
+    if Trim(Seccion)<>'' then
+       ipsConfig.IniSection:=Seccion;
+    ipsConfig.WriteString(Clave, Valor);
+    ipsConfig.IniSection:=OldSection;
+  end;
+end;
+
+function TdmGeneral.LeerBooleanConfig(const Clave: String;
+  ValorPredeterminado: Boolean; const Seccion: String): Boolean;
+var
+  OldSection: string;
+  Resultado: Boolean;
+begin
+  Resultado:=ValorPredeterminado;
+  if Trim(Clave)='' then
+  begin
+    MessageDlg(
+      'No se indicó la identificación (clave) del valor a recuperar', mtError, [mbClose], 0);
+  end else
+  begin
+    OldSection:=ipsConfig.IniSection;
+    if Trim(Seccion)<>'' then
+       ipsConfig.IniSection:=Seccion;
+    Resultado:=ipsConfig.ReadBoolean(Clave, ValorPredeterminado);
+    ipsConfig.IniSection:=OldSection;
+    Result:=Resultado;
+  end;
+end;
+
+function TdmGeneral.LeerIntegerConfig(const Clave: String;
+  ValorPredeterminado: LongInt; const Seccion: String): LongInt;
+var
+  OldSection: string;
+  Resultado: LongInt;
+begin
+  Resultado:=ValorPredeterminado;
+  if Trim(Clave)='' then
+  begin
+    MessageDlg(
+      'No se indicó la identificación (clave) del valor a recuperar', mtError, [mbClose], 0);
+  end else
+  begin
+    OldSection:=ipsConfig.IniSection;
+    if Trim(Seccion)<>'' then
+       ipsConfig.IniSection:=Seccion;
+    Resultado:=ipsConfig.ReadInteger(Clave, ValorPredeterminado);
+    ipsConfig.IniSection:=OldSection;
+    Result:=Resultado;
+  end;
+end;
+
+function TdmGeneral.LeerStringConfig(const Clave: String;
+  ValorPredeterminado: String; const Seccion: String): String;
+var
+  OldSection: string;
+  Resultado: String;
+begin
+  Resultado:=ValorPredeterminado;
+  if Trim(Clave)='' then
+  begin
+    MessageDlg(
+      'No se indicó la identificación (clave) del valor a recuperar', mtError, [mbClose], 0);
+  end else
+  begin
+    OldSection:=ipsConfig.IniSection;
+    if Trim(Seccion)<>'' then
+       ipsConfig.IniSection:=Seccion;
+    Resultado:=ipsConfig.ReadString(Clave, ValorPredeterminado);
+    ipsConfig.IniSection:=OldSection;
+    Result:=Resultado;
+  end;
+end;
+
+procedure TdmGeneral.AccionesPostRestauracion;
+begin
+     zspActualizarParametricas.ExecProc;
+     IdMareaActiva:=-1;
 end;
 
 end.

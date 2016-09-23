@@ -1,11 +1,11 @@
 object fmMareaAExcel: TfmMareaAExcel
-  Left = 450
-  Height = 296
-  Top = 211
+  Left = 428
+  Height = 319
+  Top = 96
   Width = 406
   BorderStyle = bsSingle
   Caption = 'Informe en MS-Excel'
-  ClientHeight = 296
+  ClientHeight = 319
   ClientWidth = 406
   OnShow = FormShow
   Position = poScreenCenter
@@ -27,7 +27,7 @@ object fmMareaAExcel: TfmMareaAExcel
   object Label4: TLabel
     Left = 12
     Height = 15
-    Top = 245
+    Top = 265
     Width = 104
     Caption = 'Destino del archivo:'
     ParentColor = False
@@ -35,7 +35,7 @@ object fmMareaAExcel: TfmMareaAExcel
   object dedCarpetaPlanilla: TDirectoryEdit
     Left = 12
     Height = 23
-    Top = 262
+    Top = 282
     Width = 300
     OnAcceptDirectory = dedCarpetaPlanillaAcceptDirectory
     ShowHidden = False
@@ -49,7 +49,7 @@ object fmMareaAExcel: TfmMareaAExcel
   object bbGuardar: TBitBtn
     Left = 312
     Height = 26
-    Top = 262
+    Top = 282
     Width = 84
     Action = acGenerarPlanilla
     Glyph.Data = {
@@ -93,7 +93,7 @@ object fmMareaAExcel: TfmMareaAExcel
   object GroupBox1: TGroupBox
     Left = 12
     Height = 175
-    Top = 65
+    Top = 85
     Width = 384
     Caption = 'Datos procesados'
     ChildSizing.TopBottomSpacing = 10
@@ -583,6 +583,20 @@ object fmMareaAExcel: TfmMareaAExcel
       end
     end
   end
+  object laInfoProceso: TLabel
+    Left = 10
+    Height = 20
+    Top = 55
+    Width = 385
+    Alignment = taCenter
+    AutoSize = False
+    Font.Color = clRed
+    Font.Height = -13
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    WordWrap = True
+  end
   object ActionList1: TActionList
     left = 15
     top = 10
@@ -845,6 +859,133 @@ object fmMareaAExcel: TfmMareaAExcel
       end>
     left = 175
     top = 10
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqAcompTotal: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqAcompTotalBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_totales_bycatch'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY especie'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 140
+    top = 50
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqDatosPuenteTotales: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqDatosPuenteTotalesBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_planilla_datos_puente pdp'
+      'JOIN v_info_adicional_lances ial ON ial.idlance = pdp.idlance '
+      'WHERE pdp.idmarea=:idmarea'
+      'ORDER BY pdp.fecha_fin_virada, pdp.hora_fin_virada'
+      ''
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 70
+    top = 50
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqMuestrasTotales: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqMuestrasTotalesBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * FROM centolla.v_planilla_muestras pm'
+      'join v_info_adicional_lances ial on ial.idlance=pm.idlance'
+      'WHERE pm.idmarea=:idmarea'
+      'ORDER BY pm.orden_virada, pm.nro_ejemplar'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 210
+    top = 50
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqProduccionTotales: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqProduccionTotalesBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_produccion'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY fecha, orden'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 280
+    top = 50
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
+  object zqFCTotales: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqFCTotalesBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_factores_conversion'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY fecha'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 310
+    top = 50
     ParamData = <    
       item
         DataType = ftUnknown

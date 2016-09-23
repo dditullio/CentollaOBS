@@ -216,6 +216,8 @@ procedure TfmPrincipal.acBackupExecute(Sender: TObject);
 begin
   CerrarOtrasHojas(nil);
   fmbackup.ShowModal;
+  HabilitarMenu;
+  tmHabilitarMenu.Enabled:=True;
 end;
 
 procedure TfmPrincipal.acEnvioEmailExecute(Sender: TObject);

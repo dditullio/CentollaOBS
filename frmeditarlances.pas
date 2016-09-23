@@ -9,7 +9,7 @@ uses
   Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, DbCtrls, Buttons, ComCtrls,
   frmzedicionbase, ZDataset, SQLQueryGroup, zcontroladoredicion, zdatasetgroup,
   zcontroladorgrilla, DtDBEdit, DtDBTimeEdit, dtdbcoordedit, db, datGeneral,
-  LSRegEx, funciones, dateutils;
+  LSRegEx, funciones, dateutils, LCLType;
 
 type
 
@@ -251,6 +251,8 @@ type
     procedure dbdtFechaFinViradaEnter(Sender: TObject);
     procedure dbdtFechaIniCaladoEnter(Sender: TObject);
     procedure dbedBoyaExit(Sender: TObject);
+    procedure dblkCarnadaExit(Sender: TObject);
+    procedure dblkTipoTrampasExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure gbDatosInicio2Exit(Sender: TObject);
     procedure gbInicioCaladoExit(Sender: TObject);
@@ -479,8 +481,7 @@ begin
        distancia_segun_trampas:=3;
      end;
      //Calculo diferencia > 20%
-     if (abs(zqPrincipalDistCalado.Value-distancia_segun_trampas) > (distancia_segun_trampas*0.20)) or
-       (zqPrincipalDistCalado.Value < 1.5) then
+     if abs(zqPrincipalDistCalado.Value-distancia_segun_trampas) > (distancia_segun_trampas*0.20) then
      begin
        dbtDistCalado.Font.Color := clRed;
      end
@@ -522,8 +523,7 @@ begin
      begin
        distancia_segun_trampas:=3;
      end;
-     if (abs(zqPrincipalDistVirada.Value-distancia_segun_trampas) > (distancia_segun_trampas*0.20)) or
-       (zqPrincipalDistVirada.Value < 1.5) then
+     if abs(zqPrincipalDistVirada.Value-distancia_segun_trampas) > (distancia_segun_trampas*0.20) then
        dbtDistVirada.Font.Color := clRed
      else
        dbtDistVirada.Font.Color := clDefault;
@@ -769,6 +769,28 @@ begin
                  dbedBoya.SetFocus;
          end;
        end;
+  end;
+end;
+
+procedure TfmEditarLances.dblkCarnadaExit(Sender: TObject);
+begin
+  if (dblkCarnada.Text='') and ((zcePrincipal.Accion=ED_AGREGAR) or (zcePrincipal.Accion=ED_MODIFICAR)) then
+  begin
+     if not (dsPrincipal.State in [dsInsert, dsEdit]) then
+          dsPrincipal.Edit;
+     if (dsPrincipal.State in [dsInsert, dsEdit]) then
+        zqPrincipalidcarnada.Clear;
+  end;
+end;
+
+procedure TfmEditarLances.dblkTipoTrampasExit(Sender: TObject);
+begin
+  if (dblkTipoTrampas.Text='') and ((zcePrincipal.Accion=ED_AGREGAR) or (zcePrincipal.Accion=ED_MODIFICAR)) then
+  begin
+     if not (dsPrincipal.State in [dsInsert, dsEdit]) then
+          dsPrincipal.Edit;
+     if (dsPrincipal.State in [dsInsert, dsEdit]) then
+        zqPrincipalidtipo_trampa.Clear;
   end;
 end;
 

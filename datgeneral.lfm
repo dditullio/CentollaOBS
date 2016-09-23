@@ -32,7 +32,6 @@ object dmGeneral: TdmGeneral
     AfterScroll = zqMareasAfterScroll
     OnCalcFields = zqMareasCalcFields
     CachedUpdates = True
-    AfterApplyUpdates = zqMareasAfterApplyUpdates
     SQL.Strings = (
       'SELECT *'
       'FROM'
@@ -269,13 +268,50 @@ object dmGeneral: TdmGeneral
       Required = False
       Size = 150
     end
+    object zqMareasnro_marea_buque: TLongintField
+      FieldKind = fkData
+      FieldName = 'nro_marea_buque'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqMareasfecha_inicio_temporada: TDateField
+      FieldKind = fkData
+      FieldName = 'fecha_inicio_temporada'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqMareascod_buque: TLongintField
+      FieldKind = fkData
+      FieldName = 'cod_buque'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqMareasobservador: TStringField
+      FieldKind = fkData
+      FieldName = 'observador'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 180
+    end
   end
   object zqMareaActiva: TZQuery
     Connection = zcDB
     BeforeOpen = zqMareaActivaBeforeOpen
     OnCalcFields = zqMareaActivaCalcFields
     SQL.Strings = (
-      'SELECT idmarea, buque, marea_buque, anio_marea, nro_marea_inidep, Marea, capitan, observador, puerto_registro, factor_conversion, fecha_zarpada, fecha_arribo, peso_caja_producto, comentarios'
+      'SELECT idmarea, buque, cod_buque, marea_buque, nro_marea_buque, fecha_inicio_temporada, anio_marea, nro_marea_inidep, Marea, capitan, observador, puerto_registro, factor_conversion, fecha_zarpada, fecha_arribo, peso_caja_producto, comentarios'
       'FROM v_mareas'
       'WHERE idmarea=:idmarea'
     )
@@ -286,7 +322,7 @@ object dmGeneral: TdmGeneral
         ParamType = ptUnknown
       end>
     left = 90
-    top = 72
+    top = 76
     ParamData = <    
       item
         DataType = ftLargeint
@@ -456,6 +492,33 @@ object dmGeneral: TdmGeneral
       Required = False
       Size = 420
     end
+    object zqMareaActivanro_marea_buque: TLongintField
+      FieldKind = fkData
+      FieldName = 'nro_marea_buque'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqMareaActivafecha_inicio_temporada: TDateField
+      FieldKind = fkData
+      FieldName = 'fecha_inicio_temporada'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqMareaActivacod_buque: TLongintField
+      FieldKind = fkData
+      FieldName = 'cod_buque'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
   end
   object dsMareaActiva: TDataSource
     DataSet = zqMareaActiva
@@ -475,5 +538,17 @@ object dmGeneral: TdmGeneral
     MaxTraceCount = 100
     left = 16
     top = 76
+  end
+  object zspActualizarParametricas: TZStoredProc
+    Connection = zcDB
+    Params = <>
+    StoredProcName = 'centolla.sp_actualizar_parametricas'
+    left = 15
+    top = 135
+  end
+  object ipsConfig: TIniPropStorage
+    StoredValues = <>
+    left = 90
+    top = 140
   end
 end

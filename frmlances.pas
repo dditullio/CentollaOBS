@@ -27,6 +27,7 @@ type
     acMedir: TAction;
     acMover: TAction;
     acEtiquetarLances: TAction;
+    acExportarKML: TAction;
     acZoomLanceSeleccionado: TAction;
     acZoomIn: TAction;
     acZoomLances: TAction;
@@ -90,12 +91,14 @@ type
     paBaseMapa: TPanel;
     Panel2: TPanel;
     sbInfoMapa: TStatusBar;
+    sdExportarKML: TSaveDialog;
     sdGuardarImagen: TSaveDialog;
     splDetalles: TSplitter;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton10: TToolButton;
     ToolButton11: TToolButton;
+    ToolButton12: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -164,6 +167,7 @@ type
     zqLancesvirada: TLongintField;
     zqOtrosMapas: TZQuery;
     procedure acEtiquetarLancesExecute(Sender: TObject);
+    procedure acExportarKMLExecute(Sender: TObject);
     procedure acGuardarImagenExecute(Sender: TObject);
     procedure acHabilitarHerramienta(Sender: TObject);
     procedure acZoomLanceSeleccionadoExecute(Sender: TObject);
@@ -201,6 +205,7 @@ type
     procedure InicializarMapas;
     procedure CargarMapaLances;
     procedure ZoomALances;
+    procedure ExportarKML (archivo: string);
   public
     { public declarations }
   end;
@@ -396,6 +401,54 @@ begin
   end;
 end;
 
+procedure TfmLances.ExportarKML(archivo: string);
+var
+   sl:TStringList;
+   strEncabezado:string;
+   strPre:string;
+   strPost: string;
+   strPie:string;
+   strMarea: string;
+   bm: TBookMark;
+begin
+  if (archivo <> '') and DirectoryExistsUTF8(ExtractFileDir(archivo)) then
+  begin
+    with zqLances do
+    begin
+      bm:=zqLances.GetBookmark;
+      DisableControls;
+      First;
+      strMarea:='Marea '+dmGeneral.zqMareaActivabuque.AsString+' '+dmGeneral.zqMareaActivaanio_marea.AsString+'-'+RightStr('000'+dmGeneral.zqMareaActivanro_marea_inidep.AsString,3);
+      strEncabezado:='<?xml version="1.0" encoding="utf-8" ?> <kml xmlns="http://www.opengis.net/kml/2.2"> <Document><Folder><name>'+strMarea+'</name>'
+       +' <Schema name="'+strMarea+'" id="'+strMarea+'"> <SimpleField name="Name" type="string"></SimpleField> <SimpleField name="Fecha" type="string"></SimpleField> </Schema>';
+       strPre:='<Placemark> <name>0</name> <description>00/00/0000</description> <Style><LineStyle><color>ff0000ff</color></LineStyle> <PolyStyle><fill>0</fill></PolyStyle></Style> <ExtendedData>'
+       +'<SchemaData schemaUrl="#000"> <SimpleData name="Name">0</SimpleData> <SimpleData name="Description">00/00/0000</SimpleData> </SchemaData></ExtendedData> <LineString><coordinates> ';
+       strPost:='</coordinates></LineString> </Placemark> ';
+       strPie:='</Folder></Document></kml>';
+       sl:= TStringList.Create;
+       sl.Add(strEncabezado);
+       while not EOF do
+       begin
+         if (not FieldByName('long_ini_gis').IsNull) and
+            (not FieldByName('lat_ini_gis').IsNull) and
+            (not FieldByName('long_fin_gis').IsNull) and
+            (not FieldByName('lat_fin_gis').IsNull) then
+         begin
+            strPre:='<Placemark> <name>'+FieldByName('nro_lance').AsString+'</name> <description>'+FieldByName('fecha_hora_orden').AsString+'</description> <Style><LineStyle><color>ff0000ff</color></LineStyle> <PolyStyle><fill>0</fill></PolyStyle></Style> <ExtendedData><SchemaData schemaUrl="#'+strMarea+'"> <SimpleData name="Name">'+FieldByName('nro_lance').AsString+'</SimpleData> <SimpleData name="Description">'+FieldByName('fecha_hora_orden').AsString+'</SimpleData> </SchemaData></ExtendedData> <LineString><coordinates> ';
+            sl.Add(strPre+FieldByName('long_ini_gis').AsString+','+FieldByName('lat_ini_gis').AsString+' '+FieldByName('long_fin_gis').AsString+','+FieldByName('lat_fin_gis').AsString+strPost);
+         end;
+         Next;
+       end;
+       sl.Add(strPie);
+       sl.SaveToFile(archivo);
+       sl.Destroy;
+       GotoBookmark(bm);
+       EnableControls;
+       MessageDlg('Los lances seleccionados se han exportado al archivo '+archivo, mtInformation, [mbOK],0);
+    end;
+  end;
+end;
+
 procedure TfmLances.dtFechaChange(Sender: TObject);
 begin
   zcgLista.Buscar;
@@ -447,6 +500,18 @@ begin
   //Se quita esta funcionalidad porque la pantalla queda muy sobrecargada
   //chtLancesSerieLancesCalados.Marks.Visible:=tbEtiquetarLances.Down;
   //chtLancesSerieLancesVirados.Marks.Visible:=tbEtiquetarLances.Down;
+end;
+
+procedure TfmLances.acExportarKMLExecute(Sender: TObject);
+begin
+  sdExportarKML.FileName:='M_'+dmGeneral.zqMareaActivaanio_marea.AsString+'_'+RightStr('000'+dmGeneral.zqMareaActivanro_marea_inidep.AsString,3)+'.KML';
+  if sdExportarKML.Execute then
+  begin
+    if (not FileExistsUTF8(sdExportarKML.FileName)) or (MessageDlg('El archivo '+sdExportarKML.FileName+' ya existe. ¿Desea reemplazarlo?', mtConfirmation, [mbYes, mbNo],0) = mrYes) then
+    begin
+      ExportarKML(sdExportarKML.FileName);
+    end;
+  end;
 end;
 
 procedure TfmLances.acHabilitarHerramienta(Sender: TObject);

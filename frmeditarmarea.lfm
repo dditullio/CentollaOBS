@@ -1,10 +1,10 @@
 inherited fmEditarMarea: TfmEditarMarea
   Left = 552
-  Height = 465
+  Height = 500
   Top = 145
   Width = 411
   Caption = 'Marea'
-  ClientHeight = 465
+  ClientHeight = 500
   ClientWidth = 411
   OnClose = FormClose
   OnShow = FormShow
@@ -31,80 +31,58 @@ inherited fmEditarMarea: TfmEditarMarea
     end
   end
   inherited paPrincipal: TPanel
-    Height = 395
+    Height = 430
     Width = 411
-    ClientHeight = 395
+    ClientHeight = 430
     ClientWidth = 411
     object pcGeneral: TPageControl[0]
       Left = 1
-      Height = 393
+      Height = 428
       Top = 1
       Width = 409
-      ActivePage = tsComentarios
+      ActivePage = tsDatosGenerales
       Align = alClient
-      TabIndex = 2
+      TabIndex = 0
       TabOrder = 0
       OnChange = pcGeneralChange
       object tsDatosGenerales: TTabSheet
         Caption = 'Datos generales'
-        ClientHeight = 365
+        ClientHeight = 400
         ClientWidth = 401
         object paFondo: TPanel
           Left = 5
-          Height = 355
+          Height = 390
           Top = 5
           Width = 391
           Align = alClient
           BorderSpacing.Around = 5
           BevelOuter = bvNone
-          ClientHeight = 355
+          ClientHeight = 390
           ClientWidth = 391
           TabOrder = 0
           object GroupBox1: TGroupBox
             Left = 0
-            Height = 72
+            Height = 112
             Top = 0
             Width = 391
             Align = alTop
             Caption = 'Identificación'
-            ClientHeight = 54
+            ClientHeight = 92
             ClientWidth = 387
             TabOrder = 0
-            object Label1: TLabel
-              Left = 62
-              Height = 15
-              Top = 8
-              Width = 110
-              Caption = 'Marea Proy. Centolla'
-              ParentColor = False
-            end
             object Label2: TLabel
-              Left = 269
+              Left = 165
               Height = 15
-              Top = 8
-              Width = 58
-              Caption = 'Marea OBS'
+              Top = 40
+              Width = 75
+              Caption = 'N° Marea OBS'
               ParentColor = False
-            end
-            object dbedMareaBuque: TDBEdit
-              Left = 62
-              Height = 23
-              Hint = 'Ejemplo: TAL-01-14-15'#13#10#13#10'TAL: Código de barco'#13#10#13#10#9'TAL: Talisman'#13#10#9'DUK: Dukat'#13#10#9'TG1: Tango I'#13#10#9'TG2: Tango II'#13#10#13#10'01: N° de marea del barco en la temporada'#13#10#13#10'14: Año de inicio de la temporada'#13#10#13#10'15: Año de finalización de la temporada'
-              Top = 24
-              Width = 202
-              CustomEditMask = True
-              DataField = 'marea_buque'
-              DataSource = dsPrincipal
-              CharCase = ecNormal
-              EditMask = '>CCC-00-00-00;1; '
-              MaxLength = 0
-              TabOrder = 1
             end
             object dbedMareaInidep: TDBEdit
-              Left = 269
+              Left = 165
               Height = 23
-              Top = 24
-              Width = 112
+              Top = 56
+              Width = 105
               DataField = 'nro_marea_inidep'
               DataSource = dsPrincipal
               CharCase = ecNormal
@@ -114,7 +92,7 @@ inherited fmEditarMarea: TfmEditarMarea
             object Label3: TLabel
               Left = 6
               Height = 15
-              Top = 8
+              Top = 40
               Width = 22
               Caption = 'Año'
               ParentColor = False
@@ -122,7 +100,7 @@ inherited fmEditarMarea: TfmEditarMarea
             object dbedAnio: TDBEdit
               Left = 6
               Height = 23
-              Top = 24
+              Top = 56
               Width = 51
               DataField = 'anio_marea'
               DataSource = dsPrincipal
@@ -130,15 +108,91 @@ inherited fmEditarMarea: TfmEditarMarea
               MaxLength = 0
               TabOrder = 0
             end
+            object Label17: TLabel
+              Left = 275
+              Height = 15
+              Top = 40
+              Width = 91
+              Caption = 'N° Marea BUQUE'
+              ParentColor = False
+            end
+            object dbedMareaInidep1: TDBEdit
+              Left = 276
+              Height = 23
+              Top = 56
+              Width = 105
+              DataField = 'nro_marea_buque'
+              DataSource = dsPrincipal
+              CharCase = ecNormal
+              MaxLength = 0
+              TabOrder = 3
+              OnExit = dbedMareaInidep1Exit
+            end
+            object Label18: TLabel
+              Left = 65
+              Height = 15
+              Top = 40
+              Width = 92
+              Caption = 'Inicio Temporada'
+              ParentColor = False
+            end
+            object dbdtInicioTemporada: TDBDateTimePicker
+              Left = 65
+              Height = 23
+              Top = 56
+              Width = 83
+              DataField = 'fecha_inicio_temporada'
+              DataSource = dsPrincipal
+              ReadOnly = False
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = 36526
+              TabOrder = 1
+              TrailingSeparator = False
+              TextForNullDate = ' '
+              LeadingZeros = True
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+              OnEnter = dbdtInicioEnter
+              OnExit = dbdtInicioTemporadaExit
+            end
+            object Label1: TLabel
+              Left = 6
+              Height = 25
+              Top = 5
+              Width = 66
+              Caption = 'Marea: '
+              Font.Height = -19
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+            end
+            object DBText4: TDBText
+              Left = 85
+              Height = 25
+              Top = 5
+              Width = 74
+              DataField = 'marea_buque'
+              DataSource = dsPrincipal
+              Font.Height = -19
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+            end
           end
           object GroupBox2: TGroupBox
             Left = 0
-            Height = 283
-            Top = 72
+            Height = 278
+            Top = 112
             Width = 391
             Align = alClient
             Caption = 'Datos del viaje'
-            ClientHeight = 265
+            ClientHeight = 258
             ClientWidth = 387
             TabOrder = 1
             object Label4: TLabel
@@ -159,6 +213,8 @@ inherited fmEditarMarea: TfmEditarMarea
               DataSource = dsPrincipal
               ListFieldIndex = 0
               LookupCache = False
+              OnChange = dblkBuqueChange
+              OnExit = dblkBuqueExit
               TabOrder = 0
             end
             object Label5: TLabel
@@ -409,7 +465,7 @@ inherited fmEditarMarea: TfmEditarMarea
             Width = 391
             Align = alTop
             Caption = 'Datos globales'
-            ClientHeight = 82
+            ClientHeight = 80
             ClientWidth = 387
             TabOrder = 0
             object Label13: TLabel
@@ -477,7 +533,7 @@ inherited fmEditarMarea: TfmEditarMarea
             Width = 391
             Align = alClient
             Caption = 'Operaciones por fecha'
-            ClientHeight = 237
+            ClientHeight = 235
             ClientWidth = 387
             TabOrder = 1
             object rxdbgDiario: TRxDBGrid
@@ -492,8 +548,8 @@ inherited fmEditarMarea: TfmEditarMarea
                   Alignment = taCenter
                   SizePriority = 0
                   Title.Alignment = taCenter
-                  Title.Caption = 'Fecha'
                   Title.Orientation = toHorizontal
+                  Title.Caption = 'Fecha'
                   Width = 90
                   FieldName = 'fecha'
                   EditButtons = <>
@@ -508,8 +564,8 @@ inherited fmEditarMarea: TfmEditarMarea
                 item
                   Alignment = taCenter
                   Title.Alignment = taCenter
-                  Title.Caption = 'Nº de líneas|Caladas'
                   Title.Orientation = toHorizontal
+                  Title.Caption = 'Nº de líneas|Caladas'
                   Width = 66
                   FieldName = 'l_caladas'
                   EditButtons = <>
@@ -524,8 +580,8 @@ inherited fmEditarMarea: TfmEditarMarea
                 item
                   Alignment = taCenter
                   Title.Alignment = taCenter
-                  Title.Caption = 'Nº de líneas|Viradas'
                   Title.Orientation = toHorizontal
+                  Title.Caption = 'Nº de líneas|Viradas'
                   Width = 66
                   FieldName = 'l_viradas'
                   EditButtons = <>
@@ -540,8 +596,8 @@ inherited fmEditarMarea: TfmEditarMarea
                 item
                   Alignment = taCenter
                   Title.Alignment = taCenter
-                  Title.Caption = 'Nº de muestras|Captura'
                   Title.Orientation = toHorizontal
+                  Title.Caption = 'Nº de muestras|Captura'
                   Width = 66
                   FieldName = 'm_captura'
                   EditButtons = <>
@@ -556,8 +612,8 @@ inherited fmEditarMarea: TfmEditarMarea
                 item
                   Alignment = taCenter
                   Title.Alignment = taCenter
-                  Title.Caption = 'Nº de muestras|Tallas'
                   Title.Orientation = toHorizontal
+                  Title.Caption = 'Nº de muestras|Tallas'
                   Width = 66
                   FieldName = 'm_tallas'
                   EditButtons = <>
@@ -745,7 +801,7 @@ inherited fmEditarMarea: TfmEditarMarea
     end
   end
   inherited paControles: TPanel
-    Top = 429
+    Top = 464
     Width = 411
     ClientWidth = 411
     inherited bbCancelar: TBitBtn
@@ -758,36 +814,20 @@ inherited fmEditarMarea: TfmEditarMarea
     end
   end
   inherited dsPrincipal: TDataSource
-    left = 296
-    top = 104
+    left = 304
+    top = 224
   end
   inherited zqPrincipal: TZQuery
     Connection = dmGeneral.zcDB
     OnCalcFields = zqPrincipalCalcFields
     OnNewRecord = zqPrincipalNewRecord
     SQL.Strings = (
-      'Select'
-      '  mareas.idmarea,'
-      '  mareas.nro_marea_inidep,'
-      '  mareas.anio_marea,'
-      '  mareas.marea_buque,'
-      '  mareas.idbuque,'
-      '  mareas.capitan,'
-      '  mareas.oficial,'
-      '  mareas.observador,'
-      '  mareas.fecha_inicio,'
-      '  mareas.fecha_zarpada,'
-      '  mareas.fecha_arribo,'
-      '  mareas.fecha_finalizacion,'
-      '  mareas.peso_caja_producto,'
-      '  mareas.peso_canasto,'
-      '  mareas.comentarios'
-      'From'
-      '  mareas'
+      'Select *'
+      'from  mareas'
       'WHERE idmarea=:Id'
     )
-    left = 352
-    top = 160
+    left = 360
+    top = 280
     object zqPrincipalidmarea: TLongintField[0]
       DisplayWidth = 10
       FieldKind = fkData
@@ -839,6 +879,7 @@ inherited fmEditarMarea: TfmEditarMarea
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      OnChange = zqPrincipalidbuqueChange
     end
     object zqPrincipalcapitan: TStringField[5]
       DisplayWidth = 180
@@ -977,20 +1018,62 @@ inherited fmEditarMarea: TfmEditarMarea
       Required = False
       Size = 1024
     end
+    object zqPrincipalfecha_inicio_temporada: TDateField[17]
+      FieldKind = fkData
+      FieldName = 'fecha_inicio_temporada'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalnro_marea_buque: TLongintField[18]
+      FieldKind = fkData
+      FieldName = 'nro_marea_buque'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalPrefijoBuque: TStringField[19]
+      FieldKind = fkLookup
+      FieldName = 'prefijo_marea'
+      Index = 19
+      KeyFields = 'idbuque'
+      LookupCache = False
+      LookupDataSet = zqBuques
+      LookupKeyFields = 'idbuque'
+      LookupResultField = 'prefijo_marea'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 12
+    end
+    object zqPrincipalTemporada: TStringField[20]
+      FieldKind = fkCalculated
+      FieldName = 'Temporada'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 10
+    end
   end
   inherited zcePrincipal: TZControladorEdicion
     ControlInicial = dbedAnio
     OnValidateForm = zcePrincipalValidateForm
-    left = 352
-    top = 216
+    left = 360
+    top = 336
   end
   inherited zdgPrincipal: TZDatasetGroup
     DatasetsComplementarios = <    
       item
         Dataset = zqBuques
       end>
-    left = 352
-    top = 104
+    left = 360
+    top = 224
   end
   object zqBuques: TZQuery[8]
     Connection = dmGeneral.zcDB
@@ -1000,8 +1083,8 @@ inherited fmEditarMarea: TfmEditarMarea
       'ORDER BY nombre'
     )
     Params = <>
-    left = 352
-    top = 48
+    left = 360
+    top = 168
     object zqBuquesidbuque: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -1023,11 +1106,30 @@ inherited fmEditarMarea: TfmEditarMarea
       Required = False
       Size = 180
     end
+    object zqBuquescod_buque: TLongintField
+      FieldKind = fkData
+      FieldName = 'cod_buque'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqBuquesprefijo_marea: TStringField
+      FieldKind = fkData
+      FieldName = 'prefijo_marea'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 12
+    end
   end
   object dsBuques: TDataSource[9]
     DataSet = zqBuques
-    left = 296
-    top = 48
+    left = 304
+    top = 168
   end
   object zqResumen: TZQuery[10]
     Connection = dmGeneral.zcDB
@@ -1044,8 +1146,8 @@ inherited fmEditarMarea: TfmEditarMarea
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 296
-    top = 167
+    left = 304
+    top = 287
     ParamData = <    
       item
         DataType = ftUnknown
@@ -1116,8 +1218,8 @@ inherited fmEditarMarea: TfmEditarMarea
   end
   object dsResumen: TDataSource[11]
     DataSet = zqResumen
-    left = 296
-    top = 220
+    left = 304
+    top = 340
   end
   object zqDatosGen: TZQuery[12]
     Connection = dmGeneral.zcDB
@@ -1143,8 +1245,8 @@ inherited fmEditarMarea: TfmEditarMarea
         Name = 'idmarea'
         ParamType = ptUnknown
       end>
-    left = 296
-    top = 275
+    left = 304
+    top = 395
     ParamData = <    
       item
         DataType = ftUnknown
@@ -1197,8 +1299,8 @@ inherited fmEditarMarea: TfmEditarMarea
   end
   object dsDatosGen: TDataSource[13]
     DataSet = zqDatosGen
-    left = 360
-    top = 275
+    left = 368
+    top = 395
   end
   object dbgeExportar: TRxDBGridExportSpreadSheet[14]
     RxDBGrid = rxdbgDiario

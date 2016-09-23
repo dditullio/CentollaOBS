@@ -5,10 +5,11 @@ unit frmbackup;
 interface
 
 uses
-  Classes, SysUtils, LazFileUtils, UTF8Process, AbZipper, AbBrowse, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, EditBtn, Buttons, ActnList, ComCtrls, LSConfig,
-  datGeneral, db, sqldb, sqldblib, mysql56conn, ZSqlMetadata,
-  ZDataset, ExSystemUtils, process, LCLIntf, ExtCtrls, AbArcTyp, AbUnzper, math;
+  Classes, SysUtils, LazFileUtils, UTF8Process, AbZipper, AbBrowse, Forms,
+  Controls, Graphics, Dialogs, StdCtrls, EditBtn, Buttons, ActnList, ComCtrls,
+  LSConfig, datGeneral, db, sqldb, sqldblib, mysql56conn, ZSqlMetadata,
+  ZDataset, ZStoredProcedure, ExSystemUtils, process, LCLIntf, ExtCtrls,
+  AbArcTyp, AbUnzper, math;
 
 type
 
@@ -596,11 +597,11 @@ begin
       //Intento obtener el número de version de la aplicación
       if (sl_tablas.Count>5) and(LeftStr(sl_tablas[3],10)='-- Version') then
       begin
-        version_script:=Copy(sl_tablas[3],12,5);
+        version_script:=Copy(sl_tablas[3],12,10);
       end else
       if (sl_datos.Count>5) and(LeftStr(sl_datos[3],10)='-- Version') then
       begin
-        version_script:=Copy(sl_datos[3],12,5);
+        version_script:=Copy(sl_datos[3],12,10);
       end else
       begin
         version_script:='';
@@ -747,6 +748,8 @@ begin
          end;
 
          trRestaurar.Commit;
+
+         dmGeneral.AccionesPostRestauracion;
 
          restOK:=True;
        except

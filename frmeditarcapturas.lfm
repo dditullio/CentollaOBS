@@ -316,8 +316,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Nº'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Nº'
             Width = 35
             FieldName = 'nro_orden'
             EditButtons = <>
@@ -330,8 +330,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Trampa'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Trampa'
             Width = 45
             FieldName = 'dsc_abrev'
             EditButtons = <>
@@ -344,8 +344,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Cant.'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Cant.'
             Width = 40
             FieldName = 'cant_trampas'
             EditButtons = <>
@@ -358,8 +358,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Est.'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Est.'
             Width = 40
             FieldName = 'codigo2'
             EditButtons = <>
@@ -372,8 +372,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Tot.'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Tot.'
             Width = 50
             FieldName = 'total_especie1'
             EditButtons = <>
@@ -386,8 +386,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Com.'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Com.'
             Width = 50
             FieldName = 'comerciales_especie1'
             EditButtons = <>
@@ -399,8 +399,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
           item
             Alignment = taCenter
             Title.Alignment = taCenter
-            Title.Caption = 'Tot'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Tot'
             Width = 52
             FieldName = 'total_especie2'
             EditButtons = <>
@@ -538,6 +538,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         DataSource = dmCapturas.dsCaptura
         ListFieldIndex = 0
         LookupCache = False
+        OnExit = dblkEspecie2CientExit
         TabOrder = 1
       end
       object Label6: TLabel
@@ -558,6 +559,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         DataSource = dmCapturas.dsCaptura
         ListFieldIndex = 0
         LookupCache = False
+        OnExit = dblkEspecie3CientExit
         TabOrder = 2
       end
     end
@@ -575,7 +577,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
-      ClientHeight = 23
+      ClientHeight = 21
       ClientWidth = 191
       Columns = 2
       ItemIndex = 1
@@ -633,6 +635,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         DataSource = dmCapturas.dsCaptura
         ListFieldIndex = 0
         LookupCache = False
+        OnExit = dblkEspecie2VulgarExit
         TabOrder = 1
       end
       object Label9: TLabel
@@ -653,6 +656,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         DataSource = dmCapturas.dsCaptura
         ListFieldIndex = 0
         LookupCache = False
+        OnExit = dblkEspecie3VulgarExit
         TabOrder = 2
       end
     end
@@ -899,8 +903,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
         Columns = <        
           item
             Title.Alignment = taCenter
-            Title.Caption = 'Especie'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Especie'
             Width = 192
             FieldName = 'nombre_cientifico'
             EditButtons = <>
@@ -912,8 +916,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
           item
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Número'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Número'
             Width = 60
             FieldName = 'cantidad'
             EditButtons = <>
@@ -925,8 +929,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
           item
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Peso'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Peso'
             Width = 60
             FieldName = 'peso'
             EditButtons = <>

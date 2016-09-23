@@ -114,8 +114,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Lance|Nro.'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Lance|Nro.'
                 Width = 40
                 FieldName = 'orden_virada'
                 EditButtons = <>
@@ -131,8 +131,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Lance|Id. línea'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Lance|Id. línea'
                 Width = 55
                 FieldName = 'nro_boya'
                 EditButtons = <>
@@ -148,8 +148,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Lance|Prosp.'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Lance|Prosp.'
                 Width = 40
                 FieldName = 'prospeccion'
                 EditButtons = <>
@@ -165,8 +165,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Lance|Invest.'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Lance|Invest.'
                 Width = 40
                 FieldName = 'investigacion'
                 EditButtons = <>
@@ -182,8 +182,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Días pesca'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Días pesca'
                 Width = 40
                 FieldName = 'dias_en_agua'
                 EditButtons = <>
@@ -199,8 +199,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Inicio calado|Fecha'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Inicio calado|Fecha'
                 Width = 75
                 FieldName = 'fecha_ini_calado'
                 DisplayFormat = 'dd/mm/yyyy'
@@ -219,8 +219,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Inicio calado|Hora'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Inicio calado|Hora'
                 Width = 40
                 FieldName = 'hora_ini_calado'
                 DisplayFormat = 'hh:mm'
@@ -238,8 +238,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Inicio calado|Latitud'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Inicio calado|Latitud'
                 Width = 65
                 FieldName = 'lat_ini_calado'
                 DisplayFormat = '00º 00.00´'
@@ -255,8 +255,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Inicio calado|Longitud'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Inicio calado|Longitud'
                 Width = 65
                 FieldName = 'long_ini_calado'
                 DisplayFormat = '00º 00.00´'
@@ -273,8 +273,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Inicio calado|Rv'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Inicio calado|Rv'
                 Width = 30
                 FieldName = 'rumbo_calado'
                 DisplayFormat = '000'
@@ -291,8 +291,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Inicio calado|Prof.'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Inicio calado|Prof.'
                 Width = 30
                 FieldName = 'profundidad_ini_calado'
                 EditButtons = <>
@@ -308,8 +308,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Inicio calado|Nº tpas.'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Inicio calado|Nº tpas.'
                 Width = 55
                 FieldName = 'cant_trampas_caladas'
                 EditButtons = <>
@@ -325,8 +325,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Fin virada|Fecha'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Fin virada|Fecha'
                 Width = 75
                 FieldName = 'fecha_fin_virada'
                 DisplayFormat = 'dd/mm/yyyy'
@@ -343,8 +343,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Fin virada|Hora'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Fin virada|Hora'
                 Width = 40
                 FieldName = 'hora_fin_virada'
                 DisplayFormat = 'hh:mm'
@@ -360,8 +360,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Fin virada|Latitud'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Fin virada|Latitud'
                 Width = 65
                 FieldName = 'lat_fin_virada'
                 DisplayFormat = '00º 00.00´'
@@ -377,8 +377,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Fin virada|Longitud'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Fin virada|Longitud'
                 Width = 65
                 FieldName = 'long_fin_virada'
                 DisplayFormat = '00º 00.00´'
@@ -395,8 +395,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Fin virada|Prof.'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Fin virada|Prof.'
                 Width = 30
                 FieldName = 'profundidad_fin_virada'
                 EditButtons = <>
@@ -412,8 +412,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Fin virada|Nº tpas.'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Fin virada|Nº tpas.'
                 Width = 55
                 FieldName = 'cant_trampas_recuperadas'
                 EditButtons = <>
@@ -431,8 +431,8 @@ inherited fmLances: TfmLances
                 PickList.Strings = (                )
                 SizePriority = 0
                 Title.Alignment = taCenter
-                Title.Caption = 'Producción|Jaulas'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Producción|Jaulas'
                 Width = 70
                 FieldName = 'canastos_procesados'
                 EditButtons = <>
@@ -450,8 +450,8 @@ inherited fmLances: TfmLances
                 Alignment = taCenter
                 PickList.Strings = (                )
                 Title.Alignment = taCenter
-                Title.Caption = 'Producción|Clust./jaula'
                 Title.Orientation = toHorizontal
+                Title.Caption = 'Producción|Clust./jaula'
                 Width = 0
                 FieldName = 'cluster_por_canasto'
                 EditButtons = <>
@@ -658,7 +658,6 @@ inherited fmLances: TfmLances
             Toolset = ChartToolset1
             OnExtentChanged = chtLancesExtentChanged
             Align = alClient
-            ParentColor = False
             object chtLancesEtiquetaLances: TLineSeries
               Legend.Format = 'Identificación lances'
               Active = False
@@ -833,6 +832,7 @@ inherited fmLances: TfmLances
           end
           object ToolButton7: TToolButton
             Left = 171
+            Height = 26
             Top = 2
             Width = 5
             Caption = 'ToolButton7'
@@ -851,6 +851,7 @@ inherited fmLances: TfmLances
           end
           object ToolButton10: TToolButton
             Left = 232
+            Height = 26
             Top = 2
             Width = 5
             Caption = 'ToolButton10'
@@ -860,6 +861,12 @@ inherited fmLances: TfmLances
             Left = 204
             Top = 2
             Action = acZoomLanceSeleccionado
+          end
+          object ToolButton12: TToolButton
+            Left = 265
+            Hint = 'Exportar el mapa para Google Earth (KML)'
+            Top = 2
+            Action = acExportarKML
           end
         end
       end
@@ -1746,7 +1753,7 @@ inherited fmLances: TfmLances
   object alMapa: TActionList[13]
     Images = ilToolbar
     left = 292
-    top = 31
+    top = 32
     object acInfo: TAction
       Tag = 1
       Caption = 'acInfo'
@@ -1812,6 +1819,11 @@ inherited fmLances: TfmLances
       ImageIndex = 7
       OnExecute = acZoomLanceSeleccionadoExecute
     end
+    object acExportarKML: TAction
+      Caption = 'acExportarKML'
+      ImageIndex = 13
+      OnExecute = acExportarKMLExecute
+    end
   end
   object ilToolbar: TImageList[14]
     Height = 24
@@ -1819,7 +1831,7 @@ inherited fmLances: TfmLances
     left = 252
     top = 28
     Bitmap = {
-      4C69120000001800000018000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      4C69130000001800000018000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00999999239C9C9CB49A9A9ADF9797977D9999
@@ -2758,6 +2770,78 @@ inherited fmLances: TfmLances
       3CFF6E5A3CFF6E5B3CD66D5B3A46FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00AA555503B575464CB6784984B97C51C4B6774CF3B677
+      4CF3B97C51C4B6784984B575464CAA555503FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00B4764429B77A4ED5BF865CF3D3A882FCDDB791FFB97D50FFB97D
+      50FFDDB791FFD3A882FCBF865CF3B77A4ED5B4764429FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008080
+      8002B5764A79B87A4DF4DFB996FDFAE6C8FFF7E2C3FFC0885EFFDDB693FFDDB6
+      93FFC0885EFFF7E2C3FFFAE6C8FFDFB996FDB87A4DF4B5764A7980808002FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00B576
+      4A79BE8459F7F1D7B6FFFAE6C8FFFAE6C8FFD9B18CFFCA9870FFFAE6C8FFFAE6
+      C8FFCA9870FFD9B18CFFFAE6C8FFFAE6C8FFF1D8B8FFBE845AF6B5764A79FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00B4764429B779
+      4CF5C59066FFBA7C51FFD2A47EFFE3C09DFFB97C50FFEACCABFFF9E5C7FFFAE6
+      C8FFEBCDADFFB97C50FFE3BF9DFFD5A983FFBB7F53FFC48E65FFB87A4DF5B476
+      4429FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00AA555503B77A4ED5DFB9
+      96FDFAE6C8FFF3DABAFFD8AF8AFFC0875DFFB97B4FFFBA7E52FFB5774AFFB677
+      4BFFB97C50FFB87B4EFFC0885DFFD6AB85FFF1D6B7FFFAE6C8FFDFB996FDB77A
+      4ED5AA555503FFFFFF00FFFFFF00FFFFFF00FFFFFF00B575464CBF865CF3FAE6
+      C8FFFAE6C8FFFAE6C8FFFAE6C8FFD1A47CFFDAB18DFFFAE6C8FFF9E4C7FFF8E3
+      C5FFFAE6C8FFDAB18DFFD1A47CFFFAE6C8FFFAE6C8FFFAE6C8FFFAE6C8FFBF86
+      5CF3B575464CFFFFFF00FFFFFF00FFFFFF00FFFFFF00B6784984D3A882FCFAE6
+      C8FFFAE6C8FFFAE6C8FFFAE6C8FFC38E63FFE7C8A6FFFAE6C8FFFAE6C8FFFAE6
+      C8FFFAE6C8FFE7C8A6FFC38E63FFFAE6C8FFFAE6C8FFFAE6C8FFFAE6C8FFD3A8
+      82FCB6784984FFFFFF00FFFFFF00FFFFFF00FFFFFF00B97C51C4E2C09CFFFAE6
+      C8FFFAE6C8FFFAE6C8FFF9E4C7FFB7784CFFF5DEBFFFFAE6C8FFFAE6C8FFFAE6
+      C8FFFAE6C8FFF5DEBFFFB7784CFFF9E4C7FFFAE6C8FFFAE6C8FFFAE6C8FFE2C0
+      9CFFB97C51C4FFFFFF00FFFFFF00FFFFFF00FFFFFF00B6784CF2D2A57FFFD7AD
+      88FFD7AD88FFD7AD88FFD1A37DFFB87B4FFFD7AD88FFD7AD88FFAE7B54FF9B67
+      42FF9F6D49FFA06E4AFF9D6945FF9F6D49FFA06E4AFFA06E4AFFA06E4AFF9F6C
+      48FF99643EFE935E37E7884E248AFFFFFF00FFFFFF00B6784CF2D2A57FFFD7AD
+      88FFD7AD88FFD7AD88FFD1A37DFFB87B4FFFD7AD88FFD7AD88FF9B6742FFB188
+      69FFB18869FFB18869FFAF8466FFB08769FFB18869FFB18869FFB18869FFB087
+      69FFAE8465FEAE8567EE925C35E6FFFFFF00FFFFFF00B97C51C4E2C09CFFFAE6
+      C8FFFAE6C8FFFAE6C8FFF9E4C7FFB7784CFFF5DEBFFFFAE6C8FFA2714EFFB38B
+      6EFFC1A28CFFC6AD9AFFC1A58FFFB38B6EFFB38B6EFFB38B6EFFC0A18BFFB38A
+      6DFFAF8466FBAE8567EE9A6642EAFFFFFF00FFFFFF00B6784984D3A882FCFAE6
+      C8FFFAE6C8FFFAE6C8FFFAE6C8FFC38E63FFE7C8A6FFFAE6C8FFA3724FFFC1A2
+      8CFFEBEDECFFECEEEEFFECEEEEFFC1A28CFFB38B6EFFC0A28CFFECEEEEFFD8CC
+      C2FFB08668F7AE8567EE9B6844EAFFFFFF00FFFFFF00B575464CBF865CF3FAE6
+      C8FFFAE6C8FFFAE6C8FFFAE6C8FFD1A47CFFDAB18DFFFAE6C8FFA3724FFFC6AD
+      9AFFECEEEEFFD2C2B5FFC1A48EFFB48C6FFFB38B6EFFB48D70FFD9CDC4FFECEE
+      EEFFD8CCC3FBAF8769EE9B6844EAFFFFFF00FFFFFF00AA555503B77A4ED5DFB9
+      96FDFAE6C8FFF5DEBFFFDEB894FFC28B61FFB97D50FFBC8157FF9D6945FFC4A8
+      94FFECEEEEFFC4A895FFB08668FFC2A58FFFC6AC99FFC6AD9AFFC7AC98FFDFD7
+      D1FEECEEEEFFDDD5CEFA9C6A47EAFFFFFF00FFFFFF00FFFFFF00B4764429B87A
+      4DF4C69269FFB97B4FFFCD9D75FFDFBB96FFB87C50FFE9C9A8FF9A663FFFBC9D
+      86FFECEEEEFFB89780FFB38D71FFECEEEEFFECEEEEFFECEEEEFFECEEEEFFECEE
+      EEFFECEEEEFFECEEEEFFB89882F1FFFFFF00FFFFFF00FFFFFF00FFFFFF00B576
+      4A79BE8359F7F0D6B6FFFAE6C8FFFAE6C8FFD9B18CFFCA9870FF925930FFB18C
+      71FFECEEEEFFAF896EFF925930FFAD876AFFB08C71FFAD866AFEAD886DF6D8CD
+      C5FAECEEEEFFD4C8BEF9884C23E6FFFFFF00FFFFFF00FFFFFF00FFFFFF008080
+      8002B5764A79B87A4DF4DFB996FDFAE6C8FFF7E2C3FFC0885EFF8F552BFFAF8A
+      6EFFECEEEEFFC5AD9CFFAD876AFF90552BFF8C4F24FE8A4E25F2CDBCAFF7ECEE
+      EEFFCDBCAFF7894D24E6874A20E6FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00B4764429B77A4ED5BF865CF3D3A882FCDDB791FF8C4F25FFA374
+      53FFEBECECFFECEEEEFFECEEEEFFA37454FC884B21EA9F7252ECECEEEEFFCDBC
+      AFF7894D24E6874A20E6874A20E6FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00AA555503B575464CB6784984B97C51C48B4E24FE8B4E
+      24FEA27454FAAC866BF7A67B5EF2884C22E6874A20E6874A20E6A07354EC894D
+      24E6874A20E6874A20E6874A20E6FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00874B20E4874A
+      20E6874A20E6874A20E6874A20E6874A20E6874A20E6874A20E6874A20E6874A
+      20E6874A20E6874A20E6874B20E4FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00864A2089874B
+      20E4874A20E6874A20E6874A20E6874A20E6874A20E6874A20E6874A20E6874A
+      20E6874A20E6874B20E4864A2089FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00999999239C9C9CB49A9A9ADF9898987C9999
       990AFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -3163,5 +3247,13 @@ inherited fmLances: TfmLances
   object lcsEtiquetasLances: TListChartSource[21]
     left = 432
     top = 56
+  end
+  object sdExportarKML: TSaveDialog[22]
+    Title = 'Guardar mapa para Google Earth'
+    DefaultExt = '.KML'
+    FileName = 'mapa.KML'
+    Filter = 'Mapa de Google Earth|*.KML'
+    left = 212
+    top = 28
   end
 end
