@@ -183,6 +183,10 @@ procedure TfmMareaAExcel.FormShow(Sender: TObject);
 var
   destino:String;
 begin
+  //Pongo esto al mostrar cada formulario, por si Windows lo cambió externamente
+  DefaultFormatSettings.DecimalSeparator:='.';
+  DefaultFormatSettings.ThousandSeparator:=',';
+
   pbPuente.Position:=0;
   imPuente.Visible:=False;
   pbCapturas.Position:=0;

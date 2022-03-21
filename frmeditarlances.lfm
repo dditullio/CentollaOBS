@@ -1,7 +1,7 @@
 inherited fmEditarLances: TfmEditarLances
-  Left = 290
+  Left = 300
   Height = 462
-  Top = 130
+  Top = 165
   Width = 732
   Caption = 'Lances'
   ClientHeight = 462
@@ -15,7 +15,6 @@ inherited fmEditarLances: TfmEditarLances
     end
     inherited DividerBevel1: TDividerBevel
       Left = 602
-      Width = 15
     end
     inherited paEncabezado: TPanel
       Width = 601
@@ -222,7 +221,7 @@ inherited fmEditarLances: TfmEditarLances
           ClientWidth = 324
           TabOrder = 3
           object Label4: TLabel
-            Left = 12
+            Left = 13
             Height = 15
             Hint = 'Rumbo de calado calculado a partir de las posiciones de inicio y fin de lance'
             Top = 6
@@ -233,17 +232,17 @@ inherited fmEditarLances: TfmEditarLances
             ParentFont = False
           end
           object dbtRumbo: TDBText
-            Left = 216
+            Left = 218
             Height = 15
             Top = 6
-            Width = 96
+            Width = 95
             Alignment = taCenter
             DataField = 'RumboCaladoCalc'
             DataSource = dsPrincipal
             ParentColor = False
           end
           object laDistancia: TLabel
-            Left = 12
+            Left = 13
             Height = 15
             Top = 27
             Width = 192
@@ -253,17 +252,17 @@ inherited fmEditarLances: TfmEditarLances
             ParentFont = False
           end
           object dbtDistCalado: TDBText
-            Left = 216
+            Left = 218
             Height = 15
             Top = 27
-            Width = 96
+            Width = 95
             Alignment = taCenter
             DataField = 'DistCalado'
             DataSource = dsPrincipal
             ParentColor = False
           end
           object laVelocidad: TLabel
-            Left = 12
+            Left = 13
             Height = 15
             Top = 48
             Width = 192
@@ -273,17 +272,17 @@ inherited fmEditarLances: TfmEditarLances
             ParentFont = False
           end
           object dbtVelocCalado: TDBText
-            Left = 216
+            Left = 218
             Height = 15
             Top = 48
-            Width = 96
+            Width = 95
             Alignment = taCenter
             DataField = 'VelocCalado'
             DataSource = dsPrincipal
             ParentColor = False
           end
           object laTiempo: TLabel
-            Left = 12
+            Left = 13
             Height = 15
             Top = 69
             Width = 192
@@ -293,17 +292,17 @@ inherited fmEditarLances: TfmEditarLances
             ParentFont = False
           end
           object dbtTiempoCalado: TDBText
-            Left = 216
+            Left = 218
             Height = 15
             Top = 69
-            Width = 96
+            Width = 95
             Alignment = taCenter
             DataField = 'TiempoCalado'
             DataSource = dsPrincipal
             ParentColor = False
           end
           object laDistTrampas: TLabel
-            Left = 12
+            Left = 13
             Height = 15
             Top = 90
             Width = 192
@@ -313,17 +312,17 @@ inherited fmEditarLances: TfmEditarLances
             ParentFont = False
           end
           object dbtDistTrampas: TDBText
-            Left = 216
+            Left = 218
             Height = 15
             Top = 90
-            Width = 96
+            Width = 95
             Alignment = taCenter
             DataField = 'dist_trampas_prom_calado'
             DataSource = dsPrincipal
             ParentColor = False
           end
           object Label34: TLabel
-            Left = 12
+            Left = 13
             Height = 1
             Top = 111
             Width = 192
@@ -1078,7 +1077,7 @@ inherited fmEditarLances: TfmEditarLances
         Left = 475
         Height = 15
         Top = 5
-        Width = 71
+        Width = 70
         Caption = 'Tpas. Caladas'
         ParentColor = False
       end
@@ -1111,7 +1110,7 @@ inherited fmEditarLances: TfmEditarLances
         Left = 551
         Height = 15
         Top = 5
-        Width = 86
+        Width = 85
         Caption = 'Tipo de trampas'
         ParentColor = False
       end
@@ -1159,11 +1158,9 @@ inherited fmEditarLances: TfmEditarLances
     ClientWidth = 732
     inherited bbCancelar: TBitBtn
       Left = 550
-      Height = 24
     end
     inherited bbAceptar: TBitBtn
       Left = 638
-      Height = 24
     end
   end
   inherited dsPrincipal: TDataSource

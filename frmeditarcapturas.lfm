@@ -518,6 +518,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         DataSource = dmCapturas.dsCaptura
         ListFieldIndex = 0
         LookupCache = False
+        OnExit = dblkEspecie1CientExit
         TabOrder = 0
       end
       object Label5: TLabel
@@ -615,6 +616,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         DataSource = dmCapturas.dsCaptura
         ListFieldIndex = 0
         LookupCache = False
+        OnExit = dblkEspecie1VulgarExit
         TabOrder = 0
       end
       object Label8: TLabel

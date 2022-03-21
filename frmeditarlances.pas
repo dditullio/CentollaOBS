@@ -630,7 +630,7 @@ end;
 procedure TfmEditarLances.zqPrincipalprofundidad_fin_caladoValidate(
   Sender: TField);
 begin
-  if (Sender.AsInteger<40) or (Sender.AsInteger>250) then
+  if (Sender.AsInteger<5) or (Sender.AsInteger>250) then
   begin
      MessageDlg('Ingrese la profundidad en metros', mtError, [mbOK], 0);
      if dbedProfFinCalado.CanFocus then
@@ -641,7 +641,7 @@ end;
 procedure TfmEditarLances.zqPrincipalprofundidad_fin_viradaValidate(
   Sender: TField);
 begin
-  if (Sender.AsInteger<40) or (Sender.AsInteger>250) then
+  if (Sender.AsInteger<5) or (Sender.AsInteger>250) then
   begin
      MessageDlg('Ingrese la profundidad en metros', mtError, [mbOK], 0);
      if dbedProfFinVirada.CanFocus then
@@ -652,7 +652,7 @@ end;
 procedure TfmEditarLances.zqPrincipalprofundidad_ini_caladoValidate(
   Sender: TField);
 begin
-  if (Sender.AsInteger<40) or (Sender.AsInteger>250) then
+  if (Sender.AsInteger<5) or (Sender.AsInteger>250) then
   begin
      MessageDlg('Ingrese la profundidad en metros', mtError, [mbOK], 0);
      if dbedProfIniCalado.CanFocus then
@@ -663,7 +663,7 @@ end;
 procedure TfmEditarLances.zqPrincipalprofundidad_ini_viradaValidate(
   Sender: TField);
 begin
-  if (Sender.AsInteger<40) or (Sender.AsInteger>250) then
+  if (Sender.AsInteger<5) or (Sender.AsInteger>250) then
   begin
      MessageDlg('Ingrese la profundidad en metros', mtError, [mbOK], 0);
      if dbedProfIniVirada.CanFocus then

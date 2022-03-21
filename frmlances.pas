@@ -28,6 +28,7 @@ type
     acMover: TAction;
     acEtiquetarLances: TAction;
     acExportarKML: TAction;
+    acExportarGPX: TAction;
     acZoomLanceSeleccionado: TAction;
     acZoomIn: TAction;
     acZoomLances: TAction;
@@ -92,6 +93,7 @@ type
     Panel2: TPanel;
     sbInfoMapa: TStatusBar;
     sdExportarKML: TSaveDialog;
+    sdExportarGPX: TSaveDialog;
     sdGuardarImagen: TSaveDialog;
     splDetalles: TSplitter;
     ToolBar1: TToolBar;
@@ -99,6 +101,7 @@ type
     ToolButton10: TToolButton;
     ToolButton11: TToolButton;
     ToolButton12: TToolButton;
+    ToolButton13: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -167,6 +170,7 @@ type
     zqLancesvirada: TLongintField;
     zqOtrosMapas: TZQuery;
     procedure acEtiquetarLancesExecute(Sender: TObject);
+    procedure acExportarGPXExecute(Sender: TObject);
     procedure acExportarKMLExecute(Sender: TObject);
     procedure acGuardarImagenExecute(Sender: TObject);
     procedure acHabilitarHerramienta(Sender: TObject);
@@ -185,8 +189,7 @@ type
     procedure clbReferenciasCheckboxClick(ASender: TObject; AIndex: Integer);
     procedure ctDistanciaGetDistanceText(ASender: TDataPointDistanceTool;
       var AText: String);
-    procedure ctInfoCoordenadasAfterMouseMove(ATool: TChartTool; APoint: TPoint
-      );
+    procedure ctInfoCoordenadasAfterMouseMove(ATool: TChartTool; APoint: TPoint);
     procedure dbgListaCellClick(Column: TColumn);
     procedure dbgListaGetCellProps(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor);
@@ -206,6 +209,8 @@ type
     procedure CargarMapaLances;
     procedure ZoomALances;
     procedure ExportarKML (archivo: string);
+    procedure ExportarGPX_Tracks (archivo: string);
+    procedure ExportarGPX_Routes (archivo: string);
   public
     { public declarations }
   end;
@@ -311,6 +316,7 @@ procedure TfmLances.CargarMapaLances;
 var
   bm: TBookMark;
   str_invest: string;
+  str_id_linea: string;
   prom_lat, prom_long: double;
 begin
   lcsLancesVirados.Clear;
@@ -335,6 +341,14 @@ begin
            and (not FieldByName('lat_fin_gis').IsNull) then
         begin
 
+          if FieldByName('nro_boya').AsString <> '' then
+          begin
+               str_id_linea:='('+FieldByName('nro_boya').AsString + ') ';
+          end else
+          begin
+               str_id_linea:='';
+          end;
+
           if FieldByName('investigacion').AsBoolean then
           begin
             str_invest:='Línea de INIDEP'+LineEnding;
@@ -344,27 +358,27 @@ begin
           end;
           if FieldByName('calada').AsBoolean then
           begin
-            lcsLancesCalados.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
-            lcsLancesCalados.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+            lcsLancesCalados.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,str_id_linea+str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+            lcsLancesCalados.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,str_id_linea+str_invest+FieldByName('etiqueta_fin').AsString, clRed);
             lcsLancesCalados.Add(NaN,NaN);
             //Si es línea de investigación, también la agrego a la otra serie
             if FieldByName('investigacion').AsBoolean then
             begin
-              lcsLancesCaladosInvest.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
-              lcsLancesCaladosInvest.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+              lcsLancesCaladosInvest.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,str_id_linea+str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+              lcsLancesCaladosInvest.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,str_id_linea+str_invest+FieldByName('etiqueta_fin').AsString, clRed);
               lcsLancesCaladosInvest.Add(NaN,NaN);
             end;
           end;
           if FieldByName('virada').AsBoolean then
           begin
-            lcsLancesVirados.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
-            lcsLancesVirados.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+            lcsLancesVirados.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,str_id_linea+'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+            lcsLancesVirados.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,str_id_linea+'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_fin').AsString, clRed);
             lcsLancesVirados.Add(NaN,NaN);
             //Si es línea de investigación, también la agrego a la otra serie
             if FieldByName('investigacion').AsBoolean then
             begin
-              lcsLancesViradosInvest.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
-              lcsLancesViradosInvest.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_fin').AsString, clRed);
+              lcsLancesViradosInvest.Add(FieldByName('long_ini_gis').AsFloat,FieldByName('lat_ini_gis').AsFloat,str_id_linea+'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_inicio').AsString, clGreen);
+              lcsLancesViradosInvest.Add(FieldByName('long_fin_gis').AsFloat,FieldByName('lat_fin_gis').AsFloat,str_id_linea+'Lance N° '+IntToStr(FieldByName('orden_virada').AsInteger)+LineEnding+str_invest+FieldByName('etiqueta_fin').AsString, clRed);
               lcsLancesViradosInvest.Add(NaN,NaN);
             end;
           end;
@@ -372,9 +386,9 @@ begin
           prom_long:=(FieldByName('long_ini_gis').AsFloat+FieldByName('long_fin_gis').AsFloat)/2;
           prom_lat:=(FieldByName('lat_ini_gis').AsFloat+FieldByName('lat_fin_gis').AsFloat)/2;
           if FieldByName('virada').AsBoolean then
-             lcsEtiquetasLances.Add(prom_long,prom_lat,'L'+FieldByName('orden_virada').AsString+'-'+FormatDateTime('dd/mm hh:mm',FieldByName('fecha_hora_orden').AsDateTime))
+             lcsEtiquetasLances.Add(prom_long,prom_lat,str_id_linea+'L'+FieldByName('orden_virada').AsString+'-'+FormatDateTime('dd/mm hh:mm',FieldByName('fecha_hora_orden').AsDateTime))
           else
-             lcsEtiquetasLances.Add(prom_long,prom_lat,FormatDateTime('dd/mm hh:mm',FieldByName('fecha_hora_orden').AsDateTime));
+             lcsEtiquetasLances.Add(prom_long,prom_lat,str_id_linea+FormatDateTime('dd/mm hh:mm',FieldByName('fecha_hora_orden').AsDateTime));
           lcsEtiquetasLances.Add(NaN,NaN);
         end;
         Next;
@@ -449,6 +463,173 @@ begin
   end;
 end;
 
+procedure TfmLances.ExportarGPX_Tracks(archivo: string);
+var
+   sl:TStringList;
+   strEncabezado:string;
+   strPre:string;
+   strPost: string;
+   strPie:string;
+   strMarea: string;
+   strInidep: string;
+   bm: TBookMark;
+   strColor: string;
+begin
+  if (archivo <> '') and DirectoryExistsUTF8(ExtractFileDir(archivo)) then
+  begin
+    with zqLances do
+    begin
+      bm:=zqLances.GetBookmark;
+      DisableControls;
+      First;
+      strMarea:='Marea '+dmGeneral.zqMareaActivabuque.AsString+' '+dmGeneral.zqMareaActivaanio_marea.AsString+'-'+RightStr('000'+dmGeneral.zqMareaActivanro_marea_inidep.AsString,3);
+      strEncabezado:='<?xml version="1.0"?> <gpx version="1.1" creator="GDAL 2.2.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ogr="http://osgeo.org/gdal" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">';
+      strPost:='</trkseg> </trk>';
+      strPie:='</gpx>';
+       sl:= TStringList.Create;
+       sl.Add(strEncabezado);
+       while not EOF do
+       begin
+         if (not FieldByName('long_ini_gis').IsNull) and
+            (not FieldByName('lat_ini_gis').IsNull) and
+            (not FieldByName('long_fin_gis').IsNull) and
+            (not FieldByName('lat_fin_gis').IsNull) then
+         begin
+           if FieldByName('investigacion').AsBoolean then
+           begin
+             strInidep:=' (I)';
+             if FieldByName('dias_en_agua').AsFloat < 3 then
+             begin
+                strColor:='<extensions> <gpxx:TrackExtension> <gpxx:DisplayColor>Cyan</gpxx:DisplayColor> </gpxx:TrackExtension> </extensions>';
+             end
+             else
+             begin
+                strColor:='<extensions> <gpxx:TrackExtension> <gpxx:DisplayColor>Red</gpxx:DisplayColor> </gpxx:TrackExtension> </extensions>';
+             end
+           end
+           else
+           begin
+             strInidep:='';
+             if FieldByName('dias_en_agua').AsFloat < 3 then
+             begin
+                strColor:='<extensions> <gpxx:TrackExtension> <gpxx:DisplayColor>LightGray</gpxx:DisplayColor> </gpxx:TrackExtension> </extensions>';
+             end
+             else
+             begin
+                 strColor:='';
+             end;
+           end;
+            strPre:='<trk> ' + strColor + ' <name>'+FormatDateTime('dd/mm/yy',FieldByName('fecha_fin_calado').AsDateTime)+' - ID ' + FieldByName('nro_boya').AsString + strInidep + '</name> <description>'+FieldByName('fecha_hora_orden').AsString+'</description> <trkseg>';
+            sl.Add(strPre
+                 +'<trkpt lat="' + StringReplace(FieldByName('lat_ini_gis').AsString,',', '.', [rfReplaceAll]) + '"'
+                 +' lon="' + StringReplace(FieldByName('long_ini_gis').AsString,',', '.', [rfReplaceAll]) + '">' +
+                 '<time>'+FormatDateTime('yyyy-mm-dd',FieldByName('fecha_ini_calado').AsDateTime)+'T'+FieldByName('hora_ini_calado').AsString+'Z-3'+'</time> </trkpt> '
+                 +'<trkpt lat="' + StringReplace(FieldByName('lat_fin_gis').AsString,',', '.', [rfReplaceAll]) + '"'
+                 +' lon="' + StringReplace(FieldByName('long_fin_gis').AsString,',', '.', [rfReplaceAll]) + '">' +
+                 '<time>'+FormatDateTime('yyyy-mm-dd',FieldByName('fecha_fin_calado').AsDateTime)+'T'+FieldByName('hora_fin_calado').AsString+'Z-3'+'</time> </trkpt> '
+                 +strPost);
+         end;
+         Next;
+       end;
+       sl.Add(strPie);
+       sl.SaveToFile(archivo);
+       sl.Destroy;
+       GotoBookmark(bm);
+       EnableControls;
+       if MessageDlg('Los lances seleccionados se han exportado al archivo '+archivo+'. ¿Desea abrir esta carpeta?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
+       begin
+         OpenDocument(ExtractFileDir(archivo));
+       end;
+    end;
+  end;
+end;
+
+procedure TfmLances.ExportarGPX_Routes(archivo: string);
+var
+   sl:TStringList;
+   strEncabezado:string;
+   strPre:string;
+   strPost: string;
+   strPie:string;
+   strMarea: string;
+   strInidep: string;
+   bm: TBookMark;
+   strColor: string;
+begin
+  if (archivo <> '') and DirectoryExistsUTF8(ExtractFileDir(archivo)) then
+  begin
+    with zqLances do
+    begin
+      bm:=zqLances.GetBookmark;
+      DisableControls;
+      First;
+      strMarea:='Marea '+dmGeneral.zqMareaActivabuque.AsString+' '+dmGeneral.zqMareaActivaanio_marea.AsString+'-'+RightStr('000'+dmGeneral.zqMareaActivanro_marea_inidep.AsString,3);
+      strEncabezado:='<?xml version="1.0"?> <gpx version="1.1" creator="GDAL 2.2.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ogr="http://osgeo.org/gdal" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">';
+      strPost:='</rte>';
+      strPie:='</gpx>';
+       sl:= TStringList.Create;
+       sl.Add(strEncabezado);
+       while not EOF do
+       begin
+         //Sólo exporto las líneas caladas y excluyo las viradas
+         if (not FieldByName('long_ini_gis').IsNull) and
+            (not FieldByName('lat_ini_gis').IsNull) and
+            (not FieldByName('long_fin_gis').IsNull) and
+            (not FieldByName('lat_fin_gis').IsNull) and
+            (FieldByName('calada').AsBoolean = True) then
+         begin
+           if FieldByName('investigacion').AsBoolean then
+           begin
+             strInidep:=' (I)';
+             if FieldByName('dias_en_agua').AsFloat < 3.5 then
+             begin
+                strColor:='<extensions> <gpxx:RouteExtension> <gpxx:DisplayColor>Cyan</gpxx:DisplayColor> </gpxx:RouteExtension> </extensions>';
+             end
+             else
+             begin
+                strColor:='<extensions> <gpxx:RouteExtension> <gpxx:DisplayColor>Red</gpxx:DisplayColor> </gpxx:RouteExtension> </extensions>';
+             end
+           end
+           else
+           begin
+             strInidep:='';
+             if FieldByName('dias_en_agua').AsFloat < 3.5 then
+             begin
+                strColor:='<extensions> <gpxx:RouteExtension> <gpxx:DisplayColor>LightGray</gpxx:DisplayColor> </gpxx:RouteExtension> </extensions>';
+             end
+             else
+             begin
+                 strColor:='';
+             end;
+           end;
+            strPre:='<rte> ' + strColor + ' <name>'+FormatDateTime('dd/mm/yy',FieldByName('fecha_fin_calado').AsDateTime)+' - ID ' + FieldByName('nro_boya').AsString + strInidep + '</name> <description>'+FieldByName('fecha_hora_orden').AsString+'</description>';
+            sl.Add(strPre
+                 +'<rtept lat="' + StringReplace(FieldByName('lat_ini_gis').AsString,',', '.', [rfReplaceAll]) + '"'
+                 +' lon="' + StringReplace(FieldByName('long_ini_gis').AsString,',', '.', [rfReplaceAll]) + '">' +
+                 '<name> ' + FormatDateTime('hh:mm',FieldByName('hora_ini_calado').AsDateTime)+' </name>' +
+                 '<time>'+FormatDateTime('yyyy-mm-dd',FieldByName('fecha_ini_calado').AsDateTime)+'T'+FieldByName('hora_ini_calado').AsString+'Z-3'+'</time>' +
+                 ' <extensions><opencpn:viz>0</opencpn:viz></extensions> </rtept> '
+                 +'<rtept lat="' + StringReplace(FieldByName('lat_fin_gis').AsString,',', '.', [rfReplaceAll]) + '"'
+                 +' lon="' + StringReplace(FieldByName('long_fin_gis').AsString,',', '.', [rfReplaceAll]) + '">' +
+                 '<name> ' + FormatDateTime('hh:mm',FieldByName('hora_fin_calado').AsDateTime)+' </name>' +
+                 '<time>'+FormatDateTime('yyyy-mm-dd',FieldByName('fecha_fin_calado').AsDateTime)+'T'+FieldByName('hora_fin_calado').AsString+'Z-3'+'</time> <extensions><opencpn:viz>0</opencpn:viz></extensions> </rtept> '
+                 +strPost);
+         end;
+         Next;
+       end;
+       sl.Add(strPie);
+       sl.SaveToFile(archivo);
+       sl.Destroy;
+       GotoBookmark(bm);
+       EnableControls;
+       if MessageDlg('Los lances seleccionados se han exportado al archivo '+archivo+'. ¿Desea abrir esta carpeta?', mtConfirmation, [mbYes, mbNo],0) = mrYes then
+       begin
+         OpenDocument(ExtractFileDir(archivo));
+       end;
+    end;
+  end;
+end;
+
 procedure TfmLances.dtFechaChange(Sender: TObject);
 begin
   zcgLista.Buscar;
@@ -502,13 +683,47 @@ begin
   //chtLancesSerieLancesVirados.Marks.Visible:=tbEtiquetarLances.Down;
 end;
 
-procedure TfmLances.acExportarKMLExecute(Sender: TObject);
+procedure TfmLances.acExportarGPXExecute(Sender: TObject);
+var
+   destino: String;
 begin
-  sdExportarKML.FileName:='M_'+dmGeneral.zqMareaActivaanio_marea.AsString+'_'+RightStr('000'+dmGeneral.zqMareaActivanro_marea_inidep.AsString,3)+'.KML';
+  LSLoadConfig(['destino_exp_mapa'],[destino],[@destino]);
+
+  if destino <> '' then
+  begin
+    sdExportarGPX.InitialDir:=destino;
+  end;
+
+//  sdExportarGPX.FileName:='L_'+dmGeneral.zqMareaActivaanio_marea.AsString+'_'+RightStr('000'+dmGeneral.zqMareaActivanro_marea_inidep.AsString,3)+'.GPX';
+  sdExportarGPX.FileName:='CALADAS_'+dmGeneral.zqMareaActivamarea_buque.AsString+'.GPX';
+  if sdExportarGPX.Execute then
+  begin
+    if (not FileExistsUTF8(sdExportarGPX.FileName)) or (MessageDlg('El archivo '+sdExportarGPX.FileName+' ya existe. ¿Desea reemplazarlo?', mtConfirmation, [mbYes, mbNo],0) = mrYes) then
+    begin
+      LSSaveConfig(['destino_exp_mapa'],[ExtractFilePath(sdExportarGPX.FileName)]);
+      ExportarGPX_Routes(sdExportarGPX.FileName);
+    end;
+  end;
+end;
+
+procedure TfmLances.acExportarKMLExecute(Sender: TObject);
+var
+   destino: String;
+begin
+  LSLoadConfig(['destino_exp_mapa'],[destino],[@destino]);
+
+  if destino <> '' then
+  begin
+    sdExportarKML.InitialDir:=destino;
+  end;
+
+//  sdExportarKML.FileName:='M_'+dmGeneral.zqMareaActivaanio_marea.AsString+'_'+RightStr('000'+dmGeneral.zqMareaActivanro_marea_inidep.AsString,3)+'.KML';
+  sdExportarKML.FileName:='M_'+dmGeneral.zqMareaActivamarea_buque.AsString+'.KML';
   if sdExportarKML.Execute then
   begin
     if (not FileExistsUTF8(sdExportarKML.FileName)) or (MessageDlg('El archivo '+sdExportarKML.FileName+' ya existe. ¿Desea reemplazarlo?', mtConfirmation, [mbYes, mbNo],0) = mrYes) then
     begin
+      LSSaveConfig(['destino_exp_mapa'],[ExtractFilePath(sdExportarKML.FileName)]);
       ExportarKML(sdExportarKML.FileName);
     end;
   end;

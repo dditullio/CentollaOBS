@@ -49,6 +49,7 @@ img
 lib
 *OLD.*
 *.bkp
+*.bak
 Test
 ExpDB*
 SQL dlls
@@ -57,3 +58,7 @@ Varios
 Mareas
 Test
 Curso
+2019
+AyD
+Mareas nuevas
+

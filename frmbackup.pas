@@ -490,6 +490,10 @@ procedure TfmBackup.FormShow(Sender: TObject);
 var
   origen, destino:String;
 begin
+  //Pongo esto al mostrar cada formulario, por si Windows lo cambió externamente
+  DefaultFormatSettings.DecimalSeparator:='.';
+  DefaultFormatSettings.ThousandSeparator:=',';
+
   destino :='';
   if not Assigned(sl_vaciar) then
      sl_vaciar:=TStringList.Create;

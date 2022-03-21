@@ -2,8 +2,8 @@ object dmGeneral: TdmGeneral
   OnCreate = DataModuleCreate
   OldCreateOrder = False
   Height = 264
-  HorizontalOffset = 511
-  VerticalOffset = 158
+  HorizontalOffset = 480
+  VerticalOffset = 225
   Width = 405
   object dsMareas: TDataSource
     DataSet = zqMareas

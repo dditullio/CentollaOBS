@@ -36,6 +36,7 @@ type
     zcePrincipal: TZControladorEdicion;
     zdgPrincipal: TZDatasetGroup;
     zqPrincipal: TZQuery;
+    procedure FormShow(Sender: TObject);
   private
     FSkipped: array of TWinControlClass;
   protected
@@ -47,6 +48,15 @@ var
   ZEdicionBase: TZEdicionBase;
 
 implementation
+
+{ TZEdicionBase }
+
+procedure TZEdicionBase.FormShow(Sender: TObject);
+begin
+  //Pongo esto al mostrar cada formulario, por si Windows lo cambió externamente
+  DefaultFormatSettings.DecimalSeparator:='.';
+  DefaultFormatSettings.ThousandSeparator:=',';
+end;
 
 initialization
   {$I frmzedicionbase.lrs}

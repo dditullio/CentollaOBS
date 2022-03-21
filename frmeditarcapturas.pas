@@ -60,6 +60,8 @@ type
     zqAntCapturanro_boya: TLongintField;
     zqAntCapturanro_lance: TLongintField;
     zqAntCapturanro_linea: TLongintField;
+    procedure dblkEspecie1CientExit(Sender: TObject);
+    procedure dblkEspecie1VulgarExit(Sender: TObject);
     procedure dblkEspecie2CientExit(Sender: TObject);
     procedure dblkEspecie2VulgarExit(Sender: TObject);
     procedure dblkEspecie3CientExit(Sender: TObject);
@@ -148,6 +150,28 @@ begin
           dmCapturas.dsCaptura.Edit;
      if (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
         dmCapturas.zqCapturaidespecie2.Clear;
+  end;
+end;
+
+procedure TfmEditarCaptura.dblkEspecie1VulgarExit(Sender: TObject);
+begin
+  if (dblkEspecie1Vulgar.Text='') and ((zcePrincipal.Accion=ED_AGREGAR) or (zcePrincipal.Accion=ED_MODIFICAR)) then
+  begin
+     if not (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+          dmCapturas.dsCaptura.Edit;
+     if (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+        dmCapturas.zqCapturaidespecie1.Clear;
+  end;
+end;
+
+procedure TfmEditarCaptura.dblkEspecie1CientExit(Sender: TObject);
+begin
+  if (dblkEspecie1Cient.Text='') and ((zcePrincipal.Accion=ED_AGREGAR) or (zcePrincipal.Accion=ED_MODIFICAR)) then
+  begin
+     if not (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+          dmCapturas.dsCaptura.Edit;
+     if (dmCapturas.dsCaptura.State in [dsInsert, dsEdit]) then
+        dmCapturas.zqCapturaidespecie1.Clear;
   end;
 end;
 

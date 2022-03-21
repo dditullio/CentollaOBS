@@ -165,10 +165,18 @@ begin
 end;
 
 procedure TfmEditarDetalleMuestra.dbedLargoCapExit(Sender: TObject);
+var
+   lc: Integer;
 begin
   if (dbedLargoCap.Text='') then
   begin
     MessageDlg('Debe indicar el largo de caparazón', mtError, [mbOK], 0);
+    if dbedLargoCap.CanFocus then
+       dbedLargoCap.SetFocus;
+  end
+  else if TryStrToInt(dbedLargoCap.Text, lc) = False then
+  begin
+    MessageDlg('El valor "'+dbedLargoCap.Text+'" no es correcto para el largo de caparazón.', mtError, [mbOK], 0);
     if dbedLargoCap.CanFocus then
        dbedLargoCap.SetFocus;
   end
