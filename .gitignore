@@ -48,8 +48,10 @@ Bkp
 img
 lib
 *OLD.*
+*.OLD
 *.bkp
 *.bak
+*.zip
 Test
 ExpDB*
 SQL dlls
@@ -61,4 +63,3 @@ Curso
 2019
 AyD
 Mareas nuevas
-

@@ -576,7 +576,9 @@ begin
             (not FieldByName('lat_ini_gis').IsNull) and
             (not FieldByName('long_fin_gis').IsNull) and
             (not FieldByName('lat_fin_gis').IsNull) and
-            (FieldByName('calada').AsBoolean = True) then
+            ((FieldByName('calada').AsBoolean = True) or
+            ((FieldByName('calada').AsBoolean = False) and
+            (FieldByName('fecha_ini_virada').AsDateTime = Round(Date)))) then
          begin
            if FieldByName('investigacion').AsBoolean then
            begin
@@ -602,6 +604,12 @@ begin
                  strColor:='';
              end;
            end;
+           if (FieldByName('fecha_ini_virada').AsDateTime = Round(Date)) then
+           begin
+             strColor:='<extensions> <gpxx:RouteExtension> <gpxx:DisplayColor>Yellow</gpxx:DisplayColor> </gpxx:RouteExtension> </extensions>';
+           end;
+
+
             strPre:='<rte> ' + strColor + ' <name>'+FormatDateTime('dd/mm/yy',FieldByName('fecha_fin_calado').AsDateTime)+' - ID ' + FieldByName('nro_boya').AsString + strInidep + '</name> <description>'+FieldByName('fecha_hora_orden').AsString+'</description>';
             sl.Add(strPre
                  +'<rtept lat="' + StringReplace(FieldByName('lat_ini_gis').AsString,',', '.', [rfReplaceAll]) + '"'
