@@ -1203,8 +1203,7 @@ procedure TfmMareaAExcel.GenerarTotalesDatosPuente(xls: olevariant; Password: Wi
 const
   COLOR_RESALTADO=17; //Color celeste, para la propiadad Interior.ColorIndex de las celdas
   SIN_COLOR=-4142;    //Sin color, para la propiadad Interior.ColorIndex de las celdas
-  COL_COMENTARIOS=56;
-  PRIM_COL_ESPECIES=63;
+  PRIM_COL_ESPECIES=62;
 var
   tmp: WideString;
   fila, columna, i: integer;

@@ -527,6 +527,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         Width = 48
         Caption = 'Especie 2'
         ParentColor = False
+        Visible = False
       end
       object dblkEspecie2Cient: TDBLookupComboBox
         Left = 240
@@ -540,6 +541,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         LookupCache = False
         OnExit = dblkEspecie2CientExit
         TabOrder = 1
+        Visible = False
       end
       object Label6: TLabel
         Left = 475
@@ -548,6 +550,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         Width = 48
         Caption = 'Especie 3'
         ParentColor = False
+        Visible = False
       end
       object dblkEspecie3Cient: TDBLookupComboBox
         Left = 475
@@ -561,6 +564,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         LookupCache = False
         OnExit = dblkEspecie3CientExit
         TabOrder = 2
+        Visible = False
       end
     end
     object rgOrden: TRadioGroup[7]
@@ -625,6 +629,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         Width = 48
         Caption = 'Especie 2'
         ParentColor = False
+        Visible = False
       end
       object dblkEspecie2Vulgar: TDBLookupComboBox
         Left = 240
@@ -638,6 +643,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         LookupCache = False
         OnExit = dblkEspecie2VulgarExit
         TabOrder = 1
+        Visible = False
       end
       object Label9: TLabel
         Left = 475
@@ -646,6 +652,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         Width = 48
         Caption = 'Especie 3'
         ParentColor = False
+        Visible = False
       end
       object dblkEspecie3Vulgar: TDBLookupComboBox
         Left = 475
@@ -659,6 +666,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         LookupCache = False
         OnExit = dblkEspecie3VulgarExit
         TabOrder = 2
+        Visible = False
       end
     end
     object paGrilla1: TPanel[9]
@@ -1092,7 +1100,6 @@ inherited fmEditarCaptura: TfmEditarCaptura
   object zcgLista: TZControladorGrilla[8]
     AltoBotones = 28
     AnchoBotones = 88
-    AntesAgregar = zcgListaAntesAgregar
     BotonAgregar = bbAgregar
     BotonEditar = bbEditar
     BotonEliminar = bbEliminar
