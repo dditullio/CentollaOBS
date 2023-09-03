@@ -993,4 +993,29 @@ object fmMareaAExcel: TfmMareaAExcel
         ParamType = ptUnknown
       end>
   end
+  object zqProductos: TZQuery
+    Connection = dmGeneral.zcDB
+    BeforeOpen = zqProductosBeforeOpen
+    CachedUpdates = True
+    SQL.Strings = (
+      'SELECT * '
+      'FROM v_productos'
+      'WHERE idmarea=:idmarea'
+      'ORDER BY orden'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+    left = 344
+    top = 48
+    ParamData = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmarea'
+        ParamType = ptUnknown
+      end>
+  end
 end

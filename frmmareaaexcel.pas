@@ -62,6 +62,7 @@ type
     zqDatosPuenteTotales: TZQuery;
     zqEspecies: TZQuery;
     zqFCTotales: TZQuery;
+    zqProductos: TZQuery;
     zqMuestras: TZQuery;
     zqLancescalada: TLongintField;
     zqLancescanastos_procesados: TLongintField;
@@ -136,6 +137,7 @@ type
     procedure zqMuestrasTotalesBeforeOpen(DataSet: TDataSet);
     procedure zqProduccionBeforeOpen(DataSet: TDataSet);
     procedure zqProduccionTotalesBeforeOpen(DataSet: TDataSet);
+    procedure zqProductosBeforeOpen(DataSet: TDataSet);
     procedure zqRelacMorfBeforeOpen(DataSet: TDataSet);
     procedure zqSubmuestrasBeforeOpen(DataSet: TDataSet);
   private
@@ -162,6 +164,7 @@ type
     procedure GenerarTotalesMuestras(xls:olevariant; Password: WideString);
     procedure GenerarTotalesSubmuestras(xls:olevariant; Password: WideString);
     procedure GenerarTotalesProduccion(xls:olevariant; Password: WideString);
+    procedure GenerarTotalesProduccion2(xls:olevariant; Password: WideString);
     procedure GenerarTotalesFC(xls:olevariant; Password: WideString);
 
     procedure ColocarDatosMarea(xls:olevariant; fila, columna: Integer);
@@ -277,6 +280,11 @@ end;
 procedure TfmMareaAExcel.zqProduccionTotalesBeforeOpen(DataSet: TDataSet);
 begin
   zqProduccionTotales.ParamByName('idmarea').Value:=dmGeneral.IdMareaActiva;
+end;
+
+procedure TfmMareaAExcel.zqProductosBeforeOpen(DataSet: TDataSet);
+begin
+  zqProductos.ParamByName('idmarea').Value:=dmGeneral.IdMareaActiva;
 end;
 
 procedure TfmMareaAExcel.zqRelacMorfBeforeOpen(DataSet: TDataSet);
@@ -535,12 +543,12 @@ begin
           archivo_destino:=UTF8Decode(archivo_destino);
           xls.Workbooks.Open(archivo_destino);
 
-          GenerarTotalesDatosPuente(xls, Password);
-          GenerarTotalesCapturas(xls, Password);
+          //GenerarTotalesDatosPuente(xls, Password);
+          //GenerarTotalesCapturas(xls, Password);
           GenerarTotalesAcomp(xls, Password);
-          GenerarTotalesMuestras(xls, Password);
-          GenerarTotalesSubmuestras(xls, Password);
-          GenerarTotalesProduccion(xls, Password);
+          //GenerarTotalesMuestras(xls, Password);
+          //GenerarTotalesSubmuestras(xls, Password);
+          GenerarTotalesProduccion2(xls, Password);
           GenerarTotalesFC(xls, Password);
 
           xls.ActiveWorkBook.Sheets('Datos de puente').Activate;
@@ -1728,6 +1736,123 @@ begin
         xls.Cells[fila, 7] := FieldByName('cant_cajas').AsInteger;
       if not FieldByName('kilos').IsNull then
         xls.Cells[fila, 8] := FieldByName('kilos').AsFloat;
+
+      pbProduccion.Position := RecNo;
+      Application.ProcessMessages;
+      Next;
+      Inc(fila);
+    end;
+  end;
+  imProduccion.Visible:=True;
+  Application.ProcessMessages;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
+end;
+
+procedure TfmMareaAExcel.GenerarTotalesProduccion2(xls: olevariant; Password: WideString);
+const
+  COLOR_PRODUCTO=24;
+  COLOR_TOTALES=6;
+var
+  tmp: WideString;
+  fila, columna, prod: integer;
+  cajas: integer;
+  kilos: double;
+  columna_totales: integer;
+begin
+  tmp := UTF8Decode('Producción'); //Lo hago así porque el acento da problemas
+  xls.ActiveWorkBook.Sheets(tmp).Activate;
+
+  //Armo el encabezado
+  with zqProductos do
+  begin
+    Close;
+    Open;
+    First;
+    columna:=6;
+    while not EOF do
+    begin
+      tmp := UTF8Decode('producto');
+      xls.Cells[1, columna] := tmp;
+      xls.Cells[1, columna].Interior.ColorIndex:=COLOR_PRODUCTO;
+      Inc(columna);
+      tmp := UTF8Decode('cajas');
+      xls.Cells[1, columna] := tmp;
+      xls.Cells[1, columna].Interior.ColorIndex:=COLOR_PRODUCTO;
+      Inc(columna);
+      tmp := UTF8Decode('kilos');
+      xls.Cells[1, columna] := tmp;
+      xls.Cells[1, columna].Interior.ColorIndex:=COLOR_PRODUCTO;
+      Inc(columna);
+
+      Next;
+    end;
+
+    columna_totales:=columna;
+    tmp := UTF8Decode('cajastot');
+    xls.Cells[1, columna_totales] := tmp;
+    xls.Cells[1, columna_totales].Interior.ColorIndex:=COLOR_TOTALES;
+
+    tmp := UTF8Decode('kilostot');
+    xls.Cells[1, columna_totales+1] := tmp;
+    xls.Cells[1, columna_totales+1].Interior.ColorIndex:=COLOR_TOTALES;
+  end;
+  //Recorro la tabla poniendo todas las columnas en las que el producto no sea nulo
+  with zqProduccion do
+  begin
+    Close;
+    Open;
+    First;
+    //Configuro la barra de progreso
+    pbProduccion.Max := RecordCount;
+    Fila := 2;
+
+    //if not dmGeneral.zqMareaActivapeso_caja_producto.IsNull then
+    //  xls.Cells[4, 3] := dmGeneral.zqMareaActivapeso_caja_producto.AsFloat;
+    while not EOF do
+    begin
+      //En cada fila van los datos de la marea
+      ColocarDatosMarea(xls, fila,1);
+
+      columna:=5;
+      xls.Cells[fila, columna] := FieldByName('fecha').AsDateTime;
+      Inc(columna);
+
+      cajas := 0;
+      kilos := 0;
+      for prod:=1 to 7 do
+      begin
+        if (not FieldByName('p'+IntToStr(prod)).IsNull)
+           and ((not FieldByName('cajas_p'+IntToStr(prod)).IsNull)
+               or (not FieldByName('kilos_p'+IntToStr(prod)).IsNull))
+           then
+        begin
+          tmp := UTF8Decode(FieldByName('p'+IntToStr(prod)).AsString);
+          xls.Cells[fila, columna] := tmp;
+          Inc(columna);
+          if not FieldByName('cajas_p'+IntToStr(prod)).IsNull then
+          begin
+            xls.Cells[fila, columna] := FieldByName('cajas_p'+IntToStr(prod)).AsInteger;
+            cajas := cajas + FieldByName('cajas_p'+IntToStr(prod)).AsInteger;
+          end;
+          Inc(columna);
+          if not FieldByName('kilos_p'+IntToStr(prod)).IsNull then
+          begin
+            xls.Cells[fila, columna] := FieldByName('kilos_p'+IntToStr(prod)).AsFloat;
+            kilos := kilos + FieldByName('kilos_p'+IntToStr(prod)).AsFloat;
+            Inc(columna);
+          end;
+        end;
+      end;
+
+      //Totales del día
+      xls.Cells[fila, columna_totales] := cajas;
+      xls.Cells[fila, columna_totales+1] := kilos;
+
+      //Prueba de colores
+      //xls.Cells[fila, columna_totales+3] := RecNo;
+      //xls.Cells[fila, columna_totales+4].Interior.ColorIndex:=RecNo;
 
       pbProduccion.Position := RecNo;
       Application.ProcessMessages;
