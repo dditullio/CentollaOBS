@@ -60,6 +60,8 @@ type
     zqAntCapturanro_boya: TLongintField;
     zqAntCapturanro_lance: TLongintField;
     zqAntCapturanro_linea: TLongintField;
+    procedure dbgListaAfterQuickSearch(Sender: TObject; Field: TField;
+      var AValue: string);
     procedure dblkEspecie1CientExit(Sender: TObject);
     procedure dblkEspecie1VulgarExit(Sender: TObject);
     procedure dblkEspecie2CientExit(Sender: TObject);
@@ -164,6 +166,12 @@ begin
   end;
 end;
 
+procedure TfmEditarCaptura.dbgListaAfterQuickSearch(Sender: TObject;
+  Field: TField; var AValue: string);
+begin
+
+end;
+
 procedure TfmEditarCaptura.dblkEspecie1CientExit(Sender: TObject);
 begin
   if (dblkEspecie1Cient.Text='') and ((zcePrincipal.Accion=ED_AGREGAR) or (zcePrincipal.Accion=ED_MODIFICAR)) then
@@ -174,6 +182,7 @@ begin
         dmCapturas.zqCapturaidespecie1.Clear;
   end;
 end;
+
 
 procedure TfmEditarCaptura.dblkEspecie3CientExit(Sender: TObject);
 begin

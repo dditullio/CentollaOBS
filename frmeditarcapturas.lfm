@@ -1,10 +1,10 @@
 inherited fmEditarCaptura: TfmEditarCaptura
   Left = 375
-  Height = 495
-  Top = 160
+  Height = 497
+  Top = 29
   Width = 727
   Caption = 'Captura'
-  ClientHeight = 495
+  ClientHeight = 497
   ClientWidth = 727
   OnCreate = FormCreate
   OnShow = FormShow
@@ -16,7 +16,6 @@ inherited fmEditarCaptura: TfmEditarCaptura
     end
     inherited DividerBevel1: TDividerBevel
       Left = 597
-      Width = 15
     end
     inherited paEncabezado: TPanel
       Width = 596
@@ -29,9 +28,9 @@ inherited fmEditarCaptura: TfmEditarCaptura
     end
   end
   inherited paPrincipal: TPanel
-    Height = 425
+    Height = 427
     Width = 727
-    ClientHeight = 425
+    ClientHeight = 427
     ClientWidth = 727
     object Label1: TLabel[0]
       Left = 10
@@ -1024,7 +1023,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
     end
   end
   inherited paControles: TPanel
-    Top = 459
+    Top = 461
     Width = 727
     ClientWidth = 727
     inherited bbCancelar: TBitBtn
@@ -1093,6 +1092,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
   object zcgLista: TZControladorGrilla[8]
     AltoBotones = 28
     AnchoBotones = 88
+    AntesAgregar = zcgListaAntesAgregar
     BotonAgregar = bbAgregar
     BotonEditar = bbEditar
     BotonEliminar = bbEliminar
