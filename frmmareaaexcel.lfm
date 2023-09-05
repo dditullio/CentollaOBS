@@ -926,7 +926,7 @@ object fmMareaAExcel: TfmMareaAExcel
       'SELECT * FROM centolla.v_planilla_muestras pm'
       'join v_info_adicional_lances ial on ial.idlance=pm.idlance'
       'WHERE pm.idmarea=:idmarea'
-      'ORDER BY pm.orden_virada, pm.nro_ejemplar'
+      'ORDER BY pm.orden_virada,pm.orden_muestra,pm.nro_ejemplar'
     )
     Params = <    
       item

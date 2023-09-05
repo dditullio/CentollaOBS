@@ -16,7 +16,6 @@ inherited fmEditarMuestras: TfmEditarMuestras
     end
     inherited DividerBevel1: TDividerBevel
       Left = 340
-      Width = 15
     end
     inherited paEncabezado: TPanel
       Width = 339
@@ -68,7 +67,7 @@ inherited fmEditarMuestras: TfmEditarMuestras
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 70
+      ClientHeight = 68
       ClientWidth = 136
       ItemIndex = 1
       Items.Strings = (
@@ -331,8 +330,8 @@ inherited fmEditarMuestras: TfmEditarMuestras
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'Nº'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Nº'
             Width = 40
             FieldName = 'nro_ejemplar'
             EditButtons = <>
@@ -345,8 +344,8 @@ inherited fmEditarMuestras: TfmEditarMuestras
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'LC'
             Title.Orientation = toHorizontal
+            Title.Caption = 'LC'
             Width = 40
             FieldName = 'largo'
             EditButtons = <>
@@ -359,8 +358,8 @@ inherited fmEditarMuestras: TfmEditarMuestras
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'S'
             Title.Orientation = toHorizontal
+            Title.Caption = 'S'
             Width = 40
             FieldName = 'sexo'
             EditButtons = <>
@@ -373,8 +372,8 @@ inherited fmEditarMuestras: TfmEditarMuestras
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'C'
             Title.Orientation = toHorizontal
+            Title.Caption = 'C'
             Width = 40
             FieldName = 'codigo'
             EditButtons = <>
@@ -387,8 +386,8 @@ inherited fmEditarMuestras: TfmEditarMuestras
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = 'H'
             Title.Orientation = toHorizontal
+            Title.Caption = 'H'
             Width = 50
             FieldName = 'codigo1'
             EditButtons = <>
@@ -401,8 +400,8 @@ inherited fmEditarMuestras: TfmEditarMuestras
             Alignment = taCenter
             SizePriority = 0
             Title.Alignment = taCenter
-            Title.Caption = '% H'
             Title.Orientation = toHorizontal
+            Title.Caption = '% H'
             Width = 60
             FieldName = 'porcentaje_huevos'
             EditButtons = <>
@@ -417,8 +416,8 @@ inherited fmEditarMuestras: TfmEditarMuestras
           item
             Alignment = taCenter
             Title.Alignment = taCenter
-            Title.Caption = 'Peso'
             Title.Orientation = toHorizontal
+            Title.Caption = 'Peso'
             Width = 147
             FieldName = 'peso'
             EditButtons = <>
@@ -549,7 +548,7 @@ inherited fmEditarMuestras: TfmEditarMuestras
       Left = 10
       Height = 15
       Top = 6
-      Width = 86
+      Width = 85
       Caption = 'Tipo de muestra'
       ParentColor = False
     end
@@ -563,6 +562,8 @@ inherited fmEditarMuestras: TfmEditarMuestras
       DataSource = dmMuestras.dsMuestras
       ListFieldIndex = 0
       LookupCache = False
+      OnChange = dblkTipoMuestraChange
+      OnExit = dblkTipoMuestraExit
       TabOrder = 0
       TabStop = False
     end
@@ -582,7 +583,7 @@ inherited fmEditarMuestras: TfmEditarMuestras
       Left = 10
       Height = 15
       Top = 55
-      Width = 81
+      Width = 80
       Caption = 'Tipo de trampa'
       ParentColor = False
     end
@@ -615,6 +616,7 @@ inherited fmEditarMuestras: TfmEditarMuestras
   inherited zcePrincipal: TZControladorEdicion
     ControlInicial = dblkTipoMuestra
     OnValidateForm = zcePrincipalValidateForm
+    OnInitRecord = zcePrincipalInitRecord
   end
   inherited zdgPrincipal: TZDatasetGroup
     DatasetMaestro = dmMuestras.zqMuestras

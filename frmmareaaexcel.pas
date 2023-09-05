@@ -543,11 +543,11 @@ begin
           archivo_destino:=UTF8Decode(archivo_destino);
           xls.Workbooks.Open(archivo_destino);
 
-          //GenerarTotalesDatosPuente(xls, Password);
-          //GenerarTotalesCapturas(xls, Password);
+          GenerarTotalesDatosPuente(xls, Password);
+          GenerarTotalesCapturas(xls, Password);
           GenerarTotalesAcomp(xls, Password);
-          //GenerarTotalesMuestras(xls, Password);
-          //GenerarTotalesSubmuestras(xls, Password);
+          GenerarTotalesMuestras(xls, Password);
+          GenerarTotalesSubmuestras(xls, Password);
           GenerarTotalesProduccion2(xls, Password);
           GenerarTotalesFC(xls, Password);
 
@@ -1389,10 +1389,15 @@ begin
            xls.Cells[fila, columna] := 0;
       end;
       inc(columna);
-      // Ver qué es el tipo de muestra
+
+      tmp := UTF8Decode(FieldByName('tipo_trampa_muestra').AsString);
+      xls.Cells[fila, columna] := tmp;
       inc(columna);
-      // Ver qué es "nmuestr"
+
+      if not FieldByName('ejemplares_muestra').IsNull then
+        xls.Cells[fila, columna] := FieldByName('ejemplares_muestra').AsInteger;
       inc(columna);
+
       tmp := UTF8Decode(FieldByName('comentarios').AsString);
       xls.Cells[fila, columna] := tmp;
       inc(columna);
