@@ -56,6 +56,7 @@ inherited fmEditarLances: TfmEditarLances
           ClientHeight = 112
           ClientWidth = 372
           TabOrder = 0
+          OnClick = gbInicioCaladoClick
           OnExit = gbInicioCaladoExit
           object Label16: TLabel
             Left = 76
@@ -1158,9 +1159,11 @@ inherited fmEditarLances: TfmEditarLances
     ClientWidth = 732
     inherited bbCancelar: TBitBtn
       Left = 550
+      Height = 24
     end
     inherited bbAceptar: TBitBtn
       Left = 638
+      Height = 24
     end
   end
   inherited dsPrincipal: TDataSource

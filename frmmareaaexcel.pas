@@ -160,6 +160,7 @@ type
     //Planilla para agrupar mareas
     procedure GenerarTotalesDatosPuente(xls:olevariant; Password: WideString);
     procedure GenerarTotalesCapturas(xls:olevariant; Password: WideString);
+    procedure GenerarDetalleAcomp(xls:olevariant; Password: WideString);
     procedure GenerarTotalesAcomp(xls:olevariant; Password: WideString);
     procedure GenerarTotalesMuestras(xls:olevariant; Password: WideString);
     procedure GenerarTotalesSubmuestras(xls:olevariant; Password: WideString);
@@ -545,6 +546,7 @@ begin
 
           GenerarTotalesDatosPuente(xls, Password);
           GenerarTotalesCapturas(xls, Password);
+          GenerarDetalleAcomp(xls, Password);
           GenerarTotalesAcomp(xls, Password);
           GenerarTotalesMuestras(xls, Password);
           GenerarTotalesSubmuestras(xls, Password);
@@ -1527,13 +1529,88 @@ begin
   xls.ActiveWorkBook.ActiveSheet.Protect(Password);
 end;
 
+procedure TfmMareaAExcel.GenerarDetalleAcomp(xls: olevariant;
+  Password: WideString);
+const
+  COLOR_ESPECIE=24; //Color celeste, para la propiadad Interior.ColorIndex de las celdas
+  PRIM_COL_ESPECIES=2;
+var
+  tmp: WideString;
+  fila, columna, i: integer;
+  filtro: string;
+begin
+  tmp := UTF8Decode('Fauna acompañante'); //Lo hago así porque la 'ñ' da problemas
+  xls.ActiveWorkBook.Sheets(tmp).Activate;
+  with zqDatosPuente do
+  begin
+    //Abro las tablas de especies
+    zqAcomp.Close;
+    zqAcomp.Open;
+    zqEspecies.Close;
+    zqEspecies.Open;
+    Close;
+    Open;
+    First;
+    //Configuro la barra de progreso
+    pbPuente.Max := RecordCount;
+    // Coloco los rótulos de las especies
+    Fila:= 1;
+    Columna:=PRIM_COL_ESPECIES;
+    zqEspecies.First;
+    while not zqEspecies.EOF do
+    begin
+      tmp := UTF8Decode(zqEspecies.FieldByName('nombre_vulgar').AsString);
+      xls.Cells[fila, columna] := tmp;
+      xls.Cells[fila, columna].Interior.ColorIndex:=COLOR_ESPECIE;
+      zqEspecies.Next;
+      inc(Columna);
+    end;
+    Fila := 2;
+    while not EOF do
+    begin
+      columna:=1;
+
+      //El id es la marea mas el lance
+      tmp := UTF8Decode(dmGeneral.zqMareaActivamarea_buque.AsString) + '-' + UTF8Decode(FieldByName('orden_virada').AsString);
+      xls.Cells[fila, columna] := tmp;
+      inc(columna);
+
+      // Recorro las especies. Filtro por lance y agrego si es necesario.
+      //Columna:=PRIM_COL_ESPECIES;
+      zqEspecies.First;
+      while not zqEspecies.EOF do
+      begin
+        //Filtro las especies acompañantes por lance y especie
+        zqAcomp.Filtered:=False;
+        filtro:='idespecie='+zqEspecies.FieldByName('idespecie').AsString+' and nro_lance='+FieldByName('nro_lance').AsString;
+        zqAcomp.Filter:=filtro;
+        zqAcomp.Filtered:=True;
+        if zqAcomp.RecordCount>0 then
+           xls.Cells[fila, columna] := zqAcomp.FieldByName('cantidad').AsInteger;
+        zqEspecies.Next;
+        inc(Columna);
+      end;
+      pbAcomp.Position := RecNo;
+      Application.ProcessMessages;
+      Next;
+      Inc(fila);
+    end;
+  end;
+
+  imAcomp.Visible:=True;
+  Application.ProcessMessages;
+
+  //Protejo la hoja para que el usuario no modifique los datos
+  xls.ActiveWorkBook.ActiveSheet.Protect(Password);
+end;
+
 procedure TfmMareaAExcel.GenerarTotalesAcomp(xls: olevariant; Password: WideString);
 var
   tmp: WideString;
   fila, columna: integer;
 begin
   //  tmp := UTF8Decode('Especies acompañantes'); //Lo hago así porque la 'ñ' da problemas
-  tmp := UTF8Decode('Fauna acompañante'); //Lo hago así porque la 'ñ' da problemas
+  tmp := UTF8Decode('Resumen F.A.'); //Lo hago así porque la 'ñ' da problemas
   xls.ActiveWorkBook.Sheets(tmp).Activate;
   with zqAcompTotal do
   begin

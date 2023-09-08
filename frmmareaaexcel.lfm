@@ -1,11 +1,11 @@
 object fmMareaAExcel: TfmMareaAExcel
   Left = 428
-  Height = 319
+  Height = 332
   Top = 96
   Width = 406
   BorderStyle = bsSingle
   Caption = 'Informe en MS-Excel'
-  ClientHeight = 319
+  ClientHeight = 332
   ClientWidth = 406
   OnShow = FormShow
   Position = poScreenCenter
@@ -25,17 +25,17 @@ object fmMareaAExcel: TfmMareaAExcel
     WordWrap = True
   end
   object Label4: TLabel
-    Left = 12
+    Left = 11
     Height = 15
-    Top = 265
+    Top = 272
     Width = 104
     Caption = 'Destino del archivo:'
     ParentColor = False
   end
   object dedCarpetaPlanilla: TDirectoryEdit
-    Left = 12
+    Left = 11
     Height = 23
-    Top = 282
+    Top = 289
     Width = 300
     OnAcceptDirectory = dedCarpetaPlanillaAcceptDirectory
     ShowHidden = False
@@ -47,9 +47,9 @@ object fmMareaAExcel: TfmMareaAExcel
     OnExit = dedCarpetaPlanillaExit
   end
   object bbGuardar: TBitBtn
-    Left = 312
+    Left = 311
     Height = 26
-    Top = 282
+    Top = 289
     Width = 84
     Action = acGenerarPlanilla
     Glyph.Data = {
@@ -231,7 +231,6 @@ object fmMareaAExcel: TfmMareaAExcel
       Constraints.MaxWidth = 160
       Constraints.MinWidth = 150
       ParentColor = False
-      Visible = False
     end
     object pbAcomp: TProgressBar
       Left = 155
@@ -241,7 +240,6 @@ object fmMareaAExcel: TfmMareaAExcel
       Constraints.MaxHeight = 16
       Constraints.MinWidth = 200
       TabOrder = 15
-      Visible = False
     end
     object paAcomp: TPanel
       Left = 360
@@ -254,7 +252,6 @@ object fmMareaAExcel: TfmMareaAExcel
       Constraints.MaxHeight = 16
       Constraints.MaxWidth = 16
       TabOrder = 14
-      Visible = False
       object imAcomp: TImage
         Left = 0
         Height = 16
