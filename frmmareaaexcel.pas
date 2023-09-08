@@ -1618,7 +1618,7 @@ begin
     Open;
     First;
     //Configuro la barra de progreso
-    pbAcomp.Max := RecordCount;
+    //pbAcomp.Max := RecordCount;
 
     Fila := 2;
     while not EOF do
@@ -1630,8 +1630,8 @@ begin
       xls.Cells[fila, 5] := tmp;
       if not FieldByName('total').IsNull then
         xls.Cells[fila, 6] := FieldByName('total').AsInteger;
-      pbAcomp.Position := RecNo;
-      Application.ProcessMessages;
+      //pbAcomp.Position := RecNo;
+      //Application.ProcessMessages;
       Next;
       Inc(fila);
     end;

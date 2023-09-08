@@ -215,9 +215,9 @@ object fmBackup: TfmBackup
       object paMensajeEspera: TPanel
         Left = 0
         Height = 169
-        Top = 130
+        Top = 138
         Width = 408
-        Align = alClient
+        Align = alTop
         BevelOuter = bvNone
         Caption = 'Restaurando base de datos. Espere unos minutos por favor...'
         ClientHeight = 169
@@ -246,7 +246,7 @@ object fmBackup: TfmBackup
       object laVistaPreliminar: TLabel
         Left = 5
         Height = 15
-        Top = 110
+        Top = 118
         Width = 398
         Align = alTop
         BorderSpacing.Around = 5
@@ -255,15 +255,14 @@ object fmBackup: TfmBackup
       end
       object gbOpcRestauracion: TGroupBox
         Left = 0
-        Height = 40
+        Height = 48
         Top = 65
         Width = 408
         Align = alTop
         Caption = 'Opciones de restauración'
-        ClientHeight = 20
+        ClientHeight = 28
         ClientWidth = 404
         TabOrder = 2
-        Visible = False
         object ckRestaurarEstructura: TCheckBox
           Left = 10
           Height = 19
