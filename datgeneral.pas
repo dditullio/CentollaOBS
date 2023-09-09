@@ -102,7 +102,7 @@ type
   end;
 
 const
-  APP_VERSION='1.0.13';
+  APP_VERSION='1.13.5';
 
 var
   dmGeneral: TdmGeneral;
