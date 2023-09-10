@@ -1214,6 +1214,7 @@ const
   COLOR_RESALTADO=17; //Color celeste, para la propiadad Interior.ColorIndex de las celdas
   SIN_COLOR=-4142;    //Sin color, para la propiadad Interior.ColorIndex de las celdas
   PRIM_COL_ESPECIES=62;
+  COL_COMENTARIOS=54;
 var
   tmp: WideString;
   fila, columna, i: integer;
@@ -1417,6 +1418,13 @@ begin
       tmp := UTF8Decode(FieldByName('zona').AsString);
       xls.Cells[fila, columna] := tmp;
       inc(columna);
+
+      if FieldByName('zona_provincial').AsString='S' then
+         xls.Cells[fila, columna] := 1
+      else
+         xls.Cells[fila, columna] := 0;
+      inc(columna);
+
       //La fórmula queda en el Excel, así que salteo la columna
       inc(columna);
 
@@ -1442,6 +1450,17 @@ begin
       Next;
       Inc(fila);
     end;
+  end;
+
+  //Agrego comentarios finales
+  if dmGeneral.zqMareaActivacomentarios.AsString<>'' then
+  begin
+     Inc(fila);
+     tmp := UTF8Decode('Comentarios finales:');
+     xls.Cells[fila, COL_COMENTARIOS] := tmp;
+     Inc(fila);
+     tmp := UTF8Decode(dmGeneral.zqMareaActivacomentarios.AsString);
+     xls.Cells[fila, COL_COMENTARIOS] := tmp;
   end;
 
   imPuente.Visible:=True;

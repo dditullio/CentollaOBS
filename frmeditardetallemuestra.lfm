@@ -1,8 +1,8 @@
 inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
-  Height = 339
+  Height = 324
   Width = 395
   Caption = 'Muestra'
-  ClientHeight = 339
+  ClientHeight = 324
   ClientWidth = 395
   OnShow = FormShow
   inherited paEncabezadoBase: TPanel
@@ -12,26 +12,26 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
       Left = 280
     end
     inherited DividerBevel1: TDividerBevel
-      Left = 263
+      Left = 265
     end
     inherited paEncabezado: TPanel
-      Width = 262
-      ClientWidth = 262
+      Width = 264
+      ClientWidth = 264
       inherited dbtEncabezado: TDBText
-        Width = 422
+        Width = 424
         DataField = 'Encabezado'
         DataSource = dmMuestras.dsMuestras
       end
     end
   end
   inherited paPrincipal: TPanel
-    Height = 269
+    Height = 254
     Width = 395
-    ClientHeight = 269
+    ClientHeight = 254
     ClientWidth = 395
     object pcPrincipal: TPageControl[0]
       Left = 1
-      Height = 267
+      Height = 252
       Top = 1
       Width = 393
       ActivePage = tsGeneral
@@ -42,11 +42,11 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
       OnChanging = pcPrincipalChanging
       object tsGeneral: TTabSheet
         Caption = 'Datos básicos'
-        ClientHeight = 237
+        ClientHeight = 224
         ClientWidth = 385
         object dbedPorcentHuevos: TDBEdit
           Left = 170
-          Height = 25
+          Height = 23
           Top = 140
           Width = 70
           DataField = 'porcentaje_huevos'
@@ -58,15 +58,15 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object Label12: TLabel
           Left = 170
-          Height = 17
+          Height = 15
           Top = 120
-          Width = 58
+          Width = 53
           Caption = '% Huevos'
           ParentColor = False
         end
         object dblkEstadoCap: TDBLookupComboBox
           Left = 160
-          Height = 25
+          Height = 23
           Top = 80
           Width = 155
           AutoComplete = True
@@ -78,15 +78,15 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object Label3: TLabel
           Left = 160
-          Height = 17
+          Height = 15
           Top = 60
-          Width = 70
+          Width = 62
           Caption = 'Estado Cap.'
           ParentColor = False
         end
         object dbedLargoCap: TDBEdit
           Left = 85
-          Height = 25
+          Height = 23
           Top = 80
           Width = 70
           DataField = 'largo'
@@ -98,23 +98,23 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object laLargoCap: TLabel
           Left = 85
-          Height = 17
+          Height = 15
           Top = 60
-          Width = 64
+          Width = 57
           Caption = 'Largo Cap.'
           ParentColor = False
         end
         object Label10: TLabel
           Left = 10
-          Height = 17
+          Height = 15
           Top = 5
-          Width = 59
+          Width = 53
           Caption = 'Nº Ejemp.'
           ParentColor = False
         end
         object dbedNroEjemplar: TDBEdit
           Left = 10
-          Height = 25
+          Height = 23
           Top = 25
           Width = 105
           DataField = 'nro_ejemplar'
@@ -126,23 +126,23 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object laSexo: TLabel
           Left = 10
-          Height = 17
+          Height = 15
           Top = 60
-          Width = 28
+          Width = 25
           Caption = 'Sexo'
           ParentColor = False
         end
         object Label1: TLabel
           Left = 10
-          Height = 17
+          Height = 15
           Top = 120
-          Width = 43
+          Width = 40
           Caption = 'Huevos'
           ParentColor = False
         end
         object dblkHuevos: TDBLookupComboBox
           Left = 10
-          Height = 25
+          Height = 23
           Top = 140
           Width = 155
           AutoComplete = True
@@ -156,7 +156,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object dbedPeso: TDBEdit
           Left = 245
-          Height = 25
+          Height = 23
           Hint = 'Peso del ejemplar en gramos'
           Top = 140
           Width = 70
@@ -168,15 +168,15 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
         end
         object Label13: TLabel
           Left = 245
-          Height = 17
+          Height = 15
           Top = 120
-          Width = 28
+          Width = 25
           Caption = 'Peso'
           ParentColor = False
         end
         object dbedSexo: TDBEdit
           Left = 10
-          Height = 25
+          Height = 23
           Top = 80
           Width = 70
           DataField = 'sexo'
@@ -213,7 +213,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
       end
       object tsRelacMorf: TTabSheet
         Caption = 'Relaciones morfométricas'
-        ClientHeight = 239
+        ClientHeight = 224
         ClientWidth = 385
         object gbDerecha: TGroupBox
           Left = 85
@@ -221,7 +221,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           Top = 10
           Width = 229
           Caption = 'Derecha'
-          ClientHeight = 83
+          ClientHeight = 85
           ClientWidth = 225
           TabOrder = 0
           object Panel1: TPanel
@@ -370,7 +370,7 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
           Top = 125
           Width = 229
           Caption = 'Izquierda'
-          ClientHeight = 83
+          ClientHeight = 85
           ClientWidth = 225
           TabOrder = 1
           object Panel4: TPanel
@@ -477,14 +477,16 @@ inherited fmEditarDetalleMuestra: TfmEditarDetalleMuestra
     end
   end
   inherited paControles: TPanel
-    Top = 303
+    Top = 288
     Width = 395
     ClientWidth = 395
     inherited bbCancelar: TBitBtn
       Left = 213
+      Height = 24
     end
     inherited bbAceptar: TBitBtn
       Left = 301
+      Height = 24
     end
   end
   inherited dsPrincipal: TDataSource

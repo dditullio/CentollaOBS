@@ -1,10 +1,10 @@
 inherited fmEditarCaptura: TfmEditarCaptura
   Left = 375
-  Height = 497
+  Height = 413
   Top = 29
   Width = 727
   Caption = 'Captura'
-  ClientHeight = 497
+  ClientHeight = 413
   ClientWidth = 727
   OnCreate = FormCreate
   OnShow = FormShow
@@ -28,9 +28,9 @@ inherited fmEditarCaptura: TfmEditarCaptura
     end
   end
   inherited paPrincipal: TPanel
-    Height = 427
+    Height = 343
     Width = 727
-    ClientHeight = 427
+    ClientHeight = 343
     ClientWidth = 727
     object Label1: TLabel[0]
       Left = 10
@@ -1031,7 +1031,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
     end
   end
   inherited paControles: TPanel
-    Top = 461
+    Top = 377
     Width = 727
     ClientWidth = 727
     inherited bbCancelar: TBitBtn
@@ -1109,8 +1109,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
     MostrarBotonExportar = False
     ZDataset = dmCapturas.zqDetCaptura
     TipoBuscador = tbBusqueda
-    left = 5
-    top = 340
+    left = 32
+    top = 336
   end
   object zcgLista1: TZControladorGrilla[9]
     AltoBotones = 28

@@ -18,6 +18,7 @@ type
   TfmEditarLances = class(TZEdicionBase)
     DBCheckBox1: TDBCheckBox;
     DBCheckBox2: TDBCheckBox;
+    DBCheckBox3: TDBCheckBox;
     dbdtFechaIniCalado: TDBDateTimePicker;
     dbdtFechaFinCalado: TDBDateTimePicker;
     dbdtFechaIniVirada: TDBDateTimePicker;
@@ -237,6 +238,7 @@ type
     zqCarnadas: TZQuery;
     zqPrincipalVelocCalado: TFloatField;
     zqPrincipalVelocVirada: TFloatField;
+    zqPrincipalzona_provincial: TSmallintField;
     zqProxLance: TZQuery;
     zqProxLanceprox_lance: TLargeintField;
     zqTiposTrampa: TZQuery;

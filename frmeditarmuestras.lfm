@@ -1,11 +1,11 @@
 inherited fmEditarMuestras: TfmEditarMuestras
   Left = 425
-  Height = 536
+  Height = 454
   Top = 97
   Width = 470
   ActiveControl = dblkTipoMuestra
   Caption = 'Muestras'
-  ClientHeight = 536
+  ClientHeight = 454
   ClientWidth = 470
   OnShow = FormShow
   inherited paEncabezadoBase: TPanel
@@ -28,9 +28,9 @@ inherited fmEditarMuestras: TfmEditarMuestras
     end
   end
   inherited paPrincipal: TPanel
-    Height = 466
+    Height = 384
     Width = 470
-    ClientHeight = 466
+    ClientHeight = 384
     ClientWidth = 470
     object dblkLance: TDBLookupComboBox[0]
       Left = 200
@@ -601,7 +601,7 @@ inherited fmEditarMuestras: TfmEditarMuestras
     end
   end
   inherited paControles: TPanel
-    Top = 500
+    Top = 418
     Width = 470
     ClientWidth = 470
     inherited bbCancelar: TBitBtn

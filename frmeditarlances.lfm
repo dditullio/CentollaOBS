@@ -1137,7 +1137,7 @@ inherited fmEditarLances: TfmEditarLances
         BorderStyle = bsSingle
         ClientHeight = 19
         ClientWidth = 41
-        TabOrder = 9
+        TabOrder = 10
         object dbedNroLance: TDBText
           Left = 0
           Height = 15
@@ -1150,6 +1150,20 @@ inherited fmEditarLances: TfmEditarLances
           DataSource = dsPrincipal
           ParentColor = False
         end
+      end
+      object DBCheckBox3: TDBCheckBox
+        Left = 320
+        Height = 23
+        Hint = '¿Es una línea de investigación?'
+        Top = 50
+        Width = 189
+        Caption = 'Jurisdicción provincial'
+        DataField = 'zona_provincial'
+        DataSource = dsPrincipal
+        Enabled = False
+        TabOrder = 9
+        ValueChecked = '1'
+        ValueUnchecked = '0'
       end
     end
   end
@@ -1233,21 +1247,30 @@ inherited fmEditarLances: TfmEditarLances
       ReadOnly = False
       Required = False
     end
-    object zqPrincipalidcarnada: TLongintField[5]
-      DisplayWidth = 10
+    object zqPrincipalzona_provincial: TSmallintField[5]
       FieldKind = fkData
-      FieldName = 'idcarnada'
+      FieldName = 'zona_provincial'
       Index = 5
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
     end
-    object zqPrincipalkg_carnada: TFloatField[6]
+    object zqPrincipalidcarnada: TLongintField[6]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idcarnada'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalkg_carnada: TFloatField[7]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'kg_carnada'
-      Index = 6
+      Index = 7
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1256,11 +1279,11 @@ inherited fmEditarLances: TfmEditarLances
       MinValue = 0
       Precision = 7
     end
-    object zqPrincipalrumbo_calado: TLongintField[7]
+    object zqPrincipalrumbo_calado: TLongintField[8]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'rumbo_calado'
-      Index = 7
+      Index = 8
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1268,21 +1291,21 @@ inherited fmEditarLances: TfmEditarLances
       OnValidate = zqPrincipalrumbo_caladoValidate
       DisplayFormat = '000'
     end
-    object zqPrincipalfecha_ini_calado: TDateField[8]
+    object zqPrincipalfecha_ini_calado: TDateField[9]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'fecha_ini_calado'
-      Index = 8
+      Index = 9
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
     end
-    object zqPrincipalhora_ini_calado: TTimeField[9]
+    object zqPrincipalhora_ini_calado: TTimeField[10]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'hora_ini_calado'
-      Index = 9
+      Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1290,37 +1313,22 @@ inherited fmEditarLances: TfmEditarLances
       DisplayFormat = 'hh:mm'
       EditMask = '00:00'
     end
-    object zqPrincipalprofundidad_ini_calado: TLongintField[10]
+    object zqPrincipalprofundidad_ini_calado: TLongintField[11]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'profundidad_ini_calado'
-      Index = 10
+      Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
       OnValidate = zqPrincipalprofundidad_ini_caladoValidate
     end
-    object zqPrincipallat_ini_calado: TFloatField[11]
+    object zqPrincipallat_ini_calado: TFloatField[12]
       CustomConstraint = 'lat_ini_calado<10'
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_ini_calado'
-      Index = 11
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-      DisplayFormat = '00º00.00´'
-      EditFormat = '0000.00'
-      MaxValue = 0
-      MinValue = 0
-      Precision = 12
-    end
-    object zqPrincipallong_ini_calado: TFloatField[12]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'long_ini_calado'
       Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1332,21 +1340,36 @@ inherited fmEditarLances: TfmEditarLances
       MinValue = 0
       Precision = 12
     end
-    object zqPrincipalfecha_fin_calado: TDateField[13]
+    object zqPrincipallong_ini_calado: TFloatField[13]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'fecha_fin_calado'
+      FieldName = 'long_ini_calado'
       Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
     end
-    object zqPrincipalhora_fin_calado: TTimeField[14]
+    object zqPrincipalfecha_fin_calado: TDateField[14]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_fin_calado'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalhora_fin_calado: TTimeField[15]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'hora_fin_calado'
-      Index = 14
+      Index = 15
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1354,36 +1377,21 @@ inherited fmEditarLances: TfmEditarLances
       DisplayFormat = 'hh:mm'
       EditMask = '00:00'
     end
-    object zqPrincipalprofundidad_fin_calado: TLongintField[15]
+    object zqPrincipalprofundidad_fin_calado: TLongintField[16]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'profundidad_fin_calado'
-      Index = 15
+      Index = 16
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
       OnValidate = zqPrincipalprofundidad_fin_caladoValidate
     end
-    object zqPrincipallat_fin_calado: TFloatField[16]
+    object zqPrincipallat_fin_calado: TFloatField[17]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'lat_fin_calado'
-      Index = 16
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      DisplayFormat = '00º00.00´'
-      EditFormat = '0000.00'
-      MaxValue = 0
-      MinValue = 0
-      Precision = 12
-    end
-    object zqPrincipallong_fin_calado: TFloatField[17]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'long_fin_calado'
       Index = 17
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1395,54 +1403,11 @@ inherited fmEditarLances: TfmEditarLances
       MinValue = 0
       Precision = 12
     end
-    object zqPrincipalcant_trampas_caladas: TLongintField[18]
+    object zqPrincipallong_fin_calado: TFloatField[18]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'cant_trampas_caladas'
+      FieldName = 'long_fin_calado'
       Index = 18
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqPrincipalfecha_ini_virada: TDateField[19]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'fecha_ini_virada'
-      Index = 19
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqPrincipalhora_ini_virada: TTimeField[20]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'hora_ini_virada'
-      Index = 20
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      DisplayFormat = 'hh:mm'
-      EditMask = '00:00'
-    end
-    object zqPrincipalprofundidad_ini_virada: TLongintField[21]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'profundidad_ini_virada'
-      Index = 21
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      OnValidate = zqPrincipalprofundidad_ini_viradaValidate
-    end
-    object zqPrincipallat_ini_virada: TFloatField[22]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'lat_ini_virada'
-      Index = 22
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1453,10 +1418,53 @@ inherited fmEditarLances: TfmEditarLances
       MinValue = 0
       Precision = 12
     end
-    object zqPrincipallong_ini_virada: TFloatField[23]
+    object zqPrincipalcant_trampas_caladas: TLongintField[19]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'long_ini_virada'
+      FieldName = 'cant_trampas_caladas'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalfecha_ini_virada: TDateField[20]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'fecha_ini_virada'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalhora_ini_virada: TTimeField[21]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_ini_virada'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'hh:mm'
+      EditMask = '00:00'
+    end
+    object zqPrincipalprofundidad_ini_virada: TLongintField[22]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_ini_virada'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnValidate = zqPrincipalprofundidad_ini_viradaValidate
+    end
+    object zqPrincipallat_ini_virada: TFloatField[23]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_ini_virada'
       Index = 23
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1468,44 +1476,11 @@ inherited fmEditarLances: TfmEditarLances
       MinValue = 0
       Precision = 12
     end
-    object zqPrincipalfecha_fin_virada: TDateField[24]
+    object zqPrincipallong_ini_virada: TFloatField[24]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'fecha_fin_virada'
+      FieldName = 'long_ini_virada'
       Index = 24
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object zqPrincipalhora_fin_virada: TTimeField[25]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'hora_fin_virada'
-      Index = 25
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      DisplayFormat = 'hh:mm'
-      EditMask = '00:00'
-    end
-    object zqPrincipalprofundidad_fin_virada: TLongintField[26]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'profundidad_fin_virada'
-      Index = 26
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      OnValidate = zqPrincipalprofundidad_fin_viradaValidate
-    end
-    object zqPrincipallat_fin_virada: TFloatField[27]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'lat_fin_virada'
-      Index = 27
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1516,10 +1491,43 @@ inherited fmEditarLances: TfmEditarLances
       MinValue = 0
       Precision = 12
     end
-    object zqPrincipallong_fin_virada: TFloatField[28]
+    object zqPrincipalfecha_fin_virada: TDateField[25]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'long_fin_virada'
+      FieldName = 'fecha_fin_virada'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqPrincipalhora_fin_virada: TTimeField[26]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'hora_fin_virada'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = 'hh:mm'
+      EditMask = '00:00'
+    end
+    object zqPrincipalprofundidad_fin_virada: TLongintField[27]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'profundidad_fin_virada'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnValidate = zqPrincipalprofundidad_fin_viradaValidate
+    end
+    object zqPrincipallat_fin_virada: TFloatField[28]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'lat_fin_virada'
       Index = 28
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1531,71 +1539,75 @@ inherited fmEditarLances: TfmEditarLances
       MinValue = 0
       Precision = 12
     end
-    object zqPrincipalcanastos_procesados: TLongintField[29]
+    object zqPrincipallong_fin_virada: TFloatField[29]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'canastos_procesados'
+      FieldName = 'long_fin_virada'
       Index = 29
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      DisplayFormat = '00º00.00´'
+      EditFormat = '0000.00'
+      MaxValue = 0
+      MinValue = 0
+      Precision = 12
     end
-    object zqPrincipalcluster_por_canasto: TLongintField[30]
+    object zqPrincipalcanastos_procesados: TLongintField[30]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'cluster_por_canasto'
+      FieldName = 'canastos_procesados'
       Index = 30
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object zqPrincipalcod_estado_mar: TLongintField[31]
+    object zqPrincipalcluster_por_canasto: TLongintField[31]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'cod_estado_mar'
+      FieldName = 'cluster_por_canasto'
       Index = 31
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object zqPrincipalnudos_viento: TLongintField[32]
+    object zqPrincipalcod_estado_mar: TLongintField[32]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'nudos_viento'
+      FieldName = 'cod_estado_mar'
       Index = 32
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object zqPrincipaldireccion_viento: TLongintField[33]
+    object zqPrincipalnudos_viento: TLongintField[33]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'direccion_viento'
+      FieldName = 'nudos_viento'
       Index = 33
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object zqPrincipalcomentarios_calado: TStringField[34]
-      DisplayWidth = 1024
+    object zqPrincipaldireccion_viento: TLongintField[34]
+      DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'comentarios_calado'
+      FieldName = 'direccion_viento'
       Index = 34
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 1024
     end
-    object zqPrincipalcomentarios_virada: TStringField[35]
+    object zqPrincipalcomentarios_calado: TStringField[35]
       DisplayWidth = 1024
       FieldKind = fkData
-      FieldName = 'comentarios_virada'
+      FieldName = 'comentarios_calado'
       Index = 35
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1603,44 +1615,42 @@ inherited fmEditarLances: TfmEditarLances
       Required = False
       Size = 1024
     end
-    object zqPrincipalenviado: TSmallintField[36]
+    object zqPrincipalcomentarios_virada: TStringField[36]
+      DisplayWidth = 1024
+      FieldKind = fkData
+      FieldName = 'comentarios_virada'
+      Index = 36
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1024
+    end
+    object zqPrincipalenviado: TSmallintField[37]
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'enviado'
-      Index = 36
+      Index = 37
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
     end
-    object zqPrincipalEncabezado: TStringField[37]
+    object zqPrincipalEncabezado: TStringField[38]
       DisplayWidth = 100
       FieldKind = fkCalculated
       FieldName = 'Encabezado'
-      Index = 37
+      Index = 38
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
       Size = 100
     end
-    object zqPrincipalDistCalado: TFloatField[38]
+    object zqPrincipalDistCalado: TFloatField[39]
       DisplayWidth = 10
       FieldKind = fkCalculated
       FieldName = 'DistCalado'
-      Index = 38
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      DisplayFormat = '0.00 mn'
-      MaxValue = 0
-      MinValue = 0
-    end
-    object zqPrincipalDistVirada: TFloatField[39]
-      DisplayWidth = 10
-      FieldKind = fkCalculated
-      FieldName = 'DistVirada'
       Index = 39
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1650,23 +1660,23 @@ inherited fmEditarLances: TfmEditarLances
       MaxValue = 0
       MinValue = 0
     end
-    object zqPrincipalTiempoCalado: TFloatField[40]
+    object zqPrincipalDistVirada: TFloatField[40]
       DisplayWidth = 10
       FieldKind = fkCalculated
-      FieldName = 'TiempoCalado'
+      FieldName = 'DistVirada'
       Index = 40
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      DisplayFormat = '0 min'
+      DisplayFormat = '0.00 mn'
       MaxValue = 0
       MinValue = 0
     end
-    object zqPrincipalTiempoVirada: TFloatField[41]
+    object zqPrincipalTiempoCalado: TFloatField[41]
       DisplayWidth = 10
       FieldKind = fkCalculated
-      FieldName = 'TiempoVirada'
+      FieldName = 'TiempoCalado'
       Index = 41
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1676,23 +1686,23 @@ inherited fmEditarLances: TfmEditarLances
       MaxValue = 0
       MinValue = 0
     end
-    object zqPrincipalVelocCalado: TFloatField[42]
+    object zqPrincipalTiempoVirada: TFloatField[42]
       DisplayWidth = 10
       FieldKind = fkCalculated
-      FieldName = 'VelocCalado'
+      FieldName = 'TiempoVirada'
       Index = 42
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      DisplayFormat = '0.00 nudos'
+      DisplayFormat = '0 min'
       MaxValue = 0
       MinValue = 0
     end
-    object zqPrincipalVelocVirada: TFloatField[43]
+    object zqPrincipalVelocCalado: TFloatField[43]
       DisplayWidth = 10
       FieldKind = fkCalculated
-      FieldName = 'VelocVirada'
+      FieldName = 'VelocCalado'
       Index = 43
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1702,23 +1712,23 @@ inherited fmEditarLances: TfmEditarLances
       MaxValue = 0
       MinValue = 0
     end
-    object zqPrincipaldist_trampas_prom_calado: TFloatField[44]
+    object zqPrincipalVelocVirada: TFloatField[44]
       DisplayWidth = 10
       FieldKind = fkCalculated
-      FieldName = 'dist_trampas_prom_calado'
+      FieldName = 'VelocVirada'
       Index = 44
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      DisplayFormat = '0 m'
+      DisplayFormat = '0.00 nudos'
       MaxValue = 0
       MinValue = 0
     end
-    object zqPrincipaldist_trampas_prom_virada: TFloatField[45]
+    object zqPrincipaldist_trampas_prom_calado: TFloatField[45]
       DisplayWidth = 10
       FieldKind = fkCalculated
-      FieldName = 'dist_trampas_prom_virada'
+      FieldName = 'dist_trampas_prom_calado'
       Index = 45
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1728,51 +1738,64 @@ inherited fmEditarLances: TfmEditarLances
       MaxValue = 0
       MinValue = 0
     end
-    object zqPrincipalidtipo_trampa: TLongintField[46]
+    object zqPrincipaldist_trampas_prom_virada: TFloatField[46]
       DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'idtipo_trampa'
+      FieldKind = fkCalculated
+      FieldName = 'dist_trampas_prom_virada'
       Index = 46
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      DisplayFormat = '0 m'
+      MaxValue = 0
+      MinValue = 0
     end
-    object zqPrincipalnro_boya: TLongintField[47]
+    object zqPrincipalidtipo_trampa: TLongintField[47]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'nro_boya'
+      FieldName = 'idtipo_trampa'
       Index = 47
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = True
-    end
-    object zqPrincipalnro_linea: TLongintField[48]
-      DisplayWidth = 10
-      FieldKind = fkData
-      FieldName = 'nro_linea'
-      Index = 48
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object zqPrincipaldistancia_entre_trampas: TLongintField[49]
+    object zqPrincipalnro_boya: TLongintField[48]
       DisplayWidth = 10
       FieldKind = fkData
-      FieldName = 'distancia_entre_trampas'
+      FieldName = 'nro_boya'
+      Index = 48
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object zqPrincipalnro_linea: TLongintField[49]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'nro_linea'
       Index = 49
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object StringField1: TStringField[50]
+    object zqPrincipaldistancia_entre_trampas: TLongintField[50]
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'distancia_entre_trampas'
+      Index = 50
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object StringField1: TStringField[51]
       DisplayWidth = 180
       FieldKind = fkLookup
       FieldName = 'descripcion'
-      Index = 50
+      Index = 51
       KeyFields = 'idcarnada'
       LookupCache = False
       LookupDataSet = zqCarnadas
@@ -1783,11 +1806,11 @@ inherited fmEditarLances: TfmEditarLances
       Required = False
       Size = 180
     end
-    object zqPrincipalcod_desc: TStringField[51]
+    object zqPrincipalcod_desc: TStringField[52]
       DisplayWidth = 1136
       FieldKind = fkLookup
       FieldName = 'cod_desc'
-      Index = 51
+      Index = 52
       KeyFields = 'idtipo_trampa'
       LookupCache = False
       LookupDataSet = zqTiposTrampa
@@ -1798,11 +1821,11 @@ inherited fmEditarLances: TfmEditarLances
       Required = False
       Size = 1136
     end
-    object LargeintField1: TLargeintField[52]
+    object LargeintField1: TLargeintField[53]
       DisplayWidth = 10
       FieldKind = fkLookup
       FieldName = 'orden_virada'
-      Index = 52
+      Index = 53
       KeyFields = 'idlance'
       LookupCache = False
       LookupDataSet = zqOrdenVirada
@@ -1812,11 +1835,11 @@ inherited fmEditarLances: TfmEditarLances
       ReadOnly = False
       Required = False
     end
-    object zqPrincipalRumboCaladoCalc: TFloatField[53]
+    object zqPrincipalRumboCaladoCalc: TFloatField[54]
       DisplayWidth = 10
       FieldKind = fkCalculated
       FieldName = 'RumboCaladoCalc'
-      Index = 53
+      Index = 54
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
