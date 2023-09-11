@@ -618,6 +618,7 @@ begin
   zqPrincipalidlance.Value:=zcePrincipal.NuevoID('lances');
   zqPrincipalprospeccion.Value:=0;
   zqPrincipalinvestigacion.Value:=0;
+  zqPrincipalzona_provincial.Value:=0;
   zqPrincipalnro_lance.Value := zqProxLanceprox_lance.Value;
   zqAntLance.Close;
   zqAntLance.Open;
