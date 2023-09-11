@@ -102,7 +102,7 @@ type
   end;
 
 const
-  APP_VERSION='1.0.12';
+  APP_VERSION='1.13.6';
 
 var
   dmGeneral: TdmGeneral;
@@ -117,6 +117,8 @@ procedure TdmGeneral.DataModuleCreate(Sender: TObject);
 var
   tmp_MareaActiva: integer;
 begin
+  SetSplashScreenVersion(APP_VERSION);
+
   ConectarBaseDeDatos;
 
   //Actualizo los datos de buques por si se importó un backup desactualizado

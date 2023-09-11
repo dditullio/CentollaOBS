@@ -35,10 +35,14 @@ type
     rgOrden: TRadioGroup;
     zcgLista: TZControladorGrilla;
     procedure dblkLanceExit(Sender: TObject);
+    procedure dblkTipoMuestraChange(Sender: TObject);
+    procedure dblkTipoMuestraExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure rgOrdenClick(Sender: TObject);
+    procedure zcePrincipalInitRecord(Sender: TObject);
     procedure zcePrincipalValidateForm(Sender: TObject;
       var ValidacionOK: boolean);
+    procedure HabilitarCampos;
   private
     { private declarations }
   public
@@ -59,6 +63,11 @@ begin
   dblkEspecieVulgar.Visible:=(rgOrden.ItemIndex=0);
   dblkEspecieCient.Visible:=(rgOrden.ItemIndex=1);
   dmMuestras.OrdenEspecies:=rgOrden.ItemIndex;
+end;
+
+procedure TfmEditarMuestras.zcePrincipalInitRecord(Sender: TObject);
+begin
+  HabilitarCampos;
 end;
 
 procedure TfmEditarMuestras.zcePrincipalValidateForm(Sender: TObject;
@@ -101,6 +110,11 @@ begin
   end;
 end;
 
+procedure TfmEditarMuestras.HabilitarCampos;
+begin
+  dblkLance.Enabled:=(LeftStr(dblkTipoMuestra.Text,1)<>'L');
+end;
+
 procedure TfmEditarMuestras.FormShow(Sender: TObject);
 begin
   dblkEspecieVulgar.Visible:=(rgOrden.ItemIndex=0);
@@ -118,6 +132,26 @@ begin
        dblkLance.SetFocus;
   end;
 end;
+
+procedure TfmEditarMuestras.dblkTipoMuestraChange(Sender: TObject);
+begin
+     HabilitarCampos;
+end;
+
+procedure TfmEditarMuestras.dblkTipoMuestraExit(Sender: TObject);
+begin
+  if not dblkLance.Enabled then
+  begin
+    if not (dmMuestras.dsMuestras.State in [dsInsert, dsEdit]) then
+       dmMuestras.dsMuestras.Edit;
+
+    if dmMuestras.dsMuestras.State in [dsInsert, dsEdit] then
+    begin
+       dmMuestras.zqMuestrasidlance.Clear;
+    end
+  end;
+end;
+
 
 end.
 

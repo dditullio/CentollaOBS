@@ -196,6 +196,7 @@ type
     zqTiposTrampacod_desc: TStringField;
     zqTiposTrampadescripcion: TStringField;
     zqTiposTrampadsc_abrev: TStringField;
+    zqTiposTrampadsc_abrev2: TStringField;
     zqTiposTrampaidtipo_trampa: TLongintField;
     zqLances: TZQuery;
     zqByCatch: TZQuery;

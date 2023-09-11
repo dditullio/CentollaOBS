@@ -18,6 +18,7 @@ type
   TfmEditarLances = class(TZEdicionBase)
     DBCheckBox1: TDBCheckBox;
     DBCheckBox2: TDBCheckBox;
+    DBCheckBox3: TDBCheckBox;
     dbdtFechaIniCalado: TDBDateTimePicker;
     dbdtFechaFinCalado: TDBDateTimePicker;
     dbdtFechaIniVirada: TDBDateTimePicker;
@@ -237,6 +238,7 @@ type
     zqCarnadas: TZQuery;
     zqPrincipalVelocCalado: TFloatField;
     zqPrincipalVelocVirada: TFloatField;
+    zqPrincipalzona_provincial: TSmallintField;
     zqProxLance: TZQuery;
     zqProxLanceprox_lance: TLargeintField;
     zqTiposTrampa: TZQuery;
@@ -255,6 +257,7 @@ type
     procedure dblkTipoTrampasExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure gbDatosInicio2Exit(Sender: TObject);
+    procedure gbInicioCaladoClick(Sender: TObject);
     procedure gbInicioCaladoExit(Sender: TObject);
     procedure pcLancesChange(Sender: TObject);
     procedure zcePrincipalValidateForm(Sender: TObject;
@@ -698,6 +701,11 @@ begin
      if (zqPrincipalfecha_ini_virada.AsString<>'') and ((zqPrincipalfecha_fin_virada.AsString='') or (StrToDate(zqPrincipalfecha_ini_calado.AsString)>StrToDate(zqPrincipalfecha_ini_virada.AsString))) then
         zqPrincipalfecha_fin_virada.Value:=zqPrincipalfecha_ini_virada.Value;
   end;
+end;
+
+procedure TfmEditarLances.gbInicioCaladoClick(Sender: TObject);
+begin
+
 end;
 
 procedure TfmEditarLances.gbInicioCaladoExit(Sender: TObject);

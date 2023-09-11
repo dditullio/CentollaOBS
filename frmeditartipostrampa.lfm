@@ -13,7 +13,6 @@ inherited fmEditarTiposTrampa: TfmEditarTiposTrampa
     end
     inherited DividerBevel1: TDividerBevel
       Left = 149
-      Width = 15
     end
     inherited paEncabezado: TPanel
       Width = 148
@@ -89,6 +88,25 @@ inherited fmEditarTiposTrampa: TfmEditarTiposTrampa
       LookupCache = False
       TabOrder = 1
     end
+    object Label4: TLabel[6]
+      Left = 96
+      Height = 15
+      Top = 100
+      Width = 76
+      Caption = 'Diámetro Aros'
+      ParentColor = False
+    end
+    object dbedCantAros1: TDBEdit[7]
+      Left = 96
+      Height = 23
+      Top = 115
+      Width = 94
+      DataField = 'diametro_aros'
+      DataSource = dsPrincipal
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 3
+    end
   end
   inherited paControles: TPanel
     Top = 198
@@ -96,11 +114,9 @@ inherited fmEditarTiposTrampa: TfmEditarTiposTrampa
     ClientWidth = 279
     inherited bbCancelar: TBitBtn
       Left = 97
-      Height = 24
     end
     inherited bbAceptar: TBitBtn
       Left = 185
-      Height = 24
     end
   end
   inherited dsPrincipal: TDataSource
@@ -171,6 +187,15 @@ inherited fmEditarTiposTrampa: TfmEditarTiposTrampa
       ReadOnly = False
       Required = False
       Size = 1000
+    end
+    object zqPrincipaldiametro_aros: TLongintField[5]
+      FieldKind = fkData
+      FieldName = 'diametro_aros'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
     end
   end
   inherited zcePrincipal: TZControladorEdicion
