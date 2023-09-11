@@ -1,10 +1,10 @@
 inherited fmEditarCaptura: TfmEditarCaptura
   Left = 375
-  Height = 495
-  Top = 160
+  Height = 413
+  Top = 29
   Width = 727
   Caption = 'Captura'
-  ClientHeight = 495
+  ClientHeight = 413
   ClientWidth = 727
   OnCreate = FormCreate
   OnShow = FormShow
@@ -16,7 +16,6 @@ inherited fmEditarCaptura: TfmEditarCaptura
     end
     inherited DividerBevel1: TDividerBevel
       Left = 597
-      Width = 15
     end
     inherited paEncabezado: TPanel
       Width = 596
@@ -29,9 +28,9 @@ inherited fmEditarCaptura: TfmEditarCaptura
     end
   end
   inherited paPrincipal: TPanel
-    Height = 425
+    Height = 343
     Width = 727
-    ClientHeight = 425
+    ClientHeight = 343
     ClientWidth = 727
     object Label1: TLabel[0]
       Left = 10
@@ -528,6 +527,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         Width = 48
         Caption = 'Especie 2'
         ParentColor = False
+        Visible = False
       end
       object dblkEspecie2Cient: TDBLookupComboBox
         Left = 240
@@ -541,6 +541,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         LookupCache = False
         OnExit = dblkEspecie2CientExit
         TabOrder = 1
+        Visible = False
       end
       object Label6: TLabel
         Left = 475
@@ -549,6 +550,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         Width = 48
         Caption = 'Especie 3'
         ParentColor = False
+        Visible = False
       end
       object dblkEspecie3Cient: TDBLookupComboBox
         Left = 475
@@ -562,6 +564,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         LookupCache = False
         OnExit = dblkEspecie3CientExit
         TabOrder = 2
+        Visible = False
       end
     end
     object rgOrden: TRadioGroup[7]
@@ -626,6 +629,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         Width = 48
         Caption = 'Especie 2'
         ParentColor = False
+        Visible = False
       end
       object dblkEspecie2Vulgar: TDBLookupComboBox
         Left = 240
@@ -639,6 +643,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         LookupCache = False
         OnExit = dblkEspecie2VulgarExit
         TabOrder = 1
+        Visible = False
       end
       object Label9: TLabel
         Left = 475
@@ -647,6 +652,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         Width = 48
         Caption = 'Especie 3'
         ParentColor = False
+        Visible = False
       end
       object dblkEspecie3Vulgar: TDBLookupComboBox
         Left = 475
@@ -660,6 +666,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
         LookupCache = False
         OnExit = dblkEspecie3VulgarExit
         TabOrder = 2
+        Visible = False
       end
     end
     object paGrilla1: TPanel[9]
@@ -1024,7 +1031,7 @@ inherited fmEditarCaptura: TfmEditarCaptura
     end
   end
   inherited paControles: TPanel
-    Top = 459
+    Top = 377
     Width = 727
     ClientWidth = 727
     inherited bbCancelar: TBitBtn
@@ -1102,8 +1109,8 @@ inherited fmEditarCaptura: TfmEditarCaptura
     MostrarBotonExportar = False
     ZDataset = dmCapturas.zqDetCaptura
     TipoBuscador = tbBusqueda
-    left = 5
-    top = 340
+    left = 32
+    top = 336
   end
   object zcgLista1: TZControladorGrilla[9]
     AltoBotones = 28

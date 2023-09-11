@@ -33,6 +33,7 @@ type
   TSplashScreenForm = class(TForm)
     imgSplash: TImage;
     lblInfo: TLabel;
+    lblVersion: TLabel;
     procedure FormCreate(Sender: TObject);
   private
     procedure FadeOut;
@@ -44,6 +45,7 @@ type
 procedure ShowSplashScreen;
 procedure HideSplashScreen;
 procedure SetSplashScreenStatus(const aMessage: string);
+procedure SetSplashScreenVersion(const aMessage: string);
 
 implementation
 
@@ -74,6 +76,14 @@ procedure SetSplashScreenStatus(const aMessage: string);
 begin
     if Assigned(splashScreen) then begin
         splashScreen.lblInfo.Caption := 'Centolla OBS ' + ' - ' + aMessage;
+        splashScreen.Update;
+    end;
+end;
+
+procedure SetSplashScreenVersion(const aMessage: string);
+begin
+    if Assigned(splashScreen) then begin
+        splashScreen.lblVersion.Caption := 'Versión ' + aMessage;
         splashScreen.Update;
     end;
 end;

@@ -726,7 +726,7 @@ inherited dmCapturas: TdmCapturas
       LookupCache = False
       LookupDataSet = zqTiposTrampa
       LookupKeyFields = 'idtipo_trampa'
-      LookupResultField = 'dsc_abrev'
+      LookupResultField = 'dsc_abrev2'
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
@@ -805,6 +805,16 @@ inherited dmCapturas: TdmCapturas
       ReadOnly = False
       Required = False
       Size = 68
+    end
+    object zqTiposTrampadsc_abrev2: TStringField
+      FieldKind = fkData
+      FieldName = 'dsc_abrev2'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 96
     end
   end
   object zqEstadosPuerta: TZQuery[6]

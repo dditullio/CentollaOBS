@@ -14,18 +14,21 @@ type
   { TfmEditarTiposTrampa }
 
   TfmEditarTiposTrampa = class(TZEdicionBase)
+    dbedCantAros1: TDBEdit;
     dbedCodigo: TDBEdit;
     dbedCantAros: TDBEdit;
     dblkFormato: TDBLookupComboBox;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    Label4: TLabel;
     StringField1: TStringField;
     zqFormatosTrampacodigo: TStringField;
     zqFormatosTrampadescripcion: TStringField;
     zqFormatosTrampaidformato_trampa: TLongintField;
     zqPrincipalcant_aros: TLongintField;
     zqPrincipalcodigo: TStringField;
+    zqPrincipaldiametro_aros: TLongintField;
     zqPrincipalidformato_trampa: TLongintField;
     zqPrincipalidtipo_trampa: TLongintField;
     zqFormatosTrampa: TZQuery;
